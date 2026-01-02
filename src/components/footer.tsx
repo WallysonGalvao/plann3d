@@ -94,21 +94,12 @@ const Footer = () => {
     },
   ]
 
-  // const navLinks = [
-  //   { label: t('nav.work'), href: '#projects' },
-  //   { label: t('nav.process'), href: '/process' },
-  //   { label: t('nav.studio'), href: '/studio' },
-  //   { label: t('nav.contact'), href: '/contact' },
-  // ]
-
-  // <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pt-12 border-t border-white/5">
-
   return (
     <footer className="px-6 lg:px-12 pb-4 bg-[#0B0F17]">
       {/* Main Footer Content */}
-      <div className="flex flex-row items-center justify-between pt-12 border-t border-white/5">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-12 pt-8 md:pt-12 border-t border-white/5">
         {/* Column 1: Logo, Description, Social */}
-        <div className="lg:col-span-5 space-y-6">
+        <div className="space-y-4 md:space-y-6 w-full md:w-auto">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <img
@@ -144,26 +135,10 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Column 2: Navigation */}
-        {/* <div className="lg:col-span-3">
-          <h4 className="font-semibold mb-6">{t('footer.navigation')}</h4>
-          <nav className="flex flex-col gap-3">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.href}
-                className="text-sm text-white/50 hover:text-white transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-        </div> */}
-
-        {/* Column 3: Contact */}
-        <div className="lg:col-span-4">
-          <h4 className="font-semibold mb-6">{t('footer.contact')}</h4>
-          <div className="space-y-4 flex flex-col">
+        {/* Column 2: Contact */}
+        <div className="w-full md:w-auto">
+          <h4 className="font-semibold mb-4 md:mb-6">{t('footer.contact')}</h4>
+          <div className="space-y-3 md:space-y-4 flex flex-col">
             <a
               href={`mailto:${t('footer.email')}`}
               className="block text-sm text-white/50 hover:text-white transition-all duration-300 link-underline hover:translate-x-1"
@@ -185,8 +160,8 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="pt-12 mt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="text-xs text-white/40">{t('footer.copyright', { year: currentYear })}</p>
+      <div className="pt-8 md:pt-12 mt-8 md:mt-12 border-t border-white/5 flex flex-col-reverse md:flex-row justify-between items-center gap-4">
+        <p className="text-xs text-white/40 text-center md:text-left">{t('footer.copyright', { year: currentYear })}</p>
         <div className="flex gap-6">
           <a
             href="#"

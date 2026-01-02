@@ -2,7 +2,7 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { fadeInLeft, fadeInUp, staggerContainer } from '@/lib/motion-variants'
+import { fadeInLeft, staggerContainer } from '@/lib/motion-variants'
 
 const StudioSection = () => {
   const { t } = useTranslation()
@@ -25,7 +25,7 @@ const StudioSection = () => {
       transition: {
         delay: i * 0.1,
         duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     }),
   }
@@ -67,7 +67,7 @@ const StudioSection = () => {
             >
               {t('processSection.label')}
             </motion.h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {processSteps.map((step, index) => (
                 <motion.div
                   key={step.number}

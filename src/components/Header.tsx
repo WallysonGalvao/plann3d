@@ -165,10 +165,10 @@ const Header = () => {
                       to={link.href}
                       hash={link.hash}
                       className={cn(
-                        'text-lg font-medium transition-all duration-300 link-underline block',
+                        'text-lg font-medium transition-all duration-300 link-underline block py-2',
                         isActive(link.href, link.hash)
-                          ? 'text-foreground'
-                          : 'text-muted-foreground hover:text-foreground hover:translate-x-2',
+                          ? 'text-primary'
+                          : 'text-foreground/80 hover:text-foreground hover:translate-x-2',
                       )}
                       onClick={() => handleNavClick(link.hash)}
                     >

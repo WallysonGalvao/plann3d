@@ -131,35 +131,37 @@ function ProjectsPage() {
             >
               {/* Title */}
               <motion.div variants={fadeInUp} className="flex max-w-2xl flex-col gap-4">
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tighter">
+                <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tighter">
                   {t('projectsPage.title1')}
                   <br />
                   <span className="text-foreground/20">{t('projectsPage.title2')}</span>
                 </h1>
-                <p className="text-lg font-light leading-relaxed text-muted-foreground md:max-w-lg">
+                <p className="text-base sm:text-lg font-light leading-relaxed text-muted-foreground md:max-w-lg">
                   {t('projectsPage.description')}
                 </p>
               </motion.div>
 
-              {/* Filters */}
-              <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
-                {filters.map((filter) => (
-                  <motion.button
-                    key={filter.key}
-                    onClick={() => setActiveFilter(filter.key)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={cn(
-                      'group flex h-10 items-center gap-2 rounded-full border px-6 transition-all',
-                      activeFilter === filter.key
-                        ? 'border-primary bg-primary text-primary-foreground'
-                        : 'border-border bg-transparent hover:bg-secondary/50 hover:border-border/80',
-                    )}
-                  >
-                    {filter.icon && <Grid3X3 size={16} />}
-                    <span className="text-sm font-medium">{filter.label}</span>
-                  </motion.button>
-                ))}
+              {/* Filters - Horizontal scroll on mobile */}
+              <motion.div variants={fadeInUp} className="overflow-x-auto -mx-6 px-6 sm:overflow-visible sm:mx-0 sm:px-0">
+                <div className="flex gap-2 sm:gap-3 min-w-max sm:min-w-0 sm:flex-wrap pb-2 sm:pb-0">
+                  {filters.map((filter) => (
+                    <motion.button
+                      key={filter.key}
+                      onClick={() => setActiveFilter(filter.key)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={cn(
+                        'group flex h-10 items-center gap-2 rounded-full border px-6 transition-all',
+                        activeFilter === filter.key
+                          ? 'border-primary bg-primary text-primary-foreground'
+                          : 'border-border bg-transparent hover:bg-secondary/50 hover:border-border/80',
+                      )}
+                    >
+                      {filter.icon && <Grid3X3 size={16} />}
+                      <span className="text-sm font-medium">{filter.label}</span>
+                    </motion.button>
+                  ))}
+                </div>
               </motion.div>
             </motion.div>
 
@@ -264,8 +266,8 @@ function ProjectCard({ project, index, getCategoryLabel }: ProjectCardProps) {
           className={cn(
             'absolute inset-0 z-10',
             isWide && index === 4
-              ? 'bg-gradient-to-r from-black/80 via-transparent to-transparent'
-              : 'bg-gradient-to-t from-black/80 via-black/20 to-transparent',
+              ? 'bg-linear-to-r from-black/80 via-transparent to-transparent'
+              : 'bg-linear-to-t from-black/80 via-black/20 to-transparent',
           )}
         />
 

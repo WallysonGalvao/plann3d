@@ -1,9 +1,6 @@
 {
   "nav": {
-    "home": "Início",
     "work": "Trabalhos",
-    "projects": "Projetos",
-    "services": "Serviços",
     "process": "Processo",
     "studio": "Estúdio",
     "contact": "Contato",
@@ -30,16 +27,10 @@
   },
   "processSection": {
     "label": "Nosso Processo",
-    "title": "Onde a Narrativa Encontra a Arquitetura",
-    "description": "Não criamos apenas imagens—criamos experiências visuais que capturam a essência dos espaços antes de existirem. Cada projeto é uma exploração de luz, emoção e a poesia dos ambientes construídos.",
     "step1Title": "Conceito & Visão",
-    "step1Desc": "Começamos entendendo a alma do seu projeto—seu propósito, emoção e a história que precisa contar.",
     "step2Title": "Luz & Atmosfera",
-    "step2Desc": "Cada cena é criada com iluminação cinematográfica que evoca emoção e atrai os espectadores para o espaço.",
     "step3Title": "Movimento & Vida",
-    "step3Desc": "Através de animação sutil e movimento de câmera, damos vida à arquitetura estática.",
-    "step4Title": "Experiência Final",
-    "step4Desc": "O resultado é uma narrativa visual que transcende a visualização tradicional—é uma experiência."
+    "step4Title": "Experiência Final"
   },
   "services": {
     "label": "O Que Criamos",
@@ -57,26 +48,10 @@
   "about": {
     "label": "O Estúdio",
     "title": "PLANN3D Visual Studio",
-    "desc1": "Somos um estúdio criativo dedicado à visualização arquitetônica, animação e experiências visuais imersivas. Nosso trabalho vive na interseção entre arte e arquitetura.",
-    "desc2": "Cada projeto começa com uma pergunta: O que este espaço deve fazer as pessoas sentirem? A partir daí, exploramos narrativa, luz, movimento e atmosfera para criar visuais que transcendem a documentação e se tornam experiências genuínas.",
-    "desc3": "Com base no coração criativo do design contemporâneo, colaboramos com arquitetos, desenvolvedores e visionários em todo o mundo para dar vida a ambientes não construídos.",
-    "founded": "Fundado",
-    "teamMembers": "Clientes Ativos",
-    "countries": "Horas de Render",
-    "visualStudio": "Estúdio Visual"
-  },
-  "contactSection": {
-    "label": "Entre em Contato",
-    "title": "Vamos Criar Algo",
-    "titleHighlight": "Extraordinário",
-    "description": "Pronto para transformar sua visão arquitetônica em uma narrativa visual envolvente? Adoraríamos ouvir sobre seu projeto.",
-    "startProject": "Iniciar um Projeto",
-    "email": "Email",
-    "location": "Localização"
+    "desc1": "Somos um estúdio criativo dedicado à visualização arquitetônica, animação e experiências visuais imersivas. Nosso trabalho vive na interseção entre arte e arquitetura."
   },
   "footer": {
     "description": "Estúdio de visualização de alta qualidade dedicado a criar histórias cinematográficas para o ambiente construído.",
-    "navigation": "Navegação",
     "contact": "Contato",
     "email": "contato@plann3d.com",
     "phone": "+55 61 99598-2807",
@@ -86,105 +61,15 @@
     "privacy": "Política de Privacidade",
     "terms": "Termos de Serviço"
   },
-  "studioSection": {
-    "learnMore": "Conheça Nosso Estúdio"
-  },
-  "processPage": {
-    "heroTitle1": "A ARTE DA",
-    "heroTitle2": "ATMOSFERA",
-    "heroDesc": "Conceito, emoção e realismo. Na visualização arquitetônica não apenas renderizamos edifícios, criamos experiências.",
-    "startJourney": "Iniciar a Jornada",
-    "concept": "Conceito",
-    "structure": "Estrutura",
-    "light": "Luz",
-    "reality": "Realidade",
-    "sparkLabel": "01 / Conceito",
-    "sparkTitle": "A FAÍSCA",
-    "sparkDesc": "Começamos no abstrato. Buscando a alma do espaço, suas ambições e intenções. Antes de modelar um único polígono, entendemos a narrativa.",
-    "viewSketches": "Ver Esboços Iniciais",
-    "earlyConceptCaption": "Conceito inicial → Torre Vertex → Zurique, Suíça",
-    "structureLabel": "02 / Estrutura",
-    "structureTitle": "A ESTRUTURA",
-    "structureDesc": "Precisão em cada polígono. Construindo a realidade digital do zero. Obcecamos com topologia e forma para garantir que a base seja impecável.",
-    "topology": "Topologia",
-    "cleanGeometry": "Geometria limpa",
-    "scale": "Escala",
-    "accuracy": "Precisão 1:1",
-    "lightLabel": "03 / Atmosfera",
-    "lightTitle": "LUZ É NOSSA LINGUAGEM",
-    "lightDesc": "A luz define emoção e forma. Pintamos com sombras e exposição.",
-    "atmosphere": "Atmosfera",
-    "atmosphereDesc": "A interação entre luz e sombra cria profundidade, calor e emoção que transforma visualização em experiência.",
-    "realityLabel": "04 / Realidade",
-    "realityTitle1": "O NÃO CONSTRUÍDO",
-    "realityTitle2": "TORNA-SE REAL",
-    "realityDesc": "O render final: uma síntese de precisão técnica e visão artística. Espaços que existem apenas na imaginação ganham vida com clareza fotorrealista.",
-    "residential": "Residencial",
-    "forestRetreat": "Refúgio na Floresta",
-    "interior": "Interior",
-    "urbanLoft": "Loft Urbano",
-    "detail": "Detalhe",
-    "materialStudy": "Estudo de Material",
-    "ctaTitle": "PRONTO PARA VISUALIZAR?",
-    "ctaDesc": "Vamos transformar suas ideias em narrativas visuais impressionantes. Entre em contato para iniciar seu projeto.",
-    "viewPortfolio": "Ver Portfólio Completo"
-  },
-  "studioPage": {
-    "label": "O Estúdio",
-    "heroTitle1": "ONDE A VISÃO",
-    "heroTitle2": "SE TORNA REAL",
-    "heroDesc": "Somos um estúdio criativo dedicado à visualização arquitetônica, animação e experiências visuais imersivas. Nosso trabalho vive na interseção entre arte e arquitetura.",
-    "ourPhilosophy": "Nossa Filosofia",
-    "statsFounded": "Fundado",
-    "statsTeam": "Clientes Ativos",
-    "statsProjects": "Projetos Entregues",
-    "statsCountries": "Horas de Render",
-    "philosophyLabel": "Nossa Filosofia",
-    "philosophyTitle1": "EMOÇÃO ANTES DE",
-    "philosophyTitle2": "DOCUMENTAÇÃO",
-    "philosophyDesc1": "Cada projeto começa com uma pergunta: O que este espaço deve fazer as pessoas sentirem? A partir daí, exploramos narrativa, luz, movimento e atmosfera para criar visuais que transcendem a documentação.",
-    "philosophyDesc2": "Não apenas mostramos edifícios—criamos experiências. A forma como a luz da manhã filtra por uma janela, como as sombras dançam em um pátio, o calor dos materiais ao sol da tarde. Esses momentos são o que capturamos.",
-    "philosophyDesc3": "Com base no coração criativo do design contemporâneo, colaboramos com arquitetos, desenvolvedores e visionários em todo o mundo para dar vida a ambientes não construídos.",
-    "visionFirst": "Visão Primeiro",
-    "visionFirstDesc": "Cada projeto começa entendendo o impacto emocional que você deseja criar.",
-    "collaboration": "Colaboração",
-    "collaborationDesc": "Trabalhamos ao lado de arquitetos e desenvolvedores como parceiros criativos, não fornecedores.",
-    "excellence": "Excelência",
-    "excellenceDesc": "Obcecamos com cada pixel, cada sombra, cada reflexo até que seja perfeito.",
-    "globalReach": "Alcance Global",
-    "globalReachDesc": "Trabalhando com visionários em todo o Brasil, trazendo perspectivas diversas.",
-    "teamLabel": "A Equipe",
-    "teamTitle": "MENTES CRIATIVAS",
-    "teamDesc": "Artistas, arquitetos e tecnologistas unidos pela paixão por narrativa visual.",
-    "creativeDirector": "Diretor Criativo",
-    "leadVisualizer": "Visualizador Líder",
-    "technicalDirector": "Diretor Técnico",
-    "artDirector": "Diretor de Arte",
-    "recognitionLabel": "Reconhecimento",
-    "recognitionTitle1": "EXCELÊNCIA",
-    "recognitionTitle2": "PREMIADA",
-    "recognitionDesc": "Nosso trabalho foi reconhecido por organizações líderes em arquitetura e visualização, refletindo nosso compromisso em expandir os limites do possível.",
-    "avaAwards": "Prêmios de Visualização Arquitetônica",
-    "avaBestShow": "Melhor do Show, 2024",
-    "cgArchitect": "Prêmios CGarchitect",
-    "cgExcellence": "Excelência em Animação, 2023",
-    "waf": "Festival Mundial de Arquitetura",
-    "wafPrize": "Prêmio de Inovação Visual, 2022",
-    "ctaTitle1": "VAMOS CRIAR",
-    "ctaTitle2": "JUNTOS",
-    "ctaDesc": "Tem uma visão? Vamos dar vida a ela. Entre em contato para discutir seu próximo projeto.",
-    "startProject": "Iniciar um Projeto",
-    "viewWork": "Ver Nosso Trabalho"
+  "languageSwitcher": {
+    "en": "English",
+    "pt": "Português"
   },
   "contactPage": {
     "label": "Fale Conosco",
     "title1": "VAMOS",
     "title2": "CONVERSAR",
     "description": "Pronto para visualizar sua visão? Seja renderização arquitetônica de alta qualidade ou experiências VR imersivas, vamos construir algo icônico juntos.",
-    "emailUs": "Envie um Email",
-    "visitUs": "Visite-nos",
-    "address": "",
-    "city": "Brasília, Distrito Federal",
     "form": {
       "name": "Nome",
       "namePlaceholder": "João Silva",
@@ -198,7 +83,6 @@
       "virtualExp": "Experiência Virtual",
       "competition": "Entrada em Competição",
       "other": "Outro",
-      "estimatedBudget": "Orçamento Estimado",
       "projectDetails": "Detalhes do Projeto",
       "projectDetailsPlaceholder": "Conte-nos sobre seu cronograma, escopo e visão...",
       "sendInquiry": "Enviar Consulta",
@@ -216,15 +100,7 @@
         "detailsRequired": "Detalhes do projeto são obrigatórios",
         "detailsMax": "Detalhes devem ter menos de 2000 caracteres"
       }
-    },
-    "footerCopyright": "© {{year}} PLANN3D Visual Studio. Todos os direitos reservados.",
-    "privacy": "Privacidade",
-    "terms": "Termos",
-    "sitemap": "Mapa do Site"
-  },
-  "languageSwitcher": {
-    "en": "English",
-    "pt": "Português"
+    }
   },
   "projectsPage": {
     "title1": "VER TODOS",
@@ -242,8 +118,7 @@
       "animation": "Animação"
     },
     "loadMore": "Explorar Mais Projetos",
-    "showingCount": "Mostrando {{current}} de {{total}} projetos",
-    "viewCaseStudy": "Ver Estudo de Caso"
+    "showingCount": "Mostrando {{current}} de {{total}} projetos"
   },
   "projectDetail": {
     "scrollToExplore": "Scroll para Explorar",
