@@ -1,9 +1,9 @@
-import { useMemo } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createFileRoute } from '@tanstack/react-router'
 import debounce from 'lodash.debounce'
 import { ArrowRight } from 'lucide-react'
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
@@ -80,7 +80,6 @@ function Contact() {
       debounce((data: ContactFormValues) => {
         void handleSubmit(data)
       }, 500),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [t],
   )
 

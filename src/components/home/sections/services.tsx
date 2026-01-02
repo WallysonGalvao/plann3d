@@ -1,5 +1,5 @@
+import { Building2, Eye, Film, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Eye, Film, Sparkles, Building2 } from "lucide-react";
 
 const ServicesSection = () => {
   const { t } = useTranslation();

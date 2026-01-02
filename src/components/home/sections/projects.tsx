@@ -1,5 +1,6 @@
-import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";

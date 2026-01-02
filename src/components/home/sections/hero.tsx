@@ -1,7 +1,8 @@
-import { useTranslation } from 'react-i18next'
-import { Button } from '@/components/ui/button'
 import { Play } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+
 import heroBg from '@/assets/hero-bg.jpg'
+import { Button } from '@/components/ui/button'
 
 const HeroSection = () => {
   const { t } = useTranslation()
