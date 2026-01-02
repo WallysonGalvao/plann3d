@@ -1,0 +1,47 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+count.txt
+.env
+.nitro
+.tanstack
+.wrangler
+.output
+.vinxi
+todos.json
+
+
+# ======================================
+# Dependencies
+# ======================================
+node_modules/
+.pnp.*
+
+# ======================================
+# Yarn (Berry v4+)
+# ======================================
+.yarn/cache/
+.yarn/install-state.gz
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# ======================================
+# Next
+# ======================================
+.next/
+next-env.d.ts
+
+
+# ======================================
+# Environment Variables
+# ======================================
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
