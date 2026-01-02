@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import LanguageSwitcher from './language-switcher'
 
+import logo from '@/assets/logo.svg'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -64,9 +65,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-full border-2 border-foreground flex items-center justify-center transition-all duration-300 group-hover:border-primary group-hover:bg-primary/10">
-              <span className="text-sm font-bold">P</span>
-            </div>
+            <img src={logo} alt="PLANN3D Logo" className="w-10 h-12 transition-all duration-300 group-hover:opacity-80" />
             <span className="text-lg font-semibold tracking-tight">
               PLANN3D
             </span>

@@ -78,10 +78,10 @@
     "description": "Estúdio de visualização de alta qualidade dedicado a criar histórias cinematográficas para o ambiente construído.",
     "navigation": "Navegação",
     "contact": "Contato",
-    "email": "hello@plann3d.com",
-    "phone": "+55 (61) 99999-9999",
-    "addressLine1": "Asa Norte",
-    "addressLine2": "Brasília, DF 70000-000",
+    "email": "contato@plann3d.com",
+    "phone": "+55 61 99598-2807",
+    "addressLine1": "",
+    "addressLine2": "Brasília, Distrito Federal, Brasil",
     "copyright": "© {{year}} PLANN3D Visual Studio. Todos os direitos reservados.",
     "privacy": "Política de Privacidade",
     "terms": "Termos de Serviço"
@@ -183,7 +183,7 @@
     "description": "Pronto para visualizar sua visão? Seja renderização arquitetônica de alta qualidade ou experiências VR imersivas, vamos construir algo icônico juntos.",
     "emailUs": "Envie um Email",
     "visitUs": "Visite-nos",
-    "address": "Asa Norte",
+    "address": "",
     "city": "Brasília, Distrito Federal",
     "form": {
       "name": "Nome",

@@ -78,10 +78,10 @@
     "description": "A high-end visualization studio dedicated to crafting cinematic stories for the built environment.",
     "navigation": "Navigation",
     "contact": "Contact",
-    "email": "hello@plann3d.com",
-    "phone": "+55 (61) 99999-9999",
-    "addressLine1": "Asa Norte",
-    "addressLine2": "Brasília, DF 70000-000",
+    "email": "contato@plann3d.com",
+    "phone": "+55 61 99598-2807",
+    "addressLine1": "",
+    "addressLine2": "Brasília, District Federal, Brazil",
     "copyright": "© {{year}} PLANN3D Visual Studio. All rights reserved.",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service"
@@ -183,7 +183,7 @@
     "description": "Ready to visualize your vision? Whether it's high-end architectural rendering or immersive VR experiences, let's build something iconic together.",
     "emailUs": "Email Us",
     "visitUs": "Visit Us",
-    "address": "Asa Norte",
+    "address": "",
     "city": "Brasília, Distrito Federal",
     "form": {
       "name": "Name",
