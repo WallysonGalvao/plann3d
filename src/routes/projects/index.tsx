@@ -8,7 +8,7 @@ import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
-export const Route = createFileRoute('/projects')({ component: ProjectsPage })
+export const Route = createFileRoute('/projects/')({ component: ProjectsPage })
 
 type ProjectCategory = 'all' | 'exteriors' | 'interiors' | 'animation'
 
