@@ -368,7 +368,7 @@ function ProjectDetailPage() {
       )}
 
       {/* Technical Specs Section */}
-      <section className="bg-secondary/50 border-t border-border/50 py-20">
+      <section className="bg-black py-20">
         <div className="container mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
             <div>
@@ -436,8 +436,6 @@ function ProjectDetailPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   )
 }
