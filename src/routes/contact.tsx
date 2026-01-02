@@ -28,6 +28,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import Footer from '@/components/footer'
 
 export const Route = createFileRoute('/contact')({ component: Contact })
 
@@ -184,6 +185,7 @@ function Contact() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

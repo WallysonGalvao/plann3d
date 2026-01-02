@@ -222,5 +222,35 @@
   "languageSwitcher": {
     "en": "English",
     "pt": "Português"
+  },
+  "projectsPage": {
+    "title1": "VER TODOS",
+    "title2": "OS PROJETOS",
+    "description": "Experimente nossas visões arquitetônicas através de animações imersivas e renders hiper-realistas. Uma coleção curada dos nossos melhores trabalhos.",
+    "filters": {
+      "all": "Todos",
+      "exteriors": "Exteriores",
+      "interiors": "Interiores",
+      "animation": "Animação"
+    },
+    "categories": {
+      "residential": "Residencial",
+      "commercial": "Comercial",
+      "animation": "Animação"
+    },
+    "loadMore": "Explorar Mais Projetos",
+    "showingCount": "Mostrando {{current}} de {{total}} projetos",
+    "viewCaseStudy": "Ver Estudo de Caso"
+  },
+  "projectDetail": {
+    "scrollToExplore": "Scroll para Explorar",
+    "watchFullFilm": "Ver Filme Completo",
+    "vizArtDirection": "Visualização Arquitetônica & Direção de Arte",
+    "year": "Ano",
+    "location": "Localização",
+    "client": "Cliente",
+    "status": "Status",
+    "nextProject": "Próximo Projeto",
+    "backToProjects": "Voltar para Projetos"
   }
 }

@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router'
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -40,8 +41,8 @@ const ProjectsSection = () => {
           <h2 className="text-4xl lg:text-5xl font-bold tracking-tight">
             {t("projects.title")}
           </h2>
-          <a
-            href="#all-projects"
+          <Link
+            to="/projects"
             className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             {t("projects.viewAll")}
@@ -49,7 +50,7 @@ const ProjectsSection = () => {
               size={16}
               className="transition-transform group-hover:translate-x-1"
             />
-          </a>
+          </Link>
         </div>
 
         {/* Projects Grid */}
