@@ -1,177 +1,144 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useLocation } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
+import { Button } from '@/components/ui/button'
+import { useState, useEffect } from 'react'
+import { Menu, X } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import LanguageSwitcher from './language-switcher'
 
-import { useState } from 'react'
-import {
-  ChevronDown,
-  ChevronRight,
-  Home,
-  Menu,
-  Network,
-  SquareFunction,
-  StickyNote,
-  X,
-} from 'lucide-react'
+const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const location = useLocation()
+  const { t } = useTranslation()
 
-export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [groupedExpanded, setGroupedExpanded] = useState<
-    Record<string, boolean>
-  >({})
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const navLinks = [
+    { label: t('nav.work'), href: '/', hash: 'projects', isRoute: true },
+    { label: t('nav.process'), href: '/process', isRoute: true },
+    { label: t('nav.studio'), href: '/studio', isRoute: true },
+    { label: t('nav.contact'), href: '/contact', isRoute: true },
+  ]
+
+  const isActive = (href: string, hash?: string) => {
+    if (hash) {
+      return (
+        location.pathname === '/' &&
+        typeof window !== 'undefined' &&
+        window.location.hash === `#${hash}`
+      )
+    }
+    return location.pathname === href
+  }
+
+  const handleNavClick = (hash?: string) => {
+    if (hash && typeof window !== 'undefined') {
+      const element = document.getElementById(hash)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+    setIsMobileMenuOpen(false)
+  }
 
   return (
-    <>
-      <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
-          aria-label="Open menu"
-        >
-          <Menu size={24} />
-        </button>
-        <h1 className="ml-4 text-xl font-semibold">
-          <Link to="/">
-            <img
-              src="/tanstack-word-logo-white.svg"
-              alt="TanStack Logo"
-              className="h-10"
-            />
-          </Link>
-        </h1>
-      </header>
-
-      <aside
-        className={`fixed top-0 left-0 h-full w-80 bg-gray-900 text-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <h2 className="text-xl font-bold">Navigation</h2>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-            aria-label="Close menu"
-          >
-            <X size={24} />
-          </button>
-        </div>
-
-        <nav className="flex-1 p-4 overflow-y-auto">
-          <Link
-            to="/"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
-          >
-            <Home size={20} />
-            <span className="font-medium">Home</span>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? 'bg-background/80 backdrop-blur-lg border-b border-border/50'
+          : 'bg-transparent'
+      }`}
+    >
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-full border-2 border-foreground flex items-center justify-center transition-all duration-300 group-hover:border-primary group-hover:bg-primary/10">
+              <span className="text-sm font-bold">F</span>
+            </div>
+            <span className="text-lg font-semibold tracking-tight">
+              FONTENELLE
+            </span>
           </Link>
 
-          {/* Demo Links Start */}
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center">
+            <div className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-secondary/50 backdrop-blur-sm border border-border/50">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  hash={link.hash}
+                  className={cn(
+                    'px-4 py-2 text-sm font-medium transition-colors duration-300 rounded-full',
+                    isActive(link.href, link.hash)
+                      ? 'text-foreground bg-background/80'
+                      : 'text-muted-foreground hover:text-foreground',
+                  )}
+                  onClick={() => handleNavClick(link.hash)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </nav>
 
-          <Link
-            to="/demo/start/server-funcs"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
-          >
-            <SquareFunction size={20} />
-            <span className="font-medium">Start - Server Functions</span>
-          </Link>
+          {/* CTA Button & Language Switcher */}
+          <div className="hidden md:flex items-center gap-2">
+            <LanguageSwitcher />
+            <Button variant="nav" size="default" asChild>
+              <Link to="/contact">{t('nav.letsTalk')}</Link>
+            </Button>
+          </div>
 
-          <Link
-            to="/demo/start/api-request"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-            }}
-          >
-            <Network size={20} />
-            <span className="font-medium">Start - API Request</span>
-          </Link>
-
-          <div className="flex flex-row justify-between">
-            <Link
-              to="/demo/start/ssr"
-              onClick={() => setIsOpen(false)}
-              className="flex-1 flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-              activeProps={{
-                className:
-                  'flex-1 flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-              }}
-            >
-              <StickyNote size={20} />
-              <span className="font-medium">Start - SSR Demos</span>
-            </Link>
+          {/* Mobile Menu Toggle */}
+          <div className="md:hidden flex items-center gap-2">
+            <LanguageSwitcher />
             <button
-              className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-              onClick={() =>
-                setGroupedExpanded((prev) => ({
-                  ...prev,
-                  StartSSRDemo: !prev.StartSSRDemo,
-                }))
-              }
+              className="p-2 text-foreground"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {groupedExpanded.StartSSRDemo ? (
-                <ChevronDown size={20} />
-              ) : (
-                <ChevronRight size={20} />
-              )}
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
-          {groupedExpanded.StartSSRDemo && (
-            <div className="flex flex-col ml-4">
-              <Link
-                to="/demo/start/ssr/spa-mode"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-                activeProps={{
-                  className:
-                    'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-                }}
-              >
-                <StickyNote size={20} />
-                <span className="font-medium">SPA Mode</span>
-              </Link>
+        </div>
 
-              <Link
-                to="/demo/start/ssr/full-ssr"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-                activeProps={{
-                  className:
-                    'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-                }}
-              >
-                <StickyNote size={20} />
-                <span className="font-medium">Full SSR</span>
-              </Link>
-
-              <Link
-                to="/demo/start/ssr/data-only"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-                activeProps={{
-                  className:
-                    'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-                }}
-              >
-                <StickyNote size={20} />
-                <span className="font-medium">Data Only</span>
-              </Link>
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <nav className="md:hidden py-6 border-t border-border/50 animate-fade-up">
+            <div className="flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  hash={link.hash}
+                  className={cn(
+                    'text-lg font-medium transition-colors',
+                    isActive(link.href, link.hash)
+                      ? 'text-foreground'
+                      : 'text-muted-foreground hover:text-foreground',
+                  )}
+                  onClick={() => handleNavClick(link.hash)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Button variant="hero" size="lg" className="mt-4" asChild>
+                <Link to="/contact">{t('nav.letsTalk')}</Link>
+              </Button>
             </div>
-          )}
-
-          {/* Demo Links End */}
-        </nav>
-      </aside>
-    </>
+          </nav>
+        )}
+      </div>
+    </header>
   )
 }
+
+export default Header

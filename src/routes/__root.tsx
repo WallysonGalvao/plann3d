@@ -5,6 +5,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 import Header from '../components/Header'
 
 import appCss from '../styles.css?url'
+import '../i18n'
 
 export const Route = createRootRoute({
   head: () => ({
