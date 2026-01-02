@@ -1,15 +1,16 @@
-import { useTranslation } from "react-i18next";
-import Header from "@/components/header";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { useMemo } from 'react'
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowRight } from "lucide-react";
-import { toast } from "sonner";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { createFileRoute } from '@tanstack/react-router'
+import debounce from 'lodash.debounce'
+import { ArrowRight } from 'lucide-react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'sonner'
+import { z } from 'zod'
+
+import Header from '@/components/header'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -17,42 +18,71 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-
-import { createFileRoute } from '@tanstack/react-router'
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 
 export const Route = createFileRoute('/contact')({ component: Contact })
 
 function Contact() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const contactSchema = z.object({
-    name: z.string().trim().min(1, t("contactPage.form.errors.nameRequired")).max(100, t("contactPage.form.errors.nameMax")),
-    email: z.string().trim().email(t("contactPage.form.errors.invalidEmail")).max(255, t("contactPage.form.errors.emailMax")),
-    projectType: z.string().min(1, t("contactPage.form.errors.selectProjectType")),
-    details: z.string().trim().min(1, t("contactPage.form.errors.detailsRequired")).max(2000, t("contactPage.form.errors.detailsMax")),
-  });
+    name: z
+      .string()
+      .trim()
+      .min(1, t('contactPage.form.errors.nameRequired'))
+      .max(100, t('contactPage.form.errors.nameMax')),
+    email: z
+      .string()
+      .trim()
+      .email(t('contactPage.form.errors.invalidEmail'))
+      .max(255, t('contactPage.form.errors.emailMax')),
+    projectType: z.string().min(1, t('contactPage.form.errors.selectProjectType')),
+    details: z
+      .string()
+      .trim()
+      .min(1, t('contactPage.form.errors.detailsRequired'))
+      .max(2000, t('contactPage.form.errors.detailsMax')),
+  })
 
-  type ContactFormValues = z.infer<typeof contactSchema>;
+  type ContactFormValues = z.infer<typeof contactSchema>
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      projectType: "",
-      details: "",
+      name: '',
+      email: '',
+      projectType: '',
+      details: '',
     },
-  });
+  })
 
-  const onSubmit = async (data: ContactFormValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    toast.success(t("contactPage.form.successTitle"), {
-      description: t("contactPage.form.successDesc"),
-    });
-    form.reset();
-    console.log("Form submitted:", data);
-  };
+  const handleSubmit = async (data: ContactFormValues) => {
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+    toast.success(t('contactPage.form.successTitle'), {
+      description: t('contactPage.form.successDesc'),
+    })
+    form.reset()
+    // eslint-disable-next-line no-console
+    console.log('Form submitted:', data)
+  }
+
+  const debouncedSubmit = useMemo(
+    () =>
+      debounce((data: ContactFormValues) => {
+        void handleSubmit(data)
+      }, 500),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [t],
+  )
 
   const projectTypes = [
     { value: "archViz", label: t("contactPage.form.archViz") },
@@ -82,7 +112,7 @@ function Contact() {
           {/* Right Column - Form */}
           <div className="bg-secondary/30 px-6 lg:px-12 xl:px-20 py-16 lg:py-24 flex items-center">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-xl mx-auto space-y-6">
+              <form onSubmit={form.handleSubmit(debouncedSubmit)} className="w-full max-w-xl mx-auto space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
@@ -154,16 +184,6 @@ function Contact() {
             </Form>
           </div>
         </div>
-        <footer className="py-6 px-6 lg:px-12 border-t border-border/50">
-          <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>{t("contactPage.footerCopyright", { year: new Date().getFullYear() })}</p>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-foreground transition-colors">{t("contactPage.privacy")}</a>
-              <a href="#" className="hover:text-foreground transition-colors">{t("contactPage.terms")}</a>
-              <a href="#" className="hover:text-foreground transition-colors">{t("contactPage.sitemap")}</a>
-            </div>
-          </div>
-        </footer>
       </main>
     </div>
   );
