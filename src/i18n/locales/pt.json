@@ -53,7 +53,7 @@
   },
   "about": {
     "label": "O Estúdio",
-    "title": "Fontenelle Visual Studio",
+    "title": "Plann3d Visual Studio",
     "desc1": "Somos um estúdio criativo dedicado à visualização arquitetônica, animação e experiências visuais imersivas. Nosso trabalho vive na interseção entre arte e arquitetura.",
     "desc2": "Cada projeto começa com uma pergunta: O que este espaço deve fazer as pessoas sentirem? A partir daí, exploramos narrativa, luz, movimento e atmosfera para criar visuais que transcendem a documentação e se tornam experiências genuínas.",
     "desc3": "Com base no coração criativo do design contemporâneo, colaboramos com arquitetos, desenvolvedores e visionários em todo o mundo para dar vida a ambientes não construídos.",
@@ -75,7 +75,7 @@
     "description": "Estúdio de visualização arquitetônica criando experiências visuais cinematográficas que dão vida a ambientes não construídos.",
     "navigation": "Navegação",
     "followUs": "Siga-nos",
-    "copyright": "© {{year}} Fontenelle Visual Studio. Todos os direitos reservados.",
+    "copyright": "© {{year}} Plann3d Visual Studio. Todos os direitos reservados.",
     "privacy": "Política de Privacidade",
     "terms": "Termos de Serviço"
   },
@@ -207,7 +207,7 @@
         "detailsMax": "Detalhes devem ter menos de 2000 caracteres"
       }
     },
-    "footerCopyright": "© {{year}} Fontenelle Visual Studio. Todos os direitos reservados.",
+    "footerCopyright": "© {{year}} Plann3d Visual Studio. Todos os direitos reservados.",
     "privacy": "Privacidade",
     "terms": "Termos",
     "sitemap": "Mapa do Site"

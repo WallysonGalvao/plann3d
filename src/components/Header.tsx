@@ -13,6 +13,8 @@ const Header = () => {
   const { t } = useTranslation()
 
   useEffect(() => {
+    if (typeof window === 'undefined') return
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
@@ -61,10 +63,10 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-full border-2 border-foreground flex items-center justify-center transition-all duration-300 group-hover:border-primary group-hover:bg-primary/10">
-              <span className="text-sm font-bold">F</span>
+              <span className="text-sm font-bold">P</span>
             </div>
             <span className="text-lg font-semibold tracking-tight">
-              FONTENELLE
+              PLANN3D
             </span>
           </Link>
 
