@@ -22,10 +22,12 @@ const Footer = () => {
     { label: t('nav.contact'), href: '/contact' },
   ]
 
+  // <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pt-12 border-t border-white/5">
+
   return (
-    <footer className="container mx-auto px-6 lg:px-12">
+    <footer className="px-6 lg:px-12 pb-4 bg-[#0B0F17]">
       {/* Main Footer Content */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pt-12 border-t border-white/5">
+      <div className="flex flex-row items-center justify-between pt-12 border-t border-white/5">
         {/* Column 1: Logo, Description, Social */}
         <div className="lg:col-span-5 space-y-6">
           {/* Logo */}
@@ -59,7 +61,7 @@ const Footer = () => {
         </div>
 
         {/* Column 2: Navigation */}
-        <div className="lg:col-span-3">
+        {/* <div className="lg:col-span-3">
           <h4 className="font-semibold mb-6">{t('footer.navigation')}</h4>
           <nav className="flex flex-col gap-3">
             {navLinks.map((link) => (
@@ -72,7 +74,7 @@ const Footer = () => {
               </Link>
             ))}
           </nav>
-        </div>
+        </div> */}
 
         {/* Column 3: Contact */}
         <div className="lg:col-span-4">

@@ -53,7 +53,7 @@
   },
   "about": {
     "label": "O Estúdio",
-    "title": "Plann3d Visual Studio",
+    "title": "PLANN3D Visual Studio",
     "desc1": "Somos um estúdio criativo dedicado à visualização arquitetônica, animação e experiências visuais imersivas. Nosso trabalho vive na interseção entre arte e arquitetura.",
     "desc2": "Cada projeto começa com uma pergunta: O que este espaço deve fazer as pessoas sentirem? A partir daí, exploramos narrativa, luz, movimento e atmosfera para criar visuais que transcendem a documentação e se tornam experiências genuínas.",
     "desc3": "Com base no coração criativo do design contemporâneo, colaboramos com arquitetos, desenvolvedores e visionários em todo o mundo para dar vida a ambientes não construídos.",
@@ -79,7 +79,7 @@
     "phone": "+55 (61) 99999-9999",
     "addressLine1": "Asa Norte",
     "addressLine2": "Brasília, DF 70000-000",
-    "copyright": "© {{year}} Plann3d Visual Studio. Todos os direitos reservados.",
+    "copyright": "© {{year}} PLANN3D Visual Studio. Todos os direitos reservados.",
     "privacy": "Política de Privacidade",
     "terms": "Termos de Serviço"
   },
@@ -214,7 +214,7 @@
         "detailsMax": "Detalhes devem ter menos de 2000 caracteres"
       }
     },
-    "footerCopyright": "© {{year}} Plann3d Visual Studio. Todos os direitos reservados.",
+    "footerCopyright": "© {{year}} PLANN3D Visual Studio. Todos os direitos reservados.",
     "privacy": "Privacidade",
     "terms": "Termos",
     "sitemap": "Mapa do Site"

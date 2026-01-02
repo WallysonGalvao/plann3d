@@ -34,12 +34,12 @@ const StudioSection = () => {
             </p>
 
             {/* CTA to full studio page */}
-            <Button variant="outline" size="lg" asChild>
+            {/* <Button variant="outline" size="lg" asChild>
               <Link to="/studio" className="flex items-center gap-2">
                 {t("studioSection.learnMore")}
                 <ArrowRight size={18} />
               </Link>
-            </Button>
+            </Button> */}
           </div>
 
           {/* Right: Process Steps (simplified) */}

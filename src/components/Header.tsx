@@ -55,11 +55,10 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
           ? 'bg-background/80 backdrop-blur-lg border-b border-border/50'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20">
@@ -74,7 +73,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center">
+          {/* <nav className="hidden md:flex items-center">
             <div className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-secondary/50 backdrop-blur-sm border border-border/50">
               {navLinks.map((link) => (
                 <Link
@@ -93,7 +92,7 @@ const Header = () => {
                 </Link>
               ))}
             </div>
-          </nav>
+          </nav> */}
 
           {/* CTA Button & Language Switcher */}
           <div className="hidden md:flex items-center gap-2">

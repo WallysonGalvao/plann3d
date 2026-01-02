@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router'
 import { Play } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
@@ -58,7 +59,7 @@ const HeroSection = () => {
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 animate-fade-up-delay-3">
               <Button variant="outline" size="lg" asChild>
-                <a href="#projects">{t('hero.viewProjects')}</a>
+                <Link to="/projects">{t('hero.viewProjects')}</Link>
               </Button>
               <Button variant="hero-outline" size="lg" asChild>
                 <a href="#showreel" className="flex items-center gap-2">
