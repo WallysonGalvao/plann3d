@@ -1,11 +1,13 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { ArrowRight, ArrowUpRight, Grid3X3, Play, Plus } from 'lucide-react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
+import { fadeInUp, layoutSpring, staggerContainerFast } from '@/lib/motion-variants'
 import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/projects/')({ component: ProjectsPage })
@@ -87,6 +89,8 @@ const projects: Project[] = [
 function ProjectsPage() {
   const { t } = useTranslation()
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('all')
+  const heroRef = useRef<HTMLDivElement>(null)
+  const isHeroInView = useInView(heroRef, { once: true })
 
   const filters: { key: ProjectCategory; label: string; icon?: boolean }[] = [
     { key: 'all', label: t('projectsPage.filters.all'), icon: true },
@@ -118,9 +122,15 @@ function ProjectsPage() {
         {/* Hero Section */}
         <section className="px-6 md:px-12 lg:px-20 pt-16 pb-8">
           <div className="mx-auto max-w-[1400px]">
-            <div className="mb-12 flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+            <motion.div
+              ref={heroRef}
+              initial="hidden"
+              animate={isHeroInView ? 'visible' : 'hidden'}
+              variants={staggerContainerFast}
+              className="mb-12 flex flex-col justify-between gap-8 lg:flex-row lg:items-end"
+            >
               {/* Title */}
-              <div className="flex max-w-2xl flex-col gap-4">
+              <motion.div variants={fadeInUp} className="flex max-w-2xl flex-col gap-4">
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tighter">
                   {t('projectsPage.title1')}
                   <br />
@@ -129,14 +139,16 @@ function ProjectsPage() {
                 <p className="text-lg font-light leading-relaxed text-muted-foreground md:max-w-lg">
                   {t('projectsPage.description')}
                 </p>
-              </div>
+              </motion.div>
 
               {/* Filters */}
-              <div className="flex flex-wrap gap-3">
+              <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
                 {filters.map((filter) => (
-                  <button
+                  <motion.button
                     key={filter.key}
                     onClick={() => setActiveFilter(filter.key)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     className={cn(
                       'group flex h-10 items-center gap-2 rounded-full border px-6 transition-all',
                       activeFilter === filter.key
@@ -146,25 +158,35 @@ function ProjectsPage() {
                   >
                     {filter.icon && <Grid3X3 size={16} />}
                     <span className="text-sm font-medium">{filter.label}</span>
-                  </button>
+                  </motion.button>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            {/* Projects Grid */}
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-12 lg:auto-rows-[400px]">
-              {filteredProjects.map((project, index) => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  index={index}
-                  getCategoryLabel={getCategoryLabel}
-                />
-              ))}
-            </div>
+            {/* Projects Grid with Layout Animations */}
+            <motion.div
+              layout
+              className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-12 lg:auto-rows-[400px]"
+            >
+              <AnimatePresence mode="popLayout">
+                {filteredProjects.map((project, index) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    getCategoryLabel={getCategoryLabel}
+                  />
+                ))}
+              </AnimatePresence>
+            </motion.div>
 
             {/* Load More */}
-            <div className="mt-20 flex w-full flex-col items-center justify-center pb-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="mt-20 flex w-full flex-col items-center justify-center pb-20"
+            >
               <Button
                 variant="outline"
                 size="lg"
@@ -173,9 +195,13 @@ function ProjectsPage() {
                 <span className="text-lg font-bold tracking-wide">
                   {t('projectsPage.loadMore')}
                 </span>
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform group-hover:rotate-90">
+                <motion.div
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground"
+                  whileHover={{ rotate: 90 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <Plus size={20} />
-                </div>
+                </motion.div>
               </Button>
               <p className="mt-4 text-sm text-muted-foreground">
                 {t('projectsPage.showingCount', {
@@ -183,7 +209,7 @@ function ProjectsPage() {
                   total: 24,
                 })}
               </p>
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>
@@ -212,138 +238,181 @@ function ProjectCard({ project, index, getCategoryLabel }: ProjectCardProps) {
   const isWide = project.size === 'wide'
 
   return (
-    <Link
-      to="/projects/$projectId"
-      params={{ projectId: project.id }}
-      className={cn(
-        'group relative overflow-hidden rounded-xl bg-secondary cursor-pointer',
-        sizeClasses[project.size],
-      )}
+    <motion.div
+      layout
+      layoutId={project.id}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{
+        ...layoutSpring,
+        opacity: { duration: 0.3 },
+        delay: index * 0.05,
+      }}
+      className={cn(sizeClasses[project.size])}
     >
-      {/* Gradient Overlay */}
-      <div
-        className={cn(
-          'absolute inset-0 z-10 transition-opacity duration-300',
-          isWide && index === 4
-            ? 'bg-gradient-to-r from-black/80 via-transparent to-transparent'
-            : 'bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40',
-        )}
-      />
-
-      {/* Image */}
-      <img
-        src={project.image}
-        alt={project.title}
-        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-      />
-
-      {/* Video Play Button (for animation projects) */}
-      {project.isVideo && (
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <div className="rounded-full bg-black/50 p-4 backdrop-blur-md">
-            <Play size={32} className="text-white fill-white" />
-          </div>
-          <h3 className="mt-4 text-xl font-bold text-white">{project.title}</h3>
-        </div>
-      )}
-
-      {/* Content Overlay */}
-      {!project.isVideo && (
-        <div
+      <Link
+        to="/projects/$projectId"
+        params={{ projectId: project.id }}
+        className="group relative block h-full w-full overflow-hidden rounded-xl bg-secondary cursor-pointer"
+      >
+        {/* Gradient Overlay */}
+        <motion.div
+          initial={{ opacity: 0.6 }}
+          whileHover={{ opacity: 0.3 }}
+          transition={{ duration: 0.3 }}
           className={cn(
-            'absolute z-20',
-            isTall ? 'bottom-0 left-0 p-8 w-full' : 'bottom-0 left-0 p-8',
+            'absolute inset-0 z-10',
+            isWide && index === 4
+              ? 'bg-gradient-to-r from-black/80 via-transparent to-transparent'
+              : 'bg-gradient-to-t from-black/80 via-black/20 to-transparent',
           )}
-        >
-          {/* Category Badge */}
-          {isLarge && (
-            <div className="mb-2 flex items-center gap-2">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
-              <span className="text-xs font-bold uppercase tracking-widest text-primary">
-                {getCategoryLabel(project.category)}
-              </span>
-            </div>
-          )}
+        />
 
-          {/* Title */}
-          <h3
+        {/* Image */}
+        <motion.img
+          src={project.image}
+          alt={project.title}
+          className="h-full w-full object-cover"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+        />
+
+        {/* Video Play Button (for animation projects) */}
+        {project.isVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileHover={{ opacity: 1 }}
+            className="absolute inset-0 z-20 flex flex-col items-center justify-center p-4"
+          >
+            <motion.div
+              className="rounded-full bg-black/50 p-4 backdrop-blur-md"
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            >
+              <Play size={32} className="text-white fill-white" />
+            </motion.div>
+            <h3 className="mt-4 text-xl font-bold text-white">{project.title}</h3>
+          </motion.div>
+        )}
+
+        {/* Content Overlay */}
+        {!project.isVideo && (
+          <div
             className={cn(
-              'font-bold text-white',
-              isLarge ? 'text-3xl' : isTall ? 'text-3xl leading-none' : 'text-lg',
+              'absolute z-20',
+              isTall ? 'bottom-0 left-0 p-8 w-full' : 'bottom-0 left-0 p-8',
             )}
           >
-            {isTall ? (
-              <>
-                {project.title.split(' ')[0]}
-                <br />
-                {project.title.split(' ').slice(1).join(' ')}
-              </>
-            ) : (
-              project.title
-            )}
-          </h3>
-
-          {/* Description (for large cards) */}
-          {isLarge && project.description && (
-            <p className="mt-2 max-w-md text-sm text-gray-300 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 translate-y-4">
-              {project.location} — {project.description}
-            </p>
-          )}
-
-          {/* Location (for small cards) */}
-          {!isLarge && !isTall && !isWide && (
-            <p className="text-xs text-gray-400">{project.location}</p>
-          )}
-
-          {/* Tags (for wide cards) */}
-          {isWide && project.tags && (
-            <div className="mt-2 flex items-center gap-3">
-              {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm"
-                >
-                  {tag}
+            {/* Category Badge */}
+            {isLarge && (
+              <div className="mb-2 flex items-center gap-2">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+                <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                  {getCategoryLabel(project.category)}
                 </span>
-              ))}
-            </div>
-          )}
-
-          {/* View Case Study (for tall cards) */}
-          {isTall && (
-            <>
-              <span className="text-xs font-bold uppercase tracking-widest text-white/60 block mb-1">
-                {getCategoryLabel(project.category)}
-              </span>
-              <div className="mt-6 flex items-center justify-between border-t border-white/20 pt-4 opacity-0 transition-all duration-300 group-hover:opacity-100">
-                <span className="text-sm text-white">View Case Study</span>
-                <ArrowRight size={16} className="text-primary" />
               </div>
-            </>
-          )}
+            )}
 
-          {/* Arrow button for wide cards with location */}
-          {isWide && !project.tags && (
-            <div className="absolute bottom-8 right-8 flex items-end justify-between">
-              <p className="text-sm text-gray-400">{project.location}</p>
-            </div>
-          )}
-        </div>
-      )}
+            {/* Title */}
+            <h3
+              className={cn(
+                'font-bold text-white',
+                isLarge ? 'text-3xl' : isTall ? 'text-3xl leading-none' : 'text-lg',
+              )}
+            >
+              {isTall ? (
+                <>
+                  {project.title.split(' ')[0]}
+                  <br />
+                  {project.title.split(' ').slice(1).join(' ')}
+                </>
+              ) : (
+                project.title
+              )}
+            </h3>
 
-      {/* Arrow Button (for large cards) */}
-      {isLarge && (
-        <button className="absolute right-6 top-6 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-primary">
-          <ArrowUpRight size={20} />
-        </button>
-      )}
+            {/* Description (for large cards) */}
+            {isLarge && project.description && (
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                whileHover={{ opacity: 1, y: 0 }}
+                className="mt-2 max-w-md text-sm text-gray-300"
+              >
+                {project.location} — {project.description}
+              </motion.p>
+            )}
 
-      {/* Arrow Button (for last wide card) */}
-      {isWide && !project.tags && (
-        <span className="absolute bottom-8 right-8 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-sm transition-colors group-hover:bg-primary group-hover:border-primary">
-          <ArrowRight size={16} />
-        </span>
-      )}
-    </Link>
+            {/* Location (for small cards) */}
+            {!isLarge && !isTall && !isWide && (
+              <p className="text-xs text-gray-400">{project.location}</p>
+            )}
+
+            {/* Tags (for wide cards) */}
+            {isWide && project.tags && (
+              <div className="mt-2 flex items-center gap-3">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {/* View Case Study (for tall cards) */}
+            {isTall && (
+              <>
+                <span className="text-xs font-bold uppercase tracking-widest text-white/60 block mb-1">
+                  {getCategoryLabel(project.category)}
+                </span>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  className="mt-6 flex items-center justify-between border-t border-white/20 pt-4"
+                >
+                  <span className="text-sm text-white">View Case Study</span>
+                  <ArrowRight size={16} className="text-primary" />
+                </motion.div>
+              </>
+            )}
+
+            {/* Arrow button for wide cards with location */}
+            {isWide && !project.tags && (
+              <div className="absolute bottom-8 right-8 flex items-end justify-between">
+                <p className="text-sm text-gray-400">{project.location}</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Arrow Button (for large cards) */}
+        {isLarge && (
+          <motion.button
+            className="absolute right-6 top-6 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm"
+            whileHover={{ backgroundColor: 'hsl(var(--primary))' }}
+            transition={{ duration: 0.2 }}
+          >
+            <ArrowUpRight size={20} />
+          </motion.button>
+        )}
+
+        {/* Arrow Button (for last wide card) */}
+        {isWide && !project.tags && (
+          <motion.span
+            className="absolute bottom-8 right-8 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-sm"
+            whileHover={{
+              backgroundColor: 'hsl(var(--primary))',
+              borderColor: 'hsl(var(--primary))',
+            }}
+            transition={{ duration: 0.2 }}
+          >
+            <ArrowRight size={16} />
+          </motion.span>
+        )}
+      </Link>
+    </motion.div>
   )
 }

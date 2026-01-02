@@ -1,13 +1,18 @@
 import { Link } from '@tanstack/react-router'
+import { motion, useInView } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import project1 from '@/assets/project-1.jpg'
 import project2 from '@/assets/project-2.jpg'
 import project3 from '@/assets/project-3.jpg'
+import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
 
 const ProjectsSection = () => {
   const { t } = useTranslation()
+  const sectionRef = useRef<HTMLElement>(null)
+  const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
 
   const projects = [
     {
@@ -34,10 +39,15 @@ const ProjectsSection = () => {
   ]
 
   return (
-    <section id="projects" className="py-24 lg:py-32 bg-background">
+    <section ref={sectionRef} id="projects" className="py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={fadeInUp}
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12"
+        >
           <h2 className="text-4xl lg:text-5xl font-bold tracking-tight">{t('projects.title')}</h2>
           <Link
             to="/projects"
@@ -49,47 +59,68 @@ const ProjectsSection = () => {
               className="transition-all duration-300 group-hover:translate-x-2 group-hover:scale-110"
             />
           </Link>
-        </div>
+        </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {projects.map((project, index) => (
-            <article
-              key={project.id}
-              className="project-card group card-lift animate-fade-up opacity-0"
-              style={{ animationDelay: `${index * 0.15}s`, animationFillMode: 'forwards' }}
-            >
-              <div className="relative aspect-3/4 overflow-hidden rounded-lg">
-                <img
+        <motion.div
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={staggerContainer}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+        >
+          {projects.map((project) => (
+            <Link key={project.id} to="/projects/$projectId" params={{ projectId: String(project.id) }}>
+              <motion.article
+                variants={fadeInUp}
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.3 }}
+                className="project-card group card-lift"
+              >
+                <div className="relative aspect-3/4 overflow-hidden rounded-lg">
+                <motion.img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                  className="w-full h-full object-cover"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.7 }}
                 />
                 <div className="project-card-overlay transition-all duration-500" />
 
                 {/* Project Number */}
-                <span className="absolute top-4 right-4 text-2xl font-bold text-foreground/80 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                <motion.span
+                  initial={{ opacity: 0, y: 8 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute top-4 right-4 text-2xl font-bold text-foreground/80 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                >
                   {project.number}
-                </span>
+                </motion.span>
 
                 {/* Hover Arrow */}
-                <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+                <motion.div
+                  initial={{ opacity: 0, x: 8 }}
+                  className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0 translate-x-2"
+                >
                   <ArrowRight className="text-foreground" size={24} />
-                </div>
+                </motion.div>
               </div>
 
               {/* Project Info */}
-              <div className="mt-4 transition-transform duration-300 group-hover:translate-x-1">
+              <motion.div
+                className="mt-4"
+                whileHover={{ x: 4 }}
+                transition={{ duration: 0.3 }}
+              >
                 <h3 className="text-lg font-semibold transition-colors duration-300 group-hover:text-primary">
                   {project.title}
                 </h3>
                 <p className="text-sm text-muted-foreground mt-1 transition-colors duration-300 group-hover:text-foreground/80">
                   {project.location}
                 </p>
-              </div>
-            </article>
+              </motion.div>
+              </motion.article>
+            </Link>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
