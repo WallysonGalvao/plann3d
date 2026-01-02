@@ -8,21 +8,24 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 w-full h-full">
-        <img
-          src={heroBg}
-          alt="Architectural visualization"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 hero-overlay" />
-      </div>
+      {/* Background Image */}
+      <img
+        src={heroBg}
+        alt="Architectural visualization"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      {/* Overlay - lighter for better image visibility */}
+      <div className="absolute inset-0 bg-black/30" />
+
+      {/* Gradient overlay for depth - more subtle */}
+      <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/20" />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 pt-20">
-        <div className="grid lg:grid-cols-12 gap-8 items-center min-h-[80vh]">
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 pt-24 pb-16">
+        <div className="grid lg:grid-cols-12 gap-12 items-center min-h-[80vh]">
           {/* Left Content */}
-          <div className="lg:col-span-7 space-y-8">
+          <div className="lg:col-span-7 space-y-10">
             {/* Status Tag */}
             <div className="animate-fade-up">
               <span className="label-tag">
@@ -31,21 +34,21 @@ const HeroSection = () => {
               </span>
             </div>
 
-            {/* Headline */}
-            <div className="space-y-2">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.9] tracking-tight animate-fade-up-delay-1">
+            {/* Headline - refined typography */}
+            <div className="space-y-1">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-semibold leading-[1.05] tracking-tight animate-fade-up-delay-1">
                 {t('hero.headline1')}
               </h1>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.9] tracking-tight animate-fade-up-delay-2">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-semibold leading-[1.05] tracking-tight animate-fade-up-delay-2">
                 <span className="text-gradient">{t('hero.headline2')}</span>
               </h1>
             </div>
 
-            {/* Description */}
-            <div className="max-w-lg animate-fade-up-delay-3">
+            {/* Description - reduced opacity for hierarchy */}
+            <div className="max-w-xl animate-fade-up-delay-3">
               <div className="flex gap-4">
-                <div className="w-1 bg-primary rounded-full" />
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <div className="w-1 bg-primary/80 rounded-full shrink-0" />
+                <p className="text-sm md:text-base text-white/60 leading-relaxed">
                   {t('hero.description')}
                 </p>
               </div>
@@ -65,18 +68,18 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right Stats */}
+          {/* Right Stats - isolated visually with stronger hierarchy */}
           <div className="lg:col-span-5 flex lg:justify-end">
-            <div className="space-y-8 animate-fade-up-delay-3">
+            <div className="space-y-10 animate-fade-up-delay-3">
               <div className="text-right">
-                <p className="text-5xl lg:text-6xl font-bold">50+</p>
-                <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mt-1">
+                <p className="text-5xl lg:text-6xl font-semibold tracking-tight">50+</p>
+                <p className="text-xs tracking-[0.2em] uppercase text-white/40 mt-2">
                   {t('hero.projectsDelivered')}
                 </p>
               </div>
               <div className="text-right">
-                <p className="text-5xl lg:text-6xl font-bold">1000+</p>
-                <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mt-1">
+                <p className="text-5xl lg:text-6xl font-semibold tracking-tight">1000+</p>
+                <p className="text-xs tracking-[0.2em] uppercase text-white/40 mt-2">
                   {t('hero.renderHours')}
                 </p>
               </div>
@@ -85,11 +88,11 @@ const HeroSection = () => {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 right-6 lg:right-12 hidden lg:flex flex-col items-center gap-2">
-          <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground rotate-90 origin-center translate-x-4">
+        <div className="absolute bottom-12 right-6 lg:right-12 hidden lg:flex flex-col items-center gap-3">
+          <span className="text-xs tracking-[0.3em] uppercase text-white/40 rotate-90 origin-center translate-x-4">
             {t('hero.scroll')}
           </span>
-          <div className="w-px h-16 bg-gradient-to-b from-muted-foreground to-transparent" />
+          <div className="w-px h-20 bg-linear-to-b from-white/40 to-transparent" />
         </div>
       </div>
     </section>
