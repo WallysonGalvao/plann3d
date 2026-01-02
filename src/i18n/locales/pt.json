@@ -73,12 +73,7 @@
   },
   "footer": {
     "description": "Estúdio de visualização de alta qualidade dedicado a criar histórias cinematográficas para o ambiente construído.",
-    "services": "Serviços",
-    "archViz": "Visualização Arquitetônica",
-    "interiorRendering": "Renderização de Interiores",
-    "animation3d": "Animação 3D",
-    "virtualReality": "Realidade Virtual",
-    "salesGallery": "Apps de Galeria de Vendas",
+    "navigation": "Navegação",
     "contact": "Contato",
     "email": "hello@plann3d.com",
     "phone": "+55 (61) 99999-9999",
@@ -87,6 +82,9 @@
     "copyright": "© {{year}} Plann3d Visual Studio. Todos os direitos reservados.",
     "privacy": "Política de Privacidade",
     "terms": "Termos de Serviço"
+  },
+  "studioSection": {
+    "learnMore": "Conheça Nosso Estúdio"
   },
   "processPage": {
     "heroTitle1": "A ARTE DA",

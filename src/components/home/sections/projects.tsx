@@ -35,13 +35,10 @@ const ProjectsSection = () => {
     <section id="projects" className="py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-          <div className="space-y-4">
-            <span className="section-label">{t("projects.label")}</span>
-            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight">
-              {t("projects.title")}
-            </h2>
-          </div>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          <h2 className="text-4xl lg:text-5xl font-bold tracking-tight">
+            {t("projects.title")}
+          </h2>
           <a
             href="#all-projects"
             className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
@@ -77,16 +74,11 @@ const ProjectsSection = () => {
               </div>
 
               {/* Project Info */}
-              <div className="mt-4 flex items-start justify-between">
-                <div>
-                  <h3 className="text-lg font-semibold">{project.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {project.location}
-                  </p>
-                </div>
-                <span className="text-sm font-medium text-muted-foreground">
-                  {project.number}
-                </span>
+              <div className="mt-4">
+                <h3 className="text-lg font-semibold">{project.title}</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {project.location}
+                </p>
               </div>
             </article>
           ))}
