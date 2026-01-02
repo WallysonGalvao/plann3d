@@ -114,9 +114,11 @@ const Footer = () => {
             <img
               src={logo}
               alt="PLANN3D Logo"
-              className="w-8 h-10 transition-all duration-300 group-hover:opacity-80"
+              className="w-8 h-10 transition-all duration-300 group-hover:opacity-80 group-hover:scale-105"
             />
-            <span className="text-lg font-semibold tracking-tight">PLANN3D</span>
+            <span className="text-lg font-semibold tracking-tight transition-all duration-300 group-hover:text-primary">
+              PLANN3D
+            </span>
           </Link>
 
           {/* Description */}
@@ -126,13 +128,14 @@ const Footer = () => {
 
           {/* Social Icons */}
           <div className="flex gap-2">
-            {socialLinks.map((social) => (
+            {socialLinks.map((social, index) => (
               <a
                 key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all"
+                className="w-10 h-10 rounded border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300 hover:scale-110 hover:-translate-y-1 animate-bounce-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
                 aria-label={social.label}
               >
                 {social.icon}
@@ -160,16 +163,16 @@ const Footer = () => {
         {/* Column 3: Contact */}
         <div className="lg:col-span-4">
           <h4 className="font-semibold mb-6">{t('footer.contact')}</h4>
-          <div className="space-y-4">
+          <div className="space-y-4 flex flex-col">
             <a
               href={`mailto:${t('footer.email')}`}
-              className="block text-sm text-white/50 hover:text-white transition-colors"
+              className="block text-sm text-white/50 hover:text-white transition-all duration-300 link-underline hover:translate-x-1"
             >
               {t('footer.email')}
             </a>
             <a
               href={`tel:${t('footer.phone')}`}
-              className="block text-sm text-white/50 hover:text-white transition-colors"
+              className="block text-sm text-white/50 hover:text-white transition-all duration-300 link-underline hover:translate-x-1"
             >
               {t('footer.phone')}
             </a>
@@ -185,10 +188,16 @@ const Footer = () => {
       <div className="pt-12 mt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="text-xs text-white/40">{t('footer.copyright', { year: currentYear })}</p>
         <div className="flex gap-6">
-          <a href="#" className="text-xs text-white/40 hover:text-white transition-colors">
+          <a
+            href="#"
+            className="text-xs text-white/40 hover:text-white transition-all duration-300 link-underline"
+          >
             {t('footer.privacy')}
           </a>
-          <a href="#" className="text-xs text-white/40 hover:text-white transition-colors">
+          <a
+            href="#"
+            className="text-xs text-white/40 hover:text-white transition-all duration-300 link-underline"
+          >
             {t('footer.terms')}
           </a>
         </div>

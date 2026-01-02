@@ -9,7 +9,6 @@ import logo from '@/assets/logo.svg'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
-
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -56,19 +55,22 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
           ? 'bg-background/80 backdrop-blur-lg border-b border-border/50'
           : 'bg-transparent'
-        }`}
+      }`}
     >
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <img src={logo} alt="PLANN3D Logo" className="w-10 h-12 transition-all duration-300 group-hover:opacity-80" />
-            <span className="text-lg font-semibold tracking-tight">
-              PLANN3D
-            </span>
+            <img
+              src={logo}
+              alt="PLANN3D Logo"
+              className="w-10 h-12 transition-all duration-300 group-hover:opacity-80"
+            />
+            <span className="text-lg font-semibold tracking-tight">PLANN3D</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -105,35 +107,40 @@ const Header = () => {
           <div className="md:hidden flex items-center gap-2">
             <LanguageSwitcher />
             <button
-              className="p-2 text-foreground"
+              className="p-2 text-foreground transition-all duration-300 hover:scale-110 active:scale-95"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMobileMenuOpen ? (
+                <X size={24} className="animate-rotate-in" />
+              ) : (
+                <Menu size={24} className="animate-fade-in" />
+              )}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <nav className="md:hidden py-6 border-t border-border/50 animate-fade-up">
+          <nav className="md:hidden py-6 border-t border-border/50 animate-slide-up-fade">
             <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
+              {navLinks.map((link, index) => (
                 <Link
                   key={link.label}
                   to={link.href}
                   hash={link.hash}
                   className={cn(
-                    'text-lg font-medium transition-colors',
+                    'text-lg font-medium transition-all duration-300 link-underline animate-fade-up opacity-0',
                     isActive(link.href, link.hash)
                       ? 'text-foreground'
-                      : 'text-muted-foreground hover:text-foreground',
+                      : 'text-muted-foreground hover:text-foreground hover:translate-x-2',
                   )}
+                  style={{ animationDelay: `${index * 0.05}s`, animationFillMode: 'forwards' }}
                   onClick={() => handleNavClick(link.hash)}
                 >
                   {link.label}
                 </Link>
               ))}
-              <Button variant="hero" size="lg" className="mt-4" asChild>
+              <Button variant="hero" size="lg" className="mt-4 animate-bounce-in" asChild>
                 <Link to="/contact">{t('nav.letsTalk')}</Link>
               </Button>
             </div>
