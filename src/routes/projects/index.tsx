@@ -120,8 +120,11 @@ function ProjectsPage() {
 
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="px-6 md:px-12 lg:px-20 pt-16 pb-8">
-          <div className="mx-auto max-w-[1400px]">
+        <section className="relative px-6 md:px-12 lg:px-20 pt-16 pb-8 overflow-hidden">
+          {/* Decorative section number */}
+          <span className="section-number -right-16 -top-10 hidden lg:block">P</span>
+
+          <div className="relative z-10 mx-auto max-w-[1400px]">
             <motion.div
               ref={heroRef}
               initial="hidden"
@@ -129,10 +132,20 @@ function ProjectsPage() {
               variants={staggerContainerFast}
               className="mb-12 flex flex-col justify-between gap-8 lg:flex-row lg:items-end"
             >
-              {/* Title */}
+              {/* Title with serif accent */}
               <motion.div variants={fadeInUp} className="flex max-w-2xl flex-col gap-4">
+                <motion.span
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="label-premium inline-block w-fit"
+                >
+                  {t('projectsPage.label')}
+                </motion.span>
                 <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tighter">
-                  {t('projectsPage.title1')}
+                  <span className="font-serif italic font-normal normal-case text-muted-foreground">
+                    {t('projectsPage.title1').split(' ')[0]}{' '}
+                  </span>
+                  {t('projectsPage.title1').split(' ').slice(1).join(' ')}
                   <br />
                   <span className="text-foreground/20">{t('projectsPage.title2')}</span>
                 </h1>
@@ -141,20 +154,20 @@ function ProjectsPage() {
                 </p>
               </motion.div>
 
-              {/* Filters - Horizontal scroll on mobile */}
+              {/* Filters - Premium glass style */}
               <motion.div variants={fadeInUp} className="overflow-x-auto -mx-6 px-6 sm:overflow-visible sm:mx-0 sm:px-0">
                 <div className="flex gap-2 sm:gap-3 min-w-max sm:min-w-0 sm:flex-wrap pb-2 sm:pb-0">
                   {filters.map((filter) => (
                     <motion.button
                       key={filter.key}
                       onClick={() => setActiveFilter(filter.key)}
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                       className={cn(
-                        'group flex h-10 items-center gap-2 rounded-full border px-6 transition-all',
+                        'group flex h-11 items-center gap-2 rounded-full border px-6 transition-all duration-300',
                         activeFilter === filter.key
-                          ? 'border-primary bg-primary text-primary-foreground'
-                          : 'border-border bg-transparent hover:bg-secondary/50 hover:border-border/80',
+                          ? 'border-primary bg-primary text-primary-foreground shadow-lg shadow-primary/20'
+                          : 'glass-card border-white/10 hover:border-white/20 glow-hover',
                       )}
                     >
                       {filter.icon && <Grid3X3 size={16} />}
@@ -256,8 +269,11 @@ function ProjectCard({ project, index, getCategoryLabel }: ProjectCardProps) {
       <Link
         to="/projects/$projectId"
         params={{ projectId: project.id }}
-        className="group relative block h-full w-full overflow-hidden rounded-xl bg-secondary cursor-pointer"
-      >
+        className="group relative block h-full w-full overflow-hidden rounded-2xl bg-secondary cursor-pointer glow-hover shadow-premium">
+        {/* Project index number - decorative */}
+        <span className="absolute top-6 left-6 z-30 text-6xl font-serif font-normal text-white/10 group-hover:text-white/25 transition-colors duration-500">
+          0{String(index + 1)}
+        </span>
         {/* Gradient Overlay */}
         <motion.div
           initial={{ opacity: 0.6 }}
@@ -276,9 +292,12 @@ function ProjectCard({ project, index, getCategoryLabel }: ProjectCardProps) {
           src={project.image}
           alt={project.title}
           className="h-full w-full object-cover"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
+          whileHover={{ scale: 1.08 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
         />
+
+        {/* Top highlight on hover */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
 
         {/* Video Play Button (for animation projects) */}
         {project.isVideo && (

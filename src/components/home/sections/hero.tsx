@@ -94,18 +94,21 @@ const HeroSection = () => {
             animate="visible"
             className="lg:col-span-7 space-y-6 lg:space-y-10"
           >
-            {/* Status Tag */}
+            {/* Status Tag - Premium */}
             <motion.div variants={itemVariants}>
-              <span className="label-tag">
+              <span className="label-premium">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 {t('hero.available')}
               </span>
             </motion.div>
 
-            {/* Headline */}
+            {/* Headline with Serif Accent */}
             <motion.div variants={itemVariants} className="space-y-1 sm:space-y-2">
               <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold leading-[1.1] sm:leading-[1.05] tracking-tight">
-                {t('hero.headline1')}
+                <span className="font-serif italic font-normal opacity-80">
+                  {t('hero.headline1').split(' ')[0]}{' '}
+                </span>
+                {t('hero.headline1').split(' ').slice(1).join(' ')}
               </h1>
               <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold leading-[1.1] sm:leading-[1.05] tracking-tight">
                 <span className="text-gradient">{t('hero.headline2')}</span>
@@ -157,16 +160,26 @@ const HeroSection = () => {
             }}
             className="lg:col-span-5 flex justify-center lg:justify-end mt-8 lg:mt-0"
           >
-            <div className="flex flex-row lg:flex-col gap-8 lg:gap-10">
-              <motion.div variants={statsVariants} className="text-center lg:text-right">
-                <p className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">50+</p>
-                <p className="text-[10px] sm:text-xs tracking-[0.2em] uppercase text-white/40 mt-1 sm:mt-2">
+            <div className="flex flex-row lg:flex-col gap-6 lg:gap-8">
+              <motion.div
+                variants={statsVariants}
+                className="glass-card gradient-border p-4 lg:p-6 rounded-2xl text-center lg:text-right"
+              >
+                <p className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-primary">
+                  50<span className="text-foreground/40">+</span>
+                </p>
+                <p className="text-[10px] sm:text-xs tracking-[0.25em] uppercase text-foreground/50 mt-2">
                   {t('hero.projectsDelivered')}
                 </p>
               </motion.div>
-              <motion.div variants={statsVariants} className="text-center lg:text-right">
-                <p className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">1000+</p>
-                <p className="text-[10px] sm:text-xs tracking-[0.2em] uppercase text-white/40 mt-1 sm:mt-2">
+              <motion.div
+                variants={statsVariants}
+                className="glass-card gradient-border p-4 lg:p-6 rounded-2xl text-center lg:text-right"
+              >
+                <p className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-primary">
+                  1000<span className="text-foreground/40">+</span>
+                </p>
+                <p className="text-[10px] sm:text-xs tracking-[0.25em] uppercase text-foreground/50 mt-2">
                   {t('hero.renderHours')}
                 </p>
               </motion.div>

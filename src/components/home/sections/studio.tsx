@@ -31,9 +31,12 @@ const StudioSection = () => {
   }
 
   return (
-    <section ref={sectionRef} id="studio" className="py-24 lg:py-32 bg-background">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+    <section ref={sectionRef} id="studio" className="relative py-24 lg:py-32 bg-background overflow-hidden">
+      {/* Decorative section number */}
+      <span className="section-number right-0 top-0 hidden lg:block">03</span>
+
+      <div className="container relative z-10 mx-auto px-6 lg:px-12">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           {/* Left Content */}
           <motion.div
             initial="hidden"
@@ -41,33 +44,41 @@ const StudioSection = () => {
             variants={staggerContainer}
             className="space-y-8"
           >
-            <motion.div variants={fadeInLeft} className="space-y-4">
-              <span className="section-label">{t('about.label')}</span>
-              <h2 className="text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
-                {t('about.title')}
-              </h2>
-            </motion.div>
-
-            {/* Single focused paragraph */}
+            <motion.span variants={fadeInLeft} className="label-premium inline-block">
+              {t('studioSection.label')}
+            </motion.span>
+            <motion.h2
+              variants={fadeInLeft}
+              className="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-[1.1]"
+            >
+              <span className="font-serif italic font-normal text-muted-foreground">
+                {t('studioSection.title').split(' ')[0]}{' '}
+              </span>
+              {t('studioSection.title').split(' ').slice(1).join(' ')}
+            </motion.h2>
             <motion.p
               variants={fadeInLeft}
-              className="text-lg text-muted-foreground leading-relaxed"
+              className="text-lg text-muted-foreground leading-relaxed max-w-md"
             >
-              {t('about.desc1')}
+              {t('studioSection.description')}
             </motion.p>
+
+            {/* Decorative divider */}
+            <motion.div variants={fadeInLeft} className="divider-fade w-24" />
           </motion.div>
 
           {/* Right: Process Steps */}
-          <div className="space-y-4">
+          <div className="space-y-6">
             <motion.h3
               initial={{ opacity: 0, x: 20 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
               transition={{ duration: 0.5 }}
-              className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground mb-6"
+              className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-8"
             >
               {t('processSection.label')}
             </motion.h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {processSteps.map((step, index) => (
                 <motion.div
                   key={step.number}
@@ -76,23 +87,25 @@ const StudioSection = () => {
                   animate={isInView ? 'visible' : 'hidden'}
                   variants={stepVariants}
                   whileHover={{
-                    scale: 1.03,
-                    borderColor: 'hsl(var(--primary) / 0.5)',
-                    transition: { duration: 0.2 },
+                    scale: 1.02,
+                    transition: { duration: 0.3 },
                   }}
-                  className="p-5 rounded-lg border border-border/50 bg-card/30 hover:bg-card/50 transition-all duration-300 cursor-default"
+                  className="group glass-card gradient-border glow-hover p-6 lg:p-8 rounded-2xl cursor-default transition-all duration-500"
                 >
-                  <motion.span
-                    className="text-2xl font-bold text-primary/60 block mb-2"
-                    initial={{ scale: 0.8 }}
-                    animate={isInView ? { scale: 1 } : { scale: 0.8 }}
-                    transition={{ delay: index * 0.1 + 0.3, type: 'spring', stiffness: 200 }}
-                  >
-                    {step.number}
-                  </motion.span>
-                  <h4 className="text-sm font-medium leading-tight">
+                  {/* Step number with glow */}
+                  <div className="relative mb-4">
+                    <span className="text-5xl lg:text-6xl font-serif font-normal text-primary/20 group-hover:text-primary/40 transition-colors duration-500">
+                      {step.number}
+                    </span>
+                    <div className="absolute inset-0 blur-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+
+                  <h4 className="text-base lg:text-lg font-medium text-foreground group-hover:text-primary transition-colors duration-300">
                     {step.title}
                   </h4>
+
+                  {/* Animated underline */}
+                  <div className="mt-4 h-px bg-linear-to-r from-primary/50 to-transparent w-0 group-hover:w-full transition-all duration-500" />
                 </motion.div>
               ))}
             </div>
