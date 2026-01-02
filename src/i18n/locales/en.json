@@ -72,9 +72,18 @@
     "location": "Location"
   },
   "footer": {
-    "description": "Architectural visualization studio crafting cinematic visual experiences that bring unbuilt environments to life.",
-    "navigation": "Navigation",
-    "followUs": "Follow Us",
+    "description": "A high-end visualization studio dedicated to crafting cinematic stories for the built environment.",
+    "services": "Services",
+    "archViz": "Architectural Visualization",
+    "interiorRendering": "Interior Rendering",
+    "animation3d": "3D Animation",
+    "virtualReality": "Virtual Reality",
+    "salesGallery": "Sales Gallery Apps",
+    "contact": "Contact",
+    "email": "hello@plann3d.com",
+    "phone": "+55 (61) 99999-9999",
+    "addressLine1": "Asa Norte",
+    "addressLine2": "Brasília, DF 70000-000",
     "copyright": "© {{year}} Plann3d Visual Studio. All rights reserved.",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service"

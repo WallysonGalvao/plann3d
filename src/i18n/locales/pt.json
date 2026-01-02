@@ -72,9 +72,18 @@
     "location": "Localização"
   },
   "footer": {
-    "description": "Estúdio de visualização arquitetônica criando experiências visuais cinematográficas que dão vida a ambientes não construídos.",
-    "navigation": "Navegação",
-    "followUs": "Siga-nos",
+    "description": "Estúdio de visualização de alta qualidade dedicado a criar histórias cinematográficas para o ambiente construído.",
+    "services": "Serviços",
+    "archViz": "Visualização Arquitetônica",
+    "interiorRendering": "Renderização de Interiores",
+    "animation3d": "Animação 3D",
+    "virtualReality": "Realidade Virtual",
+    "salesGallery": "Apps de Galeria de Vendas",
+    "contact": "Contato",
+    "email": "hello@plann3d.com",
+    "phone": "+55 (61) 99999-9999",
+    "addressLine1": "Asa Norte",
+    "addressLine2": "Brasília, DF 70000-000",
     "copyright": "© {{year}} Plann3d Visual Studio. Todos os direitos reservados.",
     "privacy": "Política de Privacidade",
     "terms": "Termos de Serviço"
