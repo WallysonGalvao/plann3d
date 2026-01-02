@@ -9,7 +9,7 @@ const HeroSection = () => {
   const { t } = useTranslation()
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background Image */}
       <img
         src={heroBg}

@@ -1,6 +1,9 @@
 {
   "nav": {
+    "home": "Início",
     "work": "Trabalhos",
+    "projects": "Projetos",
+    "services": "Serviços",
     "process": "Processo",
     "studio": "Estúdio",
     "contact": "Contato",
