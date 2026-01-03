@@ -138,5 +138,12 @@
     "status": "Status",
     "nextProject": "Próximo Projeto",
     "backToProjects": "Voltar para Projetos"
+  },
+  "toolsPage": {
+    "label": "Nosso Arsenal Tecnológico",
+    "title1": "ARQUITETURA EM",
+    "title2": "MOVIMENTO",
+    "description": "Fundindo visão artística com precisão tecnológica. Descubra como utilizamos ferramentas de ponta para criar experiências arquitetônicas imersivas.",
+    "exploreCta": "Explorar Ferramentas"
   }
 }

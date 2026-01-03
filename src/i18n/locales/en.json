@@ -138,5 +138,12 @@
     "status": "Status",
     "nextProject": "Next Project",
     "backToProjects": "Back to Projects"
+  },
+  "toolsPage": {
+    "label": "Our Tech Arsenal",
+    "title1": "ARCHITECTURE IN",
+    "title2": "MOTION",
+    "description": "Merging artistic vision with technological precision. Discover how we use cutting-edge tools to create immersive architectural experiences.",
+    "exploreCta": "Explore Tools"
   }
 }
