@@ -9,6 +9,13 @@ import {
   Pencil,
   Building2,
   Layers,
+  Ruler,
+  FileText,
+  Film,
+  Mountain,
+  Palette,
+  Volume2,
+  Check,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -140,6 +147,94 @@ export const tools: Tool[] = [
     cta: {
       label: 'Ver Showreel',
       icon: 'play_circle',
+    },
+  },
+  {
+    id: 'autocad',
+    name: 'AutoCAD',
+    category: 'Documentação',
+    categoryIcon: FileText,
+    description:
+      'O alicerce da precisão técnica. Utilizamos o AutoCAD para o desenvolvimento rigoroso de plantas baixas, cortes e detalhamentos técnicos que servem como a base sólida para toda a modelagem 3D subsequente. A exatidão geométrica em seu estado puro.',
+    features: [
+      {
+        title: 'Gestão de Layers',
+        description: 'Organização complexa para fluxos eficientes.',
+        icon: Layers,
+      },
+      {
+        title: 'Desenho Técnico',
+        description: 'Precisão milimétrica em documentação 2D.',
+        icon: Ruler,
+      },
+    ],
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCyG3G6mzB8pRDe0iYtOn4BrFZ3pSZEwlvSstqktt-s0mdaqGS4zsJ3W3r8k4FT-mtnJhS8NYEMCTKNU6vlVJXS0L__nGw4sxLhqBTSxXD0lnQ13jRqmf_sQgLBU4kgHNmVvz2adA1riayoCzUHzCByUZnDTCaVmdwEituTWxZba7swnMuGUp3rDkbLwbDih7uxEmUIogr_V2wiRb5kgxXudaTXZgCNHnKBSwYHFe0dFiLFpfk4fn3mk-8vufCYRnqahkx6TwgauCY',
+    badge: {
+      icon: 'architecture',
+      label: 'CAD Drawing',
+    },
+    cta: {
+      label: 'Ver Detalhamentos',
+      icon: 'arrow_forward',
+    },
+  },
+  {
+    id: 'premiere',
+    name: 'Adobe Premiere',
+    category: 'Pós-Produção',
+    categoryIcon: Film,
+    description:
+      'A arte final da narrativa. No Premiere, costuramos cada frame renderizado para criar uma história coesa. É aqui que a mágica da edição, o ritmo e a correção de cor transformam sequências de imagens em filmes emocionantes que cativam o espectador.',
+    features: [
+      {
+        title: 'Color Grading',
+        description: 'Estética cinematográfica e mood.',
+        icon: Palette,
+      },
+      {
+        title: 'Sound Design',
+        description: 'Imersão auditiva completa.',
+        icon: Volume2,
+      },
+    ],
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDNE1zZUi11jKz6avzJM-tXFlHzWLKtC2a6iogxPKEvNZwHfWkJpWSVg5JuTrDpKraT2Jh0F3dP9NKTKDYGUJYhm8pqWYt69G30hXMmwq6FKS6EU0RsqCXrBEeOHuMzZkhiLA5hR0RxsIdeWrSEsYzDy6s59CTxQipm8wQV4lYGRRUJjGOegKmH7E4Enr_A5VsdPr56DWH7YeJgM7QicfwuhomgOds8KaZ7vVBuK97jv66DI04TutyE-g9Yev3xbcMbX7keSbZzqms',
+    badge: {
+      icon: 'movie_edit',
+      label: 'Post-Production',
+    },
+    cta: {
+      label: 'Ver Edições',
+      icon: 'arrow_forward',
+    },
+  },
+  {
+    id: 'lumion',
+    name: 'Lumion',
+    category: 'Visualização',
+    categoryIcon: Mountain,
+    description:
+      'Beleza instantânea e atmosferas vibrantes. O Lumion nos permite traduzir modelos complexos em imagens e vídeos deslumbrantes com rapidez incomparável, focando na vegetação, na vida e no entorno para contextualizar a arquitetura em seu habitat natural.',
+    features: [
+      {
+        title: 'Ambientação Rica',
+        description: 'Bibliotecas vastas de natureza e pessoas.',
+      },
+      {
+        title: 'Render Ultra-Rápido',
+        description: 'Agilidade para entregas de curto prazo.',
+      },
+    ],
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAujUpQxcLLmmSD3tML62dp9SP3x1ejDdO33C8OgPOqKkGHV4Qza_xoMCn_TFgH8w2u8m0JDqsx-qSQc_iivXPNKpZNsn_tbBqwXTQRLuwlavDPFRo0XwanLYjsAQw5RzC6JkHbQIbsUCNHcJd1Ga0H82aEgJgzX1ajHnU_7I86B3LsJFcPqZFh_7zzSnFdfjMX0ToR7ISJy4fmS_miMlfYzvyJvc0OcxVBbw-Q3IcYOCkeZjNCy0cPuxRVarusO4suzkwGkwh4w-4',
+    badge: {
+      icon: 'filter_hdr',
+      label: 'High Quality Render',
+    },
+    cta: {
+      label: 'Ver Projetos Lumion',
+      icon: 'arrow_forward',
     },
   },
 ]

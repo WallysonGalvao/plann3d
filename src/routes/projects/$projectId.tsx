@@ -1,13 +1,12 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { ArrowLeft, ArrowRight, ChevronRight, Play } from 'lucide-react'
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
-import { projectDetails, type ProjectDetail, type ProjectPhase } from '@/data/projects'
+import { projectDetails } from '@/data/projects'
 import { fadeInUp, scaleIn, staggerContainer } from '@/lib/motion-variants'
 
 export const Route = createFileRoute('/projects/$projectId')({
@@ -30,7 +29,6 @@ function ProjectDetailPage() {
 
   const project = projectDetails[projectId] || projectDetails['1']
 
-
   // Refs for scroll-triggered animations
   const quoteRef = useRef<HTMLElement>(null)
   const phase1Ref = useRef<HTMLElement>(null)
@@ -48,14 +46,12 @@ function ProjectDetailPage() {
 
       {/* Hero Section with Parallax */}
       <motion.header
+        id="project-hero"
         ref={heroRef}
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
         {/* Background Image with Parallax */}
-        <motion.div
-          style={{ y: heroY, scale: heroScale }}
-          className="absolute inset-0 z-0"
-        >
+        <motion.div style={{ y: heroY, scale: heroScale }} className="absolute inset-0 z-0">
           <div
             className="w-full h-full bg-cover bg-center"
             style={{ backgroundImage: `url('${project.heroImage}')` }}
@@ -79,19 +75,17 @@ function ProjectDetailPage() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter mb-4 sm:mb-6 leading-tight"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter mb-4 sm:mb-6 leading-tight text-white"
           >
-            <span className="font-serif italic font-normal">
-              {project.title.split(' ')[0]}
-            </span>
+            <span className="font-serif italic font-normal text-white/80">{project.title.split(' ')[0]}</span>
             <br />
-            <span className="text-foreground/40">{project.subtitle}</span>
+            <span className="text-white/20">{project.subtitle}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="text-muted-foreground text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-12"
+            className="text-white/70 text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-12"
           >
             {project.description}
           </motion.p>
@@ -123,7 +117,9 @@ function ProjectDetailPage() {
         className="relative py-24 md:py-32 bg-background overflow-hidden"
       >
         {/* Decorative quote mark */}
-        <span className="absolute -left-10 top-20 text-[20rem] font-serif text-white/[0.02] leading-none pointer-events-none select-none">"</span>
+        <span className="absolute -left-10 top-20 text-[20rem] font-serif text-white/[0.02] leading-none pointer-events-none select-none">
+          "
+        </span>
         <div className="container relative z-10 mx-auto px-6 md:px-12">
           <div className="max-w-4xl mx-auto">
             <motion.p
@@ -187,8 +183,12 @@ function ProjectDetailPage() {
                       transition={{ delay: 0.5 + index * 0.1 }}
                       className="glass-card gradient-border p-4 rounded-xl"
                     >
-                      <span className="block text-2xl font-serif font-normal text-primary">{stat.value}</span>
-                      <span className="text-xs text-muted-foreground tracking-wider uppercase">{stat.label}</span>
+                      <span className="block text-2xl font-serif font-normal text-primary">
+                        {stat.value}
+                      </span>
+                      <span className="text-xs text-muted-foreground tracking-wider uppercase">
+                        {stat.label}
+                      </span>
                     </motion.div>
                   ))}
                 </motion.div>
@@ -216,11 +216,11 @@ function ProjectDetailPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={isPhase1InView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ delay: 0.6 }}
-                    className="absolute bottom-6 left-6 glass-card gradient-border px-5 py-3 rounded-xl"
+                    className="absolute bottom-6 left-6 px-5 py-3 rounded-xl bg-black/60 backdrop-blur-md border border-white/20 shadow-lg"
                   >
                     <div className="flex items-center gap-3">
                       <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                      <span className="text-xs font-semibold uppercase tracking-[0.2em]">
+                      <span className="text-sm font-semibold uppercase tracking-[0.2em] text-white">
                         {project.phases[0].badge}
                       </span>
                     </div>
@@ -290,7 +290,10 @@ function ProjectDetailPage() {
 
                 {/* Detail Renders */}
                 <div className="md:col-span-4 flex flex-col gap-4 h-full">
-                  <motion.div variants={scaleIn} className="flex-1 rounded-2xl overflow-hidden relative group">
+                  <motion.div
+                    variants={scaleIn}
+                    className="flex-1 rounded-2xl overflow-hidden relative group"
+                  >
                     <motion.div
                       className="absolute inset-0 bg-cover bg-center"
                       style={{ backgroundImage: `url('${project.phases[1].images[1]}')` }}
@@ -298,7 +301,10 @@ function ProjectDetailPage() {
                       transition={{ duration: 0.7, ease: 'easeOut' }}
                     />
                   </motion.div>
-                  <motion.div variants={scaleIn} className="flex-1 rounded-2xl overflow-hidden relative group">
+                  <motion.div
+                    variants={scaleIn}
+                    className="flex-1 rounded-2xl overflow-hidden relative group"
+                  >
                     <motion.div
                       className="absolute inset-0 bg-cover bg-center"
                       style={{ backgroundImage: `url('${project.phases[1].images[2]}')` }}
@@ -413,7 +419,7 @@ function ProjectDetailPage() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="bg-black py-20"
+        className="bg-secondary/30 border-t border-border py-20"
       >
         <div className="container mx-auto px-6 md:px-12">
           <motion.div
@@ -424,7 +430,7 @@ function ProjectDetailPage() {
             className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10"
           >
             <div>
-              <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+              <h3 className="text-2xl font-bold mb-2 text-foreground">{project.title}</h3>
               <p className="text-muted-foreground">{t('projectDetail.vizArtDirection')}</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
@@ -444,7 +450,7 @@ function ProjectDetailPage() {
                   <span className="block text-xs font-bold text-muted-foreground uppercase mb-2">
                     {spec.label}
                   </span>
-                  <span>{spec.value}</span>
+                  <span className="text-foreground">{spec.value}</span>
                 </motion.div>
               ))}
             </div>
@@ -456,7 +462,7 @@ function ProjectDetailPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             viewport={{ once: true }}
-            className="mt-20 pt-10 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-6"
+            className="mt-20 pt-10 border-t border-border flex flex-col md:flex-row justify-between items-center gap-6"
           >
             <Link
               to="/projects"
@@ -472,22 +478,22 @@ function ProjectDetailPage() {
               <Link
                 to="/projects/$projectId"
                 params={{ projectId: project.nextProject.id }}
-                className="group flex items-center gap-4 bg-secondary/80 hover:bg-secondary px-6 py-4 rounded-xl transition-all w-full md:w-auto"
+                className="group flex items-center gap-4 bg-secondary hover:bg-secondary/80 border border-border px-6 py-4 rounded-xl transition-all w-full md:w-auto"
               >
                 <div className="text-right">
                   <span className="block text-xs text-muted-foreground uppercase">
                     {t('projectDetail.nextProject')}
                   </span>
-                  <span className="block font-bold group-hover:text-primary transition-colors">
+                  <span className="block font-bold text-foreground group-hover:text-primary transition-colors">
                     {project.nextProject.title}
                   </span>
                 </div>
                 <motion.div
-                  className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center"
+                  className="w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center"
                   whileHover={{ x: 4 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <ChevronRight size={20} />
+                  <ChevronRight size={20} className="text-foreground" />
                 </motion.div>
               </Link>
             </motion.div>

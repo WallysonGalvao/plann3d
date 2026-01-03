@@ -128,8 +128,13 @@ function ToolSection({ tool, index }: ToolSectionProps) {
         isReversed ? 'bg-secondary/30' : 'bg-background',
       )}
     >
-      {/* Decorative number */}
-      <span className="section-number -left-8 top-20 hidden lg:block text-white/2">
+      {/* Decorative number - alternates left/right */}
+      <span
+        className={cn(
+          'section-number top-20 hidden lg:block text-white/2',
+          isReversed ? '-right-8' : '-left-8',
+        )}
+      >
         0{index + 1}
       </span>
 
@@ -265,11 +270,11 @@ function ToolSection({ tool, index }: ToolSectionProps) {
             {/* Badge */}
             <div
               className={cn(
-                'absolute bottom-6 flex items-center gap-2 glass-card px-4 py-2 rounded-full border border-white/10',
+                'absolute bottom-6 flex items-center gap-2 px-4 py-3 rounded-full bg-black/60 backdrop-blur-md border border-white/20 shadow-lg',
                 isReversed ? 'right-6' : 'left-6',
               )}
             >
-              <span className="text-white text-xs font-medium uppercase tracking-wider">
+              <span className="text-white text-sm font-semibold uppercase tracking-wider">
                 {tool.badge.label}
               </span>
             </div>

@@ -147,7 +147,8 @@
 /* Hero sections - always have dark image overlay, so keep light colors */
 #hero .label-premium,
 #tools-hero .label-premium,
-#faq-hero .label-premium {
+#faq-hero .label-premium,
+#project-hero .label-premium {
   border-color: oklch(1 0 0 / 0.15);
   background: oklch(1 0 0 / 0.05);
   color: oklch(1 0 0);
