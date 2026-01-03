@@ -26,7 +26,7 @@ function ToolsPage() {
 
       <main>
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <section id="tools-hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0">
             <div
@@ -59,19 +59,19 @@ function ToolsPage() {
 
             <motion.h1
               variants={fadeInUp}
-              className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6"
+              className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white"
             >
-              <span className="font-serif italic font-normal text-muted-foreground">
+              <span className="font-serif italic font-normal text-white/80">
                 {t('toolsPage.title1').split(' ')[0]}{' '}
               </span>
               {t('toolsPage.title1').split(' ').slice(1).join(' ')}
               <br />
-              {t('toolsPage.title2')}
+              <span className="text-white/20">{t('toolsPage.title2')}</span>
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
-              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+              className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10"
             >
               {t('toolsPage.description')}
             </motion.p>

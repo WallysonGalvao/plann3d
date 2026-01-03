@@ -166,7 +166,8 @@
   },
   "faqPage": {
     "label": "Tire Suas Dúvidas",
-    "title": "Perguntas Frequentes",
+    "title1": "PERGUNTAS",
+    "title2": "FREQUENTES",
     "description": "Entenda como transformamos seus projetos arquitetônicos em experiências visuais imersivas.",
     "searchPlaceholder": "Pesquisar perguntas...",
     "noResults": "Nenhuma pergunta encontrada para sua busca.",

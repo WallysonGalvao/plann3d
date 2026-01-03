@@ -16,14 +16,14 @@ const buttonVariants = cva(
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:shadow-lg hover:shadow-destructive/20 rounded-md',
         outline:
-          'border border-border bg-transparent text-foreground hover:bg-secondary/50 hover:border-border/80 hover:shadow-lg rounded-full',
+          'border border-white/20 bg-transparent text-white hover:bg-white/10 hover:border-white/40 hover:shadow-lg rounded-full',
         secondary:
           'bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:shadow-lg rounded-md',
         ghost: 'hover:bg-secondary/50 hover:text-foreground rounded-md',
         link: 'text-primary hover:underline link-underline',
         hero: 'bg-primary text-primary-foreground hover:bg-primary/80 hover:shadow-2xl hover:shadow-primary/30 rounded-full glow-primary font-semibold tracking-wide',
         'hero-outline':
-          'border border-border bg-secondary/30 backdrop-blur-sm text-foreground hover:bg-secondary/50 hover:border-primary/40 hover:shadow-xl rounded-full font-medium',
+          'border border-white/20 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:border-white/40 hover:shadow-xl rounded-full font-medium',
         nav: 'bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 rounded font-semibold',
       },
       size: {

@@ -38,7 +38,7 @@ function FaqPage() {
 
       <main>
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center overflow-hidden">
+        <section id="faq-hero" className="relative min-h-screen flex items-center overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0">
             <div
@@ -69,17 +69,19 @@ function FaqPage() {
 
               <motion.h1
                 variants={fadeInUp}
-                className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6"
+                className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white"
               >
-                <span className="font-serif italic font-normal text-muted-foreground">
-                  {t('faqPage.title').split(' ')[0]}{' '}
+                <span className="font-serif italic font-normal text-white/80">
+                  {t('faqPage.title1').split(' ')[0]}{' '}
                 </span>
-                {t('faqPage.title').split(' ').slice(1).join(' ')}
+                {t('faqPage.title1').split(' ').slice(1).join(' ')}
+                <br />
+                <span className="text-white/20">{t('faqPage.title2')}</span>
               </motion.h1>
 
               <motion.p
                 variants={fadeInUp}
-                className="text-lg text-muted-foreground mb-10"
+                className="text-lg text-white/70 mb-10"
               >
                 {t('faqPage.description')}
               </motion.p>

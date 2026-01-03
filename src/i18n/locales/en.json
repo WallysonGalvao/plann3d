@@ -166,7 +166,8 @@
   },
   "faqPage": {
     "label": "Get Answers",
-    "title": "Frequently Asked Questions",
+    "title1": "FREQUENTLY ASKED",
+    "title2": "QUESTIONS",
     "description": "Understand how we transform your architectural projects into immersive visual experiences.",
     "searchPlaceholder": "Search questions...",
     "noResults": "No questions found for your search.",

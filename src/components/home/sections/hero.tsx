@@ -102,8 +102,8 @@ const HeroSection = () => {
                 </span>
                 {t('hero.headline1').split(' ').slice(1).join(' ')}
               </h1>
-              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold leading-[1.1] sm:leading-[1.05] tracking-tight">
-                <span className="text-gradient">{t('hero.headline2')}</span>
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold leading-[1.1] sm:leading-[1.05] tracking-tight text-white">
+                <span className="bg-linear-to-r from-white to-white/60 bg-clip-text text-transparent">{t('hero.headline2')}</span>
               </h1>
             </motion.div>
 
