@@ -4,9 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import project1 from '@/assets/project-1.jpg'
-import project2 from '@/assets/project-2.jpg'
-import project3 from '@/assets/project-3.jpg'
+import { featuredProjects } from '@/data/projects'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
 
 const ProjectsSection = () => {
@@ -14,29 +12,11 @@ const ProjectsSection = () => {
   const sectionRef = useRef<HTMLElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
 
-  const projects = [
-    {
-      id: 1,
-      title: t('projects.nordicRetreat'),
-      location: 'Oslo, Norway',
-      image: project1,
-      number: '01',
-    },
-    {
-      id: 2,
-      title: t('projects.voidMuseum'),
-      location: 'Berlin, Germany',
-      image: project2,
-      number: '02',
-    },
-    {
-      id: 3,
-      title: t('projects.vertexTower'),
-      location: 'New York, USA',
-      image: project3,
-      number: '03',
-    },
-  ]
+  // Use centralized data with translated titles
+  const projects = featuredProjects.map((project) => ({
+    ...project,
+    title: project.titleKey ? t(project.titleKey) : project.title,
+  }))
 
   return (
     <section ref={sectionRef} id="projects" className="relative py-24 lg:py-32 bg-background overflow-hidden">

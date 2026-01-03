@@ -7,84 +7,11 @@ import { useTranslation } from 'react-i18next'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
+import { allProjects, type ProjectCategory, type ProjectListItem } from '@/data/projects'
 import { fadeInUp, layoutSpring, staggerContainerFast } from '@/lib/motion-variants'
 import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/projects/')({ component: ProjectsPage })
-
-type ProjectCategory = 'all' | 'exteriors' | 'interiors' | 'animation'
-
-interface Project {
-  id: string
-  title: string
-  category: ProjectCategory
-  location: string
-  description?: string
-  image: string
-  tags?: string[]
-  isVideo?: boolean
-  size: 'large' | 'tall' | 'standard' | 'wide'
-}
-
-const projects: Project[] = [
-  {
-    id: '1',
-    title: 'Casa Brutalista',
-    category: 'exteriors',
-    location: 'São Paulo, Brazil',
-    description: 'A study in concrete and light.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDb6YAXqNTBjDuJvoltTD9gr1vcCJj1P_pw3MPNMRcNYIqcTILOOygqk9kLKnNPq5V50qnuuuKv87BvaZjxlZqVAAvtwgtRZqTxbhF_gPMxiA2_jU84_ETUQbTAK4-0jYSFshQC6XeAdI0ikvp7XxW-Su3nDp3Ci0N-hkIWmRFmVtsp3a76H9Mv44wsoEf1CU-JnScMIbxkQTUX5kCPHcKpgR6Xk54U_OgBFkOq7Fx2Szo3c85cRhIurmM96qVV-OkpCRE2lECvklg',
-    size: 'large',
-  },
-  {
-    id: '2',
-    title: 'Skyline Tower',
-    category: 'exteriors',
-    location: 'Dubai, UAE',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuC_XsW54iMzwjquwPklFFnqInAnJdAIk6DsgjEgkw1n8EO9oqt_8hOPTVTIsbZ-edGhlLsgu3YvDzwMIWoU39Xv1nIXGi4t0SlPMpR97qBwRR64RhWuTV69RMTv0-2JY0dQPdbMWv4MDbtKXe1GE6I0mOjzQRVj9dmVjXZvXgPHe03HdhCrM84rNLgMT2Rf0prUBIcVG8erc3NEG9OC_ibdAZlv0yIiXz0bPQ3xvTi4LXAvtAyu0GmP2R40o1F4WaL9XKffwwzTUto',
-    size: 'tall',
-  },
-  {
-    id: '3',
-    title: 'Interior Motion',
-    category: 'animation',
-    location: 'Berlin, Germany',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAx_RnsB0ISB85_D3lNrMS_9q6PyTHV0XxwgNf4WF6cBgrIE2FO8TBZzuaZ0EcMT6vwor3nw7Cr_jiNJNdruC9Ngj2sEFkRMKMf0QWoHBUaymZvITLwEJ0TJla1OQ3eAVwZNY-9Y0VkNcUw1XR2UItwJMX_2HB0BVZRsuhVASGSA9EgoV6tbPMMP0mjEzj782RZfwbWtewY58Xaiq-y6LdfJL7sjhQsCGX6yRBANxVixzOpiTSGVtsufQctm8_5Q6QANnfneJ_yzqg',
-    size: 'standard',
-    isVideo: true,
-  },
-  {
-    id: '4',
-    title: 'Nordic Details',
-    category: 'interiors',
-    location: 'Copenhagen, Denmark',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBrie4mCQFBiXbDbAQsBmU1qV81yQSACvDS53Td_kNUGNd7PubJxmdDCUIT6fX1dT573pmf2d_aG66iyuvV-TixGxzBHjcc6nur-WBdfgiBx5rg_-aI2uVWn4UCt_EXE6GxVjfABqw_jPXzA2tmerKBeKAVMUjeSEvU7FmBCs41pSeH9F9Q6GncKcpWBAsABAo_5XNJzx5JLWFOOysQmPZAza3yfbDZLj__jTh4RRDuB53Chm8fkbBjIaGk62g1oEE_tS-4Bbm4Utg',
-    size: 'standard',
-  },
-  {
-    id: '5',
-    title: 'The Oasis',
-    category: 'exteriors',
-    location: 'Miami, USA',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuB-eq5pP2QGIZhqkII7-t_3X5TjRpb455naIkKj-COQ8Jb_-k0mZMqQeVBZsT6nXWcObpUe5CaG5Es67SmNSFiZgS1lBe1729FQW5peLt-M6NEpXZ3LGgvpdb5t8E6fbvnPknTQi4uZZM5dCgW7gP9D0k5_1o_4BkRuNHfrc_xlraXxM3IpmYZHQp4Mi-RLgrspFR0iQO3BP4VKCSX5RxADTGj4TNk8ERgBH6xU3A6grWdnEC00ITf0sdYldIalF-2kSWOmItVWhBk',
-    tags: ['CGI', 'Animation'],
-    size: 'wide',
-  },
-  {
-    id: '6',
-    title: 'Tech HQ V2',
-    category: 'interiors',
-    location: 'Silicon Valley',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuD-jJvJol3HmIaYYnKUEPGlqAicj3dTsF7kLaJ-BLo9Ekw-W0sSHkAbCR5fjQd73KCmpDK6dPuJNcCo789lg_sMe0wNFnCxKV1xJgCaqS3IdREUyKiMw7ia96QvAU4MSXqRth7nlQ90MQ4jAJZU7PfbD327MZmQ8_4JLahl5zp-z-28HQDWn2vHLCMW6tI6UiPZf2cTEbijhKYG9Aw10vG3CEdnl-kMwcuh3QmhV_1P2kAbHcLQ5SWLEK91wyERQ9lcRg4kxZNtJM0',
-    size: 'wide',
-  },
-]
 
 function ProjectsPage() {
   const { t } = useTranslation()
@@ -101,8 +28,8 @@ function ProjectsPage() {
 
   const filteredProjects =
     activeFilter === 'all'
-      ? projects
-      : projects.filter((p) => p.category === activeFilter)
+      ? allProjects
+      : allProjects.filter((p) => p.category === activeFilter)
 
   const getCategoryLabel = (category: ProjectCategory) => {
     const labels: Record<ProjectCategory, string> = {
@@ -235,13 +162,13 @@ function ProjectsPage() {
 }
 
 interface ProjectCardProps {
-  project: Project
+  project: ProjectListItem
   index: number
   getCategoryLabel: (category: ProjectCategory) => string
 }
 
 function ProjectCard({ project, index, getCategoryLabel }: ProjectCardProps) {
-  const sizeClasses: Record<Project['size'], string> = {
+  const sizeClasses: Record<ProjectListItem['size'], string> = {
     large: 'lg:col-span-8 lg:row-span-1',
     tall: 'lg:col-span-4 lg:row-span-2',
     standard: 'lg:col-span-4 lg:row-span-1',

@@ -7,144 +7,12 @@ import { useTranslation } from 'react-i18next'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
+import { projectDetails, type ProjectDetail, type ProjectPhase } from '@/data/projects'
 import { fadeInUp, scaleIn, staggerContainer } from '@/lib/motion-variants'
 
 export const Route = createFileRoute('/projects/$projectId')({
   component: ProjectDetailPage,
 })
-
-// Mock project data - in real app this would come from an API
-const projectsData: Record<string, ProjectData> = {
-  '1': {
-    id: '1',
-    title: 'Residência Horizonte',
-    subtitle: 'HORIZONTE',
-    tagline: 'Case Study',
-    description:
-      'Uma jornada visual do conceito abstrato à realidade cinematográfica imersiva.',
-    quote:
-      '"A arquitetura não é apenas sobre o espaço construído, mas sobre como a luz o habita e como a emoção o preenche antes mesmo de existir."',
-    heroImage:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDiL1PQKFr4YQSwro8JBu6AmSyWz9cgaGtLdxwmt4CTxuVtWtuogd8l8qTIZr_pANwk5bRjAJKamHDQMKk3DwRtCIsIHlNylQgVG4yDKdk5xuQL-E_s_ZegxmxMyd0cTzc8HqLjoYsoKPO39u1KzhbsIO1WzW_sc8EvK_DSO3wJ1cq4n0cy5xrd6BokLLKS-_nGhW-QA6CWpaY0wxPhy519cxygf-T25G-SUOrRRPlHsYak_-dzoXoRwtdh7R4IHw-cgiAybC5i46k',
-    phases: [
-      {
-        number: '01',
-        label: 'A Estrutura',
-        title: 'O Silêncio do Volume Puro',
-        description:
-          'Onde tudo começa. Linhas puras e volumes definem a intenção espacial. Nesta fase, despimos o projeto de qualquer distração visual para focar na harmonia das formas e na honestidade da geometria. É o esqueleto da ideia, cru e intocável.',
-        badge: 'Concepção Volumétrica',
-        image:
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuCfNaOj_E9j7eNSepT2tKCZIwzFmDPNIigK9h3vcXxSoU1f2mM2vIBPmqfkwiotcEmv8zxppn8RRQdYUt2t_tSknskOiWDfKdcyMFRxwdzaIXVCyahRiA_E_o6QOjG3g14wb0x1sPgy2rxY7aVjHGuulpgb43muzY_knVY0C1KKVUfGvcsi58O2aLIJeC5y-YMiS1bFGghRprXdXIUzS12W8ZqAHQr-TeuZ4_zwu-dnJ3yAYytXXifDLqok-fRL7MqO_-parf5Q2kQ',
-        stats: [
-          { value: '450m²', label: 'Área Construída' },
-          { value: '3', label: 'Pavimentos' },
-        ],
-      },
-      {
-        number: '02',
-        label: 'A Atmosfera',
-        title: 'O Despertar da Luz',
-        description:
-          'A matéria ganha vida. O sol poente toca o concreto, a vegetação respira. Aqui, transformamos geometria em sentimento através da luz e textura.',
-        images: [
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuCH_nSQPory7Kzzrio5WQ6csqfJwpRiz0F2erLmkU8Dx9Oq0Y7wYV7ipuTUrQRF9FY9xzWvwMPgV0IYwBEi93tJR36dXZaDFW3_FWhSGV_O2j5Ye9rVPRVjO78hg8fwakesLtLd4TqsRxd46XT66L1ppRCtpQURB4H65gAddRNVw2exNWQUDpiIy1Et5WgGdea0J6Qi2Fjx__6XPKkfpr8lw0CfxL35qCy5dR1EFP3bF73qSXxis3DhuxESBfVgng5sGUJ72cgb-gA',
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuCpOEfiaStlEqfcEvmD7awjDWiyMAwzGHBts034HfNPgXByT2T9GZNpDtXfhYSt1iU_vwz0Ryk0PM71m0Odg3tBsWpVh4hi5jypZqUyFX6ylzrUD5Tu_ipdkxyg6oeXFmkEDSF--SgZSj_j7F0kqXarjJKErrejD18qpccWTcbFUaUMToXl5jl3knTn-3w6vyUJHxmPucZRFBCwCOORTkYdCCdXSi6SIwtGHL-yZ51pG_KtMi47yqC29Qarlhqb6g9H0fR6nRGbaAQ',
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuBomz-r5UxDT-U99e1sPEWY2Kzym_66vbLpeMgB_LYjTvgZnDUruFIgc3qQNOPZs9o3XDnaROR3LJaFiSKdUzgWOTEKGF8vyN1Qud_aT8yothPPOCYUmQvkPuRoevuW900qQQhUtmS-oikLzTXVGhhaAMSASOj9PkbMSuuzOedL05gjuXjvZaviY2Bzq9YD_UDWIsHCY66tzvrpEYQ0uXXDmGvk012utmT9YfxhOCTK2s_BndZYn9bih_i0blsjeGm9X7Stmt52DIQ',
-        ],
-      },
-      {
-        number: '03',
-        label: 'A Vida',
-        title: 'A Narrativa Viva',
-        description:
-          'Além da estática. Utilizamos inteligência avançada para interpolar sonhos e realidade. O vento nas árvores, o movimento sutil das cortinas, a imperfeição granulada de um filme analógico. Esta é a experiência final: não apenas ver o projeto, mas sentir-se dentro dele.',
-        videoImage:
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuCpAJUrNVt8CFys3btVctQE-FROQ1TUz7ZakALUMPp7O_EykIWJtVx5sWUvSRNQ0Z_V711eqM69CZaAB1c4bFfh8cpBUSNv2I_hKA8zlneyV53u3thAxoJZxPWyawZtx3xZtCBZI5nFlOLvtyrOc8gvuSsTLKd5JeiI6Sw0PTGn8WIr2uXiDzoZWiJaky7tEBJeIlEjj-afmY6XZEUnYP0gKloJW9cGmy13yjicwKfeU9fQg55sTe0aWvxO3NSt9R0JK3Hp2rjA3VA',
-      },
-    ],
-    specs: {
-      year: '2023',
-      location: 'Nova Lima, MG',
-      client: 'Studio M',
-      status: 'Construído',
-    },
-    nextProject: {
-      id: '2',
-      title: 'Pavilhão Araucária',
-    },
-  },
-  '2': {
-    id: '2',
-    title: 'Casa Brutalista',
-    subtitle: 'BRUTALISTA',
-    tagline: 'Case Study',
-    description: 'Concreto aparente e luz natural em perfeita harmonia.',
-    quote:
-      '"O brutalismo não é sobre agressividade, mas sobre a honestidade dos materiais e a poesia da estrutura exposta."',
-    heroImage:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDb6YAXqNTBjDuJvoltTD9gr1vcCJj1P_pw3MPNMRcNYIqcTILOOygqk9kLKnNPq5V50qnuuuKv87BvaZjxlZqVAAvtwgtRZqTxbhF_gPMxiA2_jU84_ETUQbTAK4-0jYSFshQC6XeAdI0ikvp7XxW-Su3nDp3Ci0N-hkIWmRFmVtsp3a76H9Mv44wsoEf1CU-JnScMIbxkQTUX5kCPHcKpgR6Xk54U_OgBFkOq7Fx2Szo3c85cRhIurmM96qVV-OkpCRE2lECvklg',
-    phases: [
-      {
-        number: '01',
-        label: 'A Estrutura',
-        title: 'Geometria Brutalista',
-        description:
-          'Volumes massivos que desafiam a gravidade. O concreto como protagonista absoluto.',
-        badge: 'Concepção Volumétrica',
-        image:
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuCfNaOj_E9j7eNSepT2tKCZIwzFmDPNIigK9h3vcXxSoU1f2mM2vIBPmqfkwiotcEmv8zxppn8RRQdYUt2t_tSknskOiWDfKdcyMFRxwdzaIXVCyahRiA_E_o6QOjG3g14wb0x1sPgy2rxY7aVjHGuulpgb43muzY_knVY0C1KKVUfGvcsi58O2aLIJeC5y-YMiS1bFGghRprXdXIUzS12W8ZqAHQr-TeuZ4_zwu-dnJ3yAYytXXifDLqok-fRL7MqO_-parf5Q2kQ',
-        stats: [
-          { value: '380m²', label: 'Área Construída' },
-          { value: '2', label: 'Pavimentos' },
-        ],
-      },
-    ],
-    specs: {
-      year: '2024',
-      location: 'São Paulo, SP',
-      client: 'Privado',
-      status: 'Em Construção',
-    },
-    nextProject: {
-      id: '1',
-      title: 'Residência Horizonte',
-    },
-  },
-}
-
-interface ProjectData {
-  id: string
-  title: string
-  subtitle: string
-  tagline: string
-  description: string
-  quote: string
-  heroImage: string
-  phases: Phase[]
-  specs: {
-    year: string
-    location: string
-    client: string
-    status: string
-  }
-  nextProject: {
-    id: string
-    title: string
-  }
-}
-
-interface Phase {
-  number: string
-  label: string
-  title: string
-  description: string
-  badge?: string
-  image?: string
-  images?: string[]
-  videoImage?: string
-  stats?: { value: string; label: string }[]
-}
 
 function ProjectDetailPage() {
   const { projectId } = Route.useParams()
@@ -160,7 +28,8 @@ function ProjectDetailPage() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
 
-  const project = projectsData[projectId] || projectsData['1']
+  const project = projectDetails[projectId] || projectDetails['1']
+
 
   // Refs for scroll-triggered animations
   const quoteRef = useRef<HTMLElement>(null)
