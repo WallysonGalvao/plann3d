@@ -11,6 +11,14 @@
     "tools": "Tools",
     "faq": "FAQ"
   },
+  "header": {
+    "theme": {
+      "label": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
+  },
   "hero": {
     "available": "Available for Commissions",
     "headline1": "CINEMATIC",

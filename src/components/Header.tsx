@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import LanguageSwitcher from './language-switcher'
+import { ThemeSwitcher } from './theme-switcher'
 
 import logo from '@/assets/logo.svg'
 import { Button } from '@/components/ui/button'
@@ -94,8 +95,9 @@ const Header = () => {
             </div>
           </nav>
 
-          {/* CTA Button & Language Switcher */}
+          {/* CTA Button & Language/Theme Switcher */}
           <div className="hidden md:flex items-center gap-2">
+            <ThemeSwitcher />
             <LanguageSwitcher />
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button variant="nav" size="default" asChild>
@@ -106,6 +108,7 @@ const Header = () => {
 
           {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center gap-2">
+            <ThemeSwitcher />
             <LanguageSwitcher />
             <motion.button
               className="p-2 text-foreground"

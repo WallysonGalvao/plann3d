@@ -11,6 +11,14 @@
     "tools": "Ferramentas",
     "faq": "FAQ"
   },
+  "header": {
+    "theme": {
+      "label": "Tema",
+      "light": "Claro",
+      "dark": "Escuro",
+      "system": "Sistema"
+    }
+  },
   "hero": {
     "available": "Disponível para Novos Projetos",
     "headline1": "REALIDADE",
