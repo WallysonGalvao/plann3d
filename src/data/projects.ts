@@ -7,6 +7,11 @@ import project1 from '@/assets/project-1.jpg'
 import project2 from '@/assets/project-2.jpg'
 import project3 from '@/assets/project-3.jpg'
 
+// Torre de TV images
+import torreTvSketchup from '@/assets/projects/torre-de-tv/01-SKETCHUP.png'
+import torreTvTwinmotion1 from '@/assets/projects/torre-de-tv/02-TWINMOTION.png'
+import torreTvTwinmotion2 from '@/assets/projects/torre-de-tv/03-TWINMOTION.png'
+
 // ============================================
 // TYPE DEFINITIONS
 // ============================================
@@ -21,9 +26,9 @@ export interface ProjectPhase {
   description: string
   badge?: string
   image?: string
-  images?: string[]
+  images?: Array<string>
   videoImage?: string
-  stats?: { value: string; label: string }[]
+  stats?: Array<{ value: string; label: string }>
 }
 
 export interface ProjectSpecs {
@@ -41,7 +46,7 @@ export interface ProjectListItem {
   location: string
   description?: string
   image: string
-  tags?: string[]
+  tags?: Array<string>
   isVideo?: boolean
   size: ProjectSize
   number: string // Display number like '01'
@@ -55,7 +60,7 @@ export interface ProjectDetail {
   description: string
   quote: string
   heroImage: string
-  phases: ProjectPhase[]
+  phases: Array<ProjectPhase>
   specs: ProjectSpecs
   nextProject: {
     id: string
@@ -68,7 +73,7 @@ export interface ProjectDetail {
 // Uses local assets for optimal loading
 // ============================================
 
-export const featuredProjects: ProjectListItem[] = [
+export const featuredProjects: Array<ProjectListItem> = [
   {
     id: '1',
     title: 'Nordic Retreat',
@@ -106,7 +111,7 @@ export const featuredProjects: ProjectListItem[] = [
 // Uses external URLs for variety
 // ============================================
 
-export const allProjects: ProjectListItem[] = [
+export const allProjects: Array<ProjectListItem> = [
   {
     id: '1',
     title: 'Casa Brutalista',
@@ -273,6 +278,58 @@ export const projectDetails: Record<string, ProjectDetail> = {
       title: 'Residência Horizonte',
     },
   },
+  '3': {
+    id: '3',
+    title: 'Torre de TV de Brasília',
+    subtitle: 'TORRE DE TV',
+    tagline: 'Case Study',
+    description:
+      'Uma atração turística icônica que revela a grandeza do Eixo Monumental através de uma vista panorâmica de 360 graus.',
+    quote:
+      '"A arquitetura deve ser um ponto de observação, conectando o visitante à cidade e à sua história através da perspectiva."',
+    heroImage: torreTvTwinmotion2,
+    phases: [
+      {
+        number: '01',
+        label: 'A Estrutura',
+        title: 'A Base da Monumentalidade',
+        description:
+          'O projeto inicia-se com a concepção estrutural da torre, onde a verticalidade encontra a funcionalidade. Volumes puros definem a relação entre a terra e o céu, criando uma experiência arquitetônica que eleva o observador acima da paisagem urbana de Brasília.',
+        badge: 'Modelagem Estrutural',
+        image: torreTvSketchup,
+        stats: [
+          { value: '75m', label: 'Altura' },
+          { value: '360°', label: 'Vista Panorâmica' },
+        ],
+      },
+      {
+        number: '02',
+        label: 'A Atmosfera',
+        title: 'O Encontro com o Céu',
+        description:
+          'A torre ganha vida através da luz e do contexto urbano. O Eixo Monumental se revela em toda sua magnitude, com a Praça dos Três Poderes e os marcos arquitetônicos de Brasília compondo uma narrativa visual única. A atmosfera captura o momento em que a estrutura dialoga com a cidade.',
+        images: [torreTvTwinmotion1, torreTvTwinmotion2],
+      },
+      {
+        number: '03',
+        label: 'A Vida',
+        title: 'O Mirante da Experiência',
+        description:
+          'Mais do que um ponto turístico, a Torre de TV se transforma em uma experiência sensorial. Visitantes são convidados a contemplar Brasília de uma perspectiva privilegiada, onde cada ângulo revela uma nova faceta da capital federal. A integração entre arquitetura e paisagem urbana cria momentos memoráveis que conectam as pessoas à cidade.',
+        videoImage: torreTvTwinmotion2,
+      },
+    ],
+    specs: {
+      year: '2025',
+      location: 'Brasília, DF',
+      client: 'M.U.B Produtora',
+      status: 'Concluído',
+    },
+    nextProject: {
+      id: '1',
+      title: 'Residência Horizonte',
+    },
+  },
 }
 
 // ============================================
@@ -289,7 +346,7 @@ export const getProjectById = (id: string): ProjectDetail | undefined => {
 /**
  * Get all projects filtered by category
  */
-export const getProjectsByCategory = (category: ProjectCategory): ProjectListItem[] => {
+export const getProjectsByCategory = (category: ProjectCategory): Array<ProjectListItem> => {
   if (category === 'all') return allProjects
   return allProjects.filter((p) => p.category === category)
 }
@@ -297,6 +354,6 @@ export const getProjectsByCategory = (category: ProjectCategory): ProjectListIte
 /**
  * Get featured projects for home page
  */
-export const getFeaturedProjects = (): ProjectListItem[] => {
+export const getFeaturedProjects = (): Array<ProjectListItem> => {
   return featuredProjects
 }

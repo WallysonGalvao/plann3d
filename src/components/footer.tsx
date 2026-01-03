@@ -123,7 +123,7 @@ const Footer = () => {
                 PLANN3D
               </span>
               <span className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
-                Studio
+                Visual Studio
               </span>
             </div>
           </Link>
@@ -155,7 +155,9 @@ const Footer = () => {
         {/* Column 2: Navigation */}
         <div className="rounded-2xl p-6 lg:p-8 w-full lg:w-auto lg:min-w-[180px]">
           <h4 className="font-semibold mb-6 text-lg">
-            <span className="font-serif italic font-normal text-foreground">{t('footer.navigation')}</span>
+            <span className="font-serif italic font-normal text-foreground">
+              {t('footer.navigation')}
+            </span>
           </h4>
           <nav className="space-y-3">
             <Link
@@ -194,7 +196,9 @@ const Footer = () => {
         {/* Column 2: Contact - Glass card */}
         <div className=" rounded-2xl p-6 lg:p-8 w-full lg:w-auto lg:min-w-[280px]">
           <h4 className="font-semibold mb-6 text-lg">
-            <span className="font-serif italic font-normal text-foreground">{t('footer.contact').split(' ')[0]}</span>{' '}
+            <span className="font-serif italic font-normal text-foreground">
+              {t('footer.contact').split(' ')[0]}
+            </span>{' '}
             {t('footer.contact').split(' ').slice(1).join(' ')}
           </h4>
           <div className="space-y-4">
@@ -203,7 +207,16 @@ const Footer = () => {
               className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-all duration-300 group"
             >
               <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="text-primary"
+                >
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
@@ -215,7 +228,16 @@ const Footer = () => {
               className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-all duration-300 group"
             >
               <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="text-primary"
+                >
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
               </span>
@@ -223,7 +245,16 @@ const Footer = () => {
             </a>
             <div className="flex items-start gap-3 pt-2">
               <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="text-primary"
+                >
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
