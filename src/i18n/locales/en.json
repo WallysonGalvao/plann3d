@@ -4,7 +4,9 @@
     "process": "Process",
     "studio": "Studio",
     "contact": "Contact",
-    "letsTalk": "Let's Talk"
+    "letsTalk": "Let's Talk",
+    "projects": "Projects",
+    "services": "Services"
   },
   "hero": {
     "available": "Available for Commissions",
@@ -31,6 +33,11 @@
     "step2Title": "Light & Atmosphere",
     "step3Title": "Motion & Life",
     "step4Title": "Final Experience"
+  },
+  "studioSection": {
+    "label": "About Us",
+    "title": "Our Studio",
+    "description": "We are an architectural visualization studio focused on creating visual experiences that transcend the ordinary."
   },
   "services": {
     "label": "What We Create",
@@ -103,6 +110,7 @@
     }
   },
   "projectsPage": {
+    "label": "Portfolio",
     "title1": "VIEW ALL",
     "title2": "PROJECTS",
     "description": "Experience our architectural visions through immersive animations and hyper-realistic renders. A curated collection of our finest work.",

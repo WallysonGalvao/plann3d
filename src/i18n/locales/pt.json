@@ -4,7 +4,9 @@
     "process": "Processo",
     "studio": "Estúdio",
     "contact": "Contato",
-    "letsTalk": "Fale Conosco"
+    "letsTalk": "Fale Conosco",
+    "projects": "Projetos",
+    "services": "Serviços"
   },
   "hero": {
     "available": "Disponível para Novos Projetos",
@@ -31,6 +33,11 @@
     "step2Title": "Luz & Atmosfera",
     "step3Title": "Movimento & Vida",
     "step4Title": "Experiência Final"
+  },
+  "studioSection": {
+    "label": "Sobre Nós",
+    "title": "Nosso Estúdio",
+    "description": "Somos um estúdio de visualização arquitetônica focado em criar experiências visuais que transcendem o ordinário."
   },
   "services": {
     "label": "O Que Criamos",
@@ -103,6 +110,7 @@
     }
   },
   "projectsPage": {
+    "label": "Portfolio",
     "title1": "VER TODOS",
     "title2": "OS PROJETOS",
     "description": "Experimente nossas visões arquitetônicas através de animações imersivas e renders hiper-realistas. Uma coleção curada dos nossos melhores trabalhos.",

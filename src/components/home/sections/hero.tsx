@@ -163,9 +163,9 @@ const HeroSection = () => {
             <div className="flex flex-row lg:flex-col gap-6 lg:gap-8">
               <motion.div
                 variants={statsVariants}
-                className="glass-card gradient-border p-4 lg:p-6 rounded-2xl text-center lg:text-right"
+                className="p-4 lg:p-6 rounded-2xl text-center lg:text-right"
               >
-                <p className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-primary">
+                <p className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-white">
                   50<span className="text-foreground/40">+</span>
                 </p>
                 <p className="text-[10px] sm:text-xs tracking-[0.25em] uppercase text-foreground/50 mt-2">
@@ -174,9 +174,9 @@ const HeroSection = () => {
               </motion.div>
               <motion.div
                 variants={statsVariants}
-                className="glass-card gradient-border p-4 lg:p-6 rounded-2xl text-center lg:text-right"
+                className="p-4 lg:p-6 rounded-2xl text-center lg:text-right"
               >
-                <p className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-primary">
+                <p className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-white">
                   1000<span className="text-foreground/40">+</span>
                 </p>
                 <p className="text-[10px] sm:text-xs tracking-[0.25em] uppercase text-foreground/50 mt-2">

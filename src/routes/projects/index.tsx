@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
-import { ArrowRight, ArrowUpRight, Grid3X3, Play, Plus } from 'lucide-react'
+import { ArrowRight, Grid3X3, Play, Plus } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -317,121 +317,53 @@ function ProjectCard({ project, index, getCategoryLabel }: ProjectCardProps) {
           </motion.div>
         )}
 
-        {/* Content Overlay */}
+        {/* Content Overlay - Unified with home section style */}
         {!project.isVideo && (
-          <div
-            className={cn(
-              'absolute z-20',
-              isTall ? 'bottom-0 left-0 p-8 w-full' : 'bottom-0 left-0 p-8',
-            )}
-          >
-            {/* Category Badge */}
-            {isLarge && (
-              <div className="mb-2 flex items-center gap-2">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
-                <span className="text-xs font-bold uppercase tracking-widest text-primary">
-                  {getCategoryLabel(project.category)}
-                </span>
+          <div className="absolute bottom-0 left-0 right-0 p-6 z-20 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+            <div className="flex items-end justify-between">
+              <div>
+                {/* Category for large/tall cards */}
+                {(isLarge || isTall) && (
+                  <div className="mb-2 flex items-center gap-2">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+                    <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                      {getCategoryLabel(project.category)}
+                    </span>
+                  </div>
+                )}
+                <h3 className={cn(
+                  'font-semibold text-white mb-1 group-hover:text-primary transition-colors duration-300',
+                  isLarge ? 'text-2xl' : isTall ? 'text-2xl' : 'text-lg',
+                )}>
+                  {project.title}
+                </h3>
+                <p className="text-sm text-white/60 group-hover:text-white/80 transition-colors duration-300">
+                  {project.location}
+                </p>
+                {/* Tags for wide cards */}
+                {isWide && project.tags && (
+                  <div className="mt-3 flex items-center gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full bg-white/10 backdrop-blur-sm px-3 py-1 text-xs font-medium text-white border border-white/10"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
 
-            {/* Title */}
-            <h3
-              className={cn(
-                'font-bold text-white',
-                isLarge ? 'text-3xl' : isTall ? 'text-3xl leading-none' : 'text-lg',
-              )}
-            >
-              {isTall ? (
-                <>
-                  {project.title.split(' ')[0]}
-                  <br />
-                  {project.title.split(' ').slice(1).join(' ')}
-                </>
-              ) : (
-                project.title
-              )}
-            </h3>
-
-            {/* Description (for large cards) */}
-            {isLarge && project.description && (
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                whileHover={{ opacity: 1, y: 0 }}
-                className="mt-2 max-w-md text-sm text-gray-300"
+              {/* Arrow indicator - unified style */}
+              <motion.div
+                className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 border border-white/20 shrink-0"
+                whileHover={{ scale: 1.1 }}
               >
-                {project.location} — {project.description}
-              </motion.p>
-            )}
-
-            {/* Location (for small cards) */}
-            {!isLarge && !isTall && !isWide && (
-              <p className="text-xs text-gray-400">{project.location}</p>
-            )}
-
-            {/* Tags (for wide cards) */}
-            {isWide && project.tags && (
-              <div className="mt-2 flex items-center gap-3">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            {/* View Case Study (for tall cards) */}
-            {isTall && (
-              <>
-                <span className="text-xs font-bold uppercase tracking-widest text-white/60 block mb-1">
-                  {getCategoryLabel(project.category)}
-                </span>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  className="mt-6 flex items-center justify-between border-t border-white/20 pt-4"
-                >
-                  <span className="text-sm text-white">View Case Study</span>
-                  <ArrowRight size={16} className="text-primary" />
-                </motion.div>
-              </>
-            )}
-
-            {/* Arrow button for wide cards with location */}
-            {isWide && !project.tags && (
-              <div className="absolute bottom-8 right-8 flex items-end justify-between">
-                <p className="text-sm text-gray-400">{project.location}</p>
-              </div>
-            )}
+                <ArrowRight className="text-white" size={18} />
+              </motion.div>
+            </div>
           </div>
-        )}
-
-        {/* Arrow Button (for large cards) */}
-        {isLarge && (
-          <motion.button
-            className="absolute right-6 top-6 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm"
-            whileHover={{ backgroundColor: 'hsl(var(--primary))' }}
-            transition={{ duration: 0.2 }}
-          >
-            <ArrowUpRight size={20} />
-          </motion.button>
-        )}
-
-        {/* Arrow Button (for last wide card) */}
-        {isWide && !project.tags && (
-          <motion.span
-            className="absolute bottom-8 right-8 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white backdrop-blur-sm"
-            whileHover={{
-              backgroundColor: 'hsl(var(--primary))',
-              borderColor: 'hsl(var(--primary))',
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            <ArrowRight size={16} />
-          </motion.span>
         )}
       </Link>
     </motion.div>

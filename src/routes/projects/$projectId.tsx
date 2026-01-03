@@ -202,7 +202,7 @@ function ProjectDetailPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-primary font-bold tracking-[0.2em] text-sm uppercase mb-6"
+            className="label-premium mb-8"
           >
             {project.tagline}
           </motion.span>
@@ -212,7 +212,9 @@ function ProjectDetailPage() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter mb-4 sm:mb-6 leading-tight"
           >
-            {project.title.split(' ')[0]}
+            <span className="font-serif italic font-normal">
+              {project.title.split(' ')[0]}
+            </span>
             <br />
             <span className="text-foreground/40">{project.subtitle}</span>
           </motion.h1>
@@ -243,21 +245,23 @@ function ProjectDetailPage() {
         </motion.div>
       </motion.header>
 
-      {/* Quote Section */}
+      {/* Quote Section - Premium styling */}
       <motion.section
         ref={quoteRef}
         initial="hidden"
         animate={isQuoteInView ? 'visible' : 'hidden'}
         variants={fadeInUp}
-        className="relative py-24 md:py-32 bg-background"
+        className="relative py-24 md:py-32 bg-background overflow-hidden"
       >
-        <div className="container mx-auto px-6 md:px-12">
+        {/* Decorative quote mark */}
+        <span className="absolute -left-10 top-20 text-[20rem] font-serif text-white/[0.02] leading-none pointer-events-none select-none">"</span>
+        <div className="container relative z-10 mx-auto px-6 md:px-12">
           <div className="max-w-4xl mx-auto">
             <motion.p
               initial={{ opacity: 0, y: 40 }}
               animate={isQuoteInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
               transition={{ duration: 0.8 }}
-              className="text-2xl md:text-4xl font-light leading-tight"
+              className="text-2xl md:text-4xl font-serif italic font-light leading-tight text-foreground/80"
             >
               {project.quote}
             </motion.p>
@@ -304,7 +308,7 @@ function ProjectDetailPage() {
               {project.phases[0].stats && (
                 <motion.div
                   variants={fadeInUp}
-                  className="flex gap-8 border-t border-border/50 pt-8"
+                  className="flex gap-6 border-t border-border/50 pt-8"
                 >
                   {project.phases[0].stats.map((stat, index) => (
                     <motion.div
@@ -312,9 +316,10 @@ function ProjectDetailPage() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={isPhase1InView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                       transition={{ delay: 0.5 + index * 0.1 }}
+                      className="glass-card gradient-border p-4 rounded-xl"
                     >
-                      <span className="block text-2xl font-bold">{stat.value}</span>
-                      <span className="text-sm text-muted-foreground">{stat.label}</span>
+                      <span className="block text-2xl font-serif font-normal text-primary">{stat.value}</span>
+                      <span className="text-xs text-muted-foreground tracking-wider uppercase">{stat.label}</span>
                     </motion.div>
                   ))}
                 </motion.div>
@@ -336,16 +341,17 @@ function ProjectDetailPage() {
                   transition={{ duration: 0.7, ease: 'easeOut' }}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-background/80 via-transparent to-transparent opacity-60" />
-                {/* Floating Badge */}
+                {/* Floating Badge - Premium glass style */}
                 {project.phases[0].badge && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={isPhase1InView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ delay: 0.6 }}
-                    className="absolute bottom-6 left-6 bg-background/80 backdrop-blur-md px-4 py-2 rounded-lg border border-border/50"
+                    className="absolute bottom-6 left-6 glass-card gradient-border px-5 py-3 rounded-xl"
                   >
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold uppercase tracking-wider">
+                    <div className="flex items-center gap-3">
+                      <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                      <span className="text-xs font-semibold uppercase tracking-[0.2em]">
                         {project.phases[0].badge}
                       </span>
                     </div>
