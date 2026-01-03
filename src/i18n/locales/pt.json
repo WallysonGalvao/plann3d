@@ -1,12 +1,15 @@
 {
   "nav": {
+    "home": "Início",
     "work": "Trabalhos",
     "process": "Processo",
     "studio": "Estúdio",
     "contact": "Contato",
     "letsTalk": "Fale Conosco",
     "projects": "Projetos",
-    "services": "Serviços"
+    "services": "Serviços",
+    "tools": "Ferramentas",
+    "faq": "FAQ"
   },
   "hero": {
     "available": "Disponível para Novos Projetos",
@@ -59,6 +62,7 @@
   },
   "footer": {
     "description": "Estúdio de visualização de alta qualidade dedicado a criar histórias cinematográficas para o ambiente construído.",
+    "navigation": "Navegação",
     "contact": "Contato",
     "email": "contato@plann3d.com",
     "phone": "+55 61 99598-2807",
@@ -87,13 +91,19 @@
       "archViz": "Visualização Arquitetônica",
       "interiorViz": "Visualização de Interiores",
       "animation": "Animação / Walkthrough",
-      "virtualExp": "Experiência Virtual",
+      "twinmotion": "Render em Tempo Real (Twinmotion)",
+      "bimModel": "Modelagem BIM / Tekla",
+      "conceptDesign": "Design Conceitual (SketchUp)",
+      "cinematicVideo": "Vídeo Cinemático (Blender)",
+      "virtualExp": "Experiência Virtual / VR",
       "competition": "Entrada em Competição",
       "other": "Outro",
       "projectDetails": "Detalhes do Projeto",
       "projectDetailsPlaceholder": "Conte-nos sobre seu cronograma, escopo e visão...",
       "sendInquiry": "Enviar Consulta",
       "sending": "Enviando...",
+      "headerTitle": "Inicie seu projeto",
+      "headerSubtitle": "Preencha o formulário abaixo e entraremos em contato em breve.",
       "privacyNote": "Ao enviar este formulário, você concorda com nossa",
       "privacyPolicy": "Política de Privacidade",
       "successTitle": "Consulta Enviada com Sucesso",

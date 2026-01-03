@@ -1,12 +1,15 @@
 {
   "nav": {
+    "home": "Home",
     "work": "Work",
     "process": "Process",
     "studio": "Studio",
     "contact": "Contact",
     "letsTalk": "Let's Talk",
     "projects": "Projects",
-    "services": "Services"
+    "services": "Services",
+    "tools": "Tools",
+    "faq": "FAQ"
   },
   "hero": {
     "available": "Available for Commissions",
@@ -59,6 +62,7 @@
   },
   "footer": {
     "description": "A high-end visualization studio dedicated to crafting cinematic stories for the built environment.",
+    "navigation": "Navigation",
     "contact": "Contact",
     "email": "contato@plann3d.com",
     "phone": "+55 61 99598-2807",
@@ -87,13 +91,19 @@
       "archViz": "Architectural Visualization",
       "interiorViz": "Interior Visualization",
       "animation": "Animation / Walkthrough",
-      "virtualExp": "Virtual Experience",
+      "twinmotion": "Real-Time Render (Twinmotion)",
+      "bimModel": "BIM Modeling / Tekla",
+      "conceptDesign": "Concept Design (SketchUp)",
+      "cinematicVideo": "Cinematic Video (Blender)",
+      "virtualExp": "Virtual Experience / VR",
       "competition": "Competition Entry",
       "other": "Other",
       "projectDetails": "Project Details",
       "projectDetailsPlaceholder": "Tell us about your timeline, scope, and vision...",
       "sendInquiry": "Send Inquiry",
       "sending": "Sending...",
+      "headerTitle": "Start your project",
+      "headerSubtitle": "Fill out the form below and we'll get back to you shortly.",
       "privacyNote": "By submitting this form, you agree to our",
       "privacyPolicy": "Privacy Policy",
       "successTitle": "Inquiry Sent Successfully",

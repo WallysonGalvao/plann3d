@@ -152,6 +152,45 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Column 2: Navigation */}
+        <div className="rounded-2xl p-6 lg:p-8 w-full lg:w-auto lg:min-w-[180px]">
+          <h4 className="font-semibold mb-6 text-lg">
+            <span className="font-serif italic font-normal text-white">{t('footer.navigation')}</span>
+          </h4>
+          <nav className="space-y-3">
+            <Link
+              to="/"
+              className="block text-sm text-white/60 hover:text-white transition-all duration-300"
+            >
+              {t('nav.home')}
+            </Link>
+            <Link
+              to="/projects"
+              className="block text-sm text-white/60 hover:text-white transition-all duration-300"
+            >
+              {t('nav.projects')}
+            </Link>
+            <Link
+              to="/tools"
+              className="block text-sm text-white/60 hover:text-white transition-all duration-300"
+            >
+              {t('nav.tools')}
+            </Link>
+            <Link
+              to="/faq"
+              className="block text-sm text-white/60 hover:text-white transition-all duration-300"
+            >
+              {t('nav.faq')}
+            </Link>
+            <Link
+              to="/contact"
+              className="block text-sm text-white/60 hover:text-white transition-all duration-300"
+            >
+              {t('nav.contact')}
+            </Link>
+          </nav>
+        </div>
+
         {/* Column 2: Contact - Glass card */}
         <div className=" rounded-2xl p-6 lg:p-8 w-full lg:w-auto lg:min-w-[280px]">
           <h4 className="font-semibold mb-6 text-lg">

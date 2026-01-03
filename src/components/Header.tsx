@@ -33,31 +33,15 @@ const Header = () => {
   })
 
   const navLinks = [
-    { label: t('nav.work'), href: '/', hash: 'projects', isRoute: true },
-    { label: t('nav.process'), href: '/process', isRoute: true },
-    { label: t('nav.studio'), href: '/studio', isRoute: true },
+    { label: t('nav.home'), href: '/', isRoute: true },
+    { label: t('nav.projects'), href: '/projects', isRoute: true },
+    { label: t('nav.tools'), href: '/tools', isRoute: true },
+    { label: t('nav.faq'), href: '/faq', isRoute: true },
     { label: t('nav.contact'), href: '/contact', isRoute: true },
   ]
 
-  const isActive = (href: string, hash?: string) => {
-    if (hash) {
-      return (
-        location.pathname === '/' &&
-        typeof window !== 'undefined' &&
-        window.location.hash === `#${hash}`
-      )
-    }
+  const isActive = (href: string) => {
     return location.pathname === href
-  }
-
-  const handleNavClick = (hash?: string) => {
-    if (hash && typeof window !== 'undefined') {
-      const element = document.getElementById(hash)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
-      }
-    }
-    setIsMobileMenuOpen(false)
   }
 
   return (
@@ -89,6 +73,26 @@ const Header = () => {
               PLANN3D
             </motion.span>
           </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center">
+            <div className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-secondary/50 backdrop-blur-sm border border-border/50">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className={cn(
+                    "px-4 py-2 text-sm font-medium transition-colors duration-300 rounded-full",
+                    isActive(link.href)
+                      ? "text-foreground bg-background/80"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </nav>
 
           {/* CTA Button & Language Switcher */}
           <div className="hidden md:flex items-center gap-2">
@@ -163,14 +167,13 @@ const Header = () => {
                   <motion.div key={link.label} variants={menuItemVariants}>
                     <Link
                       to={link.href}
-                      hash={link.hash}
                       className={cn(
                         'text-lg font-medium transition-all duration-300 link-underline block py-2',
-                        isActive(link.href, link.hash)
+                        isActive(link.href)
                           ? 'text-primary'
                           : 'text-foreground/80 hover:text-foreground hover:translate-x-2',
                       )}
-                      onClick={() => handleNavClick(link.hash)}
+                      onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {link.label}
                     </Link>

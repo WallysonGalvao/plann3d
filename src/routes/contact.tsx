@@ -93,6 +93,10 @@ function Contact() {
     { value: 'archViz', label: t('contactPage.form.archViz') },
     { value: 'interiorViz', label: t('contactPage.form.interiorViz') },
     { value: 'animation', label: t('contactPage.form.animation') },
+    { value: 'twinmotion', label: t('contactPage.form.twinmotion') },
+    { value: 'bimModel', label: t('contactPage.form.bimModel') },
+    { value: 'conceptDesign', label: t('contactPage.form.conceptDesign') },
+    { value: 'cinematicVideo', label: t('contactPage.form.cinematicVideo') },
     { value: 'virtualExp', label: t('contactPage.form.virtualExp') },
     { value: 'competition', label: t('contactPage.form.competition') },
     { value: 'other', label: t('contactPage.form.other') },
@@ -167,9 +171,9 @@ function Contact() {
                 {/* Form header */}
                 <div className="text-center lg:text-left mb-8">
                   <h2 className="text-2xl font-semibold mb-2">
-                    <span className="font-serif italic font-normal text-primary">Start</span> your project
+                    <span className="font-serif italic font-normal text-muted-foreground">{t('contactPage.form.headerTitle').split(' ')[0]}</span> {t('contactPage.form.headerTitle').split(' ').slice(1).join(' ')}
                   </h2>
-                  <p className="text-sm text-muted-foreground">Fill out the form below and we'll get back to you shortly.</p>
+                  <p className="text-sm text-muted-foreground">{t('contactPage.form.headerSubtitle')}</p>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-6">
                   <motion.div custom={0} variants={formFieldVariants} initial="hidden" animate="visible">
