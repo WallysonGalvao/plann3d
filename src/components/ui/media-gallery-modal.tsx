@@ -90,23 +90,23 @@ export function MediaGalleryModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-100 flex flex-col gallery-modal-backdrop"
+          className="fixed inset-0 z-100 flex flex-col bg-background"
         >
           {/* Header */}
-          <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:py-6 md:px-12 gallery-header">
+          <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:py-6 md:px-12 bg-background/95 backdrop-blur-sm border-b border-border">
             <div className="flex items-center gap-3">
               <div className="flex flex-col">
-                <span className="text-xs text-white/50 dark:text-white/40 uppercase tracking-widest font-mono">
+                <span className="text-xs text-muted-foreground uppercase tracking-widest font-mono">
                   {t('projectDetail.gallery', 'Galeria')}
                 </span>
-                <h2 className="text-white text-lg font-bold leading-tight tracking-wider uppercase">
+                <h2 className="text-foreground text-lg font-bold leading-tight tracking-wider uppercase">
                   {currentItem?.title || ''}
                 </h2>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/10">
-                <span className="text-xs font-bold uppercase tracking-widest text-white/80">
+              <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-secondary rounded-full border border-border">
+                <span className="text-xs font-bold uppercase tracking-widest text-foreground/80">
                   {String(currentIndex + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
                 </span>
               </div>
@@ -114,7 +114,7 @@ export function MediaGalleryModal({
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={onClose}
-                className="size-10 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition-colors text-white"
+                className="size-10 flex items-center justify-center rounded-full border border-border hover:bg-secondary transition-colors text-foreground"
               >
                 <X size={20} />
               </motion.button>
@@ -122,7 +122,7 @@ export function MediaGalleryModal({
           </header>
 
           {/* Main Content Area */}
-          <main className="grow relative w-full h-full flex items-center justify-center pt-20 pb-24 px-4 md:px-20">
+          <main className="grow relative w-full h-full flex items-center justify-center pt-24 md:pt-28 pb-28 px-4 md:px-24">
             {/* Left Navigation */}
             <motion.button
               initial={{ opacity: 0 }}
@@ -131,7 +131,7 @@ export function MediaGalleryModal({
               whileTap={canGoPrevious ? { scale: 0.95 } : {}}
               onClick={goToPrevious}
               disabled={!canGoPrevious}
-              className="absolute left-4 md:left-8 z-40 size-12 md:size-16 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-black/50 disabled:hover:border-white/20"
+              className="absolute left-4 md:left-8 z-40 size-12 md:size-16 rounded-full bg-secondary/80 backdrop-blur-md border border-border flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-secondary/80 disabled:hover:border-border disabled:hover:text-foreground"
             >
               <ArrowLeft className="size-6 md:size-8" />
             </motion.button>
@@ -144,7 +144,7 @@ export function MediaGalleryModal({
               whileTap={canGoNext ? { scale: 0.95 } : {}}
               onClick={goToNext}
               disabled={!canGoNext}
-              className="absolute right-4 md:right-8 z-40 size-12 md:size-16 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-black/50 disabled:hover:border-white/20"
+              className="absolute right-4 md:right-8 z-40 size-12 md:size-16 rounded-full bg-secondary/80 backdrop-blur-md border border-border flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-secondary/80 disabled:hover:border-border disabled:hover:text-foreground"
             >
               <ArrowRight className="size-6 md:size-8" />
             </motion.button>
@@ -157,80 +157,91 @@ export function MediaGalleryModal({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
-                className="w-full max-w-6xl h-full flex flex-col"
+                className="w-full h-full flex items-center justify-center overflow-hidden"
               >
-                {/* Media Card */}
-                <div className="relative grow rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-                  {/* Background Image */}
-                  <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url('${currentItem.src}')` }}
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
-
-                  {/* Badge */}
-                  {currentItem.badge && (
-                    <div className="absolute top-4 right-4 md:top-6 md:right-6 px-3 py-1.5 bg-black/60 backdrop-blur border border-white/10 rounded-lg text-xs font-bold uppercase tracking-widest text-white flex items-center gap-2">
-                      {currentItem.type === 'video' ? (
-                        <Play className="size-3 text-primary" />
-                      ) : (
-                        <Expand className="size-3 text-primary" />
+                {/* Media Container - displays image in original aspect ratio */}
+                <div className="relative h-full flex items-center justify-center">
+                  {currentItem.type === 'video' ? (
+                    // Video with play overlay
+                    <>
+                      <img
+                        src={currentItem.src}
+                        alt={currentItem.title}
+                        className="max-h-full max-w-full object-contain rounded-xl shadow-2xl"
+                      />
+                      {/* Video Play Overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center cursor-pointer rounded-xl">
+                        <motion.div
+                          whileHover={{ scale: 1.1 }}
+                          className="w-20 h-20 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center"
+                        >
+                          <Play size={32} className="text-white ml-1" />
+                        </motion.div>
+                      </div>
+                      {/* Badge */}
+                      {currentItem.badge && (
+                        <div className="absolute top-4 right-4 px-3 py-1.5 bg-black/60 backdrop-blur border border-white/20 rounded-lg text-xs font-bold uppercase tracking-widest text-white flex items-center gap-2">
+                          <Play className="size-3 text-primary" />
+                          {currentItem.badge}
+                        </div>
                       )}
-                      {currentItem.badge}
-                    </div>
+                    </>
+                  ) : (
+                    // Image
+                    <>
+                      <img
+                        src={currentItem.src}
+                        alt={currentItem.title}
+                        className="max-h-full max-w-full object-contain rounded-xl shadow-2xl"
+                      />
+                      {/* Badge */}
+                      {currentItem.badge && (
+                        <div className="absolute top-4 right-4 px-3 py-1.5 bg-black/60 backdrop-blur border border-white/20 rounded-lg text-xs font-bold uppercase tracking-widest text-white flex items-center gap-2">
+                          <Expand className="size-3 text-primary" />
+                          {currentItem.badge}
+                        </div>
+                      )}
+                    </>
                   )}
 
-                  {/* Video Play Overlay */}
-                  {currentItem.type === 'video' && (
-                    <div className="absolute inset-0 flex items-center justify-center cursor-pointer">
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center"
-                      >
-                        <Play size={32} className="text-white ml-1" />
-                      </motion.div>
+                  {/* Caption - positioned at bottom left of image */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 rounded-b-xl bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                      <div className="max-w-2xl">
+                        <div className="flex items-center gap-3 mb-1">
+                          <span className="text-primary font-mono text-xs uppercase tracking-widest">
+                            {currentItem.phaseNumber}. {currentItem.phaseLabel}
+                          </span>
+                          <div className="h-px w-8 bg-primary/40" />
+                        </div>
+                        <h3 className="text-lg md:text-xl font-display font-bold text-white tracking-tight">
+                          {currentItem.title}
+                        </h3>
+                      </div>
+                      {currentItem.software && (
+                        <div className="hidden md:flex flex-col items-end gap-0.5 text-right">
+                          <span className="text-[10px] text-white/50 uppercase tracking-widest font-mono">
+                            Software
+                          </span>
+                          <span className="text-xs font-bold text-white uppercase tracking-wider">
+                            {currentItem.software}
+                          </span>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-
-                {/* Caption */}
-                <div className="mt-4 md:mt-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                  <div className="max-w-2xl">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-primary font-mono text-xs uppercase tracking-widest">
-                        {currentItem.phaseNumber}. {currentItem.phaseLabel}
-                      </span>
-                      <div className="h-px w-8 bg-primary/40" />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-1 tracking-tight">
-                      {currentItem.title}
-                    </h3>
-                    <p className="text-white/60 text-sm leading-relaxed max-w-xl line-clamp-2">
-                      {currentItem.description}
-                    </p>
                   </div>
-                  {currentItem.software && (
-                    <div className="hidden md:flex flex-col items-end gap-1 text-right">
-                      <span className="text-xs text-white/40 uppercase tracking-widest font-mono">
-                        Software
-                      </span>
-                      <span className="text-sm font-bold text-white uppercase tracking-wider">
-                        {currentItem.software}
-                      </span>
-                    </div>
-                  )}
                 </div>
               </motion.div>
             </AnimatePresence>
           </main>
 
           {/* Footer Progress */}
-          <footer className="fixed bottom-0 left-0 right-0 z-50 gallery-footer px-6 md:px-12 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+          <footer className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-t border-border px-6 md:px-12 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="w-full md:w-1/3 flex items-center gap-4">
-              <span className="text-xs font-mono text-white/50">
+              <span className="text-xs font-mono text-muted-foreground">
                 {String(currentIndex + 1).padStart(2, '0')}
               </span>
-              <div className="h-0.5 bg-white/20 grow rounded-full overflow-hidden">
+              <div className="h-0.5 bg-border grow rounded-full overflow-hidden">
                 <motion.div
                   className="h-full bg-primary rounded-full"
                   initial={{ width: 0 }}
@@ -238,14 +249,14 @@ export function MediaGalleryModal({
                   transition={{ duration: 0.3 }}
                 />
               </div>
-              <span className="text-xs font-mono text-white/50">
+              <span className="text-xs font-mono text-muted-foreground">
                 {String(items.length).padStart(2, '0')}
               </span>
             </div>
-            <div className="hidden md:flex items-center gap-2 text-white/40 text-xs uppercase tracking-widest font-mono">
+            <div className="hidden md:flex items-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-mono">
               <span>{t('projectDetail.dragOrUseArrows', 'Use as setas para navegar')}</span>
             </div>
-            <div className="hidden md:block text-xs text-white/40 font-mono uppercase tracking-widest">
+            <div className="hidden md:block text-xs text-muted-foreground font-mono uppercase tracking-widest">
               © 2026 Plann3d.
             </div>
           </footer>
