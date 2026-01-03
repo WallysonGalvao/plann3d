@@ -145,5 +145,24 @@
     "title2": "MOTION",
     "description": "Merging artistic vision with technological precision. Discover how we use cutting-edge tools to create immersive architectural experiences.",
     "exploreCta": "Explore Tools"
+  },
+  "faqPage": {
+    "label": "Get Answers",
+    "title": "Frequently Asked Questions",
+    "description": "Understand how we transform your architectural projects into immersive visual experiences.",
+    "searchPlaceholder": "Search questions...",
+    "noResults": "No questions found for your search.",
+    "filters": {
+      "all": "All",
+      "visualization": "Visualization",
+      "process": "Process",
+      "pricing": "Pricing",
+      "technical": "Technical"
+    },
+    "cta": {
+      "title": "Didn't find what you were looking for?",
+      "description": "Our team is ready to answer any specific questions about your project. Contact us for personalized consulting.",
+      "button": "Talk to our team"
+    }
   }
 }

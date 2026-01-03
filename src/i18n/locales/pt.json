@@ -145,5 +145,24 @@
     "title2": "MOVIMENTO",
     "description": "Fundindo visão artística com precisão tecnológica. Descubra como utilizamos ferramentas de ponta para criar experiências arquitetônicas imersivas.",
     "exploreCta": "Explorar Ferramentas"
+  },
+  "faqPage": {
+    "label": "Tire Suas Dúvidas",
+    "title": "Perguntas Frequentes",
+    "description": "Entenda como transformamos seus projetos arquitetônicos em experiências visuais imersivas.",
+    "searchPlaceholder": "Pesquisar perguntas...",
+    "noResults": "Nenhuma pergunta encontrada para sua busca.",
+    "filters": {
+      "all": "Todos",
+      "visualization": "Visualização",
+      "process": "Processo",
+      "pricing": "Preços",
+      "technical": "Técnico"
+    },
+    "cta": {
+      "title": "Não encontrou o que procurava?",
+      "description": "Nossa equipe está pronta para esclarecer qualquer dúvida específica sobre o seu projeto. Entre em contato para uma consultoria personalizada.",
+      "button": "Fale com nosso time"
+    }
   }
 }
