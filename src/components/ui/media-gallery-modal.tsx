@@ -150,89 +150,80 @@ export function MediaGalleryModal({
             </motion.button>
 
             {/* Current Image Display */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentItem.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                className="w-full h-full flex items-center justify-center overflow-hidden"
-              >
-                {/* Media Container - displays image in original aspect ratio */}
-                <div className="relative h-full flex items-center justify-center">
-                  {currentItem.type === 'video' ? (
-                    // Video with play overlay
-                    <>
-                      <img
-                        src={currentItem.src}
-                        alt={currentItem.title}
-                        className="max-h-full max-w-full object-contain rounded-xl shadow-2xl"
-                      />
-                      {/* Video Play Overlay */}
-                      <div className="absolute inset-0 flex items-center justify-center cursor-pointer rounded-xl">
-                        <motion.div
-                          whileHover={{ scale: 1.1 }}
-                          className="w-20 h-20 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center"
-                        >
-                          <Play size={32} className="text-white ml-1" />
-                        </motion.div>
-                      </div>
-                      {/* Badge */}
-                      {currentItem.badge && (
-                        <div className="absolute top-4 right-4 px-3 py-1.5 bg-black/60 backdrop-blur border border-white/20 rounded-lg text-xs font-bold uppercase tracking-widest text-white flex items-center gap-2">
-                          <Play className="size-3 text-primary" />
-                          {currentItem.badge}
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    // Image
-                    <>
-                      <img
-                        src={currentItem.src}
-                        alt={currentItem.title}
-                        className="max-h-full max-w-full object-contain rounded-xl shadow-2xl"
-                      />
-                      {/* Badge */}
-                      {currentItem.badge && (
-                        <div className="absolute top-4 right-4 px-3 py-1.5 bg-black/60 backdrop-blur border border-white/20 rounded-lg text-xs font-bold uppercase tracking-widest text-white flex items-center gap-2">
-                          <Expand className="size-3 text-primary" />
-                          {currentItem.badge}
-                        </div>
-                      )}
-                    </>
-                  )}
-
-                  {/* Caption - positioned at bottom left of image */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 rounded-b-xl bg-gradient-to-t from-black/80 via-black/50 to-transparent">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                      <div className="max-w-2xl">
-                        <div className="flex items-center gap-3 mb-1">
-                          <span className="text-primary font-mono text-xs uppercase tracking-widest">
-                            {currentItem.phaseNumber}. {currentItem.phaseLabel}
-                          </span>
-                          <div className="h-px w-8 bg-primary/40" />
-                        </div>
-                        <h3 className="text-lg md:text-xl font-display font-bold text-white tracking-tight">
-                          {currentItem.title}
-                        </h3>
-                      </div>
-                      {currentItem.software && (
-                        <div className="hidden md:flex flex-col items-end gap-0.5 text-right">
-                          <span className="text-[10px] text-white/50 uppercase tracking-widest font-mono">
-                            Software
-                          </span>
-                          <span className="text-xs font-bold text-white uppercase tracking-wider">
-                            {currentItem.software}
-                          </span>
-                        </div>
-                      )}
+            <div className="w-full h-full flex items-center justify-center overflow-hidden">
+              {/* Media Container - displays image in original aspect ratio */}
+              <div className="relative h-full flex items-center justify-center">
+                {currentItem.type === 'video' ? (
+                  // Video with play overlay
+                  <>
+                    <img
+                      src={currentItem.src}
+                      alt={currentItem.title}
+                      className="max-h-full max-w-full object-contain rounded-xl shadow-2xl"
+                    />
+                    {/* Video Play Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center cursor-pointer rounded-xl">
+                      <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        className="w-20 h-20 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center"
+                      >
+                        <Play size={32} className="text-white ml-1" />
+                      </motion.div>
                     </div>
+                    {/* Badge */}
+                    {currentItem.badge && (
+                      <div className="absolute top-4 right-4 px-3 py-1.5 bg-black/60 backdrop-blur border border-white/20 rounded-lg text-xs font-bold uppercase tracking-widest text-white flex items-center gap-2">
+                        <Play className="size-3 text-primary" />
+                        {currentItem.badge}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  // Image
+                  <>
+                    <img
+                      src={currentItem.src}
+                      alt={currentItem.title}
+                      className="max-h-full max-w-full object-contain rounded-xl shadow-2xl"
+                    />
+                    {/* Badge */}
+                    {currentItem.badge && (
+                      <div className="absolute top-4 right-4 px-3 py-1.5 bg-black/60 backdrop-blur border border-white/20 rounded-lg text-xs font-bold uppercase tracking-widest text-white flex items-center gap-2">
+                        <Expand className="size-3 text-primary" />
+                        {currentItem.badge}
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {/* Caption - positioned at bottom left of image with gradient overlay */}
+                <div className="absolute bottom-0 left-0 right-0 pt-16 pb-4 px-4 md:pt-20 md:pb-6 md:px-6 rounded-b-xl bg-linear-to-t from-black/90 via-black/60 to-transparent">
+                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div className="max-w-2xl">
+                      <div className="flex items-center gap-3 mb-1">
+                        <span className="text-white/70 font-mono text-xs uppercase tracking-widest">
+                          {currentItem.phaseNumber}. {currentItem.phaseLabel}
+                        </span>
+                        <div className="h-px w-8 bg-white/30" />
+                      </div>
+                      <h3 className="text-lg md:text-xl font-display font-bold text-white tracking-tight">
+                        {currentItem.title}
+                      </h3>
+                    </div>
+                    {currentItem.software && (
+                      <div className="hidden md:flex flex-col items-end gap-0.5 text-right">
+                        <span className="text-[10px] text-white/50 uppercase tracking-widest font-mono">
+                          Software
+                        </span>
+                        <span className="text-xs font-bold text-white uppercase tracking-wider">
+                          {currentItem.software}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            </div>
           </main>
 
           {/* Footer Progress */}
@@ -261,8 +252,9 @@ export function MediaGalleryModal({
             </div>
           </footer>
         </motion.div>
-      )}
-    </AnimatePresence>
+      )
+      }
+    </AnimatePresence >
   )
 }
 
