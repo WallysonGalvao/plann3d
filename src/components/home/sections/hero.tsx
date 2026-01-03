@@ -94,18 +94,10 @@ const HeroSection = () => {
             animate="visible"
             className="lg:col-span-7 space-y-6 lg:space-y-10"
           >
-            {/* Status Tag - Premium */}
-            <motion.div variants={itemVariants}>
-              <span className="label-premium">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                {t('hero.available')}
-              </span>
-            </motion.div>
-
             {/* Headline with Serif Accent */}
             <motion.div variants={itemVariants} className="space-y-1 sm:space-y-2">
-              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold leading-[1.1] sm:leading-[1.05] tracking-tight">
-                <span className="font-serif italic font-normal opacity-80">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold leading-[1.1] sm:leading-[1.05] tracking-tight text-white">
+                <span className="font-serif italic font-normal text-white/80">
                   {t('hero.headline1').split(' ')[0]}{' '}
                 </span>
                 {t('hero.headline1').split(' ').slice(1).join(' ')}
@@ -124,7 +116,7 @@ const HeroSection = () => {
                   transition={{ duration: 0.8, delay: 0.6 }}
                   className="w-1 bg-primary/80 rounded-full shrink-0"
                 />
-                <p className="text-sm md:text-base text-white/60 leading-relaxed">
+                <p className="text-sm md:text-base text-white/70 leading-relaxed">
                   {t('hero.description')}
                 </p>
               </div>
@@ -166,9 +158,9 @@ const HeroSection = () => {
                 className="p-4 lg:p-6 rounded-2xl text-center lg:text-right"
               >
                 <p className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-white">
-                  50<span className="text-foreground/40">+</span>
+                  50<span className="text-white/40">+</span>
                 </p>
-                <p className="text-[10px] sm:text-xs tracking-[0.25em] uppercase text-foreground/50 mt-2">
+                <p className="text-[10px] sm:text-xs tracking-[0.25em] uppercase text-white/50 mt-2">
                   {t('hero.projectsDelivered')}
                 </p>
               </motion.div>
@@ -177,9 +169,9 @@ const HeroSection = () => {
                 className="p-4 lg:p-6 rounded-2xl text-center lg:text-right"
               >
                 <p className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-white">
-                  1000<span className="text-foreground/40">+</span>
+                  1000<span className="text-white/40">+</span>
                 </p>
-                <p className="text-[10px] sm:text-xs tracking-[0.25em] uppercase text-foreground/50 mt-2">
+                <p className="text-[10px] sm:text-xs tracking-[0.25em] uppercase text-white/50 mt-2">
                   {t('hero.renderHours')}
                 </p>
               </motion.div>

@@ -95,9 +95,9 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="relative px-6 lg:px-12 pb-6 bg-[#0B0F17] overflow-hidden">
+    <footer className="relative px-6 lg:px-12 pb-6 bg-background overflow-hidden">
       {/* Decorative background element */}
-      <span className="absolute -right-20 -bottom-32 text-[20rem] font-serif font-normal text-white/[0.015] pointer-events-none select-none">
+      <span className="absolute -right-20 -bottom-32 text-[20rem] font-serif font-normal text-foreground/[0.015] pointer-events-none select-none">
         P3
       </span>
 
@@ -119,7 +119,7 @@ const Footer = () => {
               <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
             <div>
-              <span className="text-xl font-semibold tracking-tight transition-all duration-300 group-hover:text-primary block">
+              <span className="text-xl font-semibold tracking-tight transition-all duration-300 group-hover:text-primary block text-foreground">
                 PLANN3D
               </span>
               <span className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
@@ -129,7 +129,7 @@ const Footer = () => {
           </Link>
 
           {/* Description with serif accent */}
-          <p className="text-sm text-white/50 leading-relaxed max-w-sm">
+          <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
             {/* <span className="font-serif italic text-white/70">Transforming</span>{' '} */}
             {t('footer.description')}
           </p>
@@ -142,7 +142,7 @@ const Footer = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-card glow-hover w-11 h-11 rounded-xl flex items-center justify-center text-white/60 hover:text-primary transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+                className="glass-card glow-hover w-11 h-11 rounded-xl flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110 hover:-translate-y-1"
                 style={{ animationDelay: `${index * 0.1}s` }}
                 aria-label={social.label}
               >
@@ -155,36 +155,36 @@ const Footer = () => {
         {/* Column 2: Navigation */}
         <div className="rounded-2xl p-6 lg:p-8 w-full lg:w-auto lg:min-w-[180px]">
           <h4 className="font-semibold mb-6 text-lg">
-            <span className="font-serif italic font-normal text-white">{t('footer.navigation')}</span>
+            <span className="font-serif italic font-normal text-foreground">{t('footer.navigation')}</span>
           </h4>
           <nav className="space-y-3">
             <Link
               to="/"
-              className="block text-sm text-white/60 hover:text-white transition-all duration-300"
+              className="block text-sm text-muted-foreground hover:text-foreground transition-all duration-300"
             >
               {t('nav.home')}
             </Link>
             <Link
               to="/projects"
-              className="block text-sm text-white/60 hover:text-white transition-all duration-300"
+              className="block text-sm text-muted-foreground hover:text-foreground transition-all duration-300"
             >
               {t('nav.projects')}
             </Link>
             <Link
               to="/tools"
-              className="block text-sm text-white/60 hover:text-white transition-all duration-300"
+              className="block text-sm text-muted-foreground hover:text-foreground transition-all duration-300"
             >
               {t('nav.tools')}
             </Link>
             <Link
               to="/faq"
-              className="block text-sm text-white/60 hover:text-white transition-all duration-300"
+              className="block text-sm text-muted-foreground hover:text-foreground transition-all duration-300"
             >
               {t('nav.faq')}
             </Link>
             <Link
               to="/contact"
-              className="block text-sm text-white/60 hover:text-white transition-all duration-300"
+              className="block text-sm text-muted-foreground hover:text-foreground transition-all duration-300"
             >
               {t('nav.contact')}
             </Link>
@@ -194,13 +194,13 @@ const Footer = () => {
         {/* Column 2: Contact - Glass card */}
         <div className=" rounded-2xl p-6 lg:p-8 w-full lg:w-auto lg:min-w-[280px]">
           <h4 className="font-semibold mb-6 text-lg">
-            <span className="font-serif italic font-normal text-white">{t('footer.contact').split(' ')[0]}</span>{' '}
+            <span className="font-serif italic font-normal text-foreground">{t('footer.contact').split(' ')[0]}</span>{' '}
             {t('footer.contact').split(' ').slice(1).join(' ')}
           </h4>
           <div className="space-y-4">
             <a
               href={`mailto:${t('footer.email')}`}
-              className="flex items-center gap-3 text-sm text-white/60 hover:text-white transition-all duration-300 group"
+              className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-all duration-300 group"
             >
               <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary">
@@ -212,7 +212,7 @@ const Footer = () => {
             </a>
             <a
               href={`tel:${t('footer.phone')}`}
-              className="flex items-center gap-3 text-sm text-white/60 hover:text-white transition-all duration-300 group"
+              className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-all duration-300 group"
             >
               <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary">
@@ -229,8 +229,8 @@ const Footer = () => {
                 </svg>
               </span>
               <div>
-                <p className="text-sm text-white/60">{t('footer.addressLine1')}</p>
-                <p className="text-sm text-white/60">{t('footer.addressLine2')}</p>
+                <p className="text-sm text-muted-foreground">{t('footer.addressLine1')}</p>
+                <p className="text-sm text-muted-foreground">{t('footer.addressLine2')}</p>
               </div>
             </div>
           </div>
@@ -239,19 +239,19 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="relative z-10 pt-10 mt-10 flex flex-col-reverse md:flex-row justify-between items-center gap-4">
-        <p className="text-xs text-white/30 text-center md:text-left">
+        <p className="text-xs text-muted-foreground/50 text-center md:text-left">
           © {currentYear} PLANN3D. {t('footer.copyright', { year: '' })}
         </p>
         <div className="flex gap-8">
           <a
             href="#"
-            className="text-xs text-white/30 hover:text-white transition-all duration-300 link-premium"
+            className="text-xs text-muted-foreground/50 hover:text-foreground transition-all duration-300 link-premium"
           >
             {t('footer.privacy')}
           </a>
           <a
             href="#"
-            className="text-xs text-white/30 hover:text-white transition-all duration-300 link-premium"
+            className="text-xs text-muted-foreground/50 hover:text-foreground transition-all duration-300 link-premium"
           >
             {t('footer.terms')}
           </a>

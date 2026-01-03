@@ -1,7 +1,8 @@
 import { Link, useLocation } from '@tanstack/react-router'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import { useState } from 'react'
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import LanguageSwitcher from './language-switcher'
@@ -16,9 +17,29 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const location = useLocation()
   const { t } = useTranslation()
   const { scrollY } = useScroll()
+  const { theme } = useTheme()
+
+  console.warn('🚀 Header Component Rendering')
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Debug effect to log theme changes
+  useEffect(() => {
+    console.warn('🔄 Header State Changed:', {
+      pathname: location.pathname,
+      isScrolled,
+      hasTransparentHeader: ['/', '/tools', '/faq'].includes(location.pathname),
+      mounted,
+      theme,
+    })
+  }, [location.pathname, isScrolled, mounted, theme])
 
   // Track scroll direction for hide/show behavior
   useMotionValueEvent(scrollY, 'change', (latest) => {
@@ -45,12 +66,34 @@ const Header = () => {
     return location.pathname === href
   }
 
+  // Pages that should have transparent header with white text when at top
+  const hasTransparentHeader = ['/', '/tools', '/faq'].includes(location.pathname)
+  const shouldUseWhiteText = !isScrolled && hasTransparentHeader
+
+  // Get the correct foreground color based on theme
+  const getForegroundColor = () => {
+    const willReturn = shouldUseWhiteText
+      ? '#ffffff'
+      : !mounted
+        ? 'oklch(0.98 0.02 250)'
+        : theme === 'light'
+          ? 'oklch(0.15 0.02 250)'
+          : 'oklch(0.98 0.02 250)'
+
+    if (shouldUseWhiteText) return '#ffffff'
+    // If not mounted yet, default to dark theme color to match server render
+    if (!mounted) return 'oklch(0.98 0.02 250)'
+    // For light theme, use dark text. For dark theme, use light text
+    return theme === 'light' ? 'oklch(0.15 0.02 250)' : 'oklch(0.98 0.02 250)'
+  }
+
   return (
     <motion.header
       initial={{ y: 0 }}
       animate={{
         y: isHidden && !isMobileMenuOpen ? -100 : 0,
-        backgroundColor: isScrolled ? 'rgba(0, 0, 0, 0.8)' : 'transparent',
+        backgroundColor:
+          isScrolled || !hasTransparentHeader ? 'var(--color-background)' : 'rgba(0, 0, 0, 0)',
       }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
       className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg"
@@ -67,7 +110,10 @@ const Header = () => {
               transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             />
             <motion.span
-              className="text-lg font-semibold tracking-tight"
+              className="text-lg font-semibold tracking-tight transition-colors"
+              style={{
+                color: getForegroundColor(),
+              }}
               whileHover={{ x: 2 }}
               transition={{ duration: 0.2 }}
             >
@@ -83,10 +129,10 @@ const Header = () => {
                   key={link.label}
                   to={link.href}
                   className={cn(
-                    "px-4 py-2 text-sm font-medium transition-colors duration-300 rounded-full",
+                    'px-4 py-2 text-sm font-medium transition-colors duration-300 rounded-full',
                     isActive(link.href)
-                      ? "text-foreground bg-background/80"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? 'text-foreground bg-background/80'
+                      : 'text-muted-foreground hover:text-foreground',
                   )}
                 >
                   {link.label}
@@ -96,7 +142,12 @@ const Header = () => {
           </nav>
 
           {/* CTA Button & Language/Theme Switcher */}
-          <div className="hidden md:flex items-center gap-2">
+          <div
+            className="hidden md:flex items-center gap-2 transition-colors"
+            style={{
+              color: getForegroundColor(),
+            }}
+          >
             <ThemeSwitcher />
             <LanguageSwitcher />
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
@@ -107,11 +158,19 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex items-center gap-2">
+          <div
+            className="md:hidden flex items-center gap-2 transition-colors"
+            style={{
+              color: getForegroundColor(),
+            }}
+          >
             <ThemeSwitcher />
             <LanguageSwitcher />
             <motion.button
-              className="p-2 text-foreground"
+              className="p-2 transition-colors"
+              style={{
+                color: getForegroundColor(),
+              }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}

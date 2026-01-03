@@ -36,11 +36,11 @@ function FaqPage() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
 
-      <main className="pt-20">
+      <main>
         {/* Hero Section */}
-        <section className="relative py-20 lg:py-32 overflow-hidden">
+        <section className="relative min-h-screen flex items-center overflow-hidden">
           {/* Background Image */}
-          <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0">
             <div
               className="w-full h-full bg-cover bg-center bg-no-repeat"
               style={{

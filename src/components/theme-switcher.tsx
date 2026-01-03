@@ -2,6 +2,7 @@
 
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components/ui/button'
@@ -23,6 +24,12 @@ export function ThemeSwitcher({
 }: ThemeSwitcherProps) {
   const { theme, setTheme } = useTheme()
   const { t } = useTranslation()
+  const [mounted, setMounted] = useState(false)
+
+  // Prevent hydration mismatch by only rendering theme-specific content after mount
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <DropdownMenu>
@@ -32,7 +39,7 @@ export function ThemeSwitcher({
           size="sm"
           className={className}
         >
-          {theme === 'light' ? (
+          {!mounted || theme === 'light' ? (
             <Sun className={showLabel ? 'w-4 h-4 mr-2' : 'w-4 h-4'} />
           ) : (
             <Moon className={showLabel ? 'w-4 h-4 mr-2' : 'w-4 h-4'} />
