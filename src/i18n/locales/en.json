@@ -155,7 +155,10 @@
     "client": "Client",
     "status": "Status",
     "nextProject": "Next Project",
-    "backToProjects": "Back to Projects"
+    "backToProjects": "Back to Projects",
+    "gallery": "Gallery",
+    "closeGallery": "Close",
+    "dragOrUseArrows": "Drag or use arrows"
   },
   "toolsPage": {
     "label": "Our Tech Arsenal",

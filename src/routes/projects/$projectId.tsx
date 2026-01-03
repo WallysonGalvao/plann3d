@@ -1,11 +1,15 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
-import { ArrowLeft, ArrowRight, ChevronRight, Play } from 'lucide-react'
-import { useRef } from 'react'
+import { ArrowLeft, ArrowRight, ChevronRight, Expand, Play } from 'lucide-react'
+import { useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
+import {
+  GalleryMediaItem,
+  MediaGalleryModal,
+} from '@/components/ui/media-gallery-modal'
 import { projectDetails } from '@/data/projects'
 import { fadeInUp, scaleIn, staggerContainer } from '@/lib/motion-variants'
 
@@ -17,6 +21,10 @@ function ProjectDetailPage() {
   const { projectId } = Route.useParams()
   const { t } = useTranslation()
   const heroRef = useRef<HTMLElement>(null)
+
+  // Gallery modal state
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false)
+  const [galleryInitialIndex, setGalleryInitialIndex] = useState(0)
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -39,6 +47,65 @@ function ProjectDetailPage() {
   const isPhase1InView = useInView(phase1Ref, { once: true, margin: '-100px' })
   const isPhase2InView = useInView(phase2Ref, { once: true, margin: '-100px' })
   const isPhase3InView = useInView(phase3Ref, { once: true, margin: '-100px' })
+
+  // Collect all media items for the gallery
+  const galleryItems: GalleryMediaItem[] = useMemo(() => {
+    const items: GalleryMediaItem[] = []
+
+    project.phases.forEach((phase) => {
+      // Phase 1 style: single image
+      if (phase.image) {
+        items.push({
+          id: `${phase.number}-main`,
+          type: 'image',
+          src: phase.image,
+          phaseNumber: phase.number,
+          phaseLabel: phase.label,
+          title: phase.title,
+          description: phase.description,
+          badge: phase.badge,
+        })
+      }
+
+      // Phase 2 style: image array
+      if (phase.images) {
+        phase.images.forEach((img, idx) => {
+          items.push({
+            id: `${phase.number}-${idx}`,
+            type: 'image',
+            src: img,
+            phaseNumber: phase.number,
+            phaseLabel: phase.label,
+            title: phase.title,
+            description: phase.description,
+          })
+        })
+      }
+
+      // Phase 3 style: video thumbnail
+      if (phase.videoImage) {
+        items.push({
+          id: `${phase.number}-video`,
+          type: 'video',
+          src: phase.videoImage,
+          phaseNumber: phase.number,
+          phaseLabel: phase.label,
+          title: phase.title,
+          description: phase.description,
+          badge: 'Video',
+        })
+      }
+    })
+
+    return items
+  }, [project])
+
+  // Function to open gallery at a specific index
+  const openGallery = (itemId: string) => {
+    const index = galleryItems.findIndex((item) => item.id === itemId)
+    setGalleryInitialIndex(index >= 0 ? index : 0)
+    setIsGalleryOpen(true)
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -202,7 +269,13 @@ function ProjectDetailPage() {
               transition={{ duration: 0.8 }}
               className="order-1 lg:order-2 relative group"
             >
-              <div className="aspect-4/5 md:aspect-square w-full rounded-2xl overflow-hidden relative">
+              <div
+                onClick={() => openGallery(`${project.phases[0].number}-main`)}
+                className="aspect-4/5 md:aspect-square w-full rounded-2xl overflow-hidden relative cursor-pointer"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && openGallery(`${project.phases[0].number}-main`)}
+              >
                 <motion.div
                   className="absolute inset-0 bg-cover bg-center grayscale contrast-125"
                   style={{ backgroundImage: `url('${project.phases[0].image}')` }}
@@ -226,6 +299,12 @@ function ProjectDetailPage() {
                     </div>
                   </motion.div>
                 )}
+                {/* Expand overlay */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 size-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
+                    <Expand size={24} className="text-white" />
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -277,7 +356,11 @@ function ProjectDetailPage() {
                 {/* Main Render */}
                 <motion.div
                   variants={scaleIn}
-                  className="md:col-span-8 h-full rounded-2xl overflow-hidden relative group"
+                  onClick={() => openGallery(`${project.phases[1].number}-0`)}
+                  className="md:col-span-8 h-full rounded-2xl overflow-hidden relative group cursor-pointer"
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === 'Enter' && openGallery(`${project.phases[1].number}-0`)}
                 >
                   <motion.div
                     className="absolute inset-0 bg-cover bg-center"
@@ -285,14 +368,23 @@ function ProjectDetailPage() {
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.7, ease: 'easeOut' }}
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
+                  {/* Expand overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 size-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
+                      <Expand size={24} className="text-white" />
+                    </div>
+                  </div>
                 </motion.div>
 
-                {/* Detail Renders */}
                 <div className="md:col-span-4 flex flex-col gap-4 h-full">
                   <motion.div
                     variants={scaleIn}
-                    className="flex-1 rounded-2xl overflow-hidden relative group"
+                    onClick={() => openGallery(`${project.phases[1].number}-1`)}
+                    className="flex-1 rounded-2xl overflow-hidden relative group cursor-pointer"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && openGallery(`${project.phases[1].number}-1`)}
                   >
                     <motion.div
                       className="absolute inset-0 bg-cover bg-center"
@@ -300,10 +392,20 @@ function ProjectDetailPage() {
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.7, ease: 'easeOut' }}
                     />
+                    {/* Expand overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 size-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
+                        <Expand size={18} className="text-white" />
+                      </div>
+                    </div>
                   </motion.div>
                   <motion.div
                     variants={scaleIn}
-                    className="flex-1 rounded-2xl overflow-hidden relative group"
+                    onClick={() => openGallery(`${project.phases[1].number}-2`)}
+                    className="flex-1 rounded-2xl overflow-hidden relative group cursor-pointer"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && openGallery(`${project.phases[1].number}-2`)}
                   >
                     <motion.div
                       className="absolute inset-0 bg-cover bg-center"
@@ -311,6 +413,12 @@ function ProjectDetailPage() {
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.7, ease: 'easeOut' }}
                     />
+                    {/* Expand overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 size-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
+                        <Expand size={18} className="text-white" />
+                      </div>
+                    </div>
                   </motion.div>
                 </div>
               </motion.div>
@@ -500,6 +608,14 @@ function ProjectDetailPage() {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* Fullscreen Media Gallery Modal */}
+      <MediaGalleryModal
+        isOpen={isGalleryOpen}
+        onClose={() => setIsGalleryOpen(false)}
+        items={galleryItems}
+        initialIndex={galleryInitialIndex}
+      />
     </div>
   )
 }

@@ -155,7 +155,10 @@
     "client": "Cliente",
     "status": "Status",
     "nextProject": "Próximo Projeto",
-    "backToProjects": "Voltar para Projetos"
+    "backToProjects": "Voltar para Projetos",
+    "gallery": "Galeria",
+    "closeGallery": "Fechar",
+    "dragOrUseArrows": "Arraste ou use as setas"
   },
   "toolsPage": {
     "label": "Nosso Arsenal Tecnológico",
