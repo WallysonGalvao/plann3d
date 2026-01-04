@@ -1,4 +1,6 @@
 {
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
   "files.watcherExclude": {
     "**/routeTree.gen.ts": true
   },

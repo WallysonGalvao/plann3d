@@ -1,0 +1,134 @@
+{
+  "nav": {
+    "work": "Trabalhos",
+    "process": "Processo",
+    "studio": "Estúdio",
+    "contact": "Contato",
+    "letsTalk": "Fale Conosco"
+  },
+  "hero": {
+    "available": "Disponível para Novos Projetos",
+    "headline1": "REALIDADE",
+    "headline2": "CINEMATOGRÁFICA.",
+    "description": "Conectamos imaginação e realidade através de visualização de alta qualidade e narrativa arquitetônica imersiva.",
+    "viewProjects": "Ver Projetos",
+    "showreel": "Showreel",
+    "projectsDelivered": "Projetos Entregues",
+    "renderHours": "Horas de Render",
+    "scroll": "Rolar"
+  },
+  "projects": {
+    "label": "Trabalhos Selecionados",
+    "title": "Últimos projetos",
+    "viewAll": "Ver todos os projetos",
+    "nordicRetreat": "Refúgio Nórdico",
+    "voidMuseum": "Museu Void",
+    "vertexTower": "Torre Vertex"
+  },
+  "processSection": {
+    "label": "Nosso Processo",
+    "step1Title": "Conceito & Visão",
+    "step2Title": "Luz & Atmosfera",
+    "step3Title": "Movimento & Vida",
+    "step4Title": "Experiência Final"
+  },
+  "services": {
+    "label": "O Que Criamos",
+    "title": "Serviços",
+    "description": "Transformamos conceitos arquitetônicos em experiências visuais envolventes que inspiram e comunicam.",
+    "archViz": "Visualização Arquitetônica",
+    "archVizDesc": "Imagens fotorrealistas que capturam a essência do seu design com clareza impressionante e profundidade emocional.",
+    "animation": "Animação Cinematográfica",
+    "animationDesc": "Narrativas visuais dinâmicas que guiam os espectadores pelos espaços, revelando atmosfera e experiência.",
+    "virtual": "Experiências Virtuais",
+    "virtualDesc": "Passeios imersivos que transportam clientes para ambientes não construídos com presença espacial completa.",
+    "presentation": "Design de Apresentação",
+    "presentationDesc": "Visuais e apresentações prontas para competição que comunicam visão com impacto e precisão."
+  },
+  "about": {
+    "label": "O Estúdio",
+    "title": "PLANN3D Visual Studio",
+    "desc1": "Somos um estúdio criativo dedicado à visualização arquitetônica, animação e experiências visuais imersivas. Nosso trabalho vive na interseção entre arte e arquitetura."
+  },
+  "footer": {
+    "description": "Estúdio de visualização de alta qualidade dedicado a criar histórias cinematográficas para o ambiente construído.",
+    "contact": "Contato",
+    "email": "contato@plann3d.com",
+    "phone": "+55 61 99598-2807",
+    "addressLine1": "",
+    "addressLine2": "Brasília, Distrito Federal, Brasil",
+    "copyright": "© {{year}} PLANN3D Visual Studio. Todos os direitos reservados.",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Serviço"
+  },
+  "languageSwitcher": {
+    "en": "English",
+    "pt": "Português"
+  },
+  "contactPage": {
+    "label": "Fale Conosco",
+    "title1": "VAMOS",
+    "title2": "CONVERSAR",
+    "description": "Pronto para visualizar sua visão? Seja renderização arquitetônica de alta qualidade ou experiências VR imersivas, vamos construir algo icônico juntos.",
+    "form": {
+      "name": "Nome",
+      "namePlaceholder": "João Silva",
+      "email": "Email",
+      "emailPlaceholder": "joao@empresa.com",
+      "projectType": "Tipo de Projeto",
+      "selectProjectType": "Selecione o tipo de projeto",
+      "archViz": "Visualização Arquitetônica",
+      "interiorViz": "Visualização de Interiores",
+      "animation": "Animação / Walkthrough",
+      "virtualExp": "Experiência Virtual",
+      "competition": "Entrada em Competição",
+      "other": "Outro",
+      "projectDetails": "Detalhes do Projeto",
+      "projectDetailsPlaceholder": "Conte-nos sobre seu cronograma, escopo e visão...",
+      "sendInquiry": "Enviar Consulta",
+      "sending": "Enviando...",
+      "privacyNote": "Ao enviar este formulário, você concorda com nossa",
+      "privacyPolicy": "Política de Privacidade",
+      "successTitle": "Consulta Enviada com Sucesso",
+      "successDesc": "Obrigado por entrar em contato. Retornaremos em 24-48 horas.",
+      "errors": {
+        "nameRequired": "Nome é obrigatório",
+        "nameMax": "Nome deve ter menos de 100 caracteres",
+        "invalidEmail": "Endereço de email inválido",
+        "emailMax": "Email deve ter menos de 255 caracteres",
+        "selectProjectType": "Por favor, selecione um tipo de projeto",
+        "detailsRequired": "Detalhes do projeto são obrigatórios",
+        "detailsMax": "Detalhes devem ter menos de 2000 caracteres"
+      }
+    }
+  },
+  "projectsPage": {
+    "title1": "VER TODOS",
+    "title2": "OS PROJETOS",
+    "description": "Experimente nossas visões arquitetônicas através de animações imersivas e renders hiper-realistas. Uma coleção curada dos nossos melhores trabalhos.",
+    "filters": {
+      "all": "Todos",
+      "exteriors": "Exteriores",
+      "interiors": "Interiores",
+      "animation": "Animação"
+    },
+    "categories": {
+      "residential": "Residencial",
+      "commercial": "Comercial",
+      "animation": "Animação"
+    },
+    "loadMore": "Explorar Mais Projetos",
+    "showingCount": "Mostrando {{current}} de {{total}} projetos"
+  },
+  "projectDetail": {
+    "scrollToExplore": "Scroll para Explorar",
+    "watchFullFilm": "Ver Filme Completo",
+    "vizArtDirection": "Visualização Arquitetônica & Direção de Arte",
+    "year": "Ano",
+    "location": "Localização",
+    "client": "Cliente",
+    "status": "Status",
+    "nextProject": "Próximo Projeto",
+    "backToProjects": "Voltar para Projetos"
+  }
+}
