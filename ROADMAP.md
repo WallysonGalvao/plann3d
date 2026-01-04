@@ -26,13 +26,13 @@ gantt
 
 ## 🚀 Oportunidades de Melhoria
 
-### 1. Performance & Otimização
+### 1. Performance & Otimização ✅ IMPLEMENTADO
 
-| Área        | Situação Atual                                          | Sugestão                                                                   |
-| ----------- | ------------------------------------------------------- | -------------------------------------------------------------------------- |
-| **Imagens** | Usando `backgroundImage` com URLs diretas               | Implementar lazy loading com `<picture>` e formatos WebP/AVIF              |
-| **Código**  | Código bem organizado mas sem code-splitting específico | Adicionar dynamic imports para páginas e componentes pesados               |
-| **Assets**  | Vídeos carregados diretamente                           | Implementar preload para mídia crítica ou usar CDN (Cloudflare R2, AWS S3) |
+| Área        | Situação Atual                                              | Sugestão                                                                   | Status     |
+| ----------- | ----------------------------------------------------------- | -------------------------------------------------------------------------- | ---------- |
+| **Imagens** | ~~Usando `backgroundImage` com URLs diretas~~               | Implementar lazy loading com `<picture>` e formatos WebP/AVIF              | ✅ Feito   |
+| **Código**  | ~~Código bem organizado mas sem code-splitting específico~~ | Adicionar dynamic imports para páginas e componentes pesados               | ✅ Feito   |
+| **Assets**  | Vídeos carregados diretamente                               | Implementar preload para mídia crítica ou usar CDN (Cloudflare R2, AWS S3) | 🔄 Parcial |
 
 ---
 
@@ -46,37 +46,37 @@ gantt
 
 ---
 
-### 3. Projetos & Portfólio
+### 3. Projetos & Portfólio ✅ IMPLEMENTADO
 
-| Oportunidade           | Descrição                                                         |
-| ---------------------- | ----------------------------------------------------------------- |
-| **Expandir portfólio** | Atualmente só tem 1 projeto (`torre-de-tv`), adicionar mais cases |
-| **Filtros**            | Implementar filtros por categoria/tipo na página `/projects`      |
-| **Pesquisa**           | Adicionar busca no portfólio                                      |
-| **Paginação**          | Para quando houver muitos projetos                                |
+| Oportunidade           | Descrição                                                                    | Status       |
+| ---------------------- | ---------------------------------------------------------------------------- | ------------ |
+| **Expandir portfólio** | ~~Atualmente só tem 1 projeto (`torre-de-tv`)~~, adicionados 2 mock projects | ✅ Feito     |
+| **Filtros**            | Implementar filtros por categoria/tipo na página `/projects`                 | ✅ Já existe |
+| **Pesquisa**           | Adicionar busca no portfólio                                                 | ✅ Feito     |
+| **Paginação**          | Para quando houver muitos projetos                                           | ⏳ Pendente  |
 
 ---
 
-### 4. SEO & Marketing
+### 4. SEO & Marketing 🔄 PARCIAL
 
-| Item                       | Status           | Sugestão                                                                       |
-| -------------------------- | ---------------- | ------------------------------------------------------------------------------ |
-| **Blog/Artigos**           | ❌ Não existe    | Criar seção de blog para conteúdo educativo sobre renderização 3D, cases, etc. |
-| **Schema.org por projeto** | ✅ Existe função | Garantir que cada página de projeto tem schema dinâmico                        |
-| **og-image**               | Imagem estática  | Gerar OG images dinâmicas por projeto (usando Satori ou similar)               |
-| **Analytics**              | Não detectado    | Implementar Google Analytics 4 / Plausible / Fathom                            |
+| Item                       | Status          | Sugestão                                                                       |
+| -------------------------- | --------------- | ------------------------------------------------------------------------------ |
+| **Blog/Artigos**           | ❌ Não existe   | Criar seção de blog para conteúdo educativo sobre renderização 3D, cases, etc. |
+| **Schema.org por projeto** | ✅ Implementado | Cada página de projeto agora tem schema dinâmico                               |
+| **og-image**               | ✅ Implementado | Meta tags OG dinâmicas por projeto (heroImage)                                 |
+| **Analytics**              | ⏳ Pendente     | Implementar Google Analytics 4 / Plausible / Fathom                            |
 
 ---
 
 ### 5. UX/UI Melhorias
 
-| Área                 | Sugestão                                               |
-| -------------------- | ------------------------------------------------------ |
-| **Skeleton loading** | Adicionar estados de carregamento para imagens/galeria |
-| **404 customizada**  | Criar página 404 branded                               |
-| **Breadcrumbs**      | Adicionar navegação em páginas internas                |
-| **Back to top**      | Botão para retornar ao topo em páginas longas          |
-| **Progress bar**     | Indicador de scroll no header para páginas de projeto  |
+| Área                 | Sugestão                                               | Status      |
+| -------------------- | ------------------------------------------------------ | ----------- |
+| **Skeleton loading** | Adicionar estados de carregamento para imagens/galeria | ✅ Feito    |
+| **404 customizada**  | Criar página 404 branded                               | ⏳ Pendente |
+| **Breadcrumbs**      | Adicionar navegação em páginas internas                | ⏳ Pendente |
+| **Back to top**      | Botão para retornar ao topo em páginas longas          | ⏳ Pendente |
+| **Progress bar**     | Indicador de scroll no header para páginas de projeto  | ⏳ Pendente |
 
 ---
 
@@ -250,20 +250,20 @@ src/
 
 ---
 
-### 2.3 Performance
+### 2.3 Performance ✅ IMPLEMENTADO
 
-| Item                         | Prioridade | Esforço | Descrição                       |
-| ---------------------------- | ---------- | ------- | ------------------------------- |
-| Otimização de imagens        | 🔴 Alta    | Médio   | WebP/AVIF, lazy loading, srcset |
-| Code splitting               | 🟡 Média   | Baixo   | Dynamic imports para rotas      |
-| CDN para assets              | 🟡 Média   | Médio   | Cloudflare R2 ou AWS S3         |
-| Preload de recursos críticos | 🟢 Baixa   | Baixo   | Fonts e hero images             |
+| Item                         | Prioridade | Esforço | Descrição                       | Status      |
+| ---------------------------- | ---------- | ------- | ------------------------------- | ----------- |
+| Otimização de imagens        | 🔴 Alta    | Médio   | WebP/AVIF, lazy loading, srcset | ✅ Feito    |
+| Code splitting               | 🟡 Média   | Baixo   | Dynamic imports para rotas      | ✅ Feito    |
+| CDN para assets              | 🟡 Média   | Médio   | Cloudflare R2 ou AWS S3         | ⏳ Pendente |
+| Preload de recursos críticos | 🟢 Baixa   | Baixo   | Fonts e hero images             | ✅ Feito    |
 
 #### Tarefas Técnicas
 
-- [ ] Implementar componente `<OptimizedImage />` com blur placeholder
+- [x] Implementar componente `<OptimizedImage />` com blur placeholder
 - [ ] Configurar Vite para gerar múltiplos formatos
-- [ ] Adicionar `loading="lazy"` em imagens abaixo do fold
+- [x] Adicionar `loading="lazy"` em imagens abaixo do fold
 - [ ] Configurar CDN e atualizar URLs de assets
 
 ---

@@ -430,5 +430,21 @@
       "title": "Contato - Plann3d",
       "description": "Entre em contato para transformar seu projeto arquitetônico em visualização 3D cinematográfica."
     }
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "description": "A página que você procura não existe ou foi movida. Que tal explorar nossos projetos?",
+    "goHome": "Voltar ao Início",
+    "viewProjects": "Ver Projetos",
+    "quickLinks": "Links rápidos:",
+    "links": {
+      "home": "Início",
+      "projects": "Projetos",
+      "contact": "Contato"
+    }
+  },
+  "breadcrumbs": {
+    "home": "Início",
+    "projects": "Projetos"
   }
 }

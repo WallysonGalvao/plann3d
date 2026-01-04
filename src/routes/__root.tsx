@@ -2,6 +2,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
+import { NotFoundPage } from '../components/not-found-page'
 import { ThemeProvider } from '../components/theme-provider'
 import { DEFAULT_SEO, LOCAL_BUSINESS_SCHEMA, ORGANIZATION_SCHEMA, WEBSITE_SCHEMA } from '../lib/seo'
 import appCss from '../styles.css?url'
@@ -47,6 +48,9 @@ export const Route = createRootRoute({
       { rel: 'stylesheet', href: appCss },
     ],
   }),
+
+  // Custom 404 page
+  notFoundComponent: NotFoundPage,
 
   shellComponent: RootDocument,
 })

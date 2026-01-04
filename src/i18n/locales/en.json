@@ -430,5 +430,21 @@
       "title": "Contact - Plann3d",
       "description": "Get in touch to transform your architectural project into cinematic 3D visualization."
     }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved. How about exploring our projects?",
+    "goHome": "Back to Home",
+    "viewProjects": "View Projects",
+    "quickLinks": "Quick links:",
+    "links": {
+      "home": "Home",
+      "projects": "Projects",
+      "contact": "Contact"
+    }
+  },
+  "breadcrumbs": {
+    "home": "Home",
+    "projects": "Projects"
   }
 }

@@ -7,9 +7,13 @@ import { useTranslation } from 'react-i18next'
 import type { GalleryMediaItem } from '@/components/media-gallery-modal'
 
 import Header from '@/components/header.tsx'
+import { BackToTop } from '@/components/ui/back-to-top'
+import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 import { OptimizedBackground } from '@/components/ui/optimized-background'
-import { getProjectWithNext } from '@/data/projects'
+import { ScrollProgress } from '@/components/ui/scroll-progress'
+import { getProjectById, getProjectWithNext } from '@/data/projects'
 import { fadeInUp, scaleIn, staggerContainer } from '@/lib/motion-variants'
+import { createProjectSchema } from '@/lib/seo'
 
 // Lazy load heavy components for better initial load
 const MediaGalleryModal = lazy(() =>
@@ -21,6 +25,44 @@ const VideoPlayer = lazy(() =>
 
 export const Route = createFileRoute('/projects/$projectId')({
   component: ProjectDetailPage,
+  // Dynamic SEO meta tags and Schema.org for each project
+  head: ({ params }) => {
+    const project = getProjectById(params.projectId, 'pt')
+    if (!project) {
+      return {
+        meta: [{ title: 'Projeto não encontrado | Plann3d' }],
+      }
+    }
+
+    const ogImage = project.heroImage || project.image
+    const projectUrl = `https://plann3d.com.br/projects/${project.id}`
+
+    return {
+      meta: [
+        { title: `${project.title} | Plann3d` },
+        { name: 'description', content: project.description || `Visualização arquitetônica: ${project.title}` },
+        // Open Graph
+        { property: 'og:title', content: project.title },
+        { property: 'og:description', content: project.description },
+        { property: 'og:image', content: ogImage },
+        { property: 'og:url', content: projectUrl },
+        { property: 'og:type', content: 'article' },
+        // Twitter
+        { name: 'twitter:title', content: project.title },
+        { name: 'twitter:description', content: project.description },
+        { name: 'twitter:image', content: ogImage },
+      ],
+      links: [
+        { rel: 'canonical', href: projectUrl },
+      ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(createProjectSchema(project)),
+        },
+      ],
+    }
+  },
 })
 
 function ProjectDetailPage() {
@@ -132,7 +174,22 @@ function ProjectDetailPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* Scroll Progress Indicator */}
+      <ScrollProgress />
+
       <Header />
+
+      {/* Breadcrumbs */}
+      <div className="absolute top-24 left-6 md:left-12 z-20">
+        <Breadcrumbs
+          items={[
+            { label: t('breadcrumbs.home'), href: '/' },
+            { label: t('breadcrumbs.projects'), href: '/projects' },
+            { label: project.title },
+          ]}
+          className="text-white/80"
+        />
+      </div>
 
       {/* Hero Section */}
       <header
@@ -615,6 +672,9 @@ function ProjectDetailPage() {
           initialIndex={galleryInitialIndex}
         />
       </Suspense>
+
+      {/* Back to Top Button */}
+      <BackToTop />
     </div>
   )
 }
