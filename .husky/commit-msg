@@ -1,0 +1,25 @@
+# Validate commit message format
+# Examples of valid messages:
+# feat: add login page
+# fix: resolve authentication bug
+# docs: update README
+# chore: update dependencies
+
+commit_msg=$(cat "$1")
+
+# Check if commit message follows conventional commits format
+if ! echo "$commit_msg" | grep -qE "^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .{1,}"; then
+  echo "❌ Invalid commit message format!"
+  echo ""
+  echo "Commit message must follow the Conventional Commits specification:"
+  echo "  <type>(<scope>): <description>"
+  echo ""
+  echo "Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert"
+  echo ""
+  echo "Examples:"
+  echo "  feat: add login page"
+  echo "  fix(auth): resolve token expiration"
+  echo "  docs: update API documentation"
+  echo ""
+  exit 1
+fi

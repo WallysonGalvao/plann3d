@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Home -->
+  <url>
+    <loc>https://plann3d.com.br/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://plann3d.com.br/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://plann3d.com.br/?lang=en" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Projects -->
+  <url>
+    <loc>https://plann3d.com.br/projects</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Project: Torre de TV -->
+  <url>
+    <loc>https://plann3d.com.br/projects/torre-de-tv</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Project: Residência Horizonte -->
+  <url>
+    <loc>https://plann3d.com.br/projects/residencia-horizonte</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Project: Casa Brutalista -->
+  <url>
+    <loc>https://plann3d.com.br/projects/casa-brutalista</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Tools -->
+  <url>
+    <loc>https://plann3d.com.br/tools</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- FAQ -->
+  <url>
+    <loc>https://plann3d.com.br/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Contact -->
+  <url>
+    <loc>https://plann3d.com.br/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+</urlset>

@@ -1,0 +1,212 @@
+{
+  "nav": {
+    "home": "Home",
+    "work": "Work",
+    "process": "Process",
+    "studio": "Studio",
+    "contact": "Contact",
+    "letsTalk": "Let's Talk",
+    "projects": "Projects",
+    "services": "Services",
+    "tools": "Tools",
+    "faq": "FAQ"
+  },
+  "header": {
+    "theme": {
+      "label": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
+  },
+  "hero": {
+    "available": "Available for Commissions",
+    "headline1": "CINEMATIC",
+    "headline2": "REALITY.",
+    "description": "We bridge the gap between imagination and built reality through high-end visualization and immersive architectural storytelling.",
+    "viewProjects": "View Projects",
+    "showreel": "Showreel",
+    "projectsDelivered": "Projects Delivered",
+    "renderHours": "Render Hours",
+    "scroll": "Scroll"
+  },
+  "projects": {
+    "label": "Selected Works",
+    "title": "Latest Projects",
+    "viewAll": "View all projects",
+    "nordicRetreat": "Nordic Retreat",
+    "voidMuseum": "The Void Museum",
+    "vertexTower": "Vertex Tower"
+  },
+  "processSection": {
+    "label": "Our Process",
+    "step1Title": "Concept & Vision",
+    "step2Title": "Light & Atmosphere",
+    "step3Title": "Motion & Life",
+    "step4Title": "Final Experience"
+  },
+  "studioSection": {
+    "label": "About Us",
+    "title": "Our Studio",
+    "description": "We are an architectural visualization studio focused on creating visual experiences that transcend the ordinary."
+  },
+  "services": {
+    "label": "What We Create",
+    "title": "Services",
+    "description": "We transform architectural concepts into compelling visual experiences that inspire and communicate.",
+    "archViz": "Architectural Visualization",
+    "archVizDesc": "Photorealistic imagery that captures the essence of your design with stunning clarity and emotional depth.",
+    "animation": "Cinematic Animation",
+    "animationDesc": "Dynamic visual narratives that guide viewers through spaces, revealing atmosphere and experience.",
+    "virtual": "Virtual Experiences",
+    "virtualDesc": "Immersive walkthroughs that transport clients into unbuilt environments with full spatial presence.",
+    "presentation": "Presentation Design",
+    "presentationDesc": "Competition-ready visuals and presentations that communicate vision with impact and precision."
+  },
+  "about": {
+    "label": "The Studio",
+    "title": "PLANN3D Visual Studio",
+    "desc1": "We are a creative studio dedicated to architectural visualization, animation, and immersive visual experiences. Our work lives at the intersection of art and architecture."
+  },
+  "footer": {
+    "description": "A high-end visualization studio dedicated to crafting cinematic stories for the built environment.",
+    "navigation": "Navigation",
+    "contact": "Contact",
+    "email": "contato@plann3d.com",
+    "phone": "+55 61 99598-2807",
+    "addressLine1": "",
+    "addressLine2": "Brasília, District Federal, Brazil",
+    "copyright": "© {{year}} PLANN3D Visual Studio. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "languageSwitcher": {
+    "en": "English",
+    "pt": "Português"
+  },
+  "contactPage": {
+    "label": "Contact Us",
+    "title1": "LET'S",
+    "title2": "TALK",
+    "description": "Ready to visualize your vision? Whether it's high-end architectural rendering or immersive VR experiences, let's build something iconic together.",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "john@company.com",
+      "projectType": "Project Type",
+      "selectProjectType": "Select project type",
+      "archViz": "Architectural Visualization",
+      "interiorViz": "Interior Visualization",
+      "animation": "Animation / Walkthrough",
+      "twinmotion": "Real-Time Render (Twinmotion)",
+      "bimModel": "BIM Modeling / Tekla",
+      "conceptDesign": "Concept Design (SketchUp)",
+      "cinematicVideo": "Cinematic Video (Blender)",
+      "virtualExp": "Virtual Experience / VR",
+      "competition": "Competition Entry",
+      "other": "Other",
+      "projectDetails": "Project Details",
+      "projectDetailsPlaceholder": "Tell us about your timeline, scope, and vision...",
+      "sendInquiry": "Send Inquiry",
+      "sending": "Sending...",
+      "headerTitle": "Start your project",
+      "headerSubtitle": "Fill out the form below and we'll get back to you shortly.",
+      "privacyNote": "By submitting this form, you agree to our",
+      "privacyPolicy": "Privacy Policy",
+      "successTitle": "Inquiry Sent Successfully",
+      "successDesc": "Thank you for reaching out. We'll get back to you within 24-48 hours.",
+      "errors": {
+        "nameRequired": "Name is required",
+        "nameMax": "Name must be less than 100 characters",
+        "invalidEmail": "Invalid email address",
+        "emailMax": "Email must be less than 255 characters",
+        "selectProjectType": "Please select a project type",
+        "detailsRequired": "Project details are required",
+        "detailsMax": "Details must be less than 2000 characters"
+      }
+    }
+  },
+  "projectsPage": {
+    "label": "Portfolio",
+    "title1": "VIEW ALL",
+    "title2": "PROJECTS",
+    "description": "Experience our architectural visions through immersive animations and hyper-realistic renders. A curated collection of our finest work.",
+    "filters": {
+      "all": "All Works",
+      "exteriors": "Exteriors",
+      "interiors": "Interiors",
+      "animation": "Animation"
+    },
+    "categories": {
+      "residential": "Residential",
+      "commercial": "Commercial",
+      "animation": "Animation"
+    },
+    "loadMore": "Explore More Projects",
+    "showingCount": "Showing {{current}} of {{total}} projects"
+  },
+  "projectDetail": {
+    "scrollToExplore": "Scroll to Explore",
+    "watchFullFilm": "Watch Full Film",
+    "vizArtDirection": "Architectural Visualization & Art Direction",
+    "year": "Year",
+    "location": "Location",
+    "client": "Client",
+    "status": "Status",
+    "nextProject": "Next Project",
+    "backToProjects": "Back to Projects",
+    "gallery": "Gallery",
+    "closeGallery": "Close",
+    "dragOrUseArrows": "Drag or use arrows"
+  },
+  "toolsPage": {
+    "label": "Our Tech Arsenal",
+    "title1": "ARCHITECTURE IN",
+    "title2": "MOTION",
+    "description": "Merging artistic vision with technological precision. Discover how we use cutting-edge tools to create immersive architectural experiences.",
+    "exploreCta": "Explore Tools"
+  },
+  "faqPage": {
+    "label": "Get Answers",
+    "title1": "FREQUENTLY ASKED",
+    "title2": "QUESTIONS",
+    "description": "Understand how we transform your architectural projects into immersive visual experiences.",
+    "searchPlaceholder": "Search questions...",
+    "noResults": "No questions found for your search.",
+    "filters": {
+      "all": "All",
+      "visualization": "Visualization",
+      "process": "Process",
+      "pricing": "Pricing",
+      "technical": "Technical"
+    },
+    "cta": {
+      "title": "Didn't find what you were looking for?",
+      "description": "Our team is ready to answer any specific questions about your project. Contact us for personalized consulting.",
+      "button": "Talk to our team"
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "Plann3d - Architectural 3D Visualization",
+      "description": "We transform architectural projects into cinematic visual experiences. 3D rendering, animation and virtual reality."
+    },
+    "projects": {
+      "title": "Projects - Plann3d",
+      "description": "Explore our portfolio of 3D architectural visualizations."
+    },
+    "tools": {
+      "title": "Tools & Technologies - Plann3d",
+      "description": "Discover the professional tools we use to create photorealistic visualizations."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions - Plann3d",
+      "description": "Get answers about architectural visualization, 3D rendering and our work process."
+    },
+    "contact": {
+      "title": "Contact - Plann3d",
+      "description": "Get in touch to transform your architectural project into cinematic 3D visualization."
+    }
+  }
+}
