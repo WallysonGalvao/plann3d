@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import type { FaqCategory, FaqItem } from '@/data/faq'
 
 import Footer from '@/components/footer'
-import Header from '@/components/header'
+import Header from '@/components/header.tsx'
 import { Button } from '@/components/ui/button'
 import { faqCategories, getFaqs } from '@/data/faq'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'

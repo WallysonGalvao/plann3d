@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import type { Tool } from '@/data/tools'
 
 import Footer from '@/components/footer'
-import Header from '@/components/header'
+import Header from '@/components/header.tsx'
 import { Button } from '@/components/ui/button'
 import { tools } from '@/data/tools'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 
 import type { GalleryMediaItem } from '@/components/media-gallery-modal'
 
-import Header from '@/components/header'
+import Header from '@/components/header.tsx'
 import { MediaGalleryModal } from '@/components/media-gallery-modal'
 import { VideoPlayer } from '@/components/video-player'
 import { getProjectWithNext } from '@/data/projects'

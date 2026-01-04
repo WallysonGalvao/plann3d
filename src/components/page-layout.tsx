@@ -1,5 +1,5 @@
 import Footer from '@/components/footer'
-import Header from '@/components/header'
+import Header from '@/components/header.tsx'
 import { cn } from '@/lib/utils'
 
 // ============================================

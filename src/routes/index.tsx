@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
 import Footer from '@/components/footer'
-import Header from '@/components/header'
+import Header from '@/components/header.tsx'
 import HeroSection from '@/components/home/sections/hero'
 import ProjectsSection from '@/components/home/sections/projects'
 import ServicesSection from '@/components/home/sections/services'
