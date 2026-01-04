@@ -103,7 +103,7 @@ function Contact() {
           description: 'Falha ao enviar mensagem. Tente novamente.',
         })
       }
-
+      // eslint-disable-next-line no-console
       console.error('Error submitting form:', error)
     }
   }
@@ -180,7 +180,7 @@ function Contact() {
         >
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(debouncedSubmit)}
+              onSubmit={form.handleSubmit(handleSubmit)}
               className="w-full max-w-xl mx-auto space-y-8"
             >
               {/* Form header */}
