@@ -5,7 +5,6 @@ import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { FaqCategory, FaqItem } from '@/data/faq'
-import type { SupportedLocale } from '@/types/project'
 
 import Footer from '@/components/footer'
 import Header from '@/components/header'
@@ -19,23 +18,22 @@ export const Route = createFileRoute('/faq')({
 })
 
 function FaqPage() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const heroRef = useRef<HTMLDivElement>(null)
   const isHeroInView = useInView(heroRef, { once: true })
   const [activeCategory, setActiveCategory] = useState<FaqCategory>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [openItemId, setOpenItemId] = useState<string | null>('1')
 
-  // Get FAQs for current locale
-  const locale = (i18n.language.split('-')[0] || 'pt') as SupportedLocale
-  const faqItems = getFaqs(locale)
+  // Get FAQs
+  const faqItems = getFaqs()
 
   const filteredFaqs = faqItems.filter((faq) => {
     const matchesCategory = activeCategory === 'all' || faq.category === activeCategory
     const matchesSearch =
       searchQuery === '' ||
-      faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
+      t(faq.questionKey).toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t(faq.answerKey).toLowerCase().includes(searchQuery.toLowerCase())
     return matchesCategory && matchesSearch
   })
 
@@ -195,6 +193,8 @@ interface FaqAccordionItemProps {
 }
 
 function FaqAccordionItem({ faq, isOpen, onToggle, index }: FaqAccordionItemProps) {
+  const { t } = useTranslation()
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -209,7 +209,7 @@ function FaqAccordionItem({ faq, isOpen, onToggle, index }: FaqAccordionItemProp
         onClick={onToggle}
         className="w-full flex items-center justify-between gap-4 p-6 text-left"
       >
-        <span className="text-foreground font-semibold">{faq.question}</span>
+        <span className="text-foreground font-semibold">{t(faq.questionKey)}</span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
@@ -229,7 +229,7 @@ function FaqAccordionItem({ faq, isOpen, onToggle, index }: FaqAccordionItemProp
           >
             <div className="px-6 pb-6 pt-0">
               <div className="border-t border-border pt-4">
-                <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                <p className="text-muted-foreground leading-relaxed">{t(faq.answerKey)}</p>
               </div>
             </div>
           </motion.div>

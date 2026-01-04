@@ -112,11 +112,15 @@ interface ToolSectionProps {
 }
 
 function ToolSection({ tool, index }: ToolSectionProps) {
+  const { t } = useTranslation()
   const sectionRef = useRef<HTMLElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
   const isReversed = index % 2 === 1
 
   const CategoryIcon = tool.categoryIcon
+
+  // Get tags from i18n if tagsKey exists
+  const tags = tool.tagsKey ? t(tool.tagsKey, { returnObjects: true }) as string[] : undefined
 
   return (
     <motion.section
@@ -152,7 +156,7 @@ function ToolSection({ tool, index }: ToolSectionProps) {
             <div className="flex items-center gap-3 text-primary">
               <CategoryIcon size={28} />
               <span className="font-bold tracking-wider uppercase text-sm">
-                {tool.category}
+                {t(tool.categoryKey)}
               </span>
             </div>
 
@@ -163,7 +167,7 @@ function ToolSection({ tool, index }: ToolSectionProps) {
                 {tool.name.slice(1).toUpperCase()}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                {tool.description}
+                {t(tool.descriptionKey)}
               </p>
             </div>
 
@@ -184,18 +188,18 @@ function ToolSection({ tool, index }: ToolSectionProps) {
                       className="glass-card p-4 rounded-xl border border-border"
                     >
                       <feature.icon className="text-primary mb-2" size={24} />
-                      <h4 className="text-foreground font-bold">{feature.title}</h4>
+                      <h4 className="text-foreground font-bold">{t(feature.titleKey)}</h4>
                       <p className="text-muted-foreground text-xs mt-1">
-                        {feature.description}
+                        {t(feature.descriptionKey)}
                       </p>
                     </div>
                   ) : (
                     <div key={i} className="flex flex-col">
                       <h4 className="text-foreground font-bold text-lg">
-                        {feature.title}
+                        {t(feature.titleKey)}
                       </h4>
                       <p className="text-muted-foreground text-sm">
-                        {feature.description}
+                        {t(feature.descriptionKey)}
                       </p>
                     </div>
                   ),
@@ -204,9 +208,9 @@ function ToolSection({ tool, index }: ToolSectionProps) {
             )}
 
             {/* Tags */}
-            {tool.tags && tool.tags.length > 0 && (
+            {tags && tags.length > 0 && (
               <div className="flex flex-wrap gap-3 mt-4">
-                {tool.tags.map((tag) => (
+                {tags.map((tag) => (
                   <span
                     key={tag}
                     className="px-4 py-2 rounded-full glass-card border border-border text-sm font-medium"
@@ -222,7 +226,7 @@ function ToolSection({ tool, index }: ToolSectionProps) {
               whileHover={{ x: 8 }}
               className="w-fit flex items-center gap-2 text-foreground font-bold hover:text-primary transition-colors group mt-2"
             >
-              <span>{tool.cta.label}</span>
+              <span>{t(tool.cta.labelKey)}</span>
               {tool.cta.icon === 'play_circle' ? (
                 <Play size={20} className="group-hover:text-primary transition-colors" />
               ) : (
@@ -276,7 +280,7 @@ function ToolSection({ tool, index }: ToolSectionProps) {
               )}
             >
               <span className="text-white text-sm font-semibold uppercase tracking-wider">
-                {tool.badge.label}
+                {t(tool.badge.labelKey)}
               </span>
             </div>
           </motion.div>
