@@ -19,7 +19,12 @@ const config = defineConfig({
     viteReact(),
   ],
   server: {
-    allowedHosts: ['ce23667dde9c.ngrok-free.app'],
+    allowedHosts: [
+      'ce23667dde9c.ngrok-free.app',
+      'cb0cb8f3da10.ngrok-free.app',
+      'relationships-surveys-shortcuts-aug.trycloudflare.com',
+      'painting-imposed-distributed-voting.trycloudflare.com',
+    ],
   },
 })
 

@@ -1,10 +1,23 @@
 {
   "nav": {
+    "home": "Home",
     "work": "Work",
     "process": "Process",
     "studio": "Studio",
     "contact": "Contact",
-    "letsTalk": "Let's Talk"
+    "letsTalk": "Let's Talk",
+    "projects": "Projects",
+    "services": "Services",
+    "tools": "Tools",
+    "faq": "FAQ"
+  },
+  "header": {
+    "theme": {
+      "label": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
   },
   "hero": {
     "available": "Available for Commissions",
@@ -32,6 +45,11 @@
     "step3Title": "Motion & Life",
     "step4Title": "Final Experience"
   },
+  "studioSection": {
+    "label": "About Us",
+    "title": "Our Studio",
+    "description": "We are an architectural visualization studio focused on creating visual experiences that transcend the ordinary."
+  },
   "services": {
     "label": "What We Create",
     "title": "Services",
@@ -52,6 +70,7 @@
   },
   "footer": {
     "description": "A high-end visualization studio dedicated to crafting cinematic stories for the built environment.",
+    "navigation": "Navigation",
     "contact": "Contact",
     "email": "contato@plann3d.com",
     "phone": "+55 61 99598-2807",
@@ -80,13 +99,19 @@
       "archViz": "Architectural Visualization",
       "interiorViz": "Interior Visualization",
       "animation": "Animation / Walkthrough",
-      "virtualExp": "Virtual Experience",
+      "twinmotion": "Real-Time Render (Twinmotion)",
+      "bimModel": "BIM Modeling / Tekla",
+      "conceptDesign": "Concept Design (SketchUp)",
+      "cinematicVideo": "Cinematic Video (Blender)",
+      "virtualExp": "Virtual Experience / VR",
       "competition": "Competition Entry",
       "other": "Other",
       "projectDetails": "Project Details",
       "projectDetailsPlaceholder": "Tell us about your timeline, scope, and vision...",
       "sendInquiry": "Send Inquiry",
       "sending": "Sending...",
+      "headerTitle": "Start your project",
+      "headerSubtitle": "Fill out the form below and we'll get back to you shortly.",
       "privacyNote": "By submitting this form, you agree to our",
       "privacyPolicy": "Privacy Policy",
       "successTitle": "Inquiry Sent Successfully",
@@ -103,6 +128,7 @@
     }
   },
   "projectsPage": {
+    "label": "Portfolio",
     "title1": "VIEW ALL",
     "title2": "PROJECTS",
     "description": "Experience our architectural visions through immersive animations and hyper-realistic renders. A curated collection of our finest work.",
@@ -129,6 +155,36 @@
     "client": "Client",
     "status": "Status",
     "nextProject": "Next Project",
-    "backToProjects": "Back to Projects"
+    "backToProjects": "Back to Projects",
+    "gallery": "Gallery",
+    "closeGallery": "Close",
+    "dragOrUseArrows": "Drag or use arrows"
+  },
+  "toolsPage": {
+    "label": "Our Tech Arsenal",
+    "title1": "ARCHITECTURE IN",
+    "title2": "MOTION",
+    "description": "Merging artistic vision with technological precision. Discover how we use cutting-edge tools to create immersive architectural experiences.",
+    "exploreCta": "Explore Tools"
+  },
+  "faqPage": {
+    "label": "Get Answers",
+    "title1": "FREQUENTLY ASKED",
+    "title2": "QUESTIONS",
+    "description": "Understand how we transform your architectural projects into immersive visual experiences.",
+    "searchPlaceholder": "Search questions...",
+    "noResults": "No questions found for your search.",
+    "filters": {
+      "all": "All",
+      "visualization": "Visualization",
+      "process": "Process",
+      "pricing": "Pricing",
+      "technical": "Technical"
+    },
+    "cta": {
+      "title": "Didn't find what you were looking for?",
+      "description": "Our team is ready to answer any specific questions about your project. Contact us for personalized consulting.",
+      "button": "Talk to our team"
+    }
   }
 }

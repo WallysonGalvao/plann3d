@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
 import Footer from '@/components/footer'
+import Header from '@/components/header'
 import HeroSection from '@/components/home/sections/hero'
 import ProjectsSection from '@/components/home/sections/projects'
 import ServicesSection from '@/components/home/sections/services'
@@ -52,6 +53,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <Header />
       {showIndicator && <VerticalProgressIndicator items={sections} activeSection={activeSection} />}
       <main>
         <HeroSection />
@@ -63,3 +65,4 @@ function App() {
     </div>
   )
 }
+

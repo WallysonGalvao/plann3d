@@ -93,6 +93,10 @@ function Contact() {
     { value: 'archViz', label: t('contactPage.form.archViz') },
     { value: 'interiorViz', label: t('contactPage.form.interiorViz') },
     { value: 'animation', label: t('contactPage.form.animation') },
+    { value: 'twinmotion', label: t('contactPage.form.twinmotion') },
+    { value: 'bimModel', label: t('contactPage.form.bimModel') },
+    { value: 'conceptDesign', label: t('contactPage.form.conceptDesign') },
+    { value: 'cinematicVideo', label: t('contactPage.form.cinematicVideo') },
     { value: 'virtualExp', label: t('contactPage.form.virtualExp') },
     { value: 'competition', label: t('contactPage.form.competition') },
     { value: 'other', label: t('contactPage.form.other') },
@@ -115,24 +119,29 @@ function Contact() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
       <main className="pt-20">
-        <div className="min-h-[calc(100vh-5rem)] grid lg:grid-cols-2">
+        <div className="relative min-h-[calc(100vh-5rem)] grid lg:grid-cols-2 overflow-hidden">
+          {/* Decorative background number */}
+          <span className="section-number left-0 top-20 hidden lg:block">C</span>
           {/* Left Column */}
           <motion.div
             ref={leftRef}
             initial="hidden"
             animate={isLeftInView ? 'visible' : 'hidden'}
             variants={staggerContainer}
-            className="bg-background px-6 lg:px-12 xl:px-20 py-16 lg:py-24 flex flex-col justify-center"
+            className="relative z-10 bg-background px-6 lg:px-12 xl:px-20 py-16 lg:py-24 flex flex-col justify-center"
           >
             <div className="max-w-lg">
-              <motion.span variants={fadeInLeft} className="label-tag mb-8 inline-block">
+              <motion.span variants={fadeInLeft} className="label-premium mb-8 inline-block">
                 {t('contactPage.label')}
               </motion.span>
               <motion.h1
                 variants={fadeInLeft}
-                className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-[0.95] tracking-tight mb-8"
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[0.95] tracking-tight mb-8"
               >
-                {t('contactPage.title1')}
+                <span className="font-serif italic font-normal text-muted-foreground">
+                  {t('contactPage.title1').split(' ')[0]}{' '}
+                </span>
+                {t('contactPage.title1').split(' ').slice(1).join(' ')}
                 <span className="block text-gradient">{t('contactPage.title2')}</span>
               </motion.h1>
               <motion.p
@@ -141,22 +150,31 @@ function Contact() {
               >
                 {t('contactPage.description')}
               </motion.p>
+
+              {/* Decorative divider */}
+              <motion.div variants={fadeInLeft} className="divider-fade w-32" />
             </div>
           </motion.div>
 
-          {/* Right Column - Form */}
+          {/* Right Column - Form with Glass Effect */}
           <motion.div
             ref={rightRef}
             initial={{ opacity: 0, x: 40 }}
             animate={isRightInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="bg-secondary/30 px-6 lg:px-12 xl:px-20 py-16 lg:py-24 flex items-center"
+            className="relative z-10 glass-card px-6 lg:px-12 xl:px-20 py-16 lg:py-24 flex items-center"
           >
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(debouncedSubmit)}
-                className="w-full max-w-xl mx-auto space-y-6"
-              >
+                className="w-full max-w-xl mx-auto space-y-8">
+                {/* Form header */}
+                <div className="text-center lg:text-left mb-8">
+                  <h2 className="text-2xl font-semibold mb-2">
+                    <span className="font-serif italic font-normal text-muted-foreground">{t('contactPage.form.headerTitle').split(' ')[0]}</span> {t('contactPage.form.headerTitle').split(' ').slice(1).join(' ')}
+                  </h2>
+                  <p className="text-sm text-muted-foreground">{t('contactPage.form.headerSubtitle')}</p>
+                </div>
                 <div className="grid sm:grid-cols-2 gap-6">
                   <motion.div custom={0} variants={formFieldVariants} initial="hidden" animate="visible">
                     <FormField

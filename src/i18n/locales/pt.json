@@ -1,10 +1,23 @@
 {
   "nav": {
+    "home": "Início",
     "work": "Trabalhos",
     "process": "Processo",
     "studio": "Estúdio",
     "contact": "Contato",
-    "letsTalk": "Fale Conosco"
+    "letsTalk": "Fale Conosco",
+    "projects": "Projetos",
+    "services": "Serviços",
+    "tools": "Ferramentas",
+    "faq": "FAQ"
+  },
+  "header": {
+    "theme": {
+      "label": "Tema",
+      "light": "Claro",
+      "dark": "Escuro",
+      "system": "Sistema"
+    }
   },
   "hero": {
     "available": "Disponível para Novos Projetos",
@@ -32,6 +45,11 @@
     "step3Title": "Movimento & Vida",
     "step4Title": "Experiência Final"
   },
+  "studioSection": {
+    "label": "Sobre Nós",
+    "title": "Nosso Estúdio",
+    "description": "Somos um estúdio de visualização arquitetônica focado em criar experiências visuais que transcendem o ordinário."
+  },
   "services": {
     "label": "O Que Criamos",
     "title": "Serviços",
@@ -52,6 +70,7 @@
   },
   "footer": {
     "description": "Estúdio de visualização de alta qualidade dedicado a criar histórias cinematográficas para o ambiente construído.",
+    "navigation": "Navegação",
     "contact": "Contato",
     "email": "contato@plann3d.com",
     "phone": "+55 61 99598-2807",
@@ -80,13 +99,19 @@
       "archViz": "Visualização Arquitetônica",
       "interiorViz": "Visualização de Interiores",
       "animation": "Animação / Walkthrough",
-      "virtualExp": "Experiência Virtual",
+      "twinmotion": "Render em Tempo Real (Twinmotion)",
+      "bimModel": "Modelagem BIM / Tekla",
+      "conceptDesign": "Design Conceitual (SketchUp)",
+      "cinematicVideo": "Vídeo Cinemático (Blender)",
+      "virtualExp": "Experiência Virtual / VR",
       "competition": "Entrada em Competição",
       "other": "Outro",
       "projectDetails": "Detalhes do Projeto",
       "projectDetailsPlaceholder": "Conte-nos sobre seu cronograma, escopo e visão...",
       "sendInquiry": "Enviar Consulta",
       "sending": "Enviando...",
+      "headerTitle": "Inicie seu projeto",
+      "headerSubtitle": "Preencha o formulário abaixo e entraremos em contato em breve.",
       "privacyNote": "Ao enviar este formulário, você concorda com nossa",
       "privacyPolicy": "Política de Privacidade",
       "successTitle": "Consulta Enviada com Sucesso",
@@ -103,6 +128,7 @@
     }
   },
   "projectsPage": {
+    "label": "Portfolio",
     "title1": "VER TODOS",
     "title2": "OS PROJETOS",
     "description": "Experimente nossas visões arquitetônicas através de animações imersivas e renders hiper-realistas. Uma coleção curada dos nossos melhores trabalhos.",
@@ -129,6 +155,36 @@
     "client": "Cliente",
     "status": "Status",
     "nextProject": "Próximo Projeto",
-    "backToProjects": "Voltar para Projetos"
+    "backToProjects": "Voltar para Projetos",
+    "gallery": "Galeria",
+    "closeGallery": "Fechar",
+    "dragOrUseArrows": "Arraste ou use as setas"
+  },
+  "toolsPage": {
+    "label": "Nosso Arsenal Tecnológico",
+    "title1": "ARQUITETURA EM",
+    "title2": "MOVIMENTO",
+    "description": "Fundindo visão artística com precisão tecnológica. Descubra como utilizamos ferramentas de ponta para criar experiências arquitetônicas imersivas.",
+    "exploreCta": "Explorar Ferramentas"
+  },
+  "faqPage": {
+    "label": "Tire Suas Dúvidas",
+    "title1": "PERGUNTAS",
+    "title2": "FREQUENTES",
+    "description": "Entenda como transformamos seus projetos arquitetônicos em experiências visuais imersivas.",
+    "searchPlaceholder": "Pesquisar perguntas...",
+    "noResults": "Nenhuma pergunta encontrada para sua busca.",
+    "filters": {
+      "all": "Todos",
+      "visualization": "Visualização",
+      "process": "Processo",
+      "pricing": "Preços",
+      "technical": "Técnico"
+    },
+    "cta": {
+      "title": "Não encontrou o que procurava?",
+      "description": "Nossa equipe está pronta para esclarecer qualquer dúvida específica sobre o seu projeto. Entre em contato para uma consultoria personalizada.",
+      "button": "Fale com nosso time"
+    }
   }
 }
