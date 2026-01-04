@@ -1,16 +1,23 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { motion, useInView } from 'framer-motion'
 import { ArrowLeft, ChevronRight, Expand } from 'lucide-react'
-import { useMemo, useRef, useState } from 'react'
+import { Suspense, lazy, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { GalleryMediaItem } from '@/components/media-gallery-modal'
 
 import Header from '@/components/header.tsx'
-import { MediaGalleryModal } from '@/components/media-gallery-modal'
-import { VideoPlayer } from '@/components/video-player'
+import { OptimizedBackground } from '@/components/ui/optimized-background'
 import { getProjectWithNext } from '@/data/projects'
 import { fadeInUp, scaleIn, staggerContainer } from '@/lib/motion-variants'
+
+// Lazy load heavy components for better initial load
+const MediaGalleryModal = lazy(() =>
+  import('@/components/media-gallery-modal').then((m) => ({ default: m.MediaGalleryModal }))
+)
+const VideoPlayer = lazy(() =>
+  import('@/components/video-player').then((m) => ({ default: m.VideoPlayer }))
+)
 
 export const Route = createFileRoute('/projects/$projectId')({
   component: ProjectDetailPage,
@@ -133,11 +140,13 @@ function ProjectDetailPage() {
         ref={heroRef}
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
-        {/* Background Image */}
+        {/* Background Image - Optimized with priority loading */}
         <div className="absolute inset-0 z-0">
-          <div
-            className="w-full h-full bg-cover bg-center"
-            style={{ backgroundImage: `url('${project.heroImage}')` }}
+          <OptimizedBackground
+            src={project.heroImage || project.image}
+            alt={project.title}
+            priority={true}
+            className="w-full h-full"
           />
           <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-background" />
         </div>
@@ -291,13 +300,14 @@ function ProjectDetailPage() {
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && openGallery('01-main')}
               >
-                <motion.div
-                  className="absolute inset-0 bg-cover bg-center grayscale contrast-125"
-                  style={{ backgroundImage: `url('${project.phases[0].image}')` }}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.7, ease: 'easeOut' }}
+                <OptimizedBackground
+                  src={project.phases[0].image || ''}
+                  alt={project.phases[0].title}
+                  className="absolute inset-0"
+                  imageClassName="grayscale contrast-125"
+                  hoverScale={1.05}
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-background/80 via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-linear-to-t from-background/80 via-transparent to-transparent opacity-60 z-10" />
                 {/* Floating Badge - Premium glass style */}
                 {project.phases[0].badge && (
                   <motion.div
@@ -377,15 +387,15 @@ function ProjectDetailPage() {
                   tabIndex={0}
                   onKeyDown={(e) => e.key === 'Enter' && openGallery('02-0')}
                 >
-                  <motion.div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url('${project.phases[1].images[0]}')` }}
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.7, ease: 'easeOut' }}
+                  <OptimizedBackground
+                    src={project.phases[1].images?.[0] || ''}
+                    alt="Phase 2 main render"
+                    className="absolute inset-0"
+                    hoverScale={1.05}
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500 z-10" />
                   {/* Expand overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="absolute inset-0 flex items-center justify-center z-20">
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 size-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
                       <Expand size={24} className="text-white" />
                     </div>
@@ -401,40 +411,42 @@ function ProjectDetailPage() {
                     tabIndex={0}
                     onKeyDown={(e) => e.key === 'Enter' && openGallery('02-1')}
                   >
-                    <motion.div
-                      className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url('${project.phases[1].images[1]}')` }}
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.7, ease: 'easeOut' }}
+                    <OptimizedBackground
+                      src={project.phases[1].images?.[1] || ''}
+                      alt="Phase 2 image 2"
+                      className="absolute inset-0"
+                      hoverScale={1.1}
                     />
                     {/* Expand overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors">
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors z-10">
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 size-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
                         <Expand size={18} className="text-white" />
                       </div>
                     </div>
                   </motion.div>
-                  <motion.div
-                    variants={scaleIn}
-                    onClick={() => openGallery('02-2')}
-                    className="flex-1 rounded-2xl overflow-hidden relative group cursor-pointer"
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => e.key === 'Enter' && openGallery('02-2')}
-                  >
+                  {project.phases[1].images?.[2] && (
                     <motion.div
-                      className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url('${project.phases[1].images[2]}')` }}
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.7, ease: 'easeOut' }}
-                    />
-                    {/* Expand overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors">
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 size-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
-                        <Expand size={18} className="text-white" />
+                      variants={scaleIn}
+                      onClick={() => openGallery('02-2')}
+                      className="flex-1 rounded-2xl overflow-hidden relative group cursor-pointer"
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === 'Enter' && openGallery('02-2')}
+                    >
+                      <OptimizedBackground
+                        src={project.phases[1].images[2]}
+                        alt="Phase 2 image 3"
+                        className="absolute inset-0"
+                        hoverScale={1.1}
+                      />
+                      {/* Expand overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors z-10">
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 size-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
+                          <Expand size={18} className="text-white" />
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  )}
                 </div>
               </motion.div>
             )}
@@ -460,12 +472,14 @@ function ProjectDetailPage() {
                 transition={{ duration: 0.8 }}
                 className="shadow-2xl shadow-primary/10"
               >
-                <VideoPlayer
-                  src={project.phases[2].video || ''}
-                  poster={project.phases[2].videoImage}
-                  badge="GENERATIVE ENHANCEMENT"
-                  className=""
-                />
+                <Suspense fallback={<div className="aspect-video bg-muted animate-pulse rounded-2xl" />}>
+                  <VideoPlayer
+                    src={project.phases[2].video || ''}
+                    poster={project.phases[2].videoImage}
+                    badge="GENERATIVE ENHANCEMENT"
+                    className=""
+                  />
+                </Suspense>
               </motion.div>
 
               {/* Text Content */}
@@ -593,12 +607,14 @@ function ProjectDetailPage() {
       </motion.section>
 
       {/* Fullscreen Media Gallery Modal */}
-      <MediaGalleryModal
-        isOpen={isGalleryOpen}
-        onClose={() => setIsGalleryOpen(false)}
-        items={galleryItems}
-        initialIndex={galleryInitialIndex}
-      />
+      <Suspense fallback={null}>
+        <MediaGalleryModal
+          isOpen={isGalleryOpen}
+          onClose={() => setIsGalleryOpen(false)}
+          items={galleryItems}
+          initialIndex={galleryInitialIndex}
+        />
+      </Suspense>
     </div>
   )
 }

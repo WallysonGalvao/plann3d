@@ -47,3 +47,4 @@ next-env.d.ts
 .env.production# Large video files (use external URLs instead)
 src/assets/projects/**/*.mp4
 !src/data/videos/*.mp4
+.vercel

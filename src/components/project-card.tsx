@@ -4,6 +4,7 @@ import { ArrowRight, Play } from 'lucide-react'
 
 import type { Project, ProjectCategory, ProjectSize } from '@/types/project'
 
+import { OptimizedImage } from '@/components/ui/optimized-image'
 import { layoutSpring } from '@/lib/motion-variants'
 import { cn } from '@/lib/utils'
 
@@ -96,12 +97,12 @@ export function ProjectCard({
         />
 
         {/* Image */}
-        <motion.img
+        <OptimizedImage
           src={project.image}
           alt={project.title}
-          className="h-full w-full object-cover"
-          whileHover={{ scale: 1.08 }}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="h-full w-full"
+          hoverScale={1.08}
+          hoverDuration={0.8}
         />
 
         {/* Top highlight on hover */}

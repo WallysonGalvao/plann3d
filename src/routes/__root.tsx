@@ -39,6 +39,9 @@ export const Route = createRootRoute({
       { name: 'author', content: 'Plann3d' },
     ],
     links: [
+      // Preconnect to Google Fonts for faster font loading
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
       { rel: 'canonical', href: DEFAULT_SEO.url },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'stylesheet', href: appCss },
