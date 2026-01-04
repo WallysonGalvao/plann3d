@@ -1,7 +1,7 @@
-import type { RefObject } from 'react'
+import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-import { useInView } from 'framer-motion'
+import type { RefObject } from 'react'
 
 interface UseAnimatedSectionOptions {
   /** Margin around the element for intersection calculation */

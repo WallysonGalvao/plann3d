@@ -3,21 +3,21 @@
  */
 
 import {
+  Building2,
   Clapperboard,
   Compass,
-  Lightbulb,
-  Pencil,
-  Building2,
-  Layers,
-  Ruler,
   FileText,
   Film,
+  Layers,
+  Lightbulb,
   Mountain,
   Palette,
+  Pencil,
+  Ruler,
   Volume2,
-  Check,
-  type LucideIcon,
 } from 'lucide-react'
+
+import type { LucideIcon } from 'lucide-react'
 
 export interface Tool {
   id: string
@@ -25,12 +25,12 @@ export interface Tool {
   category: string
   categoryIcon: LucideIcon
   description: string
-  features: {
+  features: Array<{
     title: string
     description: string
     icon?: LucideIcon
-  }[]
-  tags?: string[]
+  }>
+  tags?: Array<string>
   image: string
   badge: {
     icon: string
@@ -42,7 +42,7 @@ export interface Tool {
   }
 }
 
-export const tools: Tool[] = [
+export const tools: Array<Tool> = [
   {
     id: 'twinmotion',
     name: 'Twinmotion',

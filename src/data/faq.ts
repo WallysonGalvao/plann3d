@@ -11,7 +11,7 @@ export interface FaqItem {
   category: FaqCategory
 }
 
-export const faqCategories: { key: FaqCategory; labelKey: string }[] = [
+export const faqCategories: Array<{ key: FaqCategory; labelKey: string }> = [
   { key: 'all', labelKey: 'faqPage.filters.all' },
   { key: 'visualization', labelKey: 'faqPage.filters.visualization' },
   { key: 'process', labelKey: 'faqPage.filters.process' },
@@ -19,7 +19,7 @@ export const faqCategories: { key: FaqCategory; labelKey: string }[] = [
   { key: 'technical', labelKey: 'faqPage.filters.technical' },
 ]
 
-export const faqItems: FaqItem[] = [
+export const faqItems: Array<FaqItem> = [
   {
     id: '1',
     question: 'Qual o prazo médio de entrega para um projeto?',
@@ -78,7 +78,7 @@ export const faqItems: FaqItem[] = [
   },
 ]
 
-export const getFaqsByCategory = (category: FaqCategory): FaqItem[] => {
+export const getFaqsByCategory = (category: FaqCategory): Array<FaqItem> => {
   if (category === 'all') return faqItems
   return faqItems.filter((faq) => faq.category === category)
 }

@@ -1,3 +1,5 @@
+import type { Project, ProjectDataByLocale, SupportedLocale } from '@/types/project'
+
 import { PROJECT_ID as TORRE_DE_TV_ID, torreDeTvData } from '@/data/projects/torre-de-tv/data'
 import i18n from '@/i18n'
 
@@ -14,16 +16,14 @@ export type {
   ProjectSize,
   ProjectSpecs,
   SupportedLocale,
-} from '@/types'
-
-import type { Project, ProjectDataByLocale, SupportedLocale } from '@/types'
+} from '@/types/project'
 
 // ============================================
 // PROJECT REGISTRY
 // All project data organized by ID
 // ============================================
 
-const lang = i18n.language?.split('-')[0] || 'pt'
+const lang = i18n.language?.split('-')[0] ?? 'pt'
 
 const projectRegistry: Record<string, ProjectDataByLocale> = {
   [TORRE_DE_TV_ID]: torreDeTvData,

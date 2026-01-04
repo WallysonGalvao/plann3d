@@ -21,7 +21,7 @@ export interface GalleryMediaItem {
 interface MediaGalleryModalProps {
   isOpen: boolean
   onClose: () => void
-  items: GalleryMediaItem[]
+  items: Array<GalleryMediaItem>
   initialIndex?: number
 }
 
@@ -103,7 +103,7 @@ export function MediaGalleryModal({
                   {t('projectDetail.gallery', 'Galeria')}
                 </span>
                 <h2 className="text-foreground text-lg font-bold leading-tight tracking-wider uppercase">
-                  {currentItem?.title || ''}
+                  {currentItem?.title ?? ''}
                 </h2>
               </div>
             </div>
