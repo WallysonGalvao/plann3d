@@ -47,7 +47,7 @@ export const ORGANIZATION_SCHEMA = {
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'customer service',
-    email: 'contato@plann3d.com.br',
+    email: 'plann3d@gmail.com',
   },
 }
 
@@ -59,7 +59,7 @@ export const LOCAL_BUSINESS_SCHEMA = {
   '@type': 'ProfessionalService',
   '@id': 'https://plann3d.com.br/#business',
   name: 'Plann3d',
-  description: 'Estúdio de visualização arquitetônica 3D',
+  description: 'Estúdio de visualização arquitetônica 3D especializado em renderização fotorrealista e animações cinematográficas',
   url: 'https://plann3d.com.br',
   priceRange: '$$',
   areaServed: {
@@ -71,7 +71,73 @@ export const LOCAL_BUSINESS_SCHEMA = {
     'Animação Arquitetônica',
     'Visualização Arquitetônica',
     'Realidade Virtual',
+    'Modelagem BIM',
+    'Design Conceitual 3D',
+    'Vídeo Cinemático Arquitetônico',
+    'Pós-Produção Audiovisual',
   ],
+  knowsAbout: [
+    'Twinmotion',
+    'Tekla Structures',
+    'SketchUp',
+    'Blender',
+    'AutoCAD',
+    'Adobe Premiere Pro',
+    'Lumion',
+    'Renderização em Tempo Real',
+    'Modelagem BIM',
+    'Animação 3D',
+    'Arquitetura',
+    'Visualização Fotorrealista',
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Serviços de Visualização Arquitetônica',
+    itemListElement: [
+      {
+        '@type': 'OfferCatalog',
+        name: 'Renderização 3D',
+        itemListElement: [
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Imagens Estáticas Fotorrealistas',
+              description: 'Renderização de alta qualidade em 4K ou superior',
+            },
+          },
+        ],
+      },
+      {
+        '@type': 'OfferCatalog',
+        name: 'Animação Arquitetônica',
+        itemListElement: [
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Vídeos Cinemáticos 3D',
+              description: 'Animações cinematográficas e walkthroughs imersivos',
+            },
+          },
+        ],
+      },
+      {
+        '@type': 'OfferCatalog',
+        name: 'Modelagem BIM',
+        itemListElement: [
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Modelagem Estrutural BIM',
+              description: 'Detalhamento técnico e modelagem BIM com Tekla',
+            },
+          },
+        ],
+      },
+    ],
+  },
 }
 
 /**
@@ -175,6 +241,61 @@ export function createFAQSchema(faqs: Array<{ question: string; answer: string }
       acceptedAnswer: {
         '@type': 'Answer',
         text: faq.answer,
+      },
+    })),
+  }
+}
+
+/**
+ * Create SoftwareApplication schema for a tool
+ */
+export function createToolSchema(tool: {
+  id: string
+  name: string
+  category: string
+  description: string
+  features?: Array<{ title: string; description: string }>
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    '@id': `https://plann3d.com.br/tools#${tool.id}`,
+    name: tool.name,
+    applicationCategory: tool.category,
+    description: tool.description,
+    operatingSystem: 'Windows, macOS',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'BRL',
+    },
+    featureList: tool.features?.map((f) => `${f.title}: ${f.description}`).join(', '),
+    provider: {
+      '@type': 'Organization',
+      name: 'Plann3d',
+    },
+  }
+}
+
+/**
+ * Create ItemList schema for tools page
+ */
+export function createToolsListSchema(tools: Array<{ id: string; name: string; description: string }>) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    '@id': 'https://plann3d.com.br/tools#toolsList',
+    name: 'Ferramentas de Visualização Arquitetônica 3D',
+    description: 'Arsenal tecnológico utilizado pela Plann3d para criação de visualizações arquitetônicas',
+    numberOfItems: tools.length,
+    itemListElement: tools.map((tool, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Thing',
+        '@id': `https://plann3d.com.br/tools#${tool.id}`,
+        name: tool.name,
+        description: tool.description,
       },
     })),
   }

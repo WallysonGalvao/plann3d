@@ -4,16 +4,62 @@ import { ArrowRight, Play } from 'lucide-react'
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import type {Tool} from '@/data/tools';
+import type { Tool } from '@/data/tools'
+
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
-import {  tools } from '@/data/tools'
+import { tools } from '@/data/tools'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
+import {
+  createToolSchema,
+  createToolsListSchema,
+  generateJsonLd,
+  generateMetaTags,
+  ORGANIZATION_SCHEMA,
+  useSEO,
+} from '@/lib/seo'
 import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/tools')({
   component: ToolsPage,
+  head: () => {
+    const toolSchemas = tools.map((tool) =>
+      createToolSchema({
+        id: tool.id,
+        name: tool.name,
+        category: tool.categoryKey.split('.').pop() || '',
+        description: tool.descriptionKey,
+        features: tool.features.map((f) => ({
+          title: f.titleKey,
+          description: f.descriptionKey,
+        })),
+      }),
+    )
+
+    const toolsListSchema = createToolsListSchema(
+      tools.map((t) => ({
+        id: t.id,
+        name: t.name,
+        description: t.descriptionKey,
+      })),
+    )
+
+    return {
+      meta: generateMetaTags({
+        title: 'Ferramentas e Tecnologias - Plann3d',
+        description:
+          'Conheça as ferramentas profissionais que utilizamos: Twinmotion, Tekla, SketchUp, Blender, AutoCAD, Adobe Premiere e Lumion.',
+        url: 'https://plann3d.com.br/tools',
+      }),
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: generateJsonLd([ORGANIZATION_SCHEMA, toolsListSchema, ...toolSchemas]),
+        },
+      ],
+    }
+  },
 })
 
 function ToolsPage() {

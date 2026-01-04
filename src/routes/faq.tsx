@@ -11,10 +11,44 @@ import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
 import { faqCategories, getFaqs } from '@/data/faq'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
+import {
+  createFAQSchema,
+  generateJsonLd,
+  generateMetaTags,
+  ORGANIZATION_SCHEMA,
+} from '@/lib/seo'
 import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/faq')({
   component: FaqPage,
+  head: () => {
+    // Get FAQ items for schema (using PT as default for SEO)
+    const faqItems = getFaqs()
+
+    // Create FAQ schema with translated content
+    // Note: In production, you'd want to generate separate schemas for each language
+    const faqSchema = createFAQSchema(
+      faqItems.map((faq) => ({
+        question: faq.questionKey,
+        answer: faq.answerKey,
+      })),
+    )
+
+    return {
+      meta: generateMetaTags({
+        title: 'Perguntas Frequentes - Plann3d',
+        description:
+          'Tire suas dúvidas sobre visualização arquitetônica, renderização 3D e nosso processo de trabalho.',
+        url: 'https://plann3d.com.br/faq',
+      }),
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: generateJsonLd([ORGANIZATION_SCHEMA, faqSchema]),
+        },
+      ],
+    }
+  },
 })
 
 function FaqPage() {
