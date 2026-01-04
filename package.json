@@ -4,11 +4,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 3000",
-    "server": "node server.js",
+    "server": "node api-server.js",
     "dev:all": "concurrently \"npm run dev\" \"npm run server\"",
     "build": "vite build",
     "build:full": "vite build && cp .env dist/",
-    "start": "NODE_ENV=production node server-prod.js",
+    "start": "NODE_ENV=production node api-server.js",
     "preview": "vite preview",
     "test": "vitest run",
     "lint": "eslint .",
