@@ -1,5 +1,5 @@
 // Torre de TV images
-import type { Project, SupportedLocale } from '@/types'
+import type { Project, ProjectDataByLocale } from '@/types/project'
 
 import torreTvSketchup from '@/data/projects/torre-de-tv/01-SKETCHUP.png'
 import torreTvTwinmotion1 from '@/data/projects/torre-de-tv/02-TWINMOTION.png'
@@ -110,7 +110,7 @@ const enData = {
 } satisfies Project
 
 // Export data by locale
-export const torreDeTvData: Record<SupportedLocale, Project> = {
+export const torreDeTvData: ProjectDataByLocale = {
   pt: ptData,
   en: enData,
 }

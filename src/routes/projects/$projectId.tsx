@@ -38,7 +38,8 @@ function ProjectDetailPage() {
   const isPhase3InView = useInView(phase3Ref, { once: true, margin: '-100px' })
 
   // Get project data with next project
-  const locale = (i18n.language?.split('-')[0] || 'pt') as 'pt' | 'en'
+  const languageCode = i18n.language ? i18n.language.split('-')[0] : 'pt'
+  const locale = languageCode === 'en' ? 'en' : 'pt'
   const project = getProjectWithNext(projectId, locale)
 
   // Handle project not found - AFTER all hooks

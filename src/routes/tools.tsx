@@ -1,13 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { motion, useInView } from 'framer-motion'
-import { ArrowRight, Check, Play } from 'lucide-react'
+import { ArrowRight, Play } from 'lucide-react'
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import type {Tool} from '@/data/tools';
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
-import { tools, type Tool } from '@/data/tools'
+import {  tools } from '@/data/tools'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
 import { cn } from '@/lib/utils'
 

@@ -126,7 +126,7 @@ export function generateMetaTags(seo: Partial<SEOMetadata> = {}) {
 /**
  * Generate JSON-LD script content
  */
-export function generateJsonLd(schemas: object[]): string {
+export function generateJsonLd(schemas: Array<object>): string {
   return JSON.stringify(schemas.length === 1 ? schemas[0] : schemas)
 }
 

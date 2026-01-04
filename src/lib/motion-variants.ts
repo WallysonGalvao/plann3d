@@ -1,4 +1,4 @@
-import { type Variants } from 'framer-motion'
+import type {Variants} from 'framer-motion';
 
 // Fade in from bottom - great for text and cards
 export const fadeInUp: Variants = {

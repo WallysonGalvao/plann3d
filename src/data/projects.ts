@@ -23,7 +23,8 @@ export type {
 // All project data organized by ID
 // ============================================
 
-const lang = i18n.language?.split('-')[0] ?? 'pt'
+// Get initial language, defaulting to 'pt' if not available
+const lang = i18n.language ? i18n.language.split('-')[0] : 'pt'
 
 const projectRegistry: Record<string, ProjectDataByLocale> = {
   [TORRE_DE_TV_ID]: torreDeTvData,
@@ -40,7 +41,8 @@ const projectRegistry: Record<string, ProjectDataByLocale> = {
  */
 export const getProjects = (locale: SupportedLocale = 'pt'): Array<Project> => {
   return Object.values(projectRegistry).map((dataByLocale) => {
-    return dataByLocale[locale] || dataByLocale.pt
+    // ProjectDataByLocale guarantees both pt and en exist
+    return dataByLocale[locale]
   })
 }
 
@@ -55,10 +57,11 @@ export const getProjectsCount = (): number => {
  * Get project by ID for a specific locale
  */
 export const getProjectById = (id: string, locale: SupportedLocale = 'pt'): Project | undefined => {
-  const dataByLocale = projectRegistry[id]
-  if (!dataByLocale) return undefined
+  // Check if project exists in registry using hasOwn for proper key check
+  if (!Object.hasOwn(projectRegistry, id)) return undefined
 
-  return dataByLocale[locale] || dataByLocale.pt
+  // ProjectDataByLocale guarantees the locale exists
+  return projectRegistry[id][locale]
 }
 
 /**

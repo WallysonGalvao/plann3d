@@ -5,8 +5,8 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { ThemeProvider } from '../components/theme-provider'
 import {
   DEFAULT_SEO,
-  ORGANIZATION_SCHEMA,
   LOCAL_BUSINESS_SCHEMA,
+  ORGANIZATION_SCHEMA,
   WEBSITE_SCHEMA,
 } from '../lib/seo'
 import appCss from '../styles.css?url'

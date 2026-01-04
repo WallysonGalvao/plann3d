@@ -1,6 +1,10 @@
 /**
- * Centralized FAQ data
+ * Centralized FAQ data with i18n support
  */
+
+import type { SupportedLocale } from '@/types/project'
+
+import i18n from '@/i18n'
 
 export type FaqCategory = 'all' | 'visualization' | 'process' | 'pricing' | 'technical'
 
@@ -19,7 +23,11 @@ export const faqCategories: Array<{ key: FaqCategory; labelKey: string }> = [
   { key: 'technical', labelKey: 'faqPage.filters.technical' },
 ]
 
-export const faqItems: Array<FaqItem> = [
+// ============================================
+// FAQ DATA BY LOCALE
+// ============================================
+
+const faqItemsPt: Array<FaqItem> = [
   {
     id: '1',
     question: 'Qual o prazo médio de entrega para um projeto?',
@@ -78,7 +86,108 @@ export const faqItems: Array<FaqItem> = [
   },
 ]
 
-export const getFaqsByCategory = (category: FaqCategory): Array<FaqItem> => {
-  if (category === 'all') return faqItems
-  return faqItems.filter((faq) => faq.category === category)
+const faqItemsEn: Array<FaqItem> = [
+  {
+    id: '1',
+    question: 'What is the average delivery time for a project?',
+    answer:
+      'The timeline depends on the project complexity. Generally, static images (renders) take 5 to 10 business days, while complete 3D animations can take 2 to 4 weeks. We provide a detailed schedule at the beginning of each collaboration to ensure your expectations are met.',
+    category: 'process',
+  },
+  {
+    id: '2',
+    question: 'What files do I need to send to get started?',
+    answer:
+      'To ensure the best fidelity, we prefer 3D files (SketchUp, Revit, Archicad, 3ds Max) or complete 2D CAD drawings. We also request material references, moodboards, and lighting specifications to capture the desired atmosphere.',
+    category: 'technical',
+  },
+  {
+    id: '3',
+    question: 'Do you create cinematic 3D animations?',
+    answer:
+      'Yes, our specialty is creating impactful visual narratives. We develop scripts, storyboards, and high-quality animations that highlight the strengths of your development, focusing on storytelling and emotion.',
+    category: 'visualization',
+  },
+  {
+    id: '4',
+    question: 'How does the review process work?',
+    answer:
+      'We work with a staged review system (white preview, materials preview, final render). Typically, we include 2 to 3 review rounds at each stage to ensure every detail is perfect before final delivery.',
+    category: 'process',
+  },
+  {
+    id: '5',
+    question: 'Do you serve international clients?',
+    answer:
+      'Absolutely. Plann3d has global experience, working with architects and developers in Europe, North America, and Asia. Our team is fluent in English and accustomed to working across different time zones.',
+    category: 'process',
+  },
+  {
+    id: '6',
+    question: 'What is the final format of delivered files?',
+    answer:
+      'We deliver high-resolution images (4K or higher) in JPG, PNG, or TIFF formats. For animations, we deliver in MP4 (H.264) or MOV (ProRes) in 1080p or 4K, depending on client needs for web or large screen presentation.',
+    category: 'technical',
+  },
+  {
+    id: '7',
+    question: 'What is the cost of a visualization project?',
+    answer:
+      'Pricing varies based on project complexity and scope. Static images start from R$ 800, while cinematic animations are quoted individually. Contact us for a personalized quote.',
+    category: 'pricing',
+  },
+  {
+    id: '8',
+    question: 'What rendering style do you work with?',
+    answer:
+      'We specialize in photorealistic rendering with a focus on atmosphere and emotion. We use natural lighting, high-quality materials, and cinematic post-production techniques to create images that tell stories.',
+    category: 'visualization',
+  },
+]
+
+// ============================================
+// FAQ DATA REGISTRY
+// ============================================
+
+const faqDataRegistry: Record<SupportedLocale, Array<FaqItem>> = {
+  pt: faqItemsPt,
+  en: faqItemsEn,
 }
+
+// ============================================
+// HELPER FUNCTIONS
+// ============================================
+
+/**
+ * Get all FAQs for a specific locale
+ */
+export const getFaqs = (locale: SupportedLocale = 'pt'): Array<FaqItem> => {
+  return faqDataRegistry[locale]
+}
+
+/**
+ * Get FAQs filtered by category
+ */
+export const getFaqsByCategory = (
+  category: FaqCategory,
+  locale: SupportedLocale = 'pt',
+): Array<FaqItem> => {
+  const faqs = getFaqs(locale)
+  if (category === 'all') return faqs
+  return faqs.filter((faq) => faq.category === category)
+}
+
+/**
+ * Get FAQ by ID
+ */
+export const getFaqById = (id: string, locale: SupportedLocale = 'pt'): FaqItem | undefined => {
+  const faqs = getFaqs(locale)
+  return faqs.find((faq) => faq.id === id)
+}
+
+// ============================================
+// DEFAULT EXPORT (uses current i18n language)
+// ============================================
+
+const lang = (i18n.language.split('-')[0] || 'pt') as SupportedLocale
+export const faqItems: Array<FaqItem> = getFaqs(lang)
