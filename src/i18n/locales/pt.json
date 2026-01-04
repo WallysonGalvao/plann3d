@@ -28,7 +28,86 @@
     "showreel": "Showreel",
     "projectsDelivered": "Projetos Entregues",
     "renderHours": "Horas de Render",
-    "scroll": "Rolar"
+    "scroll": "Rolar",
+    "tools": {
+      "twinmotion": {
+        "tagline": "REALTIME",
+        "headline2": "INTERATIVO.",
+        "description": "Visualização em tempo real com qualidade cinematográfica. Exploramos cada ângulo instantaneamente.",
+        "stats": {
+          "value1": "60",
+          "label1": "FPS em Tempo Real",
+          "value2": "100",
+          "label2": "Materiais PBR"
+        }
+      },
+      "tekla": {
+        "tagline": "PRECISÃO",
+        "headline2": "ESTRUTURAL.",
+        "description": "Estruturas metálicas detalhadas ao milímetro. A engenharia encontra a visualização fotorrealista.",
+        "stats": {
+          "value1": "0.1",
+          "label1": "Precisão em mm",
+          "value2": "500",
+          "label2": "Conexões Modeladas"
+        }
+      },
+      "sketchup": {
+        "tagline": "CONCEITO",
+        "headline2": "CRIATIVO.",
+        "description": "Da ideia ao modelo 3D em minutos. Agilidade conceitual para exploração rápida de formas.",
+        "stats": {
+          "value1": "30",
+          "label1": "Minutos para Conceito",
+          "value2": "10",
+          "label2": "Iterações por Dia"
+        }
+      },
+      "blender": {
+        "tagline": "ANIMAÇÃO",
+        "headline2": "CINEMATOGRÁFICA.",
+        "description": "Narrativa cinematográfica sem limites. Física, VFX e renderização de alta complexidade.",
+        "stats": {
+          "value1": "24",
+          "label1": "Frames por Segundo",
+          "value2": "4K",
+          "label2": "Resolução de Saída"
+        }
+      },
+      "autocad": {
+        "tagline": "DOCUMENTAÇÃO",
+        "headline2": "TÉCNICA.",
+        "description": "A base técnica de todo projeto. Precisão geométrica e rigor dimensional desde o início.",
+        "stats": {
+          "value1": "1000",
+          "label1": "Blocos Técnicos",
+          "value2": "50",
+          "label2": "Layers Organizados"
+        }
+      },
+      "premiere": {
+        "tagline": "PÓS-PRODUÇÃO",
+        "headline2": "EDITORIAL.",
+        "description": "A arte final da narrativa. Edição, ritmo e color grading que transformam frames em filmes.",
+        "stats": {
+          "value1": "120",
+          "label1": "Clips Editados",
+          "value2": "10",
+          "label2": "LUTs Cinematográficas"
+        }
+      },
+      "lumion": {
+        "tagline": "ATMOSFERA",
+        "headline2": "NATURAL.",
+        "description": "Beleza instantânea e ambientação vibrante. Contexto natural e vida em cada cena.",
+        "stats": {
+          "value1": "5000",
+          "label1": "Objetos de Natureza",
+          "value2": "20",
+          "label2": "Efeitos Atmosféricos"
+        }
+      }
+    }
   },
   "projects": {
     "label": "Trabalhos Selecionados",

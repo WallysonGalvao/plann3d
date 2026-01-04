@@ -28,7 +28,86 @@
     "showreel": "Showreel",
     "projectsDelivered": "Projects Delivered",
     "renderHours": "Render Hours",
-    "scroll": "Scroll"
+    "scroll": "Scroll",
+    "tools": {
+      "twinmotion": {
+        "tagline": "REALTIME",
+        "headline2": "INTERACTIVE.",
+        "description": "Real-time visualization with cinematic quality. We explore every angle instantly.",
+        "stats": {
+          "value1": "60",
+          "label1": "FPS Real-Time",
+          "value2": "100",
+          "label2": "PBR Materials"
+        }
+      },
+      "tekla": {
+        "tagline": "PRECISION",
+        "headline2": "STRUCTURAL.",
+        "description": "Detailed steel structures down to the millimeter. Engineering meets photorealistic visualization.",
+        "stats": {
+          "value1": "0.1",
+          "label1": "Precision in mm",
+          "value2": "500",
+          "label2": "Modeled Connections"
+        }
+      },
+      "sketchup": {
+        "tagline": "CONCEPT",
+        "headline2": "CREATIVE.",
+        "description": "From idea to 3D model in minutes. Conceptual agility for rapid form exploration.",
+        "stats": {
+          "value1": "30",
+          "label1": "Minutes to Concept",
+          "value2": "10",
+          "label2": "Iterations per Day"
+        }
+      },
+      "blender": {
+        "tagline": "ANIMATION",
+        "headline2": "CINEMATIC.",
+        "description": "Cinematic storytelling without limits. Physics, VFX, and high-complexity rendering.",
+        "stats": {
+          "value1": "24",
+          "label1": "Frames per Second",
+          "value2": "4K",
+          "label2": "Output Resolution"
+        }
+      },
+      "autocad": {
+        "tagline": "DOCUMENTATION",
+        "headline2": "TECHNICAL.",
+        "description": "The technical foundation of every project. Geometric precision and dimensional rigor from the start.",
+        "stats": {
+          "value1": "1000",
+          "label1": "Technical Blocks",
+          "value2": "50",
+          "label2": "Organized Layers"
+        }
+      },
+      "premiere": {
+        "tagline": "POST-PRODUCTION",
+        "headline2": "EDITORIAL.",
+        "description": "The final art of storytelling. Editing, rhythm, and color grading that transform frames into films.",
+        "stats": {
+          "value1": "120",
+          "label1": "Edited Clips",
+          "value2": "10",
+          "label2": "Cinematic LUTs"
+        }
+      },
+      "lumion": {
+        "tagline": "ATMOSPHERE",
+        "headline2": "NATURAL.",
+        "description": "Instant beauty and vibrant ambience. Natural context and life in every scene.",
+        "stats": {
+          "value1": "5000",
+          "label1": "Nature Objects",
+          "value2": "20",
+          "label2": "Atmospheric Effects"
+        }
+      }
+    }
   },
   "projects": {
     "label": "Selected Works",
