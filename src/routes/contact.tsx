@@ -1,9 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createFileRoute } from '@tanstack/react-router'
+import axios from 'axios'
 import { motion } from 'framer-motion'
 import debounce from 'lodash.debounce'
 import { ArrowRight } from 'lucide-react'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
@@ -38,6 +39,14 @@ function Contact() {
   const { ref: leftRef, isInView: isLeftInView } = useAnimatedSection<HTMLDivElement>()
   const { ref: rightRef, isInView: isRightInView } = useAnimatedSection<HTMLDivElement>()
 
+  // Security: Honeypot and timing
+  const [honeypot, setHoneypot] = useState('')
+  const [formLoadedAt, setFormLoadedAt] = useState<number>(0)
+
+  useEffect(() => {
+    setFormLoadedAt(Date.now())
+  }, [])
+
   const contactSchema = z.object({
     name: z
       .string()
@@ -70,21 +79,42 @@ function Contact() {
   })
 
   const handleSubmit = async (data: ContactFormValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    toast.success(t('contactPage.form.successTitle'), {
-      description: t('contactPage.form.successDesc'),
-    })
-    form.reset()
-    // eslint-disable-next-line no-console
-    console.log('Form submitted:', data)
+    try {
+      const response = await axios.post('/api/contact', {
+        ...data,
+        website: honeypot, // Honeypot field
+        formLoadedAt, // Anti-bot timing
+      })
+
+      if (response.data.success) {
+        toast.success(t('contactPage.form.successTitle'), {
+          description: t('contactPage.form.successDesc'),
+        })
+        form.reset()
+        setHoneypot('') // Reset honeypot
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        toast.error('Erro', {
+          description: error.response.data.error || 'Falha ao enviar mensagem. Tente novamente.',
+        })
+      } else {
+        toast.error('Erro', {
+          description: 'Falha ao enviar mensagem. Tente novamente.',
+        })
+      }
+
+      console.error('Error submitting form:', error)
+    }
   }
 
   const debouncedSubmit = useMemo(
     () =>
       debounce((data: ContactFormValues) => {
         void handleSubmit(data)
-      }, 500),
-    [t],
+      }, 300),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   )
 
   const projectTypes = [
@@ -165,6 +195,25 @@ function Contact() {
                   {t('contactPage.form.headerSubtitle')}
                 </p>
               </div>
+
+              {/* Honeypot field - hidden from users, visible to bots */}
+              <input
+                type="text"
+                name="website"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                style={{
+                  position: 'absolute',
+                  left: '-9999px',
+                  width: '1px',
+                  height: '1px',
+                  opacity: 0,
+                  pointerEvents: 'none',
+                }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
 
               <div className="grid sm:grid-cols-2 gap-6">
                 <motion.div

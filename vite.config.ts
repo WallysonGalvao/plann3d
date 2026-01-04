@@ -19,6 +19,13 @@ const config = defineConfig({
     viteReact(),
   ],
   server: {
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+      },
+    },
     allowedHosts: [
       'ce23667dde9c.ngrok-free.app',
       'cb0cb8f3da10.ngrok-free.app',
