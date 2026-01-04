@@ -1,3 +1,14 @@
-# https://www.robotstxt.org/robotstxt.html
+# Plann3d - Architectural Visualization Studio
+
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemaps
+Sitemap: https://plann3d.com.br/sitemap.xml
+
+# Crawl-delay (optional, for politeness)
+Crawl-delay: 1
+
+# Block specific paths (if any)
+Disallow: /api/
+Disallow: /_build/

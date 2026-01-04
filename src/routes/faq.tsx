@@ -1,18 +1,49 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { ChevronDown, MessageCircle, Search } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import type { FaqCategory, FaqItem } from '@/data/faq'
+
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
-import { faqCategories, faqItems, type FaqCategory, type FaqItem } from '@/data/faq'
+import { faqCategories, getFaqs } from '@/data/faq'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
+import { createFAQSchema, generateJsonLd, generateMetaTags, ORGANIZATION_SCHEMA } from '@/lib/seo'
 import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/faq')({
   component: FaqPage,
+  head: () => {
+    // Get FAQ items for schema (using PT as default for SEO)
+    const faqItems = getFaqs()
+
+    // Create FAQ schema with translated content
+    // Note: In production, you'd want to generate separate schemas for each language
+    const faqSchema = createFAQSchema(
+      faqItems.map((faq) => ({
+        question: faq.questionKey,
+        answer: faq.answerKey,
+      })),
+    )
+
+    return {
+      meta: generateMetaTags({
+        title: 'Perguntas Frequentes - Plann3d',
+        description:
+          'Tire suas dúvidas sobre visualização arquitetônica, renderização 3D e nosso processo de trabalho.',
+        url: 'https://plann3d.com.br/faq',
+      }),
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: generateJsonLd([ORGANIZATION_SCHEMA, faqSchema]),
+        },
+      ],
+    }
+  },
 })
 
 function FaqPage() {
@@ -23,12 +54,15 @@ function FaqPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [openItemId, setOpenItemId] = useState<string | null>('1')
 
+  // Get FAQs
+  const faqItems = getFaqs()
+
   const filteredFaqs = faqItems.filter((faq) => {
     const matchesCategory = activeCategory === 'all' || faq.category === activeCategory
     const matchesSearch =
       searchQuery === '' ||
-      faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
+      t(faq.questionKey).toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t(faq.answerKey).toLowerCase().includes(searchQuery.toLowerCase())
     return matchesCategory && matchesSearch
   })
 
@@ -60,10 +94,7 @@ function FaqPage() {
             className="relative z-10 container mx-auto px-6 md:px-12 lg:px-20"
           >
             <div className="max-w-3xl mx-auto text-center">
-              <motion.span
-                variants={fadeInUp}
-                className="label-premium inline-block mb-6"
-              >
+              <motion.span variants={fadeInUp} className="label-premium inline-block mb-6">
                 {t('faqPage.label')}
               </motion.span>
 
@@ -79,20 +110,14 @@ function FaqPage() {
                 <span className="text-white/20">{t('faqPage.title2')}</span>
               </motion.h1>
 
-              <motion.p
-                variants={fadeInUp}
-                className="text-lg text-white/70 mb-10"
-              >
+              <motion.p variants={fadeInUp} className="text-lg text-white/70 mb-10">
                 {t('faqPage.description')}
               </motion.p>
 
               {/* Search Bar */}
               <motion.div variants={fadeInUp} className="max-w-xl mx-auto">
                 <div className="relative flex items-center">
-                  <Search
-                    className="absolute left-4 text-muted-foreground"
-                    size={20}
-                  />
+                  <Search className="absolute left-4 text-muted-foreground" size={20} />
                   <input
                     type="text"
                     value={searchQuery}
@@ -141,9 +166,7 @@ function FaqPage() {
                       key={faq.id}
                       faq={faq}
                       isOpen={openItemId === faq.id}
-                      onToggle={() =>
-                        setOpenItemId(openItemId === faq.id ? null : faq.id)
-                      }
+                      onToggle={() => setOpenItemId(openItemId === faq.id ? null : faq.id)}
                       index={index}
                     />
                   ))
@@ -153,9 +176,7 @@ function FaqPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center py-12"
                   >
-                    <p className="text-muted-foreground text-lg">
-                      {t('faqPage.noResults')}
-                    </p>
+                    <p className="text-muted-foreground text-lg">{t('faqPage.noResults')}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -173,9 +194,7 @@ function FaqPage() {
               transition={{ duration: 0.6 }}
               className="max-w-3xl mx-auto glass-card gradient-border rounded-2xl p-8 md:p-12 text-center"
             >
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                {t('faqPage.cta.title')}
-              </h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('faqPage.cta.title')}</h2>
               <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
                 {t('faqPage.cta.description')}
               </p>
@@ -202,12 +221,9 @@ interface FaqAccordionItemProps {
   index: number
 }
 
-function FaqAccordionItem({
-  faq,
-  isOpen,
-  onToggle,
-  index,
-}: FaqAccordionItemProps) {
+function FaqAccordionItem({ faq, isOpen, onToggle, index }: FaqAccordionItemProps) {
+  const { t } = useTranslation()
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -222,7 +238,7 @@ function FaqAccordionItem({
         onClick={onToggle}
         className="w-full flex items-center justify-between gap-4 p-6 text-left"
       >
-        <span className="text-foreground font-semibold">{faq.question}</span>
+        <span className="text-foreground font-semibold">{t(faq.questionKey)}</span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
@@ -242,9 +258,7 @@ function FaqAccordionItem({
           >
             <div className="px-6 pb-6 pt-0">
               <div className="border-t border-border pt-4">
-                <p className="text-muted-foreground leading-relaxed">
-                  {faq.answer}
-                </p>
+                <p className="text-muted-foreground leading-relaxed">{t(faq.answerKey)}</p>
               </div>
             </div>
           </motion.div>

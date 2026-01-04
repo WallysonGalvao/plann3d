@@ -165,7 +165,116 @@
     "title1": "ARCHITECTURE IN",
     "title2": "MOTION",
     "description": "Merging artistic vision with technological precision. Discover how we use cutting-edge tools to create immersive architectural experiences.",
-    "exploreCta": "Explore Tools"
+    "exploreCta": "Explore Tools",
+    "tools": {
+      "twinmotion": {
+        "category": "Environment",
+        "description": "Real-time immersion that brings spaces to life. We use Twinmotion to simulate atmospheric lighting, weather, and seasons, creating an instant emotional connection with the project before it is even built.",
+        "features": {
+          "0": {
+            "title": "Real-Time Rendering",
+            "description": "Instant feedback for lighting and material studies."
+          },
+          "1": {
+            "title": "Dynamic Atmosphere",
+            "description": "Simulation of rain, wind, and human movement."
+          }
+        },
+        "badge": "4K Render",
+        "cta": "View Twinmotion Projects"
+      },
+      "tekla": {
+        "category": "Engineering",
+        "description": "Structural precision where every beam counts. Using Tekla ensures visual beauty is grounded in constructive reality, merging engineering and art with no visible seams. Maximum detailing for perfect execution.",
+        "features": {
+          "0": {
+            "title": "Detailing",
+            "description": "Superior level of constructive detail."
+          },
+          "1": {
+            "title": "BIM Integration",
+            "description": "Multidisciplinary collaboration."
+          }
+        },
+        "badge": "BIM Model",
+        "cta": "View Tekla Projects"
+      },
+      "sketchup": {
+        "category": "Concept",
+        "description": "Conceptual agility for rapid form exploration. SketchUp allows us to quickly iterate on volumetrics and masses, transforming abstract ideas into tangible 3D concepts in record time.",
+        "features": {
+          "0": {
+            "title": "Rapid Prototyping",
+            "description": "Fast iteration of volumetric concepts."
+          },
+          "1": {
+            "title": "Mass Studies",
+            "description": "Clear visualization of scale and proportion."
+          }
+        },
+        "badge": "Sketch Mode",
+        "cta": "View SketchUp Projects"
+      },
+      "blender": {
+        "category": "Animation",
+        "description": "Cinematic storytelling without limits. With Blender, we create fluid animations and photorealistic renderings of high complexity. It is the tool where physics meets art to tell your project's story.",
+        "tags": [
+          "VFX & Particles",
+          "Soft Body Physics",
+          "Cycles Rendering"
+        ],
+        "badge": "Animation",
+        "cta": "View Showreel"
+      },
+      "autocad": {
+        "category": "Documentation",
+        "description": "The foundation of technical precision. We use AutoCAD for rigorous development of floor plans, sections, and technical details that serve as the solid base for all subsequent 3D modeling. Geometric accuracy in its purest form.",
+        "features": {
+          "0": {
+            "title": "Layer Management",
+            "description": "Complex organization for efficient workflows."
+          },
+          "1": {
+            "title": "Technical Drawing",
+            "description": "Millimetric precision in 2D documentation."
+          }
+        },
+        "badge": "CAD Drawing",
+        "cta": "View Details"
+      },
+      "premiere": {
+        "category": "Post-Production",
+        "description": "The final art of storytelling. In Premiere, we stitch each rendered frame to create a cohesive story. This is where the magic of editing, rhythm, and color correction transform image sequences into captivating films.",
+        "features": {
+          "0": {
+            "title": "Color Grading",
+            "description": "Cinematic aesthetics and mood."
+          },
+          "1": {
+            "title": "Sound Design",
+            "description": "Complete auditory immersion."
+          }
+        },
+        "badge": "Post-Production",
+        "cta": "View Edits"
+      },
+      "lumion": {
+        "category": "Visualization",
+        "description": "Instant beauty and vibrant atmospheres. Lumion allows us to translate complex models into stunning images and videos with unmatched speed, focusing on vegetation, life, and surroundings to contextualize architecture in its natural habitat.",
+        "features": {
+          "0": {
+            "title": "Rich Environment",
+            "description": "Vast libraries of nature and people."
+          },
+          "1": {
+            "title": "Ultra-Fast Rendering",
+            "description": "Agility for short-term deliveries."
+          }
+        },
+        "badge": "High Quality Render",
+        "cta": "View Lumion Projects"
+      }
+    }
   },
   "faqPage": {
     "label": "Get Answers",
@@ -181,10 +290,66 @@
       "pricing": "Pricing",
       "technical": "Technical"
     },
+    "items": {
+      "1": {
+        "question": "What is the average delivery time for a project?",
+        "answer": "The timeline depends on the project complexity. Generally, static images (renders) take 5 to 10 business days, while complete 3D animations can take 2 to 4 weeks. We provide a detailed schedule at the beginning of each collaboration to ensure your expectations are met."
+      },
+      "2": {
+        "question": "What files do I need to send to get started?",
+        "answer": "To ensure the best fidelity, we prefer 3D files (SketchUp, Revit, Archicad, 3ds Max) or complete 2D CAD drawings. We also request material references, moodboards, and lighting specifications to capture the desired atmosphere."
+      },
+      "3": {
+        "question": "Do you create cinematic 3D animations?",
+        "answer": "Yes, our specialty is creating impactful visual narratives. We develop scripts, storyboards, and high-quality animations that highlight the strengths of your development, focusing on storytelling and emotion."
+      },
+      "4": {
+        "question": "How does the review process work?",
+        "answer": "We work with a staged review system (white preview, materials preview, final render). Typically, we include 2 to 3 review rounds at each stage to ensure every detail is perfect before final delivery."
+      },
+      "5": {
+        "question": "Do you serve international clients?",
+        "answer": "Absolutely. Plann3d has global experience, working with architects and developers in Europe, North America, and Asia. Our team is fluent in English and accustomed to working across different time zones."
+      },
+      "6": {
+        "question": "What is the final format of delivered files?",
+        "answer": "We deliver high-resolution images (4K or higher) in JPG, PNG, or TIFF formats. For animations, we deliver in MP4 (H.264) or MOV (ProRes) in 1080p or 4K, depending on client needs for web or large screen presentation."
+      },
+      "7": {
+        "question": "What is the cost of a visualization project?",
+        "answer": "Pricing varies based on project complexity and scope. Static images start from R$ 800, while cinematic animations are quoted individually. Contact us for a personalized quote."
+      },
+      "8": {
+        "question": "What rendering style do you work with?",
+        "answer": "We specialize in photorealistic rendering with a focus on atmosphere and emotion. We use natural lighting, high-quality materials, and cinematic post-production techniques to create images that tell stories."
+      }
+    },
     "cta": {
       "title": "Didn't find what you were looking for?",
       "description": "Our team is ready to answer any specific questions about your project. Contact us for personalized consulting.",
       "button": "Talk to our team"
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "Plann3d - Architectural 3D Visualization",
+      "description": "We transform architectural projects into cinematic visual experiences. 3D rendering, animation and virtual reality."
+    },
+    "projects": {
+      "title": "Projects - Plann3d",
+      "description": "Explore our portfolio of 3D architectural visualizations."
+    },
+    "tools": {
+      "title": "Tools & Technologies - Plann3d",
+      "description": "Discover the professional tools we use to create photorealistic visualizations."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions - Plann3d",
+      "description": "Get answers about architectural visualization, 3D rendering and our work process."
+    },
+    "contact": {
+      "title": "Contact - Plann3d",
+      "description": "Get in touch to transform your architectural project into cinematic 3D visualization."
     }
   }
 }

@@ -31,7 +31,7 @@ const Footer = () => {
     },
     {
       label: 'YouTube',
-      href: 'https://www.youtube.com/@plan3ds',
+      href: 'https://www.youtube.com/@Plann3D',
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"

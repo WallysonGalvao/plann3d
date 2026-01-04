@@ -23,23 +23,10 @@ const Header = () => {
   const { scrollY } = useScroll()
   const { theme } = useTheme()
 
-  console.warn('🚀 Header Component Rendering')
-
   // Prevent hydration mismatch
   useEffect(() => {
     setMounted(true)
   }, [])
-
-  // Debug effect to log theme changes
-  useEffect(() => {
-    console.warn('🔄 Header State Changed:', {
-      pathname: location.pathname,
-      isScrolled,
-      hasTransparentHeader: ['/', '/tools', '/faq'].includes(location.pathname),
-      mounted,
-      theme,
-    })
-  }, [location.pathname, isScrolled, mounted, theme])
 
   // Track scroll direction for hide/show behavior
   useMotionValueEvent(scrollY, 'change', (latest) => {
@@ -72,14 +59,6 @@ const Header = () => {
 
   // Get the correct foreground color based on theme
   const getForegroundColor = () => {
-    const willReturn = shouldUseWhiteText
-      ? '#ffffff'
-      : !mounted
-        ? 'oklch(0.98 0.02 250)'
-        : theme === 'light'
-          ? 'oklch(0.15 0.02 250)'
-          : 'oklch(0.98 0.02 250)'
-
     if (shouldUseWhiteText) return '#ffffff'
     // If not mounted yet, default to dark theme color to match server render
     if (!mounted) return 'oklch(0.98 0.02 250)'

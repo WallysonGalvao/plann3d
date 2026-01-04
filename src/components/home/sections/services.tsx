@@ -1,14 +1,14 @@
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Building2, Eye, Film, Sparkles } from 'lucide-react'
-import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { SectionHeader } from '@/components/section-header'
+import { useAnimatedSection } from '@/hooks/useAnimatedSection'
 import { scaleIn, staggerContainer } from '@/lib/motion-variants'
 
 const ServicesSection = () => {
   const { t } = useTranslation()
-  const sectionRef = useRef<HTMLElement>(null)
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
+  const { ref: sectionRef, isInView } = useAnimatedSection<HTMLElement>()
 
   const services = [
     {
@@ -34,29 +34,24 @@ const ServicesSection = () => {
   ]
 
   return (
-    <section ref={sectionRef} id="services" className="relative py-24 lg:py-32 bg-secondary/30 overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="services"
+      className="relative py-24 lg:py-32 bg-secondary/30 overflow-hidden"
+    >
       {/* Decorative section number */}
       <span className="section-number -left-8 top-0 hidden lg:block">02</span>
 
       <div className="container relative z-10 mx-auto px-6 lg:px-12">
-        {/* Section Header with serif accent */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-center max-w-2xl mx-auto mb-20"
-        >
-          <span className="label-premium mb-6 inline-block">{t('services.label')}</span>
-          <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight mt-4 mb-6">
-            <span className="font-serif italic font-normal text-muted-foreground">
-              {t('services.title').split(' ')[0]}{' '}
-            </span>
-            {t('services.title').split(' ').slice(1).join(' ')}
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            {t('services.description')}
-          </p>
-        </motion.div>
+        {/* Section Header */}
+        <SectionHeader
+          label={t('services.label')}
+          title={t('services.title')}
+          description={t('services.description')}
+          align="center"
+          isInView={isInView}
+          className="mb-20"
+        />
 
         {/* Services Grid with Glass Cards */}
         <motion.div

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Home -->
+  <url>
+    <loc>https://plann3d.com.br/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://plann3d.com.br/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://plann3d.com.br/?lang=en" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Projects -->
+  <url>
+    <loc>https://plann3d.com.br/projects</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://plann3d.com.br/projects" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://plann3d.com.br/projects?lang=en" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Project: Torre de TV -->
+  <url>
+    <loc>https://plann3d.com.br/projects/torre-de-tv</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://plann3d.com.br/projects/torre-de-tv" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://plann3d.com.br/projects/torre-de-tv?lang=en" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Tools -->
+  <url>
+    <loc>https://plann3d.com.br/tools</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://plann3d.com.br/tools" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://plann3d.com.br/tools?lang=en" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Tool: Twinmotion -->
+  <url>
+    <loc>https://plann3d.com.br/tools#twinmotion</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Tool: Tekla -->
+  <url>
+    <loc>https://plann3d.com.br/tools#tekla</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Tool: SketchUp -->
+  <url>
+    <loc>https://plann3d.com.br/tools#sketchup</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Tool: Blender -->
+  <url>
+    <loc>https://plann3d.com.br/tools#blender</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Tool: AutoCAD -->
+  <url>
+    <loc>https://plann3d.com.br/tools#autocad</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Tool: Adobe Premiere -->
+  <url>
+    <loc>https://plann3d.com.br/tools#premiere</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Tool: Lumion -->
+  <url>
+    <loc>https://plann3d.com.br/tools#lumion</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- FAQ -->
+  <url>
+    <loc>https://plann3d.com.br/faq</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://plann3d.com.br/faq" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://plann3d.com.br/faq?lang=en" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://plann3d.com.br/contact</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://plann3d.com.br/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://plann3d.com.br/contact?lang=en" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+</urlset>

@@ -1,18 +1,65 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { motion, useInView } from 'framer-motion'
-import { ArrowRight, Check, Play } from 'lucide-react'
+import { ArrowRight, Play } from 'lucide-react'
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import type { Tool } from '@/data/tools'
 
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { Button } from '@/components/ui/button'
-import { tools, type Tool } from '@/data/tools'
+import { tools } from '@/data/tools'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
+import {
+  createToolSchema,
+  createToolsListSchema,
+  generateJsonLd,
+  generateMetaTags,
+  ORGANIZATION_SCHEMA,
+  useSEO,
+} from '@/lib/seo'
 import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/tools')({
   component: ToolsPage,
+  head: () => {
+    const toolSchemas = tools.map((tool) =>
+      createToolSchema({
+        id: tool.id,
+        name: tool.name,
+        category: tool.categoryKey.split('.').pop() || '',
+        description: tool.descriptionKey,
+        features: tool.features.map((f) => ({
+          title: f.titleKey,
+          description: f.descriptionKey,
+        })),
+      }),
+    )
+
+    const toolsListSchema = createToolsListSchema(
+      tools.map((t) => ({
+        id: t.id,
+        name: t.name,
+        description: t.descriptionKey,
+      })),
+    )
+
+    return {
+      meta: generateMetaTags({
+        title: 'Ferramentas e Tecnologias - Plann3d',
+        description:
+          'Conheça as ferramentas profissionais que utilizamos: Twinmotion, Tekla, SketchUp, Blender, AutoCAD, Adobe Premiere e Lumion.',
+        url: 'https://plann3d.com.br/tools',
+      }),
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: generateJsonLd([ORGANIZATION_SCHEMA, toolsListSchema, ...toolSchemas]),
+        },
+      ],
+    }
+  },
 })
 
 function ToolsPage() {
@@ -26,7 +73,10 @@ function ToolsPage() {
 
       <main>
         {/* Hero Section */}
-        <section id="tools-hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <section
+          id="tools-hero"
+          className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        >
           {/* Background Image */}
           <div className="absolute inset-0">
             <div
@@ -50,10 +100,7 @@ function ToolsPage() {
             variants={staggerContainer}
             className="relative z-10 container mx-auto px-6 md:px-12 lg:px-20 text-center"
           >
-            <motion.span
-              variants={fadeInUp}
-              className="label-premium inline-block mb-6"
-            >
+            <motion.span variants={fadeInUp} className="label-premium inline-block mb-6">
               {t('toolsPage.label')}
             </motion.span>
 
@@ -111,11 +158,15 @@ interface ToolSectionProps {
 }
 
 function ToolSection({ tool, index }: ToolSectionProps) {
+  const { t } = useTranslation()
   const sectionRef = useRef<HTMLElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
   const isReversed = index % 2 === 1
 
   const CategoryIcon = tool.categoryIcon
+
+  // Get tags from i18n if tagsKey exists
+  const tags = tool.tagsKey ? (t(tool.tagsKey, { returnObjects: true }) as string[]) : undefined
 
   return (
     <motion.section
@@ -151,7 +202,7 @@ function ToolSection({ tool, index }: ToolSectionProps) {
             <div className="flex items-center gap-3 text-primary">
               <CategoryIcon size={28} />
               <span className="font-bold tracking-wider uppercase text-sm">
-                {tool.category}
+                {t(tool.categoryKey)}
               </span>
             </div>
 
@@ -162,7 +213,7 @@ function ToolSection({ tool, index }: ToolSectionProps) {
                 {tool.name.slice(1).toUpperCase()}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                {tool.description}
+                {t(tool.descriptionKey)}
               </p>
             </div>
 
@@ -178,24 +229,17 @@ function ToolSection({ tool, index }: ToolSectionProps) {
               >
                 {tool.features.map((feature, i) =>
                   feature.icon ? (
-                    <div
-                      key={i}
-                      className="glass-card p-4 rounded-xl border border-border"
-                    >
+                    <div key={i} className="glass-card p-4 rounded-xl border border-border">
                       <feature.icon className="text-primary mb-2" size={24} />
-                      <h4 className="text-foreground font-bold">{feature.title}</h4>
+                      <h4 className="text-foreground font-bold">{t(feature.titleKey)}</h4>
                       <p className="text-muted-foreground text-xs mt-1">
-                        {feature.description}
+                        {t(feature.descriptionKey)}
                       </p>
                     </div>
                   ) : (
                     <div key={i} className="flex flex-col">
-                      <h4 className="text-foreground font-bold text-lg">
-                        {feature.title}
-                      </h4>
-                      <p className="text-muted-foreground text-sm">
-                        {feature.description}
-                      </p>
+                      <h4 className="text-foreground font-bold text-lg">{t(feature.titleKey)}</h4>
+                      <p className="text-muted-foreground text-sm">{t(feature.descriptionKey)}</p>
                     </div>
                   ),
                 )}
@@ -203,9 +247,9 @@ function ToolSection({ tool, index }: ToolSectionProps) {
             )}
 
             {/* Tags */}
-            {tool.tags && tool.tags.length > 0 && (
+            {tags && tags.length > 0 && (
               <div className="flex flex-wrap gap-3 mt-4">
-                {tool.tags.map((tag) => (
+                {tags.map((tag) => (
                   <span
                     key={tag}
                     className="px-4 py-2 rounded-full glass-card border border-border text-sm font-medium"
@@ -221,14 +265,11 @@ function ToolSection({ tool, index }: ToolSectionProps) {
               whileHover={{ x: 8 }}
               className="w-fit flex items-center gap-2 text-foreground font-bold hover:text-primary transition-colors group mt-2"
             >
-              <span>{tool.cta.label}</span>
+              <span>{t(tool.cta.labelKey)}</span>
               {tool.cta.icon === 'play_circle' ? (
                 <Play size={20} className="group-hover:text-primary transition-colors" />
               ) : (
-                <ArrowRight
-                  size={20}
-                  className="transition-transform group-hover:translate-x-1"
-                />
+                <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
               )}
             </motion.button>
           </motion.div>
@@ -275,7 +316,7 @@ function ToolSection({ tool, index }: ToolSectionProps) {
               )}
             >
               <span className="text-white text-sm font-semibold uppercase tracking-wider">
-                {tool.badge.label}
+                {t(tool.badge.labelKey)}
               </span>
             </div>
           </motion.div>

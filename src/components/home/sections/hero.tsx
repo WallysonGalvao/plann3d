@@ -1,72 +1,24 @@
 import { Link } from '@tanstack/react-router'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Play } from 'lucide-react'
-import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import heroBg from '@/assets/hero-bg.jpg'
 import { Button } from '@/components/ui/button'
+import {
+  heroItemVariants,
+  staggerContainerSlow,
+  statsContainerVariants,
+  statsVariants,
+} from '@/lib/motion-variants'
 
 const HeroSection = () => {
   const { t } = useTranslation()
-  const sectionRef = useRef<HTMLElement>(null)
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end start'],
-  })
-
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-  const contentY = useTransform(scrollYProgress, [0, 0.5], [0, 100])
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut' as const,
-      },
-    },
-  }
-
-  const statsVariants = {
-    hidden: { opacity: 0, x: 30 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut' as const,
-      },
-    },
-  }
 
   return (
-    <section
-      id="hero"
-      ref={sectionRef}
-      className="relative min-h-screen flex items-center overflow-hidden"
-    >
-      {/* Parallax Background Image */}
-      <motion.div
-        style={{ y: backgroundY, scale: backgroundScale }}
-        className="absolute inset-0 w-full h-[120%] -top-[10%]"
-      >
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 w-full h-full">
         <motion.img
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
@@ -79,23 +31,20 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-black/30" />
         {/* Gradient overlay for depth - more subtle */}
         <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-black/20" />
-      </motion.div>
+      </div>
 
-      {/* Content with fade on scroll */}
-      <motion.div
-        style={{ opacity: contentOpacity, y: contentY }}
-        className="relative z-10 container mx-auto px-6 lg:px-12 pt-24 pb-16"
-      >
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 pt-24 pb-16">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[70vh] lg:min-h-[80vh]">
           {/* Left Content */}
           <motion.div
-            variants={containerVariants}
+            variants={staggerContainerSlow}
             initial="hidden"
             animate="visible"
             className="lg:col-span-7 space-y-6 lg:space-y-10"
           >
             {/* Headline with Serif Accent */}
-            <motion.div variants={itemVariants} className="space-y-1 sm:space-y-2">
+            <motion.div variants={heroItemVariants} className="space-y-1 sm:space-y-2">
               <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold leading-[1.1] sm:leading-[1.05] tracking-tight text-white">
                 <span className="font-serif italic font-normal text-white/80">
                   {t('hero.headline1').split(' ')[0]}{' '}
@@ -103,12 +52,14 @@ const HeroSection = () => {
                 {t('hero.headline1').split(' ').slice(1).join(' ')}
               </h1>
               <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold leading-[1.1] sm:leading-[1.05] tracking-tight text-white">
-                <span className="bg-linear-to-r from-white to-white/60 bg-clip-text text-transparent">{t('hero.headline2')}</span>
+                <span className="bg-linear-to-r from-white to-white/60 bg-clip-text text-transparent">
+                  {t('hero.headline2')}
+                </span>
               </h1>
             </motion.div>
 
             {/* Description */}
-            <motion.div variants={itemVariants} className="max-w-xl">
+            <motion.div variants={heroItemVariants} className="max-w-xl">
               <div className="flex gap-4">
                 <motion.div
                   initial={{ height: 0 }}
@@ -123,7 +74,7 @@ const HeroSection = () => {
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+            <motion.div variants={heroItemVariants} className="flex flex-wrap gap-4">
               <Button variant="outline" size="lg" asChild>
                 <Link to="/projects">{t('hero.viewProjects')}</Link>
               </Button>
@@ -140,16 +91,7 @@ const HeroSection = () => {
           <motion.div
             initial="hidden"
             animate="visible"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.2,
-                  delayChildren: 0.8,
-                },
-              },
-            }}
+            variants={statsContainerVariants}
             className="lg:col-span-5 flex justify-center lg:justify-end mt-8 lg:mt-0"
           >
             <div className="flex flex-row lg:flex-col gap-6 lg:gap-8">
@@ -196,7 +138,7 @@ const HeroSection = () => {
             className="w-px bg-gradient-to-b from-muted-foreground to-transparent"
           />
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   )
 }

@@ -10,6 +10,7 @@ export default [
       '**/node_modules/**',
       '**/dist/**',
       '**/build/**',
+      '**/.output/**',
       '**/.husky/**',
       '**/*.gen.ts',
       '**/routeTree.gen.ts',
@@ -22,18 +23,12 @@ export default [
     ],
   },
   ...tanstackConfig,
-  prettier, // Desabilita regras que conflitam com Prettier
+  prettier,
   {
     plugins: {
       'unused-imports': unusedImports,
     },
     rules: {
-      // TypeScript rules
-      '@typescript-eslint/no-unused-vars': 'off', // Desabilitado em favor do unused-imports
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-unnecessary-condition': 'off',
-      '@typescript-eslint/require-await': 'warn',
-
       // General rules
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-shadow': 'off',
@@ -50,27 +45,6 @@ export default [
           caughtErrorsIgnorePattern: '^_',
         },
       ],
-
-      // Import plugin rules (já incluído no TanStack config, apenas customizando)
-      'import/order': [
-        'warn',
-        {
-          groups: [
-            'builtin', // Node.js built-in modules
-            'external', // npm packages
-            'internal', // Internal modules
-            ['parent', 'sibling'], // Parent and sibling modules
-            'index', // Index imports
-            'type', // Type imports
-          ],
-          'newlines-between': 'always',
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-        },
-      ],
-      'import/no-duplicates': 'error',
     },
   },
 ]
