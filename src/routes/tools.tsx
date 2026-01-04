@@ -12,12 +12,11 @@ import { Button } from '@/components/ui/button'
 import { tools } from '@/data/tools'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
 import {
+  ORGANIZATION_SCHEMA,
   createToolSchema,
   createToolsListSchema,
   generateJsonLd,
   generateMetaTags,
-  ORGANIZATION_SCHEMA,
-  useSEO,
 } from '@/lib/seo'
 import { cn } from '@/lib/utils'
 
@@ -166,7 +165,9 @@ function ToolSection({ tool, index }: ToolSectionProps) {
   const CategoryIcon = tool.categoryIcon
 
   // Get tags from i18n if tagsKey exists
-  const tags = tool.tagsKey ? (t(tool.tagsKey, { returnObjects: true }) as string[]) : undefined
+  const tags = tool.tagsKey
+    ? (t(tool.tagsKey, { returnObjects: true }) as Array<string>)
+    : undefined
 
   return (
     <motion.section

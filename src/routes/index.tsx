@@ -54,7 +54,9 @@ function App() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
-      {showIndicator && <VerticalProgressIndicator items={sections} activeSection={activeSection} />}
+      {showIndicator && (
+        <VerticalProgressIndicator items={sections} activeSection={activeSection} />
+      )}
       <main>
         <HeroSection />
         <ProjectsSection />
@@ -65,4 +67,3 @@ function App() {
     </div>
   )
 }
-

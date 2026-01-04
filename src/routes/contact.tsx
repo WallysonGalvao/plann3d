@@ -2,9 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { createFileRoute } from '@tanstack/react-router'
 import axios from 'axios'
 import { motion } from 'framer-motion'
-import debounce from 'lodash.debounce'
 import { ArrowRight } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
@@ -103,19 +102,10 @@ function Contact() {
           description: 'Falha ao enviar mensagem. Tente novamente.',
         })
       }
-      // eslint-disable-next-line no-console
+
       console.error('Error submitting form:', error)
     }
   }
-
-  const debouncedSubmit = useMemo(
-    () =>
-      debounce((data: ContactFormValues) => {
-        void handleSubmit(data)
-      }, 300),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  )
 
   const projectTypes = [
     { value: 'archViz', label: t('contactPage.form.archViz') },
