@@ -47,6 +47,7 @@ function ProjectViewerPage() {
   const [modelMetadata, setModelMetadata] = useState<ModelMetadata | null>(null)
   const [isPanMode, setIsPanMode] = useState(false)
   const [isAutoTour, setIsAutoTour] = useState(false)
+  const [isAutoRotate, setIsAutoRotate] = useState(true) // Start with rotation enabled
   const [visibleLayers, setVisibleLayers] = useState({
     structure: true,
     furniture: true,
@@ -134,6 +135,10 @@ function ProjectViewerPage() {
     setIsAutoTour(!isAutoTour)
   }
 
+  const handleAutoRotateToggle = () => {
+    setIsAutoRotate(!isAutoRotate)
+  }
+
   const handleCameraPreset = (
     preset: 'front' | 'back' | 'left' | 'right' | 'top' | 'perspective',
   ) => {
@@ -195,8 +200,11 @@ function ProjectViewerPage() {
             poster={project.model3d.thumbnail}
             height="100%"
             scale={project.model3d.scale}
-            cameraPosition={project.model3d.cameraPosition}
-            autoRotate={project.model3d.autoRotate}
+            cameraPosition={
+              // Reduce camera distance by 85% for very close initial view
+              project.model3d.cameraPosition.map((val) => val * 0.15) as [number, number, number]
+            }
+            autoRotate={isAutoRotate}
             onMetadataExtracted={setModelMetadata}
             enablePan={isPanMode || isKeyPanActive}
             cameraPreset={activeCameraPreset}
@@ -471,6 +479,13 @@ function ProjectViewerPage() {
               label="Tour Auto"
               onClick={handleAutoTour}
               isActive={isAutoTour}
+            />
+            {/* Auto Rotate */}
+            <ControlButton
+              icon="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+              label={isAutoRotate ? 'Pausar' : 'Rotação'}
+              onClick={handleAutoRotateToggle}
+              isActive={isAutoRotate}
             />
             {/* Layers */}
             <ControlButton

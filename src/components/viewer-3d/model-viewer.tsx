@@ -232,7 +232,7 @@ export function ModelViewer({
             ref={controlsRef}
             enablePan={true}
             enableZoom={true}
-            enableRotate={!enablePan}
+            enableRotate={true}
             autoRotate={autoRotate && !autoTourActive}
             autoRotateSpeed={0.5}
             minPolarAngle={0}
@@ -244,9 +244,9 @@ export function ModelViewer({
             enableDamping={true}
             dampingFactor={0.05}
             mouseButtons={{
-              LEFT: enablePan ? 2 : 0, // Pan with left click when pan mode is on, rotate otherwise
-              MIDDLE: 1, // Always zoom with middle button
-              RIGHT: 2, // Always pan with right click
+              LEFT: enablePan ? 2 : 0, // Pan with left when pan mode active, rotate otherwise
+              MIDDLE: 1, // Zoom with middle button
+              RIGHT: 2, // Pan with right click
             }}
             touches={{
               ONE: enablePan ? 2 : 0, // Pan with one finger when pan mode is on, rotate otherwise
