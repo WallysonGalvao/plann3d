@@ -102,6 +102,9 @@ const HeroSection = () => {
           transition={{ duration: 1.5, ease: 'easeOut' }}
           src={heroBg}
           alt="Architectural visualization"
+          fetchPriority="high"
+          loading="eager"
+          decoding="sync"
           className="w-full h-full object-cover"
         />
         {/* Overlay - lighter for better image visibility */}

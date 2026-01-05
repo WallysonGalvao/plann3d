@@ -151,7 +151,7 @@
     "description": "Estúdio de visualização de alta qualidade dedicado a criar histórias cinematográficas para o ambiente construído.",
     "navigation": "Navegação",
     "contact": "Contato",
-    "email": "contato@plann3d.com",
+    "email": "plan3ds@gmail.com",
     "phone": "+55 61 99598-2807",
     "addressLine1": "",
     "addressLine2": "Brasília, Distrito Federal, Brasil",
@@ -161,7 +161,8 @@
   },
   "languageSwitcher": {
     "en": "English",
-    "pt": "Português"
+    "pt": "Português",
+    "es": "Español"
   },
   "contactPage": {
     "label": "Fale Conosco",
@@ -430,5 +431,21 @@
       "title": "Contato - Plann3d",
       "description": "Entre em contato para transformar seu projeto arquitetônico em visualização 3D cinematográfica."
     }
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "description": "A página que você procura não existe ou foi movida. Que tal explorar nossos projetos?",
+    "goHome": "Voltar ao Início",
+    "viewProjects": "Ver Projetos",
+    "quickLinks": "Links rápidos:",
+    "links": {
+      "home": "Início",
+      "projects": "Projetos",
+      "contact": "Contato"
+    }
+  },
+  "breadcrumbs": {
+    "home": "Início",
+    "projects": "Projetos"
   }
 }

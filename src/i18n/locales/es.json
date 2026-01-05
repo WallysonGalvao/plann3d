@@ -1,0 +1,452 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "work": "Trabajos",
+    "process": "Proceso",
+    "studio": "Estudio",
+    "contact": "Contacto",
+    "letsTalk": "Hablemos",
+    "projects": "Proyectos",
+    "services": "Servicios",
+    "tools": "Herramientas",
+    "faq": "FAQ"
+  },
+  "header": {
+    "theme": {
+      "label": "Tema",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    }
+  },
+  "hero": {
+    "available": "Disponible para Nuevos Proyectos",
+    "headline1": "REALIDAD",
+    "headline2": "CINEMATOGRÁFICA.",
+    "description": "Conectamos imaginación y realidad a través de visualización de alta calidad y narrativa arquitectónica inmersiva.",
+    "viewProjects": "Ver Proyectos",
+    "showreel": "Showreel",
+    "projectsDelivered": "Proyectos Entregados",
+    "renderHours": "Horas de Render",
+    "scroll": "Desplazar",
+    "tools": {
+      "twinmotion": {
+        "tagline": "REALTIME",
+        "headline2": "INTERACTIVO.",
+        "description": "Visualización en tiempo real con calidad cinematográfica. Exploramos cada ángulo instantáneamente.",
+        "stats": {
+          "value1": "60",
+          "label1": "FPS en Tiempo Real",
+          "value2": "100",
+          "label2": "Materiales PBR"
+        }
+      },
+      "tekla": {
+        "tagline": "PRECISIÓN",
+        "headline2": "ESTRUCTURAL.",
+        "description": "Estructuras metálicas detalladas al milímetro. La ingeniería encuentra la visualización fotorrealista.",
+        "stats": {
+          "value1": "0.1",
+          "label1": "Precisión en mm",
+          "value2": "500",
+          "label2": "Conexiones Modeladas"
+        }
+      },
+      "sketchup": {
+        "tagline": "CONCEPTO",
+        "headline2": "CREATIVO.",
+        "description": "De la idea al modelo 3D en minutos. Agilidad conceptual para exploración rápida de formas.",
+        "stats": {
+          "value1": "30",
+          "label1": "Minutos para Concepto",
+          "value2": "10",
+          "label2": "Iteraciones por Día"
+        }
+      },
+      "blender": {
+        "tagline": "ANIMACIÓN",
+        "headline2": "CINEMATOGRÁFICA.",
+        "description": "Narrativa cinematográfica sin límites. Física, VFX y renderización de alta complejidad.",
+        "stats": {
+          "value1": "24",
+          "label1": "Frames por Segundo",
+          "value2": "4K",
+          "label2": "Resolución de Salida"
+        }
+      },
+      "autocad": {
+        "tagline": "DOCUMENTACIÓN",
+        "headline2": "TÉCNICA.",
+        "description": "La base técnica de todo proyecto. Precisión geométrica y rigor dimensional desde el inicio.",
+        "stats": {
+          "value1": "1000",
+          "label1": "Bloques Técnicos",
+          "value2": "50",
+          "label2": "Capas Organizadas"
+        }
+      },
+      "premiere": {
+        "tagline": "POSTPRODUCCIÓN",
+        "headline2": "EDITORIAL.",
+        "description": "El arte final de la narrativa. Edición, ritmo y color grading que transforman frames en películas.",
+        "stats": {
+          "value1": "120",
+          "label1": "Clips Editados",
+          "value2": "10",
+          "label2": "LUTs Cinematográficas"
+        }
+      },
+      "lumion": {
+        "tagline": "ATMÓSFERA",
+        "headline2": "NATURAL.",
+        "description": "Belleza instantánea y ambientación vibrante. Contexto natural y vida en cada escena.",
+        "stats": {
+          "value1": "5000",
+          "label1": "Objetos de Naturaleza",
+          "value2": "20",
+          "label2": "Efectos Atmosféricos"
+        }
+      }
+    }
+  },
+  "projects": {
+    "label": "Trabajos Seleccionados",
+    "title": "Últimos proyectos",
+    "viewAll": "Ver todos los proyectos",
+    "nordicRetreat": "Refugio Nórdico",
+    "voidMuseum": "Museo Void",
+    "vertexTower": "Torre Vertex"
+  },
+  "processSection": {
+    "label": "Nuestro Proceso",
+    "step1Title": "Concepto y Visión",
+    "step2Title": "Luz y Atmósfera",
+    "step3Title": "Movimiento y Vida",
+    "step4Title": "Experiencia Final"
+  },
+  "studioSection": {
+    "label": "Sobre Nosotros",
+    "title": "Nuestro Estudio",
+    "description": "Somos un estudio de visualización arquitectónica enfocado en crear experiencias visuales que trascienden lo ordinario."
+  },
+  "services": {
+    "label": "Lo Que Creamos",
+    "title": "Servicios",
+    "description": "Transformamos conceptos arquitectónicos en experiencias visuales envolventes que inspiran y comunican.",
+    "archViz": "Visualización Arquitectónica",
+    "archVizDesc": "Imágenes fotorrealistas que capturan la esencia de tu diseño con claridad impresionante y profundidad emocional.",
+    "animation": "Animación Cinematográfica",
+    "animationDesc": "Narrativas visuales dinámicas que guían a los espectadores por los espacios, revelando atmósfera y experiencia.",
+    "virtual": "Experiencias Virtuales",
+    "virtualDesc": "Recorridos inmersivos que transportan clientes a ambientes no construidos con presencia espacial completa.",
+    "presentation": "Diseño de Presentación",
+    "presentationDesc": "Visuales y presentaciones listas para competencia que comunican visión con impacto y precisión."
+  },
+  "about": {
+    "label": "El Estudio",
+    "title": "PLANN3D Visual Studio",
+    "desc1": "Somos un estudio creativo dedicado a la visualización arquitectónica, animación y experiencias visuales inmersivas. Nuestro trabajo vive en la intersección entre arte y arquitectura."
+  },
+  "footer": {
+    "description": "Estudio de visualización de alta calidad dedicado a crear historias cinematográficas para el ambiente construido.",
+    "navigation": "Navegación",
+    "contact": "Contacto",
+    "email": "plan3ds@gmail.com",
+    "phone": "+55 61 99598-2807",
+    "addressLine1": "",
+    "addressLine2": "Brasília, Distrito Federal, Brasil",
+    "copyright": "© {{year}} PLANN3D Visual Studio. Todos los derechos reservados.",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio"
+  },
+  "languageSwitcher": {
+    "en": "English",
+    "pt": "Português",
+    "es": "Español"
+  },
+  "contactPage": {
+    "label": "Contáctenos",
+    "title1": "VAMOS A",
+    "title2": "CONVERSAR",
+    "description": "¿Listo para visualizar tu visión? Ya sea renderización arquitectónica de alta calidad o experiencias VR inmersivas, vamos a construir algo icónico juntos.",
+    "form": {
+      "name": "Nombre",
+      "namePlaceholder": "Juan García",
+      "email": "Email",
+      "emailPlaceholder": "juan@empresa.com",
+      "projectType": "Tipo de Proyecto",
+      "selectProjectType": "Seleccione el tipo de proyecto",
+      "archViz": "Visualización Arquitectónica",
+      "interiorViz": "Visualización de Interiores",
+      "animation": "Animación / Walkthrough",
+      "twinmotion": "Render en Tiempo Real (Twinmotion)",
+      "bimModel": "Modelado BIM / Tekla",
+      "conceptDesign": "Diseño Conceptual (SketchUp)",
+      "cinematicVideo": "Video Cinemático (Blender)",
+      "virtualExp": "Experiencia Virtual / VR",
+      "competition": "Entrada en Competencia",
+      "other": "Otro",
+      "projectDetails": "Detalles del Proyecto",
+      "projectDetailsPlaceholder": "Cuéntenos sobre su cronograma, alcance y visión...",
+      "sendInquiry": "Enviar Consulta",
+      "sending": "Enviando...",
+      "headerTitle": "Inicie su proyecto",
+      "headerSubtitle": "Complete el formulario a continuación y nos pondremos en contacto pronto.",
+      "privacyNote": "Al enviar este formulario, usted acepta nuestra",
+      "privacyPolicy": "Política de Privacidad",
+      "successTitle": "Consulta Enviada con Éxito",
+      "successDesc": "Gracias por contactarnos. Responderemos en 24-48 horas.",
+      "errors": {
+        "nameRequired": "El nombre es obligatorio",
+        "nameMax": "El nombre debe tener menos de 100 caracteres",
+        "invalidEmail": "Dirección de correo electrónico inválida",
+        "emailMax": "El email debe tener menos de 255 caracteres",
+        "selectProjectType": "Por favor, seleccione un tipo de proyecto",
+        "detailsRequired": "Los detalles del proyecto son obligatorios",
+        "detailsMax": "Los detalles deben tener menos de 2000 caracteres"
+      }
+    }
+  },
+  "projectsPage": {
+    "label": "Portafolio",
+    "title1": "VER TODOS",
+    "title2": "LOS PROYECTOS",
+    "description": "Experimente nuestras visiones arquitectónicas a través de animaciones inmersivas y renders hiperrealistas. Una colección curada de nuestros mejores trabajos.",
+    "filters": {
+      "all": "Todos",
+      "exteriors": "Exteriores",
+      "interiors": "Interiores",
+      "animation": "Animación"
+    },
+    "categories": {
+      "residential": "Residencial",
+      "commercial": "Comercial",
+      "animation": "Animación"
+    },
+    "loadMore": "Explorar Más Proyectos",
+    "showingCount": "Mostrando {{current}} de {{total}} proyectos",
+    "searchPlaceholder": "Buscar proyectos..."
+  },
+  "projectDetail": {
+    "scrollToExplore": "Desplázate para Explorar",
+    "watchFullFilm": "Ver Película Completa",
+    "vizArtDirection": "Visualización Arquitectónica y Dirección de Arte",
+    "year": "Año",
+    "location": "Ubicación",
+    "client": "Cliente",
+    "status": "Estado",
+    "nextProject": "Siguiente Proyecto",
+    "backToProjects": "Volver a Proyectos",
+    "gallery": "Galería",
+    "closeGallery": "Cerrar",
+    "dragOrUseArrows": "Arrastra o usa las flechas"
+  },
+  "toolsPage": {
+    "label": "Nuestro Arsenal Tecnológico",
+    "title1": "ARQUITECTURA EN",
+    "title2": "MOVIMIENTO",
+    "description": "Fusionando visión artística con precisión tecnológica. Descubra cómo utilizamos herramientas de vanguardia para crear experiencias arquitectónicas inmersivas.",
+    "exploreCta": "Explorar Herramientas",
+    "tools": {
+      "twinmotion": {
+        "category": "Ambiente",
+        "description": "Inmersión en tiempo real que da vida a los espacios. Utilizamos Twinmotion para simular iluminación atmosférica, clima y estaciones del año, creando una conexión emocional instantánea con el proyecto antes de ser construido.",
+        "features": {
+          "0": {
+            "title": "Renderización en Tiempo Real",
+            "description": "Feedback instantáneo para estudios de luz y materiales."
+          },
+          "1": {
+            "title": "Atmósfera Dinámica",
+            "description": "Simulación de lluvia, viento y movimiento humano."
+          }
+        },
+        "badge": "Render 4K",
+        "cta": "Ver Proyectos Twinmotion"
+      },
+      "tekla": {
+        "category": "Ingeniería",
+        "description": "Precisión estructural donde cada viga cuenta. El uso de Tekla garantiza que la belleza visual esté fundamentada en la realidad constructiva, fusionando ingeniería y arte sin empalmes visibles. Detallamiento máximo para ejecución perfecta.",
+        "features": {
+          "0": {
+            "title": "Detallamiento",
+            "description": "Nivel de detalle constructivo superior."
+          },
+          "1": {
+            "title": "Integración BIM",
+            "description": "Colaboración multidisciplinaria."
+          }
+        },
+        "badge": "Modelo BIM",
+        "cta": "Ver Proyectos Tekla"
+      },
+      "sketchup": {
+        "category": "Concepto",
+        "description": "Agilidad conceptual para la exploración rápida de formas. SketchUp nos permite iterar rápidamente sobre volumetrías y masas, transformando ideas abstractas en conceptos 3D tangibles en tiempo récord.",
+        "features": {
+          "0": {
+            "title": "Prototipado Rápido",
+            "description": "Iteración veloz de conceptos volumétricos."
+          },
+          "1": {
+            "title": "Estudios de Masa",
+            "description": "Visualización clara de escala y proporción."
+          }
+        },
+        "badge": "Sketch Mode",
+        "cta": "Ver Proyectos SketchUp"
+      },
+      "blender": {
+        "category": "Animación",
+        "description": "Narrativa cinematográfica sin límites. Con Blender, creamos animaciones fluidas y renderizaciones fotorrealistas de alta complejidad. Es la herramienta donde la física encuentra el arte para contar la historia de tu proyecto.",
+        "tags": [
+          "VFX y Partículas",
+          "Soft Body Physics",
+          "Cycles Rendering"
+        ],
+        "badge": "Animation",
+        "cta": "Ver Showreel"
+      },
+      "autocad": {
+        "category": "Documentación",
+        "description": "El cimiento de la precisión técnica. Utilizamos AutoCAD para el desarrollo riguroso de plantas, cortes y detalles técnicos que sirven como base sólida para todo el modelado 3D posterior. La exactitud geométrica en su estado puro.",
+        "features": {
+          "0": {
+            "title": "Gestión de Capas",
+            "description": "Organización compleja para flujos eficientes."
+          },
+          "1": {
+            "title": "Dibujo Técnico",
+            "description": "Precisión milimétrica en documentación 2D."
+          }
+        },
+        "badge": "CAD Drawing",
+        "cta": "Ver Detallamientos"
+      },
+      "premiere": {
+        "category": "Postproducción",
+        "description": "El arte final de la narrativa. En Premiere, cosemos cada frame renderizado para crear una historia cohesiva. Es aquí donde la magia de la edición, el ritmo y la corrección de color transforman secuencias de imágenes en películas emocionantes.",
+        "features": {
+          "0": {
+            "title": "Color Grading",
+            "description": "Estética cinematográfica y mood."
+          },
+          "1": {
+            "title": "Sound Design",
+            "description": "Inmersión auditiva completa."
+          }
+        },
+        "badge": "Post-Production",
+        "cta": "Ver Ediciones"
+      },
+      "lumion": {
+        "category": "Visualización",
+        "description": "Belleza instantánea y atmósferas vibrantes. Lumion nos permite traducir modelos complejos en imágenes y videos deslumbrantes con rapidez incomparable, enfocándose en la vegetación, la vida y el entorno para contextualizar la arquitectura en su hábitat natural.",
+        "features": {
+          "0": {
+            "title": "Ambientación Rica",
+            "description": "Bibliotecas vastas de naturaleza y personas."
+          },
+          "1": {
+            "title": "Render Ultra-Rápido",
+            "description": "Agilidad para entregas a corto plazo."
+          }
+        },
+        "badge": "High Quality Render",
+        "cta": "Ver Proyectos Lumion"
+      }
+    }
+  },
+  "faqPage": {
+    "label": "Resuelva sus Dudas",
+    "title1": "PREGUNTAS",
+    "title2": "FRECUENTES",
+    "description": "Entienda cómo transformamos sus proyectos arquitectónicos en experiencias visuales inmersivas.",
+    "searchPlaceholder": "Buscar preguntas...",
+    "noResults": "No se encontraron preguntas para su búsqueda.",
+    "filters": {
+      "all": "Todos",
+      "visualization": "Visualización",
+      "process": "Proceso",
+      "pricing": "Precios",
+      "technical": "Técnico"
+    },
+    "items": {
+      "1": {
+        "question": "¿Cuál es el plazo promedio de entrega para un proyecto?",
+        "answer": "El plazo depende de la complejidad del proyecto. Generalmente, imágenes estáticas (renders) toman de 5 a 10 días hábiles, mientras que animaciones 3D completas pueden tomar de 2 a 4 semanas. Proporcionamos un cronograma detallado al inicio de cada colaboración para garantizar que sus expectativas sean cumplidas."
+      },
+      "2": {
+        "question": "¿Qué archivos necesito enviar para comenzar?",
+        "answer": "Para garantizar la mejor fidelidad, preferimos archivos 3D (SketchUp, Revit, Archicad, 3ds Max) o dibujos 2D completos en CAD. También solicitamos referencias de materiales, moodboards y especificaciones de iluminación para capturar la atmósfera deseada."
+      },
+      "3": {
+        "question": "¿Hacen animaciones 3D cinemáticas?",
+        "answer": "Sí, nuestra especialidad es crear narrativas visuales impactantes. Desarrollamos guiones, storyboards y animaciones de alta calidad que destacan los puntos fuertes de su emprendimiento, enfocándonos en storytelling y emoción."
+      },
+      "4": {
+        "question": "¿Cómo funciona el proceso de revisión?",
+        "answer": "Trabajamos con un sistema de revisiones en etapas (preview blanco, previa de materiales, render final). Normalmente, incluimos 2 a 3 rondas de revisión en cada etapa para garantizar que cada detalle esté perfecto antes de la entrega final."
+      },
+      "5": {
+        "question": "¿Atienden clientes internacionales?",
+        "answer": "Absolutamente. Plann3d tiene experiencia global, trabajando con arquitectos y desarrolladores en Europa, América del Norte y Asia. Nuestro equipo es fluido en inglés y acostumbrado a trabajar con diferentes zonas horarias."
+      },
+      "6": {
+        "question": "¿Cuál es el formato final de los archivos entregados?",
+        "answer": "Entregamos imágenes en alta resolución (4K o superior) en formatos JPG, PNG o TIFF. Para animaciones, entregamos en MP4 (H.264) o MOV (ProRes) en 1080p o 4K, según la necesidad del cliente para web o presentación en pantalla grande."
+      },
+      "7": {
+        "question": "¿Cuál es el valor de un proyecto de visualización?",
+        "answer": "Los valores varían según la complejidad y alcance del proyecto. Imágenes estáticas comienzan desde R$ 800, mientras que animaciones cinemáticas se cotizan individualmente. Contáctenos para un presupuesto personalizado."
+      },
+      "8": {
+        "question": "¿Con qué estilo de renderización trabajan?",
+        "answer": "Somos especialistas en renderización fotorrealista con enfoque en atmósfera y emoción. Utilizamos iluminación natural, materiales de alta calidad y técnicas de postproducción cinematográfica para crear imágenes que cuentan historias."
+      }
+    },
+    "cta": {
+      "title": "¿No encontró lo que buscaba?",
+      "description": "Nuestro equipo está listo para aclarar cualquier duda específica sobre su proyecto. Contáctenos para una consultoría personalizada.",
+      "button": "Hable con nuestro equipo"
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "Plann3d - Visualización Arquitectónica 3D",
+      "description": "Transformamos proyectos arquitectónicos en experiencias visuales cinematográficas. Renderización 3D, animación y realidad virtual."
+    },
+    "projects": {
+      "title": "Proyectos - Plann3d",
+      "description": "Explore nuestro portafolio de visualizaciones arquitectónicas en 3D."
+    },
+    "tools": {
+      "title": "Herramientas y Tecnologías - Plann3d",
+      "description": "Conozca las herramientas profesionales que utilizamos para crear visualizaciones fotorrealistas."
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes - Plann3d",
+      "description": "Resuelva sus dudas sobre visualización arquitectónica, renderización 3D y nuestro proceso de trabajo."
+    },
+    "contact": {
+      "title": "Contacto - Plann3d",
+      "description": "Contáctenos para transformar su proyecto arquitectónico en visualización 3D cinematográfica."
+    }
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La página que busca no existe o ha sido movida. ¿Qué tal explorar nuestros proyectos?",
+    "goHome": "Volver al Inicio",
+    "viewProjects": "Ver Proyectos",
+    "quickLinks": "Enlaces rápidos:",
+    "links": {
+      "home": "Inicio",
+      "projects": "Proyectos",
+      "contact": "Contacto"
+    }
+  },
+  "breadcrumbs": {
+    "home": "Inicio",
+    "projects": "Proyectos"
+  }
+}

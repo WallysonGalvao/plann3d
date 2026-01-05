@@ -1,5 +1,13 @@
 import type { Project, ProjectDataByLocale, SupportedLocale } from '@/types/project'
 
+import {
+  hotelCopacabanaData,
+  PROJECT_ID as HOTEL_COPACABANA_ID,
+} from '@/data/projects/hotel-copacabana/data'
+import {
+  PROJECT_ID as RESIDENCIA_ALPHAVILLE_ID,
+  residenciaAlphavilleData,
+} from '@/data/projects/residencia-alphaville/data'
 import { PROJECT_ID as TORRE_DE_TV_ID, torreDeTvData } from '@/data/projects/torre-de-tv/data'
 import i18n from '@/i18n'
 
@@ -28,8 +36,8 @@ const lang = i18n.language ? i18n.language.split('-')[0] : 'pt'
 
 const projectRegistry: Record<string, ProjectDataByLocale> = {
   [TORRE_DE_TV_ID]: torreDeTvData,
-  // Add more projects here:
-  // [OTHER_PROJECT_ID]: otherProjectData,
+  [RESIDENCIA_ALPHAVILLE_ID]: residenciaAlphavilleData,
+  [HOTEL_COPACABANA_ID]: hotelCopacabanaData,
 }
 
 // ============================================

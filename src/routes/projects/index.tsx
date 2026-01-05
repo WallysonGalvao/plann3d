@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Grid3X3, Plus } from 'lucide-react'
-import { useState } from 'react'
+import { Grid3X3, Plus, Search } from 'lucide-react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { ProjectCategory } from '@/types/project'
@@ -9,6 +9,7 @@ import type { ProjectCategory } from '@/types/project'
 import { PageLayout } from '@/components/page-layout'
 import { ProjectCard } from '@/components/project-card'
 import { SectionHeader } from '@/components/section-header'
+import { BackToTop } from '@/components/ui/back-to-top'
 import { Button } from '@/components/ui/button'
 import { getProjectsCount, projects } from '@/data/projects'
 import { useAnimatedSection } from '@/hooks/useAnimatedSection'
@@ -20,6 +21,7 @@ export const Route = createFileRoute('/projects/')({ component: ProjectsPage })
 function ProjectsPage() {
   const { t } = useTranslation()
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('all')
+  const [searchQuery, setSearchQuery] = useState('')
   const { ref: heroRef, isInView: isHeroInView } = useAnimatedSection<HTMLDivElement>()
 
   const filters: Array<{ key: ProjectCategory; label: string; icon?: boolean }> = [
@@ -29,8 +31,19 @@ function ProjectsPage() {
     { key: 'animation', label: t('projectsPage.filters.animation') },
   ]
 
-  const filteredProjects =
-    activeFilter === 'all' ? projects : projects.filter((p) => p.category === activeFilter)
+  // Combined filter: category + search
+  const filteredProjects = useMemo(() => {
+    const query = searchQuery.toLowerCase().trim()
+    return projects.filter((p) => {
+      const matchesCategory = activeFilter === 'all' || p.category === activeFilter
+      const matchesSearch =
+        query === '' ||
+        p.title.toLowerCase().includes(query) ||
+        p.location?.toLowerCase().includes(query) ||
+        p.description?.toLowerCase().includes(query)
+      return matchesCategory && matchesSearch
+    })
+  }, [activeFilter, searchQuery])
 
   const getCategoryLabel = (category: ProjectCategory) => {
     const labels: Record<ProjectCategory, string> = {
@@ -70,26 +83,44 @@ function ProjectsPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              className="overflow-x-auto -mx-6 px-6 sm:overflow-visible sm:mx-0 sm:px-0"
+              className="flex flex-col gap-4"
             >
-              <div className="flex gap-2 sm:gap-3 min-w-max sm:min-w-0 sm:flex-wrap pb-2 sm:pb-0">
-                {filters.map((filter) => (
-                  <motion.button
-                    key={filter.key}
-                    onClick={() => setActiveFilter(filter.key)}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={cn(
-                      'group flex h-11 items-center gap-2 rounded-full border px-6 transition-all duration-300',
-                      activeFilter === filter.key
-                        ? 'border-primary bg-primary text-primary-foreground shadow-lg shadow-primary/20'
-                        : 'glass-card border-white/10 hover:border-white/20 glow-hover',
-                    )}
-                  >
-                    {filter.icon && <Grid3X3 size={16} />}
-                    <span className="text-sm font-medium">{filter.label}</span>
-                  </motion.button>
-                ))}
+              {/* Search Input */}
+              <div className="relative">
+                <Search
+                  size={18}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
+                />
+                <input
+                  type="text"
+                  placeholder={t('projectsPage.searchPlaceholder', { defaultValue: 'Buscar projetos...' })}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full sm:w-80 h-11 pl-11 pr-4 rounded-full bg-secondary/50 border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200"
+                />
+              </div>
+
+              {/* Category Filters */}
+              <div className="overflow-x-auto -mx-6 px-6 sm:overflow-visible sm:mx-0 sm:px-0">
+                <div className="flex gap-2 sm:gap-3 min-w-max sm:min-w-0 sm:flex-wrap pb-2 sm:pb-0">
+                  {filters.map((filter) => (
+                    <motion.button
+                      key={filter.key}
+                      onClick={() => setActiveFilter(filter.key)}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={cn(
+                        'group flex h-11 items-center gap-2 rounded-full border px-6 transition-all duration-300',
+                        activeFilter === filter.key
+                          ? 'border-primary bg-primary text-primary-foreground shadow-lg shadow-primary/20'
+                          : 'glass-card border-white/10 hover:border-white/20 glow-hover',
+                      )}
+                    >
+                      {filter.icon && <Grid3X3 size={16} />}
+                      <span className="text-sm font-medium">{filter.label}</span>
+                    </motion.button>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -144,6 +175,9 @@ function ProjectsPage() {
           </motion.div>
         </div>
       </section>
-    </PageLayout>
+
+      {/* Back to Top Button */}
+      <BackToTop />
+    </PageLayout >
   )
 }

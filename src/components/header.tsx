@@ -101,7 +101,11 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center">
+          <nav
+            id="main-navigation"
+            aria-label="Navegação principal"
+            className="hidden md:flex items-center"
+          >
             <div className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-secondary/50 backdrop-blur-sm border border-border/50">
               {navLinks.map((link) => (
                 <Link

@@ -2,6 +2,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
+import { NotFoundPage } from '../components/not-found-page'
 import { ThemeProvider } from '../components/theme-provider'
 import { DEFAULT_SEO, LOCAL_BUSINESS_SCHEMA, ORGANIZATION_SCHEMA, WEBSITE_SCHEMA } from '../lib/seo'
 import appCss from '../styles.css?url'
@@ -39,11 +40,22 @@ export const Route = createRootRoute({
       { name: 'author', content: 'Plann3d' },
     ],
     links: [
+      // Preconnect to Google Fonts for faster font loading
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
       { rel: 'canonical', href: DEFAULT_SEO.url },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'stylesheet', href: appCss },
+      // Hreflang tags for international SEO
+      { rel: 'alternate', hrefLang: 'pt-BR', href: 'https://plann3d.com.br' },
+      { rel: 'alternate', hrefLang: 'en', href: 'https://plann3d.com.br' },
+      { rel: 'alternate', hrefLang: 'es', href: 'https://plann3d.com.br' },
+      { rel: 'alternate', hrefLang: 'x-default', href: 'https://plann3d.com.br' },
     ],
   }),
+
+  // Custom 404 page
+  notFoundComponent: NotFoundPage,
 
   shellComponent: RootDocument,
 })

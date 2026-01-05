@@ -95,7 +95,11 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="relative px-6 lg:px-12 pb-6 bg-background overflow-hidden">
+    <footer
+      id="footer"
+      role="contentinfo"
+      className="relative px-6 lg:px-12 pb-6 bg-background overflow-hidden"
+    >
       {/* Decorative background element */}
       <span className="absolute -right-20 -bottom-32 text-[20rem] font-serif font-normal text-foreground/[0.015] pointer-events-none select-none">
         P3

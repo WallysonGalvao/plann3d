@@ -151,7 +151,7 @@
     "description": "A high-end visualization studio dedicated to crafting cinematic stories for the built environment.",
     "navigation": "Navigation",
     "contact": "Contact",
-    "email": "contato@plann3d.com",
+    "email": "plan3ds@gmail.com",
     "phone": "+55 61 99598-2807",
     "addressLine1": "",
     "addressLine2": "Brasília, District Federal, Brazil",
@@ -161,7 +161,8 @@
   },
   "languageSwitcher": {
     "en": "English",
-    "pt": "Português"
+    "pt": "Português",
+    "es": "Español"
   },
   "contactPage": {
     "label": "Contact Us",
@@ -430,5 +431,21 @@
       "title": "Contact - Plann3d",
       "description": "Get in touch to transform your architectural project into cinematic 3D visualization."
     }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved. How about exploring our projects?",
+    "goHome": "Back to Home",
+    "viewProjects": "View Projects",
+    "quickLinks": "Quick links:",
+    "links": {
+      "home": "Home",
+      "projects": "Projects",
+      "contact": "Contact"
+    }
+  },
+  "breadcrumbs": {
+    "home": "Home",
+    "projects": "Projects"
   }
 }

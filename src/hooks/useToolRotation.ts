@@ -16,7 +16,7 @@ interface Tool {
  * @param tools Array of tool objects with translation keys
  * @param interval Time in milliseconds between rotations (default: 4000ms)
  */
-export const useToolRotation = (tools: Tool[], interval = 4000) => {
+export const useToolRotation = (tools: Array<Tool>, interval = 4000) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
 

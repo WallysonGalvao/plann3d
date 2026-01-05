@@ -18,7 +18,7 @@ export interface GalleryMediaItem {
 interface MediaGalleryModalProps {
   isOpen: boolean
   onClose: () => void
-  items: GalleryMediaItem[]
+  items: Array<GalleryMediaItem>
   initialIndex?: number
 }
 

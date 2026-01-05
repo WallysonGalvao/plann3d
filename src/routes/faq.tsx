@@ -11,7 +11,7 @@ import Header from '@/components/header.tsx'
 import { Button } from '@/components/ui/button'
 import { faqCategories, getFaqs } from '@/data/faq'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
-import { createFAQSchema, generateJsonLd, generateMetaTags, ORGANIZATION_SCHEMA } from '@/lib/seo'
+import { ORGANIZATION_SCHEMA, createFAQSchema, generateJsonLd, generateMetaTags } from '@/lib/seo'
 import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/faq')({
