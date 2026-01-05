@@ -55,6 +55,13 @@ const ptData: Project = {
     client: 'M.U.B Produtora',
     status: 'Concluído',
   },
+  model3d: {
+    src: '/models/torre-de-tv/model.glb',
+    thumbnail: torreTvTwinmotion2,
+    cameraPosition: [0, 2, 5],
+    scale: 1,
+    autoRotate: true,
+  },
 } satisfies Project
 
 // Base data for EN locale
@@ -106,6 +113,13 @@ const enData = {
     location: 'Brasília, DF',
     client: 'M.U.B Produtora',
     status: 'Completed',
+  },
+  model3d: {
+    src: '/models/torre-de-tv/model.glb',
+    thumbnail: torreTvTwinmotion2,
+    cameraPosition: [0, 2, 5],
+    scale: 1,
+    autoRotate: true,
   },
 } satisfies Project
 

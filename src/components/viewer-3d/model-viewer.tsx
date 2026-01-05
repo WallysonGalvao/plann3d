@@ -2,7 +2,7 @@
 
 import { Center, Environment, OrbitControls, useGLTF } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import { Suspense, useRef, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import type * as THREE from 'three'
 
 // ============================================
@@ -29,16 +29,23 @@ export interface ModelViewerProps {
 }
 
 // ============================================
-// MODEL COMPONENT
+// MODEL COMPONENT WITH PROGRESSIVE LOADING
 // ============================================
 
 interface ModelProps {
   url: string
   scale?: number
+  onProgress?: (progress: number) => void
 }
 
-function Model({ url, scale = 1 }: ModelProps) {
-  const { scene } = useGLTF(url)
+function Model({ url, scale = 1, onProgress }: ModelProps) {
+  const { scene } = useGLTF(url, true, true, (loader) => {
+    // Configure loader for streaming
+    loader.manager.onProgress = (url, loaded, total) => {
+      const progress = (loaded / total) * 100
+      onProgress?.(progress)
+    }
+  })
 
   return (
     <Center>
@@ -63,15 +70,53 @@ function LoadingBox() {
 }
 
 // ============================================
-// LOADING OVERLAY
+// LOADING OVERLAY WITH PROGRESS
 // ============================================
 
-function LoadingOverlay() {
+interface LoadingOverlayProps {
+  progress: number
+}
+
+function LoadingOverlay({ progress }: LoadingOverlayProps) {
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-20">
       <div className="flex flex-col items-center gap-4">
-        <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+        <div className="relative w-32 h-32">
+          {/* Progress Circle */}
+          <svg className="w-32 h-32 transform -rotate-90">
+            <circle
+              cx="64"
+              cy="64"
+              r="56"
+              stroke="currentColor"
+              strokeWidth="8"
+              fill="none"
+              className="text-primary/20"
+            />
+            <circle
+              cx="64"
+              cy="64"
+              r="56"
+              stroke="currentColor"
+              strokeWidth="8"
+              fill="none"
+              strokeDasharray={`${2 * Math.PI * 56}`}
+              strokeDashoffset={`${2 * Math.PI * 56 * (1 - progress / 100)}`}
+              className="text-primary transition-all duration-300"
+              strokeLinecap="round"
+            />
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-2xl font-bold text-primary">{Math.round(progress)}%</span>
+          </div>
+        </div>
         <span className="text-sm text-muted-foreground">Carregando modelo 3D...</span>
+        <div className="w-64 h-1 bg-primary/20 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-primary transition-all duration-300"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
       </div>
     </div>
   )
@@ -82,10 +127,10 @@ function LoadingOverlay() {
 // ============================================
 
 /**
- * Interactive 3D Model Viewer
+ * Interactive 3D Model Viewer with Progressive Loading
  *
  * Displays .glb/.gltf models with orbit controls, environment lighting,
- * and fullscreen support.
+ * and progressive streaming support for large files.
  *
  * @example
  * ```tsx
@@ -109,6 +154,32 @@ export function ModelViewer({
   const containerRef = useRef<HTMLDivElement>(null)
   const controlsRef = useRef<any>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [loadProgress, setLoadProgress] = useState(0)
+  const [canvasReady, setCanvasReady] = useState(false)
+
+  // Simulate initial loading progress for immediate feedback
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (loadProgress < 10) {
+        setLoadProgress(10)
+      }
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Hide loading overlay when both canvas and model are ready
+  useEffect(() => {
+    if (canvasReady && loadProgress >= 100) {
+      const timer = setTimeout(() => {
+        setIsLoading(false)
+      }, 300)
+      return () => clearTimeout(timer)
+    }
+  }, [canvasReady, loadProgress])
+
+  const handleProgress = (progress: number) => {
+    setLoadProgress(Math.min(progress, 100))
+  }
 
   return (
     <div
@@ -119,15 +190,15 @@ export function ModelViewer({
         background: background === 'transparent' ? 'var(--color-secondary)' : background,
       }}
     >
-      {/* Loading Overlay */}
-      {isLoading && <LoadingOverlay />}
+      {/* Loading Overlay with Progress */}
+      {isLoading && <LoadingOverlay progress={loadProgress} />}
 
       {/* Poster Image (shown while loading) */}
       {poster && isLoading && (
         <img
           src={poster}
           alt="Preview do modelo 3D"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
         />
       )}
 
@@ -139,7 +210,10 @@ export function ModelViewer({
           alpha: background === 'transparent',
           powerPreference: 'high-performance',
         }}
-        onCreated={() => setIsLoading(false)}
+        onCreated={() => {
+          setCanvasReady(true)
+          setLoadProgress((prev) => Math.max(prev, 20))
+        }}
         style={{ background: background === 'transparent' ? 'transparent' : background }}
       >
         {/* Lighting */}
@@ -149,9 +223,9 @@ export function ModelViewer({
         {/* Environment for realistic reflections */}
         <Environment preset="city" background={false} />
 
-        {/* Model with Suspense */}
+        {/* Model with Suspense and Progressive Loading */}
         <Suspense fallback={<LoadingBox />}>
-          <Model url={modelUrl} scale={scale} />
+          <Model url={modelUrl} scale={scale} onProgress={handleProgress} />
         </Suspense>
 
         {/* Orbit Controls */}

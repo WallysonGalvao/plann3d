@@ -14,39 +14,29 @@ export const Route = createFileRoute('/projects/$projectId_/viewer')({
   component: ProjectViewerPage,
 })
 
-// Demo 3D models for interactive demonstration
-const DEMO_MODELS = [
-  {
-    id: 'helmet',
-    name: 'Capacete Sci-Fi',
-    description: 'Modelo de exemplo do Khronos Group',
-    url: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb',
-    scale: 2,
-    cameraPosition: [0, 0, 3] as [number, number, number],
-  },
-  {
-    id: 'avocado',
-    name: 'Abacate',
-    description: 'Modelo simples com texturas PBR',
-    url: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Avocado/glTF-Binary/Avocado.glb',
-    scale: 30,
-    cameraPosition: [0, 0.5, 1] as [number, number, number],
-  },
-  {
-    id: 'duck',
-    name: 'Pato',
-    description: 'Clássico modelo de teste 3D',
-    url: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Duck/glTF-Binary/Duck.glb',
-    scale: 0.01,
-    cameraPosition: [0, 1, 3] as [number, number, number],
-  },
-]
-
 function ProjectViewerPage() {
   const { projectId } = Route.useParams()
   const project = getProjectById(projectId, 'pt')
   const [showSpecs, setShowSpecs] = useState(true)
-  const [selectedModel, setSelectedModel] = useState(DEMO_MODELS[0])
+
+  // If project doesn't have a 3D model configured, show error
+  if (!project?.model3d) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-[#101622]">
+        <div className="text-center">
+          <h1 className="text-white text-2xl font-bold mb-4">Modelo 3D não disponível</h1>
+          <p className="text-gray-400 mb-6">Este projeto não possui um modelo 3D configurado.</p>
+          <Link
+            to="/projects/$projectId"
+            params={{ projectId }}
+            className="text-primary hover:underline"
+          >
+            Voltar ao projeto
+          </Link>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col h-screen bg-[#101622] overflow-hidden antialiased">
@@ -88,12 +78,12 @@ function ProjectViewerPage() {
             }
           >
             <ModelViewer
-              key={selectedModel.id}
-              modelUrl={selectedModel.url}
+              modelUrl={project.model3d.src}
+              poster={project.model3d.thumbnail}
               height="100%"
-              scale={selectedModel.scale}
-              cameraPosition={selectedModel.cameraPosition}
-              autoRotate={true}
+              scale={project.model3d.scale}
+              cameraPosition={project.model3d.cameraPosition}
+              autoRotate={project.model3d.autoRotate}
             />
           </Suspense>
         </div>
@@ -113,14 +103,13 @@ function ProjectViewerPage() {
               </span>
             </div>
             <h1 className="text-white text-4xl font-bold leading-tight tracking-tight mb-2">
-              {project?.title || 'Projeto'}{' '}
-              <span className="text-gray-500 font-light">| 3D Viewer</span>
+              {project.title} <span className="text-gray-500 font-light">| 3D Viewer</span>
             </h1>
-            <p className="text-gray-300 text-sm mb-4">{selectedModel.description}</p>
+            <p className="text-gray-300 text-sm mb-4">{project.description}</p>
             <div className="flex items-center gap-4 text-xs text-gray-400 font-mono">
               <span>Ref: {projectId.toUpperCase()}</span>
               <span className="w-px h-3 bg-gray-700" />
-              <span>Modelo: {selectedModel.name}</span>
+              <span>Localização: {project.location}</span>
             </div>
           </div>
         </div>
