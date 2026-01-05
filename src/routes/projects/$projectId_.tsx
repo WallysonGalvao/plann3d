@@ -81,6 +81,11 @@ function ProjectDetailPage() {
     return currentIdx !== -1 && index > currentIdx
   })
 
+  // Get project data BEFORE hooks to use in useMemo
+  const languageCode = i18n.language ? i18n.language.split('-')[0] : 'pt'
+  const locale = languageCode === 'en' ? 'en' : 'pt'
+  const project = getProjectWithNext(projectId, locale)
+
   // ALL hooks MUST be declared BEFORE any conditional returns (React rules of hooks)
   const heroRef = useRef<HTMLElement>(null)
   const quoteRef = useRef<HTMLElement>(null)
@@ -96,37 +101,12 @@ function ProjectDetailPage() {
   const isPhase2InView = useInView(phase2Ref, { once: true, margin: '-100px' })
   const isPhase3InView = useInView(phase3Ref, { once: true, margin: '-100px' })
 
-  // NOW we can have early return - AFTER all hooks are declared
-  if (hasChildRoute) {
-    return <Outlet />
-  }
-
-  // Get project data with next project
-  const languageCode = i18n.language ? i18n.language.split('-')[0] : 'pt'
-  const locale = languageCode === 'en' ? 'en' : 'pt'
-  const project = getProjectWithNext(projectId, locale)
-
-  // Handle project not found - AFTER all hooks
-  if (!project) {
-    return (
-      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
-        <Header />
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">{t('projectDetail.notFound')}</h1>
-          <Link to="/projects" className="text-primary hover:underline">
-            {t('projectDetail.backToProjects')}
-          </Link>
-        </div>
-      </div>
-    )
-  }
-
-  // Collect all media items for the gallery
+  // Collect all media items for the gallery - MUST be before early return
   const galleryItems: Array<GalleryMediaItem> = useMemo(() => {
     const items: Array<GalleryMediaItem> = []
 
-    // Guard against undefined phases
-    if (!project.phases) return items
+    // Guard against undefined project or phases
+    if (!project?.phases) return items
 
     project.phases.forEach((phase, phaseIndex) => {
       // Generate phase number based on index (1-indexed, zero-padded)
@@ -180,12 +160,32 @@ function ProjectDetailPage() {
     return items
   }, [project, projectId])
 
-  // Track project view on mount
+  // Track project view on mount - MUST be before early return
   useEffect(() => {
     if (project) {
       trackProjectView(project.id, project.title)
     }
   }, [project])
+
+  // NOW we can have early return - AFTER all hooks are declared
+  if (hasChildRoute) {
+    return <Outlet />
+  }
+
+  // Handle project not found - AFTER all hooks
+  if (!project) {
+    return (
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
+        <Header />
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4">{t('projectDetail.notFound')}</h1>
+          <Link to="/projects" className="text-primary hover:underline">
+            {t('projectDetail.backToProjects')}
+          </Link>
+        </div>
+      </div>
+    )
+  }
 
   // Function to open gallery at a specific index
   const openGallery = (itemId: string) => {
