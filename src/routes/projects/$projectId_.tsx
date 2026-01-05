@@ -81,27 +81,25 @@ function ProjectDetailPage() {
     return currentIdx !== -1 && index > currentIdx
   })
 
-  // If we're on a child route, render the Outlet for that child
-  if (hasChildRoute) {
-    return <Outlet />
-  }
-
-  // All refs must be declared before any conditional returns
+  // ALL hooks MUST be declared BEFORE any conditional returns (React rules of hooks)
   const heroRef = useRef<HTMLElement>(null)
   const quoteRef = useRef<HTMLElement>(null)
   const phase1Ref = useRef<HTMLElement>(null)
   const phase2Ref = useRef<HTMLElement>(null)
   const phase3Ref = useRef<HTMLElement>(null)
 
-  // All state hooks must be declared before any conditional returns
   const [isGalleryOpen, setIsGalleryOpen] = useState(false)
   const [galleryInitialIndex, setGalleryInitialIndex] = useState(0)
 
-  // All other hooks must be declared before any conditional returns
   const isQuoteInView = useInView(quoteRef, { once: true, margin: '-100px' })
   const isPhase1InView = useInView(phase1Ref, { once: true, margin: '-100px' })
   const isPhase2InView = useInView(phase2Ref, { once: true, margin: '-100px' })
   const isPhase3InView = useInView(phase3Ref, { once: true, margin: '-100px' })
+
+  // NOW we can have early return - AFTER all hooks are declared
+  if (hasChildRoute) {
+    return <Outlet />
+  }
 
   // Get project data with next project
   const languageCode = i18n.language ? i18n.language.split('-')[0] : 'pt'
