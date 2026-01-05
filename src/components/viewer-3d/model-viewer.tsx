@@ -1,7 +1,7 @@
 'use client'
 
 import { Center, Environment, OrbitControls, useGLTF } from '@react-three/drei'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useThree } from '@react-three/fiber'
 import { Component, Suspense, useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 
@@ -23,6 +23,13 @@ export interface ModelMetadata {
     min: { x: number; y: number; z: number }
     max: { x: number; y: number; z: number }
   }
+  fileSize?: string
+  format?: string
+  textures?: number
+  animations?: number
+  area?: number
+  volume?: number
+  detailLevel?: 'Low' | 'Medium' | 'High' | 'Ultra'
 }
 
 export interface ModelViewerProps {
@@ -44,6 +51,153 @@ export interface ModelViewerProps {
   height?: string | number
   /** Callback when model metadata is extracted */
   onMetadataExtracted?: (metadata: ModelMetadata) => void
+  /** Enable pan mode (pan only, no rotation) */
+  enablePan?: boolean
+  /** Camera preset to apply */
+  cameraPreset?: 'front' | 'back' | 'left' | 'right' | 'top' | 'perspective' | null
+  /** Enable auto tour animation */
+  autoTourActive?: boolean
+  /** Visible layers for filtering model parts */
+  visibleLayers?: {
+    structure: boolean
+    furniture: boolean
+    vegetation: boolean
+    lighting: boolean
+  }
+  /** Callback when camera preset is applied */
+  onCameraPresetApplied?: () => void
+}
+
+// ============================================
+// CAMERA PRESET POSITIONS
+// ============================================
+
+const CAMERA_PRESETS: Record<
+  'front' | 'back' | 'left' | 'right' | 'top' | 'perspective',
+  { position: [number, number, number]; target: [number, number, number] }
+> = {
+  front: { position: [0, 0, 50], target: [0, 0, 0] },
+  back: { position: [0, 0, -50], target: [0, 0, 0] },
+  left: { position: [-50, 0, 0], target: [0, 0, 0] },
+  right: { position: [50, 0, 0], target: [0, 0, 0] },
+  top: { position: [0, 50, 0], target: [0, 0, 0] },
+  perspective: { position: [50, 50, 50], target: [0, 0, 0] },
+}
+
+// ============================================
+// CAMERA PRESET CONTROLLER
+// ============================================
+
+interface CameraPresetControllerProps {
+  preset: 'front' | 'back' | 'left' | 'right' | 'top' | 'perspective'
+  controlsRef: React.RefObject<any>
+  onApplied?: () => void
+}
+
+function CameraPresetController({ preset, controlsRef, onApplied }: CameraPresetControllerProps) {
+  const { camera } = useThree()
+
+  useEffect(() => {
+    if (!controlsRef.current) return
+
+    const targetPreset = CAMERA_PRESETS[preset]
+    const startPosition = camera.position.clone()
+    const startTarget = controlsRef.current.target.clone()
+    const endPosition = new THREE.Vector3(...targetPreset.position)
+    const endTarget = new THREE.Vector3(...targetPreset.target)
+
+    let progress = 0
+    const duration = 1000 // 1 second animation
+    const startTime = Date.now()
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime
+      progress = Math.min(elapsed / duration, 1)
+
+      // Ease-in-out animation
+      const eased =
+        progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2
+
+      // Interpolate camera position
+      camera.position.lerpVectors(startPosition, endPosition, eased)
+
+      // Interpolate camera target
+      const newTarget = new THREE.Vector3().lerpVectors(startTarget, endTarget, eased)
+      controlsRef.current.target.copy(newTarget)
+
+      controlsRef.current.update()
+
+      if (progress < 1) {
+        requestAnimationFrame(animate)
+      } else if (onApplied) {
+        onApplied()
+      }
+    }
+
+    animate()
+  }, [preset, camera, controlsRef, onApplied])
+
+  return null
+}
+
+// ============================================
+// AUTO TOUR CONTROLLER
+// ============================================
+
+interface AutoTourControllerProps {
+  controlsRef: React.RefObject<any>
+}
+
+function AutoTourController({ controlsRef }: AutoTourControllerProps) {
+  const { camera } = useThree()
+
+  useEffect(() => {
+    if (!controlsRef.current) return
+
+    const presets = Object.values(CAMERA_PRESETS)
+    let currentIndex = 0
+    const intervalDuration = 4000 // 4 seconds per preset
+
+    const rotateCamera = () => {
+      const targetPreset = presets[currentIndex]
+      const startPosition = camera.position.clone()
+      const startTarget = controlsRef.current.target.clone()
+      const endPosition = new THREE.Vector3(...targetPreset.position)
+      const endTarget = new THREE.Vector3(...targetPreset.target)
+
+      let progress = 0
+      const duration = 1500 // 1.5 seconds animation
+      const startTime = Date.now()
+
+      const animate = () => {
+        const elapsed = Date.now() - startTime
+        progress = Math.min(elapsed / duration, 1)
+
+        const eased =
+          progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2
+
+        camera.position.lerpVectors(startPosition, endPosition, eased)
+        const newTarget = new THREE.Vector3().lerpVectors(startTarget, endTarget, eased)
+        controlsRef.current.target.copy(newTarget)
+        controlsRef.current.update()
+
+        if (progress < 1) {
+          requestAnimationFrame(animate)
+        }
+      }
+
+      animate()
+      currentIndex = (currentIndex + 1) % presets.length
+    }
+
+    // Start tour
+    rotateCamera()
+    const interval = setInterval(rotateCamera, intervalDuration)
+
+    return () => clearInterval(interval)
+  }, [camera, controlsRef])
+
+  return null
 }
 
 // ============================================
@@ -55,9 +209,21 @@ interface ModelProps {
   scale?: number
   onProgress?: (progress: number) => void
   onMetadataExtracted?: (metadata: ModelMetadata) => void
+  visibleLayers?: {
+    structure: boolean
+    furniture: boolean
+    vegetation: boolean
+    lighting: boolean
+  }
 }
 
-function Model({ url, scale = 1, onProgress, onMetadataExtracted }: ModelProps) {
+function Model({
+  url,
+  scale = 1,
+  onProgress,
+  onMetadataExtracted,
+  visibleLayers = { structure: true, furniture: true, vegetation: true, lighting: true },
+}: ModelProps) {
   // Load model with progress tracking
   const { scene } = useGLTF(url, undefined, undefined, (loader) => {
     loader.manager.onProgress = (_url, loaded, total) => {
@@ -114,6 +280,35 @@ function Model({ url, scale = 1, onProgress, onMetadataExtracted }: ModelProps) 
         }
       })
 
+      // Count textures and animations
+      const textures = new Set<string>()
+      let animations = 0
+
+      scene.traverse((child: any) => {
+        if (child.material) {
+          const materials = Array.isArray(child.material) ? child.material : [child.material]
+          materials.forEach((mat: any) => {
+            if (mat.map) textures.add(mat.map.uuid)
+            if (mat.normalMap) textures.add(mat.normalMap.uuid)
+            if (mat.roughnessMap) textures.add(mat.roughnessMap.uuid)
+            if (mat.metalnessMap) textures.add(mat.metalnessMap.uuid)
+          })
+        }
+      })
+
+      // @ts-ignore - Check for animations in the gltf
+      if (scene.animations) {
+        // @ts-ignore
+        animations = scene.animations.length
+      }
+
+      // Extract format from URL
+      const format = url.toLowerCase().endsWith('.glb')
+        ? 'GLB'
+        : url.toLowerCase().endsWith('.gltf')
+          ? 'GLTF'
+          : 'Unknown'
+
       const metadata: ModelMetadata = {
         vertices,
         triangles: Math.floor(triangles),
@@ -136,11 +331,52 @@ function Model({ url, scale = 1, onProgress, onMetadataExtracted }: ModelProps) 
             z: parseFloat(box.max.z.toFixed(2)),
           },
         },
+        format,
+        textures: textures.size,
+        animations,
       }
 
       onMetadataExtracted(metadata)
     }
   }, [scene, onProgress, onMetadataExtracted])
+
+  // Apply layer visibility filtering
+  useEffect(() => {
+    if (!scene) return
+
+    scene.traverse((child: any) => {
+      if (child.isMesh) {
+        const name = child.name.toLowerCase()
+
+        // Simple name-based layer detection
+        // You may need to adjust these patterns based on your actual model structure
+        if (
+          name.includes('structure') ||
+          name.includes('wall') ||
+          name.includes('floor') ||
+          name.includes('ceiling')
+        ) {
+          child.visible = visibleLayers.structure
+        } else if (
+          name.includes('furniture') ||
+          name.includes('chair') ||
+          name.includes('table') ||
+          name.includes('desk')
+        ) {
+          child.visible = visibleLayers.furniture
+        } else if (
+          name.includes('vegetation') ||
+          name.includes('tree') ||
+          name.includes('plant') ||
+          name.includes('grass')
+        ) {
+          child.visible = visibleLayers.vegetation
+        } else if (name.includes('light') || name.includes('lamp') || name.includes('bulb')) {
+          child.visible = visibleLayers.lighting
+        }
+      }
+    })
+  }, [scene, visibleLayers])
 
   return (
     <Center>
@@ -323,6 +559,11 @@ export function ModelViewer({
   className = '',
   height = '500px',
   onMetadataExtracted,
+  enablePan = false,
+  cameraPreset = null,
+  autoTourActive = false,
+  visibleLayers = { structure: true, furniture: true, vegetation: true, lighting: true },
+  onCameraPresetApplied,
 }: ModelViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const controlsRef = useRef<any>(null)
@@ -435,22 +676,35 @@ export function ModelViewer({
               scale={scale}
               onProgress={handleProgress}
               onMetadataExtracted={onMetadataExtracted}
+              visibleLayers={visibleLayers}
             />
           </Suspense>
 
           {/* Orbit Controls */}
           <OrbitControls
             ref={controlsRef}
-            enablePan={true}
+            enablePan={enablePan}
             enableZoom={true}
-            enableRotate={true}
-            autoRotate={autoRotate}
+            enableRotate={!enablePan}
+            autoRotate={autoRotate && !autoTourActive}
             autoRotateSpeed={0.5}
             minDistance={1}
             maxDistance={20}
             minPolarAngle={0}
             maxPolarAngle={Math.PI / 1.5}
           />
+
+          {/* Camera Preset Controller */}
+          {cameraPreset && (
+            <CameraPresetController
+              preset={cameraPreset}
+              controlsRef={controlsRef}
+              onApplied={onCameraPresetApplied}
+            />
+          )}
+
+          {/* Auto Tour Controller */}
+          {autoTourActive && <AutoTourController controlsRef={controlsRef} />}
         </Canvas>
       </ErrorBoundary>
     </div>

@@ -26,6 +26,13 @@ type ModelMetadata = {
     min: { x: number; y: number; z: number }
     max: { x: number; y: number; z: number }
   }
+  fileSize?: string
+  format?: string
+  textures?: number
+  animations?: number
+  area?: number
+  volume?: number
+  detailLevel?: 'Low' | 'Medium' | 'High' | 'Ultra'
 }
 
 export const Route = createFileRoute('/projects/$projectId_/viewer')({
@@ -40,7 +47,6 @@ function ProjectViewerPage() {
   const [showSpecs, setShowSpecs] = useState(true)
   const [modelMetadata, setModelMetadata] = useState<ModelMetadata | null>(null)
   const [isPanMode, setIsPanMode] = useState(false)
-  const [_viewMode, _setViewMode] = useState<'realistic' | 'wireframe' | 'materials'>('realistic')
   const [isAutoTour, setIsAutoTour] = useState(false)
   const [visibleLayers, setVisibleLayers] = useState({
     structure: true,
@@ -50,6 +56,9 @@ function ProjectViewerPage() {
   })
   const [showLayers, setShowLayers] = useState(false)
   const [showPresets, setShowPresets] = useState(false)
+  const [activeCameraPreset, setActiveCameraPreset] = useState<
+    'front' | 'back' | 'left' | 'right' | 'top' | 'perspective' | null
+  >(null)
 
   const languageCode = i18n.language ? i18n.language.split('-')[0] : 'pt'
   const locale = languageCode === 'en' ? 'en' : 'pt'
@@ -75,25 +84,19 @@ function ProjectViewerPage() {
     setIsPanMode(!isPanMode)
   }
 
-  const _handleViewModeChange = (mode: 'realistic' | 'wireframe' | 'materials') => {
-    _setViewMode(mode)
-    // TODO: Implement view mode change in ModelViewer
-  }
-
   const handleAutoTour = () => {
     setIsAutoTour(!isAutoTour)
-    // TODO: Implement auto tour functionality
   }
 
   const handleCameraPreset = (
-    _preset: 'front' | 'back' | 'left' | 'right' | 'top' | 'isometric',
+    preset: 'front' | 'back' | 'left' | 'right' | 'top' | 'perspective',
   ) => {
-    // TODO: Implement camera preset changes
+    setActiveCameraPreset(preset)
+    setShowPresets(false)
   }
 
   const toggleLayer = (layer: keyof typeof visibleLayers) => {
     setVisibleLayers((prev) => ({ ...prev, [layer]: !prev[layer] }))
-    // TODO: Implement layer visibility in ModelViewer
   }
 
   // No early return - use conditional rendering instead
@@ -146,6 +149,11 @@ function ProjectViewerPage() {
               cameraPosition={project.model3d.cameraPosition}
               autoRotate={project.model3d.autoRotate}
               onMetadataExtracted={setModelMetadata}
+              enablePan={isPanMode}
+              cameraPreset={activeCameraPreset}
+              autoTourActive={isAutoTour}
+              visibleLayers={visibleLayers}
+              onCameraPresetApplied={() => setActiveCameraPreset(null)}
             />
           </Suspense>
         </div>
@@ -219,23 +227,14 @@ function ProjectViewerPage() {
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
+          <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
             {/* Model Specifications - Dynamic from 3D Model */}
             {modelMetadata && (
               <>
-                <div className="space-y-4">
-                  <h4 className="text-base font-bold text-white uppercase tracking-wide">
-                    {t('viewer3d.modelSpecs')}
-                  </h4>
-                  <div className="grid grid-cols-2 gap-4">
-                    <SpecCard
-                      icon={<CubeIcon />}
-                      title={t('viewer3d.objects')}
-                      value={modelMetadata.objects.toLocaleString(
-                        locale === 'pt' ? 'pt-BR' : 'en-US',
-                      )}
-                      description={t('viewer3d.meshes')}
-                    />
+                {/* Geometria Section */}
+                <div className="space-y-3">
+                  <SectionHeader icon={<CubeIcon />} title="Geometria" />
+                  <div className="grid grid-cols-2 gap-3">
                     <SpecCard
                       icon={<TriangleIcon />}
                       title={t('viewer3d.triangles')}
@@ -253,19 +252,57 @@ function ProjectViewerPage() {
                       description={t('viewer3d.points3d')}
                     />
                     <SpecCard
+                      icon={<LayersIcon />}
+                      title={t('viewer3d.objects')}
+                      value={modelMetadata.objects.toLocaleString(
+                        locale === 'pt' ? 'pt-BR' : 'en-US',
+                      )}
+                      description={t('viewer3d.meshes')}
+                    />
+                    {modelMetadata.detailLevel && (
+                      <SpecCard
+                        icon={<ZapIcon />}
+                        title="Nível de Detalhe"
+                        value={modelMetadata.detailLevel}
+                        description="Densidade de polígonos"
+                      />
+                    )}
+                  </div>
+                </div>
+
+                {/* Recursos Section */}
+                <div className="space-y-3">
+                  <SectionHeader icon={<PaletteIcon />} title="Recursos" />
+                  <div className="grid grid-cols-2 gap-3">
+                    <SpecCard
                       icon={<PaletteIcon />}
                       title={t('viewer3d.materials')}
                       value={modelMetadata.materials.toString()}
                       description={t('viewer3d.texturesShaders')}
                     />
+                    {modelMetadata.textures !== undefined && modelMetadata.textures > 0 && (
+                      <SpecCard
+                        icon={<ImageIcon />}
+                        title="Texturas"
+                        value={modelMetadata.textures.toString()}
+                        description="Mapas de textura"
+                      />
+                    )}
+                    {modelMetadata.animations !== undefined && modelMetadata.animations > 0 && (
+                      <SpecCard
+                        icon={<PlayIcon />}
+                        title="Animações"
+                        value={modelMetadata.animations.toString()}
+                        description="Clipes de animação"
+                      />
+                    )}
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <h4 className="text-base font-bold text-white uppercase tracking-wide">
-                    {t('viewer3d.dimensions')}
-                  </h4>
-                  <div className="grid grid-cols-3 gap-4">
+                {/* Medidas Físicas Section */}
+                <div className="space-y-3">
+                  <SectionHeader icon={<RulerIcon />} title="Medidas Físicas" />
+                  <div className="grid grid-cols-3 gap-3">
                     <DimensionCard
                       label={t('viewer3d.width')}
                       value={modelMetadata.dimensions.width}
@@ -282,7 +319,50 @@ function ProjectViewerPage() {
                       unit="m"
                     />
                   </div>
+                  {modelMetadata.area !== undefined && modelMetadata.volume !== undefined && (
+                    <div className="grid grid-cols-2 gap-3 mt-3">
+                      <SpecCard
+                        icon={<SquareIcon />}
+                        title="Área Total"
+                        value={modelMetadata.area.toLocaleString(
+                          locale === 'pt' ? 'pt-BR' : 'en-US',
+                        )}
+                        description="m² (largura × profundidade)"
+                      />
+                      <SpecCard
+                        icon={<BoxIcon />}
+                        title="Volume"
+                        value={modelMetadata.volume.toLocaleString(
+                          locale === 'pt' ? 'pt-BR' : 'en-US',
+                        )}
+                        description="m³ (l × a × p)"
+                      />
+                    </div>
+                  )}
                 </div>
+
+                {/* Arquivo Section */}
+                {modelMetadata.format && (
+                  <div className="space-y-3">
+                    <SectionHeader icon={<FileIcon />} title="Arquivo" />
+                    <div className="grid grid-cols-2 gap-3">
+                      <SpecCard
+                        icon={<FileIcon />}
+                        title="Formato"
+                        value={modelMetadata.format}
+                        description="Tipo de arquivo 3D"
+                      />
+                      {modelMetadata.fileSize && (
+                        <SpecCard
+                          icon={<DatabaseIcon />}
+                          title="Tamanho"
+                          value={modelMetadata.fileSize}
+                          description="Tamanho do arquivo"
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
               </>
             )}
 
@@ -378,7 +458,10 @@ function ProjectViewerPage() {
                 <PresetButton label="Esquerda" onClick={() => handleCameraPreset('left')} />
                 <PresetButton label="Direita" onClick={() => handleCameraPreset('right')} />
                 <PresetButton label="Superior" onClick={() => handleCameraPreset('top')} />
-                <PresetButton label="Isométrica" onClick={() => handleCameraPreset('isometric')} />
+                <PresetButton
+                  label="Perspectiva"
+                  onClick={() => handleCameraPreset('perspective')}
+                />
               </div>
             </div>
           </div>
@@ -491,7 +574,133 @@ function PaletteIcon() {
   )
 }
 
+function FileIcon() {
+  return (
+    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+      />
+    </svg>
+  )
+}
+
+function ImageIcon() {
+  return (
+    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+      />
+    </svg>
+  )
+}
+
+function PlayIcon() {
+  return (
+    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+  )
+}
+
+function LayersIcon() {
+  return (
+    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+      />
+    </svg>
+  )
+}
+
+function ZapIcon() {
+  return (
+    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M13 10V3L4 14h7v7l9-11h-7z"
+      />
+    </svg>
+  )
+}
+
+function RulerIcon() {
+  return (
+    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+      />
+    </svg>
+  )
+}
+
+function SquareIcon() {
+  return (
+    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"
+      />
+    </svg>
+  )
+}
+
+function BoxIcon() {
+  return (
+    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+      />
+    </svg>
+  )
+}
+
+function DatabaseIcon() {
+  return (
+    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
+      />
+    </svg>
+  )
+}
+
 // Helper Components
+function SectionHeader({ icon, title }: { icon: React.ReactNode; title: string }) {
+  return (
+    <div className="flex items-center gap-2 pb-2 border-b border-white/10">
+      <div className="shrink-0 opacity-70">{icon}</div>
+      <h4 className="text-xs font-bold text-white uppercase tracking-wider">{title}</h4>
+    </div>
+  )
+}
+
 function SpecCard({
   icon,
   title,
