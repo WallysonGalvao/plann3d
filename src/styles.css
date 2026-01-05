@@ -969,3 +969,8 @@ textarea:focus-visible,
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid oklch(0.35 0.02 250 / 0.6);
 }
+
+.light .glass-panel {
+  background: oklch(0.98 0.01 250 / 0.85);
+  border: 1px solid oklch(0.88 0.01 250 / 0.6);
+}

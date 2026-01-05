@@ -150,7 +150,7 @@ function ProjectViewerPage() {
       </header>
 
       {/* Main Content */}
-      <main className="relative flex-1 w-full h-full bg-black dark:bg-black overflow-hidden">
+      <main className="relative flex-1 w-full h-full bg-background overflow-hidden">
         {/* 3D Model Viewer */}
         <div className="absolute inset-0 z-0">
           <ClientOnlyModelViewer
@@ -179,7 +179,7 @@ function ProjectViewerPage() {
           <div className="glass-panel p-6 rounded-xl shadow-2xl">
             <div className="flex items-center gap-2 mb-1">
               <span className="flex size-2 rounded-full bg-blue-500 animate-pulse" />
-              <span className="text-xs font-bold text-blue-400 tracking-wider uppercase">
+              <span className="text-xs font-bold text-primary tracking-wider uppercase">
                 {t('viewer3d.title')}
               </span>
             </div>
@@ -199,9 +199,8 @@ function ProjectViewerPage() {
 
         {/* Specifications Panel - Right Side */}
         <aside
-          className={`absolute top-6 bottom-20 right-6 w-96 glass-panel flex flex-col rounded-xl z-20 shadow-2xl border border-border transition-transform duration-300 ${
-            showSpecs ? 'translate-x-0' : 'translate-x-[calc(100%+1.5rem)]'
-          }`}
+          className={`absolute top-6 bottom-20 right-6 w-96 glass-panel flex flex-col rounded-xl z-20 shadow-2xl border border-border transition-transform duration-300 ${showSpecs ? 'translate-x-0' : 'translate-x-[calc(100%+1.5rem)]'
+            }`}
         >
           <div className="p-4 border-b border-border flex items-center justify-between bg-muted/5 rounded-t-xl">
             <div className="flex items-center gap-2">
@@ -437,11 +436,10 @@ function ProjectViewerPage() {
             {/* Toggle Specs */}
             <button
               onClick={() => setShowSpecs(!showSpecs)}
-              className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${
-                showSpecs
-                  ? 'bg-white/20 text-white'
-                  : 'text-gray-300 hover:text-white hover:bg-white/10'
-              }`}
+              className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${showSpecs
+                  ? 'bg-primary/20 text-primary'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/10'
+                }`}
               aria-label={t('viewer3d.toggleSpecs')}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -452,7 +450,7 @@ function ProjectViewerPage() {
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
-              <span className="absolute bottom-full mb-2 hidden group-hover:block px-2 py-1 bg-black text-xs rounded whitespace-nowrap">
+              <span className="absolute bottom-full mb-2 hidden group-hover:block px-2 py-1 bg-popover text-popover-foreground text-xs rounded whitespace-nowrap border border-border">
                 {t('viewer3d.toggleSpecs')}
               </span>
             </button>
@@ -769,11 +767,10 @@ function ControlButton({
   return (
     <button
       onClick={onClick}
-      className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${
-        isActive
+      className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${isActive
           ? 'bg-primary/20 text-primary'
           : 'text-muted-foreground hover:text-foreground hover:bg-muted/10'
-      }`}
+        }`}
       aria-label={label}
     >
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
