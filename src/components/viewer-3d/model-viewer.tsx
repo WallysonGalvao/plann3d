@@ -3,11 +3,27 @@
 import { Center, Environment, OrbitControls, useGLTF } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { Component, Suspense, useEffect, useRef, useState } from 'react'
-import type * as THREE from 'three'
+import * as THREE from 'three'
 
 // ============================================
 // TYPES
 // ============================================
+
+export interface ModelMetadata {
+  vertices: number
+  triangles: number
+  materials: number
+  objects: number
+  dimensions: {
+    width: number
+    height: number
+    depth: number
+  }
+  boundingBox: {
+    min: { x: number; y: number; z: number }
+    max: { x: number; y: number; z: number }
+  }
+}
 
 export interface ModelViewerProps {
   /** URL to the .glb or .gltf model file */
@@ -26,6 +42,8 @@ export interface ModelViewerProps {
   className?: string
   /** Height of the viewer */
   height?: string | number
+  /** Callback when model metadata is extracted */
+  onMetadataExtracted?: (metadata: ModelMetadata) => void
 }
 
 // ============================================
@@ -36,9 +54,10 @@ interface ModelProps {
   url: string
   scale?: number
   onProgress?: (progress: number) => void
+  onMetadataExtracted?: (metadata: ModelMetadata) => void
 }
 
-function Model({ url, scale = 1, onProgress }: ModelProps) {
+function Model({ url, scale = 1, onProgress, onMetadataExtracted }: ModelProps) {
   // Load model with progress tracking
   const { scene } = useGLTF(url, undefined, undefined, (loader) => {
     loader.manager.onProgress = (_url, loaded, total) => {
@@ -52,7 +71,76 @@ function Model({ url, scale = 1, onProgress }: ModelProps) {
   useEffect(() => {
     // Ensure 100% progress when model is loaded
     onProgress?.(100)
-  }, [scene, onProgress])
+
+    // Extract model metadata
+    if (scene && onMetadataExtracted) {
+      let vertices = 0
+      let triangles = 0
+      const materials = new Set<string>()
+      let objects = 0
+
+      const box = new THREE.Box3().setFromObject(scene)
+      const size = new THREE.Vector3()
+      box.getSize(size)
+
+      scene.traverse((child: any) => {
+        if (child.isMesh) {
+          objects++
+
+          if (child.geometry) {
+            const geometry = child.geometry
+
+            // Count vertices
+            if (geometry.attributes.position) {
+              vertices += geometry.attributes.position.count
+            }
+
+            // Count triangles
+            if (geometry.index) {
+              triangles += geometry.index.count / 3
+            } else if (geometry.attributes.position) {
+              triangles += geometry.attributes.position.count / 3
+            }
+          }
+
+          // Track unique materials
+          if (child.material) {
+            if (Array.isArray(child.material)) {
+              child.material.forEach((mat: any) => materials.add(mat.uuid))
+            } else {
+              materials.add(child.material.uuid)
+            }
+          }
+        }
+      })
+
+      const metadata: ModelMetadata = {
+        vertices,
+        triangles: Math.floor(triangles),
+        materials: materials.size,
+        objects,
+        dimensions: {
+          width: parseFloat(size.x.toFixed(2)),
+          height: parseFloat(size.y.toFixed(2)),
+          depth: parseFloat(size.z.toFixed(2)),
+        },
+        boundingBox: {
+          min: {
+            x: parseFloat(box.min.x.toFixed(2)),
+            y: parseFloat(box.min.y.toFixed(2)),
+            z: parseFloat(box.min.z.toFixed(2)),
+          },
+          max: {
+            x: parseFloat(box.max.x.toFixed(2)),
+            y: parseFloat(box.max.y.toFixed(2)),
+            z: parseFloat(box.max.z.toFixed(2)),
+          },
+        },
+      }
+
+      onMetadataExtracted(metadata)
+    }
+  }, [scene, onProgress, onMetadataExtracted])
 
   return (
     <Center>
@@ -234,6 +322,7 @@ export function ModelViewer({
   background = 'transparent',
   className = '',
   height = '500px',
+  onMetadataExtracted,
 }: ModelViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const controlsRef = useRef<any>(null)
@@ -291,7 +380,9 @@ export function ModelViewer({
       {/* Timeout Error */}
       {hasTimeout && (
         <ErrorFallback
-          error={new Error('O modelo demorou muito para carregar. O arquivo pode ser muito grande.')}
+          error={
+            new Error('O modelo demorou muito para carregar. O arquivo pode ser muito grande.')
+          }
           resetError={() => {
             setHasTimeout(false)
             setIsLoading(true)
@@ -314,7 +405,9 @@ export function ModelViewer({
       )}
 
       {/* 3D Canvas with Error Boundary */}
-      <ErrorBoundary fallback={(error, reset) => <ErrorFallback error={error} resetError={reset} />}>
+      <ErrorBoundary
+        fallback={(error, reset) => <ErrorFallback error={error} resetError={reset} />}
+      >
         <Canvas
           camera={{ position: cameraPosition, fov: 45 }}
           gl={{
@@ -337,7 +430,12 @@ export function ModelViewer({
 
           {/* Model with Suspense and Progressive Loading */}
           <Suspense fallback={<LoadingBox />}>
-            <Model url={modelUrl} scale={scale} onProgress={handleProgress} />
+            <Model
+              url={modelUrl}
+              scale={scale}
+              onProgress={handleProgress}
+              onMetadataExtracted={onMetadataExtracted}
+            />
           </Suspense>
 
           {/* Orbit Controls */}
