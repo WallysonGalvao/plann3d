@@ -128,7 +128,12 @@
 }
 
 .light .gradient-border::before {
-  background: linear-gradient(135deg, oklch(0 0 0 / 0.1) 0%, oklch(0 0 0 / 0.02) 50%, oklch(0 0 0 / 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    oklch(0 0 0 / 0.1) 0%,
+    oklch(0 0 0 / 0.02) 50%,
+    oklch(0 0 0 / 0.05) 100%
+  );
 }
 
 .light .divider-fade {
@@ -645,9 +650,14 @@ h6 {
   position: absolute;
   inset: 0;
   padding: 1px;
-  background: linear-gradient(135deg, oklch(1 0 0 / 0.15) 0%, oklch(1 0 0 / 0.02) 50%, oklch(1 0 0 / 0.08) 100%);
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
+  background: linear-gradient(
+    135deg,
+    oklch(1 0 0 / 0.15) 0%,
+    oklch(1 0 0 / 0.02) 50%,
+    oklch(1 0 0 / 0.08) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -797,4 +807,117 @@ h6 {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* ============================================
+   ACCESSIBILITY STYLES
+   ============================================ */
+
+/* Skip Links - Hidden until focused */
+.skip-links {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.skip-link {
+  position: absolute;
+  transform: translateY(-100%);
+  padding: 0.75rem 1rem;
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  opacity: 0;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.skip-link:focus {
+  position: relative;
+  transform: translateY(0);
+  opacity: 1;
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* Enhanced Focus Visible for Keyboard Navigation */
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Remove outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* High Contrast Focus for Interactive Elements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role='button']:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(var(--color-primary) / 0.2);
+}
+
+/* Screen Reader Only - Utility Class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Not Screen Reader Only - Utility for toggling */
+.not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: oklch(0.5 0.02 250);
+    --color-muted-foreground: oklch(0.75 0.02 250);
+  }
+
+  .light {
+    --color-border: oklch(0.3 0.02 250);
+    --color-muted-foreground: oklch(0.4 0.02 250);
+  }
 }

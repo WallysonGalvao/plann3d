@@ -100,22 +100,24 @@ gantt
 
 ---
 
-### 9. Acessibilidade
+### 9. Acessibilidade ✅ IMPLEMENTADO
 
-- Revisar contraste de cores em modo claro/escuro
-- Garantir navegação completa por teclado
-- Adicionar skip links
-- Melhorar labels ARIA em componentes interativos
+| Item                                            | Status                         |
+| ----------------------------------------------- | ------------------------------ |
+| Revisar contraste de cores em modo claro/escuro | ✅ High contrast mode support  |
+| Garantir navegação completa por teclado         | ✅ Focus-visible, landmarks    |
+| Adicionar skip links                            | ✅ SkipLinks component         |
+| Melhorar labels ARIA em componentes interativos | ✅ aria-label, role attributes |
 
 ---
 
-### 10. Código & Arquitetura
+### 10. Código & Arquitetura ✅ IMPLEMENTADO
 
-| Área                             | Sugestão                                                |
-| -------------------------------- | ------------------------------------------------------- |
-| **Componente ProjectDetailPage** | Com 600+ linhas, pode ser refatorado em subcomponentes  |
-| **CSS duplicado**                | Algumas classes `.light` podem virar utilities Tailwind |
-| **Zod schemas**                  | Mover para arquivo separado para reuso                  |
+| Área                             | Sugestão                                                | Status                                     |
+| -------------------------------- | ------------------------------------------------------- | ------------------------------------------ |
+| **Componente ProjectDetailPage** | ~~Com 600+ linhas~~, refatorado em subcomponentes       | ✅ ProjectHero, ProjectQuote, ProjectSpecs |
+| **CSS duplicado**                | Algumas classes `.light` podem virar utilities Tailwind | ✅ Centralizado em styles.css              |
+| **Zod schemas**                  | Mover para arquivo separado para reuso                  | ✅ lib/schemas.ts                          |
 
 ---
 

@@ -1,5 +1,6 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header.tsx'
+import { SkipLinks } from '@/components/ui/skip-links'
 import { useAnalytics } from '@/hooks/useAnalytics'
 import { cn } from '@/lib/utils'
 
@@ -23,6 +24,7 @@ export interface PageLayoutProps {
 /**
  * Consistent page layout wrapper with Header and Footer
  * Ensures all pages have the same structure and styling
+ * Includes accessibility features: skip links, landmark IDs
  */
 export function PageLayout({ children, className, withTopPadding = true }: PageLayoutProps) {
   // Initialize analytics and track page views
@@ -30,8 +32,18 @@ export function PageLayout({ children, className, withTopPadding = true }: PageL
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* Skip Links for keyboard navigation */}
+      <SkipLinks />
+
       <Header />
-      <main className={cn(withTopPadding && 'pt-20', className)}>{children}</main>
+      <main
+        id="main-content"
+        className={cn(withTopPadding && 'pt-20', className)}
+        role="main"
+        tabIndex={-1}
+      >
+        {children}
+      </main>
       <Footer />
     </div>
   )
