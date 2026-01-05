@@ -9,6 +9,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
+// Supported languages configuration
+const LANGUAGES = [
+  { code: 'pt', flag: '🇧🇷' },
+  { code: 'en', flag: '🇺🇸' },
+  { code: 'es', flag: '🇪🇸' },
+] as const
+
 const LanguageSwitcher = () => {
   const { i18n, t } = useTranslation()
 
@@ -16,27 +23,33 @@ const LanguageSwitcher = () => {
     i18n.changeLanguage(lng)
   }
 
+  // Get current language code (handle variants like 'pt-BR')
+  const currentLang = i18n.language?.split('-')[0] || 'pt'
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-9 w-9">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-9 w-9"
+          aria-label={t('accessibility.changeLanguage', { defaultValue: 'Mudar idioma' })}
+        >
           <Globe size={18} />
           <span className="sr-only">Toggle language</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          onClick={() => changeLanguage('en')}
-          className={i18n.language === 'en' ? 'bg-secondary' : ''}
-        >
-          {t('languageSwitcher.en')}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => changeLanguage('pt')}
-          className={i18n.language === 'pt' ? 'bg-secondary' : ''}
-        >
-          {t('languageSwitcher.pt')}
-        </DropdownMenuItem>
+        {LANGUAGES.map((lang) => (
+          <DropdownMenuItem
+            key={lang.code}
+            onClick={() => changeLanguage(lang.code)}
+            className={currentLang === lang.code ? 'bg-secondary' : ''}
+          >
+            <span className="mr-2">{lang.flag}</span>
+            {t(`languageSwitcher.${lang.code}`)}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   )
