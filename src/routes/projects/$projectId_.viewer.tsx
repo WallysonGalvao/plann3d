@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowLeft } from 'lucide-react'
 import { Suspense, lazy, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { getProjectById } from '@/data/projects'
 import logo from '@/assets/logo.svg'
@@ -33,30 +34,36 @@ export const Route = createFileRoute('/projects/$projectId_/viewer')({
 
 function ProjectViewerPage() {
   const { projectId } = Route.useParams()
+  const { t, i18n } = useTranslation()
+
+  // ALL hooks must be called before ANY conditional logic or early returns
   const [showSpecs, setShowSpecs] = useState(true)
   const [modelMetadata, setModelMetadata] = useState<ModelMetadata | null>(null)
-  const project = getProjectById(projectId, 'pt')
 
-  // If project doesn't have a 3D model configured, show error
-  if (!project?.model3d) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-[#101622]">
-        <div className="text-center">
-          <h1 className="text-white text-2xl font-bold mb-4">Modelo 3D não disponível</h1>
-          <p className="text-gray-400 mb-6">Este projeto não possui um modelo 3D configurado.</p>
-          <Link
-            to="/projects/$projectId"
-            params={{ projectId }}
-            className="text-primary hover:underline"
-          >
-            Voltar ao projeto
-          </Link>
-        </div>
-      </div>
-    )
+  const languageCode = i18n.language ? i18n.language.split('-')[0] : 'pt'
+  const locale = languageCode === 'en' ? 'en' : 'pt'
+  const project = getProjectById(projectId, locale)
+
+  // Handlers for control buttons
+  const handleResetCamera = () => {
+    window.location.reload()
   }
 
-  return (
+  const handleFullscreen = () => {
+    const element = document.documentElement
+    if (!document.fullscreenElement) {
+      element.requestFullscreen().catch((err) => {
+        console.error(`Error attempting to enable fullscreen: ${err.message}`)
+      })
+    } else {
+      document.exitFullscreen()
+    }
+  }
+
+  // No early return - use conditional rendering instead
+  const hasModel = !!project?.model3d
+
+  return hasModel && project.model3d ? (
     <div className="flex flex-col h-screen bg-[#101622] overflow-hidden antialiased">
       {/* Header */}
       <header className="h-16 border-b border-[#232f48] bg-[#111722] flex items-center justify-between px-6 lg:px-10 shrink-0 z-50 relative shadow-lg">
@@ -67,7 +74,7 @@ function ProjectViewerPage() {
             className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
           >
             <ArrowLeft size={20} />
-            <span className="text-sm font-medium">Voltar ao Projeto</span>
+            <span className="text-sm font-medium">{t('viewer3d.backToProject')}</span>
           </Link>
         </div>
         <Link
@@ -90,7 +97,7 @@ function ProjectViewerPage() {
               <div className="h-full w-full flex items-center justify-center bg-[#050505]">
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
-                  <span className="text-gray-400">Carregando viewer 3D...</span>
+                  <span className="text-gray-400">{t('viewer3d.loading')}</span>
                 </div>
               </div>
             }
@@ -118,17 +125,19 @@ function ProjectViewerPage() {
             <div className="flex items-center gap-2 mb-1">
               <span className="flex size-2 rounded-full bg-blue-500 animate-pulse" />
               <span className="text-xs font-bold text-blue-400 tracking-wider uppercase">
-                VISUALIZAÇÃO 3D
+                {t('viewer3d.title')}
               </span>
             </div>
             <h1 className="text-white text-4xl font-bold leading-tight tracking-tight mb-2">
-              {project.title} <span className="text-gray-500 font-light">| 3D Viewer</span>
+              {project.title}
             </h1>
             <p className="text-gray-300 text-sm mb-4">{project.description}</p>
             <div className="flex items-center gap-4 text-xs text-gray-400 font-mono">
               <span>Ref: {projectId.toUpperCase()}</span>
               <span className="w-px h-3 bg-gray-700" />
-              <span>Localização: {project.location}</span>
+              <span>
+                {t('viewer3d.location')}: {project.location}
+              </span>
             </div>
           </div>
         </div>
@@ -155,7 +164,7 @@ function ProjectViewerPage() {
                 />
               </svg>
               <h3 className="text-sm font-bold text-white uppercase tracking-wide">
-                Especificações Chave
+                {t('viewer3d.keySpecs')}
               </h3>
             </div>
             <button
@@ -175,81 +184,64 @@ function ProjectViewerPage() {
           </div>
 
           <div className="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
-            {/* Project Info */}
-            <div className="space-y-4">
-              <h4 className="text-base font-bold text-white uppercase tracking-wide">
-                Informações do Projeto
-              </h4>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex flex-col gap-2 p-3 bg-[#1e293b] rounded-lg border border-[#232f48]">
-                  <span className="text-xs text-gray-400 uppercase font-mono tracking-wider">
-                    Projeto
-                  </span>
-                  <span className="text-lg font-bold text-white">{project.title}</span>
-                </div>
-                {project.specs && (
-                  <div className="flex flex-col gap-2 p-3 bg-[#1e293b] rounded-lg border border-[#232f48]">
-                    <span className="text-xs text-gray-400 uppercase font-mono tracking-wider">
-                      Localização
-                    </span>
-                    <span className="text-lg font-bold text-white">{project.specs.location}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-
             {/* Model Specifications - Dynamic from 3D Model */}
             {modelMetadata && (
               <>
                 <div className="space-y-4">
                   <h4 className="text-base font-bold text-white uppercase tracking-wide">
-                    Especificações do Modelo 3D
+                    {t('viewer3d.modelSpecs')}
                   </h4>
                   <div className="grid grid-cols-2 gap-4">
                     <SpecCard
                       icon={<CubeIcon />}
-                      title="Objetos"
-                      value={modelMetadata.objects.toLocaleString('pt-BR')}
-                      description="Meshes no modelo"
+                      title={t('viewer3d.objects')}
+                      value={modelMetadata.objects.toLocaleString(
+                        locale === 'pt' ? 'pt-BR' : 'en-US',
+                      )}
+                      description={t('viewer3d.meshes')}
                     />
                     <SpecCard
                       icon={<TriangleIcon />}
-                      title="Triângulos"
-                      value={modelMetadata.triangles.toLocaleString('pt-BR')}
-                      description="Polígonos renderizados"
+                      title={t('viewer3d.triangles')}
+                      value={modelMetadata.triangles.toLocaleString(
+                        locale === 'pt' ? 'pt-BR' : 'en-US',
+                      )}
+                      description={t('viewer3d.polygons')}
                     />
                     <SpecCard
                       icon={<GridIcon />}
-                      title="Vértices"
-                      value={modelMetadata.vertices.toLocaleString('pt-BR')}
-                      description="Pontos 3D"
+                      title={t('viewer3d.vertices')}
+                      value={modelMetadata.vertices.toLocaleString(
+                        locale === 'pt' ? 'pt-BR' : 'en-US',
+                      )}
+                      description={t('viewer3d.points3d')}
                     />
                     <SpecCard
                       icon={<PaletteIcon />}
-                      title="Materiais"
+                      title={t('viewer3d.materials')}
                       value={modelMetadata.materials.toString()}
-                      description="Texturas e shaders"
+                      description={t('viewer3d.texturesShaders')}
                     />
                   </div>
                 </div>
 
                 <div className="space-y-4">
                   <h4 className="text-base font-bold text-white uppercase tracking-wide">
-                    Dimensões do Modelo
+                    {t('viewer3d.dimensions')}
                   </h4>
                   <div className="grid grid-cols-3 gap-4">
                     <DimensionCard
-                      label="Largura"
+                      label={t('viewer3d.width')}
                       value={modelMetadata.dimensions.width}
                       unit="m"
                     />
                     <DimensionCard
-                      label="Altura"
+                      label={t('viewer3d.height')}
                       value={modelMetadata.dimensions.height}
                       unit="m"
                     />
                     <DimensionCard
-                      label="Profundidade"
+                      label={t('viewer3d.depth')}
                       value={modelMetadata.dimensions.depth}
                       unit="m"
                     />
@@ -264,7 +256,7 @@ function ProjectViewerPage() {
                 <div className="flex items-center justify-center py-12">
                   <div className="flex flex-col items-center gap-3">
                     <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
-                    <span className="text-sm text-gray-400">Analisando modelo 3D...</span>
+                    <span className="text-sm text-gray-400">{t('viewer3d.analyzing')}</span>
                   </div>
                 </div>
               </div>
@@ -277,16 +269,18 @@ function ProjectViewerPage() {
           <div className="glass-panel p-2 rounded-full flex items-center gap-1 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
             <ControlButton
               icon="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              label="Resetar Câmera"
+              label={t('viewer3d.resetCamera')}
+              onClick={handleResetCamera}
             />
             <ControlButton
               icon="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-              label="Tela Cheia"
+              label={t('viewer3d.fullscreen')}
+              onClick={handleFullscreen}
             />
             <button
               onClick={() => setShowSpecs(!showSpecs)}
               className="size-10 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-all relative group"
-              aria-label="Alternar especificações"
+              aria-label={t('viewer3d.toggleSpecs')}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -297,7 +291,7 @@ function ProjectViewerPage() {
                 />
               </svg>
               <span className="absolute bottom-full mb-2 hidden group-hover:block px-2 py-1 bg-black text-xs rounded whitespace-nowrap">
-                Especificações
+                {t('viewer3d.toggleSpecs')}
               </span>
             </button>
           </div>
@@ -305,19 +299,23 @@ function ProjectViewerPage() {
       </main>
 
       {/* Footer */}
-      <footer className="h-10 bg-[#111722] border-t border-[#232f48] flex items-center justify-between px-6 lg:px-10 shrink-0 z-50 text-xs text-gray-500 font-mono">
-        <div className="flex items-center gap-4">
-          <span>© 2024 Plann3d Inc.</span>
-          <span className="hidden md:inline-block w-px h-3 bg-gray-700" />
-          <span className="hidden md:inline-block">v4.2.0 (Build 9928)</span>
-        </div>
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2">
-            <span className="size-2 bg-green-500 rounded-full" />
-            <span className="text-gray-400">Servidor Online</span>
-          </div>
-        </div>
+      <footer className="h-10 bg-[#111722] border-t border-[#232f48] flex items-center justify-center px-6 lg:px-10 shrink-0 z-50 text-xs text-gray-500">
+        <span>© 2026 PLANN3D</span>
       </footer>
+    </div>
+  ) : (
+    <div className="flex items-center justify-center h-screen bg-[#101622]">
+      <div className="text-center">
+        <h1 className="text-white text-2xl font-bold mb-4">{t('viewer3d.modelNotAvailable')}</h1>
+        <p className="text-gray-400 mb-6">{t('viewer3d.modelNotConfigured')}</p>
+        <Link
+          to="/projects/$projectId"
+          params={{ projectId }}
+          className="text-primary hover:underline"
+        >
+          {t('viewer3d.backToProject')}
+        </Link>
+      </div>
     </div>
   )
 }
@@ -411,9 +409,18 @@ function DimensionCard({ label, value, unit }: { label: string; value: number; u
   )
 }
 
-function ControlButton({ icon, label }: { icon: string; label: string }) {
+function ControlButton({
+  icon,
+  label,
+  onClick,
+}: {
+  icon: string
+  label: string
+  onClick?: () => void
+}) {
   return (
     <button
+      onClick={onClick}
       className="size-10 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-all relative group"
       aria-label={label}
     >

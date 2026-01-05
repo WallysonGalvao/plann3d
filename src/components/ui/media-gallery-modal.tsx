@@ -56,7 +56,7 @@ export function MediaGalleryModal({
       if (e.key === 'ArrowLeft') goToPrevious()
       if (e.key === 'ArrowRight') goToNext()
     },
-    [isOpen, onClose, goToPrevious, goToNext]
+    [isOpen, onClose, goToPrevious, goToNext],
   )
 
   useEffect(() => {
@@ -107,7 +107,8 @@ export function MediaGalleryModal({
             <div className="flex items-center gap-4">
               <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-secondary rounded-full border border-border">
                 <span className="text-xs font-bold uppercase tracking-widest text-foreground/80">
-                  {String(currentIndex + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
+                  {String(currentIndex + 1).padStart(2, '0')} /{' '}
+                  {String(items.length).padStart(2, '0')}
                 </span>
               </div>
               <motion.button
@@ -248,13 +249,12 @@ export function MediaGalleryModal({
               <span>{t('projectDetail.dragOrUseArrows', 'Use as setas para navegar')}</span>
             </div>
             <div className="hidden md:block text-xs text-muted-foreground font-mono uppercase tracking-widest">
-              © 2026 Plann3d.
+              © 2026 PLANN3D.
             </div>
           </footer>
         </motion.div>
-      )
-      }
-    </AnimatePresence >
+      )}
+    </AnimatePresence>
   )
 }
 
