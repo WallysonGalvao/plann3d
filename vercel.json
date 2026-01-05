@@ -1,29 +1,11 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "version": 2,
-  "builds": [
+  "installCommand": "npm install",
+  "framework": null,
+  "rewrites": [
     {
-      "src": "dist/server/server.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "dist/client/**",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/assets/(.*)",
-      "dest": "/dist/client/assets/$1"
-    },
-    {
-      "src": "/(.*\\.(ico|png|jpg|jpeg|svg|json|txt|xml|webp|gif))",
-      "dest": "/dist/client/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/dist/server/server.js"
+      "source": "/(.*)",
+      "destination": "/dist/server/server.js"
     }
   ]
 }
