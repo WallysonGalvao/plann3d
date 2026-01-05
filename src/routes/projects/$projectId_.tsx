@@ -1,4 +1,4 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { Link, Outlet, createFileRoute, useRouterState } from '@tanstack/react-router'
 import { motion, useInView } from 'framer-motion'
 import { ArrowLeft, ChevronRight, Expand } from 'lucide-react'
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
@@ -18,13 +18,13 @@ import { createProjectSchema } from '@/lib/seo'
 
 // Lazy load heavy components for better initial load
 const MediaGalleryModal = lazy(() =>
-  import('@/components/media-gallery-modal').then((m) => ({ default: m.MediaGalleryModal }))
+  import('@/components/media-gallery-modal').then((m) => ({ default: m.MediaGalleryModal })),
 )
 const VideoPlayer = lazy(() =>
-  import('@/components/video-player').then((m) => ({ default: m.VideoPlayer }))
+  import('@/components/video-player').then((m) => ({ default: m.VideoPlayer })),
 )
 
-export const Route = createFileRoute('/projects/$projectId')({
+export const Route = createFileRoute('/projects/$projectId_')({
   component: ProjectDetailPage,
   // Dynamic SEO meta tags and Schema.org for each project
   head: ({ params }) => {
@@ -41,7 +41,10 @@ export const Route = createFileRoute('/projects/$projectId')({
     return {
       meta: [
         { title: `${project.title} | Plann3d` },
-        { name: 'description', content: project.description || `Visualização arquitetônica: ${project.title}` },
+        {
+          name: 'description',
+          content: project.description || `Visualização arquitetônica: ${project.title}`,
+        },
         // Open Graph
         { property: 'og:title', content: project.title },
         { property: 'og:description', content: project.description },
@@ -53,9 +56,7 @@ export const Route = createFileRoute('/projects/$projectId')({
         { name: 'twitter:description', content: project.description },
         { name: 'twitter:image', content: ogImage },
       ],
-      links: [
-        { rel: 'canonical', href: projectUrl },
-      ],
+      links: [{ rel: 'canonical', href: projectUrl }],
       scripts: [
         {
           type: 'application/ld+json',
@@ -69,6 +70,21 @@ export const Route = createFileRoute('/projects/$projectId')({
 function ProjectDetailPage() {
   const { projectId } = Route.useParams()
   const { t, i18n } = useTranslation()
+
+  // Check if we're rendering a child route by looking at matched routes
+  const routerState = useRouterState()
+  const matches = routerState.matches
+  const currentRouteId = '/projects/$projectId_'
+  const hasChildRoute = matches.some((match, index) => {
+    // Find current route in matches and check if there's a route after it
+    const currentIdx = matches.findIndex((m) => m.routeId === currentRouteId)
+    return currentIdx !== -1 && index > currentIdx
+  })
+
+  // If we're on a child route, render the Outlet for that child
+  if (hasChildRoute) {
+    return <Outlet />
+  }
 
   // All refs must be declared before any conditional returns
   const heroRef = useRef<HTMLElement>(null)
@@ -243,10 +259,28 @@ function ProjectDetailPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="text-white/70 text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-12"
+            className="text-white/70 text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-8"
           >
             {project.description}
           </motion.p>
+          {project.model3d && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+            >
+              <Link
+                to="/projects/$projectId/viewer"
+                params={{ projectId }}
+                className="inline-flex items-center gap-3 px-6 py-3 bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg transition-all hover:scale-105 shadow-lg shadow-primary/25"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 -960 960 960">
+                  <path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480h80q0 115 72.5 203T418-166l-58-58 56-56L598-98q-29 10-58.5 14T480-80Zm20-280v-240h120q17 0 28.5 11.5T660-560v160q0 17-11.5 28.5T620-360H500Zm-200 0v-60h100v-40h-60v-40h60v-40H300v-60h120q17 0 28.5 11.5T460-560v160q0 17-11.5 28.5T420-360H300Zm260-60h40v-120h-40v120Zm240-60q0-115-72.5-203T542-794l58 58-56 56-182-182q29-10 58.5-14t59.5-4q83 0 156 31.5T763-763q54 54 85.5 127T880-480h-80Z" />
+                </svg>
+                {t('projectDetail.explore3DModel')}
+              </Link>
+            </motion.div>
+          )}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -539,7 +573,9 @@ function ProjectDetailPage() {
                 transition={{ duration: 0.8 }}
                 className="shadow-2xl shadow-primary/10"
               >
-                <Suspense fallback={<div className="aspect-video bg-muted animate-pulse rounded-2xl" />}>
+                <Suspense
+                  fallback={<div className="aspect-video bg-muted animate-pulse rounded-2xl" />}
+                >
                   <VideoPlayer
                     src={project.phases[2].video || ''}
                     poster={project.phases[2].videoImage}

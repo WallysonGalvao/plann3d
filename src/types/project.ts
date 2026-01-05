@@ -38,6 +38,22 @@ export interface ProjectSpecs {
 }
 
 /**
+ * 3D Model configuration for the interactive viewer
+ */
+export interface Model3DConfig {
+  /** URL to the .glb or .gltf file */
+  src: string
+  /** Optional poster/thumbnail while loading */
+  thumbnail?: string
+  /** Initial camera position [x, y, z] */
+  cameraPosition?: [number, number, number]
+  /** Model scale multiplier (default: 1) */
+  scale?: number
+  /** Enable auto-rotation (default: false) */
+  autoRotate?: boolean
+}
+
+/**
  * Unified Project interface - Single source of truth
  * Contains all fields for listing, grid, and detail views
  */
@@ -66,6 +82,9 @@ export interface Project {
     id: string
     title: string
   }
+
+  // Optional 3D viewer configuration
+  model3d?: Model3DConfig
 }
 
 /**

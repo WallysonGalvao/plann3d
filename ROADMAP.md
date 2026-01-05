@@ -314,19 +314,19 @@ src/
 
 > **Foco**: Diferenciação e tecnologia de ponta
 
-### 4.1 Experiências Imersivas
+### 4.1 Experiências Imersivas 🔄 PARCIAL
 
-| Item                 | Prioridade | Esforço | Descrição                      |
-| -------------------- | ---------- | ------- | ------------------------------ |
-| Viewer 3D interativo | 🟡 Média   | Alto    | Three.js/React Three Fiber     |
-| Tour virtual 360°    | 🟡 Média   | Alto    | Embed de tours Matterport-like |
-| Preview em AR        | 🟢 Baixa   | Alto    | Model Viewer para mobile       |
+| Item                 | Prioridade | Esforço | Descrição                      | Status               |
+| -------------------- | ---------- | ------- | ------------------------------ | -------------------- |
+| Viewer 3D interativo | 🟡 Média   | Alto    | Three.js/React Three Fiber     | ✅ Componente criado |
+| Tour virtual 360°    | 🟡 Média   | Alto    | Embed de tours Matterport-like | ⏳ Pendente          |
+| Preview em AR        | 🟢 Baixa   | Alto    | Model Viewer para mobile       | ⏳ Pendente          |
 
-#### Stack Sugerida
+#### Stack Implementada
 
-- **Three.js** + **React Three Fiber** para 3D
-- **Pannellum** ou **A-Frame** para 360°
-- **model-viewer** para AR
+- ✅ **React Three Fiber** + **drei** para 3D
+- ⏳ **Pannellum** ou **A-Frame** para 360°
+- ⏳ **model-viewer** para AR
 
 ---
 
