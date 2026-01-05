@@ -15,7 +15,7 @@ export type SupportedLocale = 'pt' | 'en'
 // PROJECT TYPES
 // ============================================
 
-export type ProjectCategory = 'all' | 'exteriors' | 'interiors' | 'animation'
+export type ProjectCategory = 'all' | 'exteriors' | 'interiors' | 'animation' | 'commercial'
 export type ProjectSize = 'large' | 'tall' | 'standard' | 'wide'
 
 export interface ProjectPhase {

@@ -66,6 +66,8 @@ export interface ModelViewerProps {
   }
   /** Callback when camera preset is applied */
   onCameraPresetApplied?: () => void
+  /** Trigger to reset camera to initial position */
+  resetTrigger?: number
 }
 
 // ============================================
@@ -76,12 +78,69 @@ const CAMERA_PRESETS: Record<
   'front' | 'back' | 'left' | 'right' | 'top' | 'perspective',
   { position: [number, number, number]; target: [number, number, number] }
 > = {
-  front: { position: [0, 0, 50], target: [0, 0, 0] },
-  back: { position: [0, 0, -50], target: [0, 0, 0] },
-  left: { position: [-50, 0, 0], target: [0, 0, 0] },
-  right: { position: [50, 0, 0], target: [0, 0, 0] },
-  top: { position: [0, 50, 0], target: [0, 0, 0] },
-  perspective: { position: [50, 50, 50], target: [0, 0, 0] },
+  front: { position: [0, 3, 15], target: [0, 0, 0] },
+  back: { position: [0, 3, -15], target: [0, 0, 0] },
+  left: { position: [-15, 3, 0], target: [0, 0, 0] },
+  right: { position: [15, 3, 0], target: [0, 0, 0] },
+  top: { position: [0, 20, 0], target: [0, 0, 0] },
+  perspective: { position: [12, 12, 12], target: [0, 0, 0] },
+}
+
+// ============================================
+// CAMERA RESET CONTROLLER
+// ============================================
+
+interface CameraResetControllerProps {
+  trigger: number
+  initialPosition: [number, number, number]
+  controlsRef: React.RefObject<any>
+}
+
+function CameraResetController({
+  trigger,
+  initialPosition,
+  controlsRef,
+}: CameraResetControllerProps) {
+  const { camera } = useThree()
+
+  useEffect(() => {
+    if (trigger === 0 || !controlsRef.current) return
+
+    const startPosition = camera.position.clone()
+    const startTarget = controlsRef.current.target.clone()
+    const endPosition = new THREE.Vector3(...initialPosition)
+    const endTarget = new THREE.Vector3(0, 0, 0)
+
+    let progress = 0
+    const duration = 800 // 0.8 seconds animation
+    const startTime = Date.now()
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime
+      progress = Math.min(elapsed / duration, 1)
+
+      // Ease-in-out animation
+      const eased =
+        progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2
+
+      // Interpolate camera position
+      camera.position.lerpVectors(startPosition, endPosition, eased)
+
+      // Interpolate camera target to origin
+      const newTarget = new THREE.Vector3().lerpVectors(startTarget, endTarget, eased)
+      controlsRef.current.target.copy(newTarget)
+
+      controlsRef.current.update()
+
+      if (progress < 1) {
+        requestAnimationFrame(animate)
+      }
+    }
+
+    animate()
+  }, [trigger, camera, controlsRef, initialPosition])
+
+  return null
 }
 
 // ============================================
@@ -552,7 +611,7 @@ function LoadingOverlay({ progress }: LoadingOverlayProps) {
 export function ModelViewer({
   modelUrl,
   poster,
-  cameraPosition = [0, 2, 5],
+  cameraPosition = [5, 5, 10],
   scale = 1,
   autoRotate = false,
   background = 'transparent',
@@ -564,9 +623,11 @@ export function ModelViewer({
   autoTourActive = false,
   visibleLayers = { structure: true, furniture: true, vegetation: true, lighting: true },
   onCameraPresetApplied,
+  resetTrigger = 0,
 }: ModelViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const controlsRef = useRef<any>(null)
+  const cameraRef = useRef<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [loadProgress, setLoadProgress] = useState(0)
   const [canvasReady, setCanvasReady] = useState(false)
@@ -685,13 +746,20 @@ export function ModelViewer({
             ref={controlsRef}
             enablePan={enablePan}
             enableZoom={true}
-            enableRotate={!enablePan}
+            enableRotate={true}
             autoRotate={autoRotate && !autoTourActive}
             autoRotateSpeed={0.5}
-            minDistance={1}
-            maxDistance={20}
+            minDistance={2}
+            maxDistance={50}
             minPolarAngle={0}
             maxPolarAngle={Math.PI / 1.5}
+          />
+
+          {/* Camera Reset Controller */}
+          <CameraResetController
+            trigger={resetTrigger}
+            initialPosition={cameraPosition}
+            controlsRef={controlsRef}
           />
 
           {/* Camera Preset Controller */}

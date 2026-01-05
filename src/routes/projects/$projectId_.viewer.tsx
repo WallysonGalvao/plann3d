@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowLeft } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from 'next-themes'
 
@@ -60,6 +60,7 @@ function ProjectViewerPage() {
   const [activeCameraPreset, setActiveCameraPreset] = useState<
     'front' | 'back' | 'left' | 'right' | 'top' | 'perspective' | null
   >(null)
+  const [resetTrigger, setResetTrigger] = useState(0)
 
   // Effect for client-side mount detection
   useEffect(() => {
@@ -88,7 +89,7 @@ function ProjectViewerPage() {
 
   // Handlers for control buttons
   const handleResetCamera = () => {
-    window.location.reload()
+    setResetTrigger((prev) => prev + 1)
   }
 
   const handleFullscreen = () => {
@@ -166,6 +167,7 @@ function ProjectViewerPage() {
             autoTourActive={isAutoTour}
             visibleLayers={visibleLayers}
             onCameraPresetApplied={() => setActiveCameraPreset(null)}
+            resetTrigger={resetTrigger}
           />
         </div>
 
@@ -742,7 +744,7 @@ function SpecCard({
 function DimensionCard({ label, value, unit }: { label: string; value: number; unit: string }) {
   return (
     <div className="p-3 bg-card rounded-lg border border-border flex flex-col gap-1">
-      <span className="text-xs text-muted-foreground uppercase font-mono tracking-wider">
+      <span className="text-[10px] text-muted-foreground uppercase font-mono tracking-wide wrap-break-word">
         {label}
       </span>
       <div className="flex items-baseline gap-1">

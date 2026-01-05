@@ -41,7 +41,13 @@ export const phoneSchema = z
 /**
  * Project category enum
  */
-export const projectCategorySchema = z.enum(['all', 'exteriors', 'interiors', 'animation'])
+export const projectCategorySchema = z.enum([
+  'all',
+  'exteriors',
+  'interiors',
+  'animation',
+  'commercial',
+])
 
 /**
  * Project size enum

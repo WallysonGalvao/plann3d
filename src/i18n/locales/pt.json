@@ -216,7 +216,8 @@
       "all": "Todos",
       "exteriors": "Exteriores",
       "interiors": "Interiores",
-      "animation": "Animação"
+      "animation": "Animação",
+      "commercial": "Comercial"
     },
     "categories": {
       "residential": "Residencial",
