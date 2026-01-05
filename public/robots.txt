@@ -1,14 +1,15 @@
-# Plann3d - Architectural Visualization Studio
+# Plann3d - Visualização Arquitetônica 3D
+# https://plann3d.com.br
 
 User-agent: *
 Allow: /
 
-# Sitemaps
+# Sitemap location
 Sitemap: https://plann3d.com.br/sitemap.xml
 
-# Crawl-delay (optional, for politeness)
-Crawl-delay: 1
-
-# Block specific paths (if any)
+# Disallow admin/api routes
 Disallow: /api/
-Disallow: /_build/
+Disallow: /_/
+
+# Crawl delay for polite crawling
+Crawl-delay: 1

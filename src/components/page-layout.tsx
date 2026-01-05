@@ -1,5 +1,6 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header.tsx'
+import { useAnalytics } from '@/hooks/useAnalytics'
 import { cn } from '@/lib/utils'
 
 // ============================================
@@ -24,6 +25,9 @@ export interface PageLayoutProps {
  * Ensures all pages have the same structure and styling
  */
 export function PageLayout({ children, className, withTopPadding = true }: PageLayoutProps) {
+  // Initialize analytics and track page views
+  useAnalytics()
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />

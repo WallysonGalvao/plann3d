@@ -46,6 +46,11 @@ export const Route = createRootRoute({
       { rel: 'canonical', href: DEFAULT_SEO.url },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'stylesheet', href: appCss },
+      // Hreflang tags for international SEO
+      { rel: 'alternate', hreflang: 'pt-BR', href: 'https://plann3d.com.br' },
+      { rel: 'alternate', hreflang: 'en', href: 'https://plann3d.com.br' },
+      { rel: 'alternate', hreflang: 'es', href: 'https://plann3d.com.br' },
+      { rel: 'alternate', hreflang: 'x-default', href: 'https://plann3d.com.br' },
     ],
   }),
 

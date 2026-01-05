@@ -57,38 +57,25 @@ gantt
 
 ---
 
-### 4. SEO & Marketing 🔄 PARCIAL
+### 4. SEO & Marketing ✅ IMPLEMENTADO
 
-| Item                       | Status          | Sugestão                                                                       |
-| -------------------------- | --------------- | ------------------------------------------------------------------------------ |
-| **Blog/Artigos**           | ❌ Não existe   | Criar seção de blog para conteúdo educativo sobre renderização 3D, cases, etc. |
-| **Schema.org por projeto** | ✅ Implementado | Cada página de projeto agora tem schema dinâmico                               |
-| **og-image**               | ✅ Implementado | Meta tags OG dinâmicas por projeto (heroImage)                                 |
-| **Analytics**              | ⏳ Pendente     | Implementar Google Analytics 4 / Plausible / Fathom                            |
-
----
-
-### 5. UX/UI Melhorias
-
-| Área                 | Sugestão                                               | Status      |
-| -------------------- | ------------------------------------------------------ | ----------- |
-| **Skeleton loading** | Adicionar estados de carregamento para imagens/galeria | ✅ Feito    |
-| **404 customizada**  | Criar página 404 branded                               | ⏳ Pendente |
-| **Breadcrumbs**      | Adicionar navegação em páginas internas                | ⏳ Pendente |
-| **Back to top**      | Botão para retornar ao topo em páginas longas          | ⏳ Pendente |
-| **Progress bar**     | Indicador de scroll no header para páginas de projeto  | ⏳ Pendente |
+| Item                       | Status          | Sugestão                                                           |
+| -------------------------- | --------------- | ------------------------------------------------------------------ |
+| **Schema.org por projeto** | ✅ Implementado | Cada página de projeto agora tem schema dinâmico                   |
+| **og-image**               | ✅ Implementado | Meta tags OG dinâmicas por projeto (heroImage)                     |
+| **Analytics**              | ✅ Implementado | Google Analytics 4 com tracking de pageviews, eventos e conversões |
 
 ---
 
-### 6. Funcionalidades Novas
+### 5. UX/UI Melhorias ✅ IMPLEMENTADO
 
-| Feature                      | Impacto                                       |
-| ---------------------------- | --------------------------------------------- |
-| **Calculadora de orçamento** | Formulário interativo para estimar projetos   |
-| **Agendamento**              | Integração com Calendly/Cal.com para reuniões |
-| **Chat/WhatsApp**            | Widget de contato rápido                      |
-| **Depoimentos**              | Seção de testimonials de clientes             |
-| **Parceiros/Clientes**       | Logo carousel de empresas atendidas           |
+| Área                 | Sugestão                                               | Status   |
+| -------------------- | ------------------------------------------------------ | -------- |
+| **Skeleton loading** | Adicionar estados de carregamento para imagens/galeria | ✅ Feito |
+| **404 customizada**  | Criar página 404 branded                               | ✅ Feito |
+| **Breadcrumbs**      | Adicionar navegação em páginas internas                | ✅ Feito |
+| **Back to top**      | Botão para retornar ao topo em páginas longas          | ✅ Feito |
+| **Progress bar**     | Indicador de scroll no header para páginas de projeto  | ✅ Feito |
 
 ---
 
@@ -104,13 +91,12 @@ gantt
 
 ---
 
-### 8. Internacionalização
+### 8. Internacionalização ✅ IMPLEMENTADO
 
-| Item                 | Sugestão                         |
-| -------------------- | -------------------------------- |
-| **Mais idiomas**     | Espanhol para mercado LATAM      |
-| **URLs localizadas** | `/en/projects` vs `/pt/projects` |
-| **hreflang tags**    | Garantir alternates corretos     |
+| Item              | Sugestão                     | Status                              |
+| ----------------- | ---------------------------- | ----------------------------------- |
+| **Mais idiomas**  | Espanhol para mercado LATAM  | ✅ Feito (es.json)                  |
+| **hreflang tags** | Garantir alternates corretos | ✅ Feito (pt-BR, en, es, x-default) |
 
 ---
 
@@ -232,14 +218,13 @@ src/
 
 ---
 
-### 2.2 SEO Avançado
+### 2.2 SEO Avançado ✅ IMPLEMENTADO
 
-| Item                             | Prioridade | Esforço | Descrição                                 |
-| -------------------------------- | ---------- | ------- | ----------------------------------------- |
-| OG Images dinâmicas              | 🟡 Média   | Médio   | Imagens únicas por projeto/página         |
-| URLs localizadas                 | 🟡 Média   | Alto    | `/en/projects` vs `/pt/projects`          |
-| Sitemap dinâmico                 | 🟡 Média   | Baixo   | Atualização automática com novos projetos |
-| AEO (Answer Engine Optimization) | 🟡 Média   | Médio   | Otimização para LLMs e AI                 |
+| Item                             | Prioridade | Esforço | Descrição                                 | Status            |
+| -------------------------------- | ---------- | ------- | ----------------------------------------- | ----------------- |
+| OG Images dinâmicas              | 🟡 Média   | Médio   | Imagens únicas por projeto/página         | ✅ Feito          |
+| Sitemap dinâmico                 | 🟡 Média   | Baixo   | Atualização automática com novos projetos | ✅ Feito (8 URLs) |
+| AEO (Answer Engine Optimization) | 🟡 Média   | Médio   | Otimização para LLMs e AI                 | ✅ Schema.org     |
 
 #### Tarefas Técnicas
 

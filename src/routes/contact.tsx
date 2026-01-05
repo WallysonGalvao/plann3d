@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { trackFormSubmission } from '@/lib/analytics'
+
 import { PageLayout } from '@/components/page-layout'
 import { Button } from '@/components/ui/button'
 import {
@@ -86,6 +88,9 @@ function Contact() {
       })
 
       if (response.data.success) {
+        // Track successful form submission
+        trackFormSubmission('contact_form')
+
         toast.success(t('contactPage.form.successTitle'), {
           description: t('contactPage.form.successDesc'),
         })

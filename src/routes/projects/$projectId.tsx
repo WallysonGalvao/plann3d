@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { motion, useInView } from 'framer-motion'
 import { ArrowLeft, ChevronRight, Expand } from 'lucide-react'
-import { Suspense, lazy, useMemo, useRef, useState } from 'react'
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { GalleryMediaItem } from '@/components/media-gallery-modal'
@@ -12,6 +12,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs'
 import { OptimizedBackground } from '@/components/ui/optimized-background'
 import { ScrollProgress } from '@/components/ui/scroll-progress'
 import { getProjectById, getProjectWithNext } from '@/data/projects'
+import { trackGalleryOpen, trackProjectView } from '@/lib/analytics'
 import { fadeInUp, scaleIn, staggerContainer } from '@/lib/motion-variants'
 import { createProjectSchema } from '@/lib/seo'
 
@@ -165,11 +166,20 @@ function ProjectDetailPage() {
     return items
   }, [project, projectId])
 
+  // Track project view on mount
+  useEffect(() => {
+    if (project) {
+      trackProjectView(project.id, project.title)
+    }
+  }, [project])
+
   // Function to open gallery at a specific index
   const openGallery = (itemId: string) => {
     const index = galleryItems.findIndex((item) => item.id === itemId)
     setGalleryInitialIndex(index >= 0 ? index : 0)
     setIsGalleryOpen(true)
+    // Track gallery open event
+    trackGalleryOpen(projectId)
   }
 
   return (
