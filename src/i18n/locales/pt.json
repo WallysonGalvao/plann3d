@@ -287,7 +287,29 @@
     "format": "Formato",
     "fileType": "Tipo de arquivo 3D",
     "fileSize": "Tamanho",
-    "fileSizeDesc": "Tamanho do arquivo"
+    "fileSizeDesc": "Tamanho do arquivo",
+    "touchHelp": {
+      "title": "Gestos de Toque",
+      "rotate": "Um Dedo",
+      "rotateDesc": "Arraste para rotacionar modelo",
+      "pinch": "Pinça",
+      "pinchDesc": "Pinçar para aumentar/diminuir zoom",
+      "twoFingers": "Dois Dedos",
+      "twoFingersDesc": "Arraste para mover vista"
+    },
+    "cameraPresets": {
+      "title": "Ângulos Salvos",
+      "saveNew": "Salvar Ângulo Atual",
+      "namePlaceholder": "Nome do ângulo...",
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "saved": "Ângulos Salvos",
+      "empty": "Nenhum ângulo salvo",
+      "export": "Exportar",
+      "import": "Importar",
+      "clearAll": "Limpar Tudo",
+      "confirmClear": "Deseja limpar todos os ângulos salvos?"
+    }
   },
   "toolsPage": {
     "label": "Nosso Arsenal Tecnológico",

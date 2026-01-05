@@ -29,12 +29,35 @@ const config = defineConfig({
         changeOrigin: true,
       },
     },
-    allowedHosts: [
-      'ce23667dde9c.ngrok-free.app',
-      'cb0cb8f3da10.ngrok-free.app',
-      'relationships-surveys-shortcuts-aug.trycloudflare.com',
-      'painting-imposed-distributed-voting.trycloudflare.com',
-    ],
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Only apply manual chunks for client-side code
+          if (id.includes('node_modules')) {
+            // Three.js and related 3D libraries
+            if (id.includes('three') || id.includes('@react-three')) {
+              return 'three'
+            }
+            // Motion libraries
+            if (id.includes('framer-motion')) {
+              return 'motion'
+            }
+            // React Router (only if not external)
+            if (id.includes('@tanstack/react-router') && !id.includes('node_modules/@tanstack/start')) {
+              return 'router'
+            }
+            // Form libraries
+            if (id.includes('react-hook-form') || id.includes('@hookform') || id.includes('zod')) {
+              return 'forms'
+            }
+          }
+        },
+      },
+    },
+    // Increase chunk size warning limit (500kb -> 1000kb)
+    chunkSizeWarningLimit: 1000,
   },
 })
 

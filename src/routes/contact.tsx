@@ -71,6 +71,8 @@ function Contact() {
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
+    mode: 'onChange', // Enable real-time validation
+    reValidateMode: 'onChange',
     defaultValues: {
       name: '',
       email: '',

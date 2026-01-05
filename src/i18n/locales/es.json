@@ -288,7 +288,29 @@
     "format": "Formato",
     "fileType": "Tipo de archivo 3D",
     "fileSize": "Tamaño",
-    "fileSizeDesc": "Tamaño del archivo"
+    "fileSizeDesc": "Tamaño del archivo",
+    "touchHelp": {
+      "title": "Gestos Táctiles",
+      "rotate": "Un Dedo",
+      "rotateDesc": "Arrastra para rotar modelo",
+      "pinch": "Pellizcar",
+      "pinchDesc": "Pellizcar para acercar/alejar",
+      "twoFingers": "Dos Dedos",
+      "twoFingersDesc": "Arrastra para mover vista"
+    },
+    "cameraPresets": {
+      "title": "Vistas Guardadas",
+      "saveNew": "Guardar Vista Actual",
+      "namePlaceholder": "Nombre de vista...",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "saved": "Vistas Guardadas",
+      "empty": "No hay vistas guardadas",
+      "export": "Exportar",
+      "import": "Importar",
+      "clearAll": "Limpiar Todo",
+      "confirmClear": "¿Limpiar todas las vistas guardadas?"
+    }
   },
   "toolsPage": {
     "label": "Nuestro Arsenal Tecnológico",

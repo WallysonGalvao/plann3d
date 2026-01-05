@@ -287,7 +287,29 @@
     "format": "Format",
     "fileType": "3D file type",
     "fileSize": "Size",
-    "fileSizeDesc": "File size"
+    "fileSizeDesc": "File size",
+    "touchHelp": {
+      "title": "Touch Gestures",
+      "rotate": "One Finger",
+      "rotateDesc": "Drag to rotate model",
+      "pinch": "Pinch",
+      "pinchDesc": "Pinch to zoom in/out",
+      "twoFingers": "Two Fingers",
+      "twoFingersDesc": "Drag to pan view"
+    },
+    "cameraPresets": {
+      "title": "Saved Views",
+      "saveNew": "Save Current View",
+      "namePlaceholder": "View name...",
+      "save": "Save",
+      "cancel": "Cancel",
+      "saved": "Saved Views",
+      "empty": "No saved views",
+      "export": "Export",
+      "import": "Import",
+      "clearAll": "Clear All",
+      "confirmClear": "Clear all saved views?"
+    }
   },
   "toolsPage": {
     "label": "Our Tech Arsenal",
