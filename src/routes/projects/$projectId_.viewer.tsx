@@ -39,6 +39,17 @@ function ProjectViewerPage() {
   // ALL hooks must be called before ANY conditional logic or early returns
   const [showSpecs, setShowSpecs] = useState(true)
   const [modelMetadata, setModelMetadata] = useState<ModelMetadata | null>(null)
+  const [isPanMode, setIsPanMode] = useState(false)
+  const [_viewMode, _setViewMode] = useState<'realistic' | 'wireframe' | 'materials'>('realistic')
+  const [isAutoTour, setIsAutoTour] = useState(false)
+  const [visibleLayers, setVisibleLayers] = useState({
+    structure: true,
+    furniture: true,
+    vegetation: true,
+    lighting: true,
+  })
+  const [showLayers, setShowLayers] = useState(false)
+  const [showPresets, setShowPresets] = useState(false)
 
   const languageCode = i18n.language ? i18n.language.split('-')[0] : 'pt'
   const locale = languageCode === 'en' ? 'en' : 'pt'
@@ -58,6 +69,31 @@ function ProjectViewerPage() {
     } else {
       document.exitFullscreen()
     }
+  }
+
+  const handlePanToggle = () => {
+    setIsPanMode(!isPanMode)
+  }
+
+  const _handleViewModeChange = (mode: 'realistic' | 'wireframe' | 'materials') => {
+    _setViewMode(mode)
+    // TODO: Implement view mode change in ModelViewer
+  }
+
+  const handleAutoTour = () => {
+    setIsAutoTour(!isAutoTour)
+    // TODO: Implement auto tour functionality
+  }
+
+  const handleCameraPreset = (
+    _preset: 'front' | 'back' | 'left' | 'right' | 'top' | 'isometric',
+  ) => {
+    // TODO: Implement camera preset changes
+  }
+
+  const toggleLayer = (layer: keyof typeof visibleLayers) => {
+    setVisibleLayers((prev) => ({ ...prev, [layer]: !prev[layer] }))
+    // TODO: Implement layer visibility in ModelViewer
   }
 
   // No early return - use conditional rendering instead
@@ -267,19 +303,54 @@ function ProjectViewerPage() {
         {/* Bottom Controls */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 opacity-75 hover:opacity-100 transition-opacity duration-300">
           <div className="glass-panel p-2 rounded-full flex items-center gap-1 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+            {/* Pan Mode */}
+            <ControlButton
+              icon="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"
+              label="Pan"
+              onClick={handlePanToggle}
+              isActive={isPanMode}
+            />
+            {/* Camera Presets */}
+            <ControlButton
+              icon="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z"
+              label="Vistas"
+              onClick={() => setShowPresets(!showPresets)}
+              isActive={showPresets}
+            />
+            {/* Auto Tour */}
+            <ControlButton
+              icon="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              label="Tour Auto"
+              onClick={handleAutoTour}
+              isActive={isAutoTour}
+            />
+            {/* Layers */}
+            <ControlButton
+              icon="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+              label="Camadas"
+              onClick={() => setShowLayers(!showLayers)}
+              isActive={showLayers}
+            />
+            {/* Reset Camera */}
             <ControlButton
               icon="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
               label={t('viewer3d.resetCamera')}
               onClick={handleResetCamera}
             />
+            {/* Fullscreen */}
             <ControlButton
               icon="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
               label={t('viewer3d.fullscreen')}
               onClick={handleFullscreen}
             />
+            {/* Toggle Specs */}
             <button
               onClick={() => setShowSpecs(!showSpecs)}
-              className="size-10 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-all relative group"
+              className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${
+                showSpecs
+                  ? 'bg-white/20 text-white'
+                  : 'text-gray-300 hover:text-white hover:bg-white/10'
+              }`}
               aria-label={t('viewer3d.toggleSpecs')}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -296,6 +367,53 @@ function ProjectViewerPage() {
             </button>
           </div>
         </div>
+
+        {/* Camera Presets Popup */}
+        {showPresets && (
+          <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30">
+            <div className="glass-panel p-3 rounded-xl shadow-2xl">
+              <div className="grid grid-cols-3 gap-2">
+                <PresetButton label="Frontal" onClick={() => handleCameraPreset('front')} />
+                <PresetButton label="Traseira" onClick={() => handleCameraPreset('back')} />
+                <PresetButton label="Esquerda" onClick={() => handleCameraPreset('left')} />
+                <PresetButton label="Direita" onClick={() => handleCameraPreset('right')} />
+                <PresetButton label="Superior" onClick={() => handleCameraPreset('top')} />
+                <PresetButton label="Isométrica" onClick={() => handleCameraPreset('isometric')} />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Layers Popup */}
+        {showLayers && (
+          <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30">
+            <div className="glass-panel p-4 rounded-xl shadow-2xl w-64">
+              <h4 className="text-sm font-bold text-white mb-3 uppercase tracking-wide">Camadas</h4>
+              <div className="space-y-2">
+                <LayerToggle
+                  label="Estrutura"
+                  checked={visibleLayers.structure}
+                  onChange={() => toggleLayer('structure')}
+                />
+                <LayerToggle
+                  label="Mobiliário"
+                  checked={visibleLayers.furniture}
+                  onChange={() => toggleLayer('furniture')}
+                />
+                <LayerToggle
+                  label="Vegetação"
+                  checked={visibleLayers.vegetation}
+                  onChange={() => toggleLayer('vegetation')}
+                />
+                <LayerToggle
+                  label="Iluminação"
+                  checked={visibleLayers.lighting}
+                  onChange={() => toggleLayer('lighting')}
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Footer */}
@@ -413,15 +531,19 @@ function ControlButton({
   icon,
   label,
   onClick,
+  isActive = false,
 }: {
   icon: string
   label: string
   onClick?: () => void
+  isActive?: boolean
 }) {
   return (
     <button
       onClick={onClick}
-      className="size-10 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-all relative group"
+      className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${
+        isActive ? 'bg-white/20 text-white' : 'text-gray-300 hover:text-white hover:bg-white/10'
+      }`}
       aria-label={label}
     >
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -431,5 +553,40 @@ function ControlButton({
         {label}
       </span>
     </button>
+  )
+}
+
+function PresetButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="px-3 py-2 text-xs text-white bg-white/10 hover:bg-white/20 rounded-lg transition-colors font-medium"
+    >
+      {label}
+    </button>
+  )
+}
+
+function LayerToggle({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string
+  checked: boolean
+  onChange: () => void
+}) {
+  return (
+    <label className="flex items-center justify-between cursor-pointer group">
+      <span className="text-sm text-gray-300 group-hover:text-white transition-colors">
+        {label}
+      </span>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="w-4 h-4 rounded border-gray-600 bg-gray-700 text-primary focus:ring-2 focus:ring-primary/50"
+      />
+    </label>
   )
 }
