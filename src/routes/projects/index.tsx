@@ -29,6 +29,7 @@ function ProjectsPage() {
     { key: 'exteriors', label: t('projectsPage.filters.exteriors') },
     { key: 'interiors', label: t('projectsPage.filters.interiors') },
     { key: 'animation', label: t('projectsPage.filters.animation') },
+    { key: 'commercial', label: t('projectsPage.filters.commercial') },
   ]
 
   // Combined filter: category + search
@@ -48,9 +49,10 @@ function ProjectsPage() {
   const getCategoryLabel = (category: ProjectCategory) => {
     const labels: Record<ProjectCategory, string> = {
       all: t('projectsPage.filters.all'),
-      exteriors: t('projectsPage.categories.residential'),
-      interiors: t('projectsPage.categories.commercial'),
-      animation: t('projectsPage.categories.animation'),
+      exteriors: t('projectsPage.filters.exteriors'),
+      interiors: t('projectsPage.filters.interiors'),
+      animation: t('projectsPage.filters.animation'),
+      commercial: t('projectsPage.filters.commercial'),
     }
     return labels[category]
   }
@@ -93,7 +95,9 @@ function ProjectsPage() {
                 />
                 <input
                   type="text"
-                  placeholder={t('projectsPage.searchPlaceholder', { defaultValue: 'Buscar projetos...' })}
+                  placeholder={t('projectsPage.searchPlaceholder', {
+                    defaultValue: 'Buscar projetos...',
+                  })}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full sm:w-80 h-11 pl-11 pr-4 rounded-full bg-secondary/50 border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200"
@@ -178,6 +182,6 @@ function ProjectsPage() {
 
       {/* Back to Top Button */}
       <BackToTop />
-    </PageLayout >
+    </PageLayout>
   )
 }

@@ -1,8 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowLeft } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useTheme } from 'next-themes'
 
 import { getProjectById } from '@/data/projects'
 import { ClientOnlyModelViewer } from '@/components/viewer-3d'
@@ -39,7 +38,6 @@ export const Route = createFileRoute('/projects/$projectId_/viewer')({
 function ProjectViewerPage() {
   const { projectId } = Route.useParams()
   const { t, i18n } = useTranslation()
-  const { theme } = useTheme()
 
   // Client-side mount detection to prevent SSR hydration mismatch
   const [isMounted, setIsMounted] = useState(false)
@@ -61,11 +59,36 @@ function ProjectViewerPage() {
     'front' | 'back' | 'left' | 'right' | 'top' | 'perspective' | null
   >(null)
   const [resetTrigger, setResetTrigger] = useState(0)
+  const [isKeyPanActive, setIsKeyPanActive] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
 
   // Effect for client-side mount detection
   useEffect(() => {
     setIsMounted(true)
   }, [])
+
+  // Effect to handle Cmd/Ctrl key for temporary pan mode
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && !isKeyPanActive) {
+        setIsKeyPanActive(true)
+      }
+    }
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (!e.metaKey && !e.ctrlKey && isKeyPanActive) {
+        setIsKeyPanActive(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('keyup', handleKeyUp)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('keyup', handleKeyUp)
+    }
+  }, [isKeyPanActive])
 
   const languageCode = i18n.language ? i18n.language.split('-')[0] : 'pt'
   const locale = languageCode === 'en' ? 'en' : 'pt'
@@ -153,7 +176,20 @@ function ProjectViewerPage() {
       {/* Main Content */}
       <main className="relative flex-1 w-full h-full bg-background overflow-hidden">
         {/* 3D Model Viewer */}
-        <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            cursor:
+              isDragging && (isPanMode || isKeyPanActive)
+                ? 'grabbing'
+                : isPanMode || isKeyPanActive
+                  ? 'grab'
+                  : 'default',
+          }}
+          onMouseDown={() => setIsDragging(true)}
+          onMouseUp={() => setIsDragging(false)}
+          onMouseLeave={() => setIsDragging(false)}
+        >
           <ClientOnlyModelViewer
             modelUrl={project.model3d.src}
             poster={project.model3d.thumbnail}
@@ -162,7 +198,7 @@ function ProjectViewerPage() {
             cameraPosition={project.model3d.cameraPosition}
             autoRotate={project.model3d.autoRotate}
             onMetadataExtracted={setModelMetadata}
-            enablePan={isPanMode}
+            enablePan={isPanMode || isKeyPanActive}
             cameraPreset={activeCameraPreset}
             autoTourActive={isAutoTour}
             visibleLayers={visibleLayers}
@@ -201,8 +237,9 @@ function ProjectViewerPage() {
 
         {/* Specifications Panel - Right Side */}
         <aside
-          className={`absolute top-6 bottom-20 right-6 w-96 glass-panel flex flex-col rounded-xl z-20 shadow-2xl border border-border transition-transform duration-300 ${showSpecs ? 'translate-x-0' : 'translate-x-[calc(100%+1.5rem)]'
-            }`}
+          className={`absolute top-6 bottom-20 right-6 w-96 glass-panel flex flex-col rounded-xl z-20 shadow-2xl border border-border transition-transform duration-300 ${
+            showSpecs ? 'translate-x-0' : 'translate-x-[calc(100%+1.5rem)]'
+          }`}
         >
           <div className="p-4 border-b border-border flex items-center justify-between bg-muted/5 rounded-t-xl">
             <div className="flex items-center gap-2">
@@ -226,7 +263,7 @@ function ProjectViewerPage() {
             <button
               onClick={() => setShowSpecs(!showSpecs)}
               className="text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Fechar painel de especificações"
+              aria-label={t('viewer3d.closePanel')}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -245,7 +282,7 @@ function ProjectViewerPage() {
               <>
                 {/* Geometria Section */}
                 <div className="space-y-3">
-                  <SectionHeader icon={<CubeIcon />} title="Geometria" />
+                  <SectionHeader icon={<CubeIcon />} title={t('viewer3d.geometry')} />
                   <div className="grid grid-cols-2 gap-3">
                     <SpecCard
                       icon={<TriangleIcon />}
@@ -274,9 +311,9 @@ function ProjectViewerPage() {
                     {modelMetadata.detailLevel && (
                       <SpecCard
                         icon={<ZapIcon />}
-                        title="Nível de Detalhe"
+                        title={t('viewer3d.detailLevel')}
                         value={modelMetadata.detailLevel}
-                        description="Densidade de polígonos"
+                        description={t('viewer3d.polygonDensity')}
                       />
                     )}
                   </div>
@@ -284,7 +321,7 @@ function ProjectViewerPage() {
 
                 {/* Recursos Section */}
                 <div className="space-y-3">
-                  <SectionHeader icon={<PaletteIcon />} title="Recursos" />
+                  <SectionHeader icon={<PaletteIcon />} title={t('viewer3d.resources')} />
                   <div className="grid grid-cols-2 gap-3">
                     <SpecCard
                       icon={<PaletteIcon />}
@@ -295,17 +332,17 @@ function ProjectViewerPage() {
                     {modelMetadata.textures !== undefined && modelMetadata.textures > 0 && (
                       <SpecCard
                         icon={<ImageIcon />}
-                        title="Texturas"
+                        title={t('viewer3d.textures')}
                         value={modelMetadata.textures.toString()}
-                        description="Mapas de textura"
+                        description={t('viewer3d.textureMaps')}
                       />
                     )}
                     {modelMetadata.animations !== undefined && modelMetadata.animations > 0 && (
                       <SpecCard
                         icon={<PlayIcon />}
-                        title="Animações"
+                        title={t('viewer3d.animations')}
                         value={modelMetadata.animations.toString()}
-                        description="Clipes de animação"
+                        description={t('viewer3d.animationClips')}
                       />
                     )}
                   </div>
@@ -313,7 +350,7 @@ function ProjectViewerPage() {
 
                 {/* Medidas Físicas Section */}
                 <div className="space-y-3">
-                  <SectionHeader icon={<RulerIcon />} title="Medidas Físicas" />
+                  <SectionHeader icon={<RulerIcon />} title={t('viewer3d.physicalMeasures')} />
                   <div className="grid grid-cols-3 gap-3">
                     <DimensionCard
                       label={t('viewer3d.width')}
@@ -343,7 +380,7 @@ function ProjectViewerPage() {
                       />
                       <SpecCard
                         icon={<BoxIcon />}
-                        title="Volume"
+                        title={t('viewer3d.volume')}
                         value={modelMetadata.volume.toLocaleString(
                           locale === 'pt' ? 'pt-BR' : 'en-US',
                         )}
@@ -356,20 +393,20 @@ function ProjectViewerPage() {
                 {/* Arquivo Section */}
                 {modelMetadata.format && (
                   <div className="space-y-3">
-                    <SectionHeader icon={<FileIcon />} title="Arquivo" />
+                    <SectionHeader icon={<FileIcon />} title={t('viewer3d.file')} />
                     <div className="grid grid-cols-2 gap-3">
                       <SpecCard
                         icon={<FileIcon />}
-                        title="Formato"
+                        title={t('viewer3d.format')}
                         value={modelMetadata.format}
-                        description="Tipo de arquivo 3D"
+                        description={t('viewer3d.fileType')}
                       />
                       {modelMetadata.fileSize && (
                         <SpecCard
                           icon={<DatabaseIcon />}
-                          title="Tamanho"
+                          title={t('viewer3d.fileSize')}
                           value={modelMetadata.fileSize}
-                          description="Tamanho do arquivo"
+                          description={t('viewer3d.fileSizeDesc')}
                         />
                       )}
                     </div>
@@ -393,14 +430,33 @@ function ProjectViewerPage() {
         </aside>
 
         {/* Bottom Controls */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 opacity-75 hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-3">
+          {/* Keyboard Pan Indicator */}
+          {isKeyPanActive && (
+            <div className="glass-panel px-4 py-2 rounded-lg animate-fade-in opacity-75 hover:opacity-100 transition-opacity duration-300">
+              <div className="flex items-center gap-2 text-sm text-primary">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"
+                  />
+                </svg>
+                <span className="font-medium">{t('viewer3d.panModeActive')} (⌘/Ctrl)</span>
+              </div>
+            </div>
+          )}
+
+          {/* Controls Bar */}
+          <div className="opacity-75 hover:opacity-100 transition-opacity duration-300">
           <div className="glass-panel p-2 rounded-full flex items-center gap-1 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
             {/* Pan Mode */}
             <ControlButton
               icon="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"
               label="Pan"
               onClick={handlePanToggle}
-              isActive={isPanMode}
+              isActive={isPanMode || isKeyPanActive}
             />
             {/* Camera Presets */}
             <ControlButton
@@ -438,10 +494,11 @@ function ProjectViewerPage() {
             {/* Toggle Specs */}
             <button
               onClick={() => setShowSpecs(!showSpecs)}
-              className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${showSpecs
+              className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${
+                showSpecs
                   ? 'bg-primary/20 text-primary'
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted/10'
-                }`}
+              }`}
               aria-label={t('viewer3d.toggleSpecs')}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -456,6 +513,7 @@ function ProjectViewerPage() {
                 {t('viewer3d.toggleSpecs')}
               </span>
             </button>
+          </div>
           </div>
         </div>
 
@@ -709,7 +767,7 @@ function DatabaseIcon() {
 // Helper Components
 function SectionHeader({ icon, title }: { icon: React.ReactNode; title: string }) {
   return (
-    <div className="flex items-center gap-2 pb-2 border-b border-border">
+    <div className="flex items-center gap-2 pb-2">
       <div className="shrink-0 opacity-70">{icon}</div>
       <h4 className="text-xs font-bold text-foreground uppercase tracking-wider">{title}</h4>
     </div>
@@ -769,10 +827,11 @@ function ControlButton({
   return (
     <button
       onClick={onClick}
-      className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${isActive
+      className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${
+        isActive
           ? 'bg-primary/20 text-primary'
           : 'text-muted-foreground hover:text-foreground hover:bg-muted/10'
-        }`}
+      }`}
       aria-label={label}
     >
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

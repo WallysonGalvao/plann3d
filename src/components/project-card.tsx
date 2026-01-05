@@ -133,16 +133,16 @@ export function ProjectCard({
               <div>
                 {/* Category for large/tall cards */}
                 {showCategory && (
-                  <div className="mb-2 flex items-center gap-2">
+                  <div className="mb-2 flex items-center gap-2 bg-primary/20 backdrop-blur-sm px-3 py-1.5 rounded-full w-fit border border-primary/30">
                     <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
-                    <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                    <span className="text-xs font-bold uppercase tracking-widest text-primary-foreground">
                       {getCategoryLabel(project.category)}
                     </span>
                   </div>
                 )}
                 <h3
                   className={cn(
-                    'font-semibold text-white mb-1 group-hover:text-primary transition-colors duration-300',
+                    'font-semibold text-white mb-1 transition-colors duration-300',
                     isLarge || isTall ? 'text-2xl' : 'text-lg',
                   )}
                 >

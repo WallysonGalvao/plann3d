@@ -744,15 +744,23 @@ export function ModelViewer({
           {/* Orbit Controls */}
           <OrbitControls
             ref={controlsRef}
-            enablePan={enablePan}
+            enablePan={true}
             enableZoom={true}
-            enableRotate={true}
+            enableRotate={!enablePan}
             autoRotate={autoRotate && !autoTourActive}
             autoRotateSpeed={0.5}
-            minDistance={2}
-            maxDistance={50}
             minPolarAngle={0}
             maxPolarAngle={Math.PI / 1.5}
+            zoomToCursor={true}
+            mouseButtons={{
+              LEFT: enablePan ? 2 : 0, // Pan with left click when pan mode is on, rotate otherwise
+              MIDDLE: 1, // Always zoom with middle button
+              RIGHT: 2, // Always pan with right click
+            }}
+            touches={{
+              ONE: enablePan ? 2 : 0, // Pan with one finger when pan mode is on
+              TWO: 1, // Zoom with two fingers
+            }}
           />
 
           {/* Camera Reset Controller */}
