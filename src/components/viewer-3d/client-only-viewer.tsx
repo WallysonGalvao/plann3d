@@ -15,10 +15,10 @@ export function ClientOnlyModelViewer(props: ModelViewerProps) {
   // Only render on client side after mount
   if (!isMounted) {
     return (
-      <div className="h-full w-full flex items-center justify-center bg-[#050505]">
+      <div className="h-full w-full flex items-center justify-center bg-black dark:bg-black">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
-          <span className="text-gray-400">Carregando...</span>
+          <span className="text-muted-foreground">Carregando...</span>
         </div>
       </div>
     )
@@ -27,10 +27,10 @@ export function ClientOnlyModelViewer(props: ModelViewerProps) {
   return (
     <Suspense
       fallback={
-        <div className="h-full w-full flex items-center justify-center bg-[#050505]">
+        <div className="h-full w-full flex items-center justify-center bg-black dark:bg-black">
           <div className="flex flex-col items-center gap-4">
             <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
-            <span className="text-gray-400">Carregando modelo 3D...</span>
+            <span className="text-muted-foreground">Carregando modelo 3D...</span>
           </div>
         </div>
       }

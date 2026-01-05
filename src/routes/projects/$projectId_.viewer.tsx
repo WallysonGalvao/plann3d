@@ -1,7 +1,8 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowLeft } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useTheme } from 'next-themes'
 
 import { getProjectById } from '@/data/projects'
 import { ClientOnlyModelViewer } from '@/components/viewer-3d'
@@ -38,6 +39,10 @@ export const Route = createFileRoute('/projects/$projectId_/viewer')({
 function ProjectViewerPage() {
   const { projectId } = Route.useParams()
   const { t, i18n } = useTranslation()
+  const { theme } = useTheme()
+
+  // Client-side mount detection to prevent SSR hydration mismatch
+  const [isMounted, setIsMounted] = useState(false)
 
   // ALL hooks must be called before ANY conditional logic or early returns
   const [showSpecs, setShowSpecs] = useState(true)
@@ -56,9 +61,30 @@ function ProjectViewerPage() {
     'front' | 'back' | 'left' | 'right' | 'top' | 'perspective' | null
   >(null)
 
+  // Effect for client-side mount detection
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   const languageCode = i18n.language ? i18n.language.split('-')[0] : 'pt'
   const locale = languageCode === 'en' ? 'en' : 'pt'
   const project = getProjectById(projectId, locale)
+
+  // Show loading state during SSR to prevent hydration mismatch
+  if (!isMounted) {
+    return (
+      <div className="flex flex-col h-screen bg-background overflow-hidden antialiased">
+        <div className="flex-1 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+            <span className="text-muted-foreground">
+              {t('viewer3d.loading') || 'Carregando...'}
+            </span>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   // Handlers for control buttons
   const handleResetCamera = () => {
@@ -99,14 +125,14 @@ function ProjectViewerPage() {
   const hasModel = !!project?.model3d
 
   return hasModel && project.model3d ? (
-    <div className="flex flex-col h-screen bg-[#101622] overflow-hidden antialiased">
+    <div className="flex flex-col h-screen bg-background overflow-hidden antialiased">
       {/* Header */}
-      <header className="h-16 border-b border-[#232f48] bg-[#111722] flex items-center justify-between px-6 lg:px-10 shrink-0 z-50 relative shadow-lg">
+      <header className="h-16 border-b border-border bg-card flex items-center justify-between px-6 lg:px-10 shrink-0 z-50 relative shadow-lg">
         <div className="flex items-center gap-4">
           <Link
             to="/projects/$projectId"
             params={{ projectId }}
-            className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft size={20} />
             <span className="text-sm font-medium">{t('viewer3d.backToProject')}</span>
@@ -114,17 +140,17 @@ function ProjectViewerPage() {
         </div>
         <Link
           to="/"
-          className="flex items-center gap-3 text-white hover:opacity-80 transition-opacity duration-300"
+          className="flex items-center gap-3 text-foreground hover:opacity-80 transition-opacity duration-300"
         >
           <img src={logo} alt="Plann3d Logo" className="h-8 w-auto" />
-          <h2 className="text-white text-xl font-bold leading-tight tracking-tight uppercase">
+          <h2 className="text-foreground text-xl font-bold leading-tight tracking-tight uppercase">
             Plann3d
           </h2>
         </Link>
       </header>
 
       {/* Main Content */}
-      <main className="relative flex-1 w-full h-full bg-[#050505] overflow-hidden">
+      <main className="relative flex-1 w-full h-full bg-black dark:bg-black overflow-hidden">
         {/* 3D Model Viewer */}
         <div className="absolute inset-0 z-0">
           <ClientOnlyModelViewer
@@ -144,8 +170,8 @@ function ProjectViewerPage() {
         </div>
 
         {/* Progress Bar */}
-        <div className="absolute top-0 left-0 w-full h-0.5 bg-[#232f48] z-50">
-          <div className="h-full bg-primary w-[85%] shadow-[0_0_10px_#135bec]" />
+        <div className="absolute top-0 left-0 w-full h-0.5 bg-border z-50">
+          <div className="h-full bg-primary w-[85%] shadow-[0_0_10px_rgba(var(--primary),0.5)]" />
         </div>
 
         {/* Project Info Card - Top Left */}
@@ -157,11 +183,11 @@ function ProjectViewerPage() {
                 {t('viewer3d.title')}
               </span>
             </div>
-            <h1 className="text-white text-4xl font-bold leading-tight tracking-tight mb-2">
+            <h1 className="text-foreground text-4xl font-bold leading-tight tracking-tight mb-2">
               {project.title}
             </h1>
-            <p className="text-gray-300 text-sm mb-4">{project.description}</p>
-            <div className="flex items-center gap-4 text-xs text-gray-400 font-mono">
+            <p className="text-muted-foreground text-sm mb-4">{project.description}</p>
+            <div className="flex items-center gap-4 text-xs text-muted-foreground font-mono">
               <span>Ref: {projectId.toUpperCase()}</span>
               <span className="w-px h-3 bg-gray-700" />
               <span>
@@ -173,11 +199,11 @@ function ProjectViewerPage() {
 
         {/* Specifications Panel - Right Side */}
         <aside
-          className={`absolute top-6 bottom-20 right-6 w-96 glass-panel flex flex-col rounded-xl z-20 shadow-2xl border border-white/10 transition-transform duration-300 ${
+          className={`absolute top-6 bottom-20 right-6 w-96 glass-panel flex flex-col rounded-xl z-20 shadow-2xl border border-border transition-transform duration-300 ${
             showSpecs ? 'translate-x-0' : 'translate-x-[calc(100%+1.5rem)]'
           }`}
         >
-          <div className="p-4 border-b border-white/10 flex items-center justify-between bg-white/5 rounded-t-xl">
+          <div className="p-4 border-b border-border flex items-center justify-between bg-muted/5 rounded-t-xl">
             <div className="flex items-center gap-2">
               <svg
                 className="w-5 h-5 text-primary"
@@ -192,13 +218,13 @@ function ProjectViewerPage() {
                   d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
                 />
               </svg>
-              <h3 className="text-sm font-bold text-white uppercase tracking-wide">
+              <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">
                 {t('viewer3d.keySpecs')}
               </h3>
             </div>
             <button
               onClick={() => setShowSpecs(!showSpecs)}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Fechar painel de especificações"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -357,7 +383,7 @@ function ProjectViewerPage() {
                 <div className="flex items-center justify-center py-12">
                   <div className="flex flex-col items-center gap-3">
                     <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
-                    <span className="text-sm text-gray-400">{t('viewer3d.analyzing')}</span>
+                    <span className="text-sm text-muted-foreground">{t('viewer3d.analyzing')}</span>
                   </div>
                 </div>
               </div>
@@ -456,7 +482,9 @@ function ProjectViewerPage() {
         {showLayers && (
           <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30">
             <div className="glass-panel p-4 rounded-xl shadow-2xl w-64">
-              <h4 className="text-sm font-bold text-white mb-3 uppercase tracking-wide">Camadas</h4>
+              <h4 className="text-sm font-bold text-foreground mb-3 uppercase tracking-wide">
+                Camadas
+              </h4>
               <div className="space-y-2">
                 <LayerToggle
                   label="Estrutura"
@@ -485,15 +513,17 @@ function ProjectViewerPage() {
       </main>
 
       {/* Footer */}
-      <footer className="h-10 bg-[#111722] border-t border-[#232f48] flex items-center justify-center px-6 lg:px-10 shrink-0 z-50 text-xs text-gray-500">
+      <footer className="h-10 bg-card border-t border-border flex items-center justify-center px-6 lg:px-10 shrink-0 z-50 text-xs text-muted-foreground">
         <span>© 2026 PLANN3D</span>
       </footer>
     </div>
   ) : (
-    <div className="flex items-center justify-center h-screen bg-[#101622]">
+    <div className="flex items-center justify-center h-screen bg-background">
       <div className="text-center">
-        <h1 className="text-white text-2xl font-bold mb-4">{t('viewer3d.modelNotAvailable')}</h1>
-        <p className="text-gray-400 mb-6">{t('viewer3d.modelNotConfigured')}</p>
+        <h1 className="text-foreground text-2xl font-bold mb-4">
+          {t('viewer3d.modelNotAvailable')}
+        </h1>
+        <p className="text-muted-foreground mb-6">{t('viewer3d.modelNotConfigured')}</p>
         <Link
           to="/projects/$projectId"
           params={{ projectId }}
@@ -679,9 +709,9 @@ function DatabaseIcon() {
 // Helper Components
 function SectionHeader({ icon, title }: { icon: React.ReactNode; title: string }) {
   return (
-    <div className="flex items-center gap-2 pb-2 border-b border-white/10">
+    <div className="flex items-center gap-2 pb-2 border-b border-border">
       <div className="shrink-0 opacity-70">{icon}</div>
-      <h4 className="text-xs font-bold text-white uppercase tracking-wider">{title}</h4>
+      <h4 className="text-xs font-bold text-foreground uppercase tracking-wider">{title}</h4>
     </div>
   )
 }
@@ -698,24 +728,28 @@ function SpecCard({
   description: string
 }) {
   return (
-    <div className="p-3 bg-[#1e293b] rounded-lg border border-[#232f48] flex flex-col gap-2">
+    <div className="p-3 bg-card rounded-lg border border-border flex flex-col gap-2">
       <div className="flex items-center gap-2">
         <div className="shrink-0">{icon}</div>
-        <span className="text-xs text-gray-400 uppercase font-mono tracking-wider">{title}</span>
+        <span className="text-xs text-muted-foreground uppercase font-mono tracking-wider">
+          {title}
+        </span>
       </div>
-      <span className="text-2xl font-bold text-white">{value}</span>
-      <p className="text-gray-400 text-xs">{description}</p>
+      <span className="text-2xl font-bold text-foreground">{value}</span>
+      <p className="text-muted-foreground text-xs">{description}</p>
     </div>
   )
 }
 
 function DimensionCard({ label, value, unit }: { label: string; value: number; unit: string }) {
   return (
-    <div className="p-3 bg-[#1e293b] rounded-lg border border-[#232f48] flex flex-col gap-1">
-      <span className="text-xs text-gray-400 uppercase font-mono tracking-wider">{label}</span>
+    <div className="p-3 bg-card rounded-lg border border-border flex flex-col gap-1">
+      <span className="text-xs text-muted-foreground uppercase font-mono tracking-wider">
+        {label}
+      </span>
       <div className="flex items-baseline gap-1">
-        <span className="text-xl font-bold text-white">{value.toFixed(2)}</span>
-        <span className="text-sm text-gray-500">{unit}</span>
+        <span className="text-xl font-bold text-foreground">{value.toFixed(2)}</span>
+        <span className="text-sm text-muted-foreground">{unit}</span>
       </div>
     </div>
   )
@@ -736,14 +770,16 @@ function ControlButton({
     <button
       onClick={onClick}
       className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${
-        isActive ? 'bg-white/20 text-white' : 'text-gray-300 hover:text-white hover:bg-white/10'
+        isActive
+          ? 'bg-primary/20 text-primary'
+          : 'text-muted-foreground hover:text-foreground hover:bg-muted/10'
       }`}
       aria-label={label}
     >
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icon} />
       </svg>
-      <span className="absolute bottom-full mb-2 hidden group-hover:block px-2 py-1 bg-black text-xs rounded whitespace-nowrap">
+      <span className="absolute bottom-full mb-2 hidden group-hover:block px-2 py-1 bg-popover text-popover-foreground text-xs rounded whitespace-nowrap border border-border">
         {label}
       </span>
     </button>
@@ -754,7 +790,7 @@ function PresetButton({ label, onClick }: { label: string; onClick: () => void }
   return (
     <button
       onClick={onClick}
-      className="px-3 py-2 text-xs text-white bg-white/10 hover:bg-white/20 rounded-lg transition-colors font-medium"
+      className="px-3 py-2 text-xs text-foreground bg-muted/10 hover:bg-muted/20 rounded-lg transition-colors font-medium"
     >
       {label}
     </button>
@@ -772,14 +808,14 @@ function LayerToggle({
 }) {
   return (
     <label className="flex items-center justify-between cursor-pointer group">
-      <span className="text-sm text-gray-300 group-hover:text-white transition-colors">
+      <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
         {label}
       </span>
       <input
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="w-4 h-4 rounded border-gray-600 bg-gray-700 text-primary focus:ring-2 focus:ring-primary/50"
+        className="w-4 h-4 rounded border-border bg-background text-primary focus:ring-2 focus:ring-primary/50"
       />
     </label>
   )
