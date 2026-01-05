@@ -56,10 +56,10 @@ const ptData: Project = {
     status: 'Concluído',
   },
   model3d: {
-    src: '/models/torre-de-tv/model.glb',
+    src: '/models/torre-de-tv/model-optimized.glb',
     thumbnail: torreTvTwinmotion2,
-    cameraPosition: [0, 2, 5],
-    scale: 1,
+    cameraPosition: [50, 50, 50],
+    scale: 0.01,
     autoRotate: true,
   },
 } satisfies Project
@@ -115,10 +115,10 @@ const enData = {
     status: 'Completed',
   },
   model3d: {
-    src: '/models/torre-de-tv/model.glb',
+    src: '/models/torre-de-tv/model-optimized.glb',
     thumbnail: torreTvTwinmotion2,
-    cameraPosition: [0, 2, 5],
-    scale: 1,
+    cameraPosition: [50, 50, 50],
+    scale: 0.01,
     autoRotate: true,
   },
 } satisfies Project

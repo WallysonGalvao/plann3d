@@ -16,8 +16,8 @@ export const Route = createFileRoute('/projects/$projectId_/viewer')({
 
 function ProjectViewerPage() {
   const { projectId } = Route.useParams()
-  const project = getProjectById(projectId, 'pt')
   const [showSpecs, setShowSpecs] = useState(true)
+  const project = getProjectById(projectId, 'pt')
 
   // If project doesn't have a 3D model configured, show error
   if (!project?.model3d) {
