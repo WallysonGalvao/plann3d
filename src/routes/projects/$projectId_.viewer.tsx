@@ -1,15 +1,11 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowLeft } from 'lucide-react'
-import { Suspense, lazy, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getProjectById } from '@/data/projects'
+import { ClientOnlyModelViewer } from '@/components/viewer-3d'
 import logo from '@/assets/logo.svg'
-
-// Lazy load the 3D viewer for better initial page load
-const ModelViewer = lazy(() =>
-  import('@/components/viewer-3d').then((m) => ({ default: m.ModelViewer })),
-)
 
 // Import type separately (not lazy loaded)
 type ModelMetadata = {
@@ -131,31 +127,20 @@ function ProjectViewerPage() {
       <main className="relative flex-1 w-full h-full bg-[#050505] overflow-hidden">
         {/* 3D Model Viewer */}
         <div className="absolute inset-0 z-0">
-          <Suspense
-            fallback={
-              <div className="h-full w-full flex items-center justify-center bg-[#050505]">
-                <div className="flex flex-col items-center gap-4">
-                  <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
-                  <span className="text-gray-400">{t('viewer3d.loading')}</span>
-                </div>
-              </div>
-            }
-          >
-            <ModelViewer
-              modelUrl={project.model3d.src}
-              poster={project.model3d.thumbnail}
-              height="100%"
-              scale={project.model3d.scale}
-              cameraPosition={project.model3d.cameraPosition}
-              autoRotate={project.model3d.autoRotate}
-              onMetadataExtracted={setModelMetadata}
-              enablePan={isPanMode}
-              cameraPreset={activeCameraPreset}
-              autoTourActive={isAutoTour}
-              visibleLayers={visibleLayers}
-              onCameraPresetApplied={() => setActiveCameraPreset(null)}
-            />
-          </Suspense>
+          <ClientOnlyModelViewer
+            modelUrl={project.model3d.src}
+            poster={project.model3d.thumbnail}
+            height="100%"
+            scale={project.model3d.scale}
+            cameraPosition={project.model3d.cameraPosition}
+            autoRotate={project.model3d.autoRotate}
+            onMetadataExtracted={setModelMetadata}
+            enablePan={isPanMode}
+            cameraPreset={activeCameraPreset}
+            autoTourActive={isAutoTour}
+            visibleLayers={visibleLayers}
+            onCameraPresetApplied={() => setActiveCameraPreset(null)}
+          />
         </div>
 
         {/* Progress Bar */}
