@@ -1,11 +1,4 @@
 {
   "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "framework": null,
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/dist/server/server.js"
-    }
-  ]
+  "installCommand": "npm install"
 }
