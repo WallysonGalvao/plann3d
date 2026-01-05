@@ -1,4 +1,4 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { Link, Outlet, createFileRoute, useRouterState } from '@tanstack/react-router'
 import { motion, useInView } from 'framer-motion'
 import { ArrowLeft, ChevronRight, Expand } from 'lucide-react'
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
@@ -24,7 +24,7 @@ const VideoPlayer = lazy(() =>
   import('@/components/video-player').then((m) => ({ default: m.VideoPlayer }))
 )
 
-export const Route = createFileRoute('/projects/$projectId')({
+export const Route = createFileRoute('/projects/$projectId_')({
   component: ProjectDetailPage,
   // Dynamic SEO meta tags and Schema.org for each project
   head: ({ params }) => {
@@ -69,6 +69,21 @@ export const Route = createFileRoute('/projects/$projectId')({
 function ProjectDetailPage() {
   const { projectId } = Route.useParams()
   const { t, i18n } = useTranslation()
+
+  // Check if we're rendering a child route by looking at matched routes
+  const routerState = useRouterState()
+  const matches = routerState.matches
+  const currentRouteId = '/projects/$projectId_'
+  const hasChildRoute = matches.some((match, index) => {
+    // Find current route in matches and check if there's a route after it
+    const currentIdx = matches.findIndex(m => m.routeId === currentRouteId)
+    return currentIdx !== -1 && index > currentIdx
+  })
+
+  // If we're on a child route, render the Outlet for that child
+  if (hasChildRoute) {
+    return <Outlet />
+  }
 
   // All refs must be declared before any conditional returns
   const heroRef = useRef<HTMLElement>(null)
@@ -243,10 +258,26 @@ function ProjectDetailPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="text-white/70 text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-12"
+            className="text-white/70 text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-8"
           >
             {project.description}
           </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+          >
+            <Link
+              to="/projects/$projectId/viewer"
+              params={{ projectId }}
+              className="inline-flex items-center gap-3 px-6 py-3 bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg transition-all hover:scale-105 shadow-lg shadow-primary/25"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+              Explorar Modelo 3D
+            </Link>
+          </motion.div>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

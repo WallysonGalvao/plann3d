@@ -9,19 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ViewerDemoRouteImport } from './routes/viewer-demo'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
-import { Route as ProjectsProjectIdRouteImport } from './routes/projects/$projectId'
+import { Route as ProjectsProjectIdRouteImport } from './routes/projects/$projectId_'
+import { Route as ProjectsProjectIdViewerRouteImport } from './routes/projects/$projectId_.viewer'
 
-const ViewerDemoRoute = ViewerDemoRouteImport.update({
-  id: '/viewer-demo',
-  path: '/viewer-demo',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ToolsRoute = ToolsRouteImport.update({
   id: '/tools',
   path: '/tools',
@@ -48,9 +43,14 @@ const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsProjectIdRoute = ProjectsProjectIdRouteImport.update({
-  id: '/projects/$projectId',
+  id: '/projects/$projectId_',
   path: '/projects/$projectId',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsProjectIdViewerRoute = ProjectsProjectIdViewerRouteImport.update({
+  id: '/viewer',
+  path: '/viewer',
+  getParentRoute: () => ProjectsProjectIdRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -58,18 +58,18 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/tools': typeof ToolsRoute
-  '/viewer-demo': typeof ViewerDemoRoute
-  '/projects/$projectId': typeof ProjectsProjectIdRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRouteWithChildren
   '/projects': typeof ProjectsIndexRoute
+  '/projects/$projectId/viewer': typeof ProjectsProjectIdViewerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/tools': typeof ToolsRoute
-  '/viewer-demo': typeof ViewerDemoRoute
-  '/projects/$projectId': typeof ProjectsProjectIdRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRouteWithChildren
   '/projects': typeof ProjectsIndexRoute
+  '/projects/$projectId/viewer': typeof ProjectsProjectIdViewerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,9 +77,9 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/tools': typeof ToolsRoute
-  '/viewer-demo': typeof ViewerDemoRoute
-  '/projects/$projectId': typeof ProjectsProjectIdRoute
+  '/projects/$projectId_': typeof ProjectsProjectIdRouteWithChildren
   '/projects/': typeof ProjectsIndexRoute
+  '/projects/$projectId_/viewer': typeof ProjectsProjectIdViewerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -88,27 +88,27 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/tools'
-    | '/viewer-demo'
     | '/projects/$projectId'
     | '/projects'
+    | '/projects/$projectId/viewer'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/contact'
     | '/faq'
     | '/tools'
-    | '/viewer-demo'
     | '/projects/$projectId'
     | '/projects'
+    | '/projects/$projectId/viewer'
   id:
     | '__root__'
     | '/'
     | '/contact'
     | '/faq'
     | '/tools'
-    | '/viewer-demo'
-    | '/projects/$projectId'
+    | '/projects/$projectId_'
     | '/projects/'
+    | '/projects/$projectId_/viewer'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -116,20 +116,12 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
   ToolsRoute: typeof ToolsRoute
-  ViewerDemoRoute: typeof ViewerDemoRoute
-  ProjectsProjectIdRoute: typeof ProjectsProjectIdRoute
+  ProjectsProjectIdRoute: typeof ProjectsProjectIdRouteWithChildren
   ProjectsIndexRoute: typeof ProjectsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/viewer-demo': {
-      id: '/viewer-demo'
-      path: '/viewer-demo'
-      fullPath: '/viewer-demo'
-      preLoaderRoute: typeof ViewerDemoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/tools': {
       id: '/tools'
       path: '/tools'
@@ -165,23 +157,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projects/$projectId': {
-      id: '/projects/$projectId'
+    '/projects/$projectId_': {
+      id: '/projects/$projectId_'
       path: '/projects/$projectId'
       fullPath: '/projects/$projectId'
       preLoaderRoute: typeof ProjectsProjectIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/$projectId_/viewer': {
+      id: '/projects/$projectId_/viewer'
+      path: '/viewer'
+      fullPath: '/projects/$projectId/viewer'
+      preLoaderRoute: typeof ProjectsProjectIdViewerRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
   }
 }
+
+interface ProjectsProjectIdRouteChildren {
+  ProjectsProjectIdViewerRoute: typeof ProjectsProjectIdViewerRoute
+}
+
+const ProjectsProjectIdRouteChildren: ProjectsProjectIdRouteChildren = {
+  ProjectsProjectIdViewerRoute: ProjectsProjectIdViewerRoute,
+}
+
+const ProjectsProjectIdRouteWithChildren =
+  ProjectsProjectIdRoute._addFileChildren(ProjectsProjectIdRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
   ToolsRoute: ToolsRoute,
-  ViewerDemoRoute: ViewerDemoRoute,
-  ProjectsProjectIdRoute: ProjectsProjectIdRoute,
+  ProjectsProjectIdRoute: ProjectsProjectIdRouteWithChildren,
   ProjectsIndexRoute: ProjectsIndexRoute,
 }
 export const routeTree = rootRouteImport
