@@ -51,6 +51,15 @@ export interface Model3DConfig {
   scale?: number
   /** Enable auto-rotation (default: false) */
   autoRotate?: boolean
+  /** LOD (Level of Detail) URLs for progressive loading */
+  lod?: {
+    /** Low quality placeholder (2-5MB) */
+    low?: string
+    /** Medium quality (8-15MB) */
+    medium?: string
+    /** High quality (30-50MB) */
+    high?: string
+  }
 }
 
 /**

@@ -62,6 +62,11 @@ const ptData: Project = {
     cameraPosition: [80, 60, 80],
     scale: 1,
     autoRotate: true,
+    lod: {
+      low: '/models/arena-bsb/low.glb',
+      medium: '/models/arena-bsb/medium.glb',
+      high: '/models/arena-bsb/high.glb',
+    },
   },
   tools: [
     {
@@ -133,6 +138,11 @@ const enData: Project = {
     cameraPosition: [80, 60, 80],
     scale: 1,
     autoRotate: true,
+    lod: {
+      low: '/models/arena-bsb/low.glb',
+      medium: '/models/arena-bsb/medium.glb',
+      high: '/models/arena-bsb/high.glb',
+    },
   },
   tools: [
     {

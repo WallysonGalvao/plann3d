@@ -63,6 +63,11 @@ const ptData: Project = {
     cameraPosition: [30, 25, 30],
     scale: 1,
     autoRotate: true,
+    lod: {
+      low: '/models/area-gourmet/low.glb',
+      medium: '/models/area-gourmet/medium.glb',
+      high: '/models/area-gourmet/high.glb',
+    },
   },
   tools: [
     {
@@ -134,6 +139,11 @@ const enData: Project = {
     cameraPosition: [30, 25, 30],
     scale: 1,
     autoRotate: true,
+    lod: {
+      low: '/models/area-gourmet/low.glb',
+      medium: '/models/area-gourmet/medium.glb',
+      high: '/models/area-gourmet/high.glb',
+    },
   },
   tools: [
     {

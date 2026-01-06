@@ -180,7 +180,7 @@ function ProjectViewerPage() {
             scale={project.model3d.scale}
             cameraPosition={
               // Reduce camera distance by 95% for extremely close initial view
-              project.model3d.cameraPosition.map((val) => val * 0.05) as [number, number, number]
+              project.model3d.cameraPosition?.map((val) => val * 0.05) as [number, number, number] | undefined
             }
             autoRotate={isAutoRotate}
             onMetadataExtracted={setModelMetadata}
@@ -191,6 +191,7 @@ function ProjectViewerPage() {
             onCameraPresetApplied={() => setActiveCameraPreset(null)}
             resetTrigger={resetTrigger}
             zoomLevel={zoomLevel}
+            lodUrls={project.model3d.lod}
           />
         </div>
 
@@ -232,9 +233,8 @@ function ProjectViewerPage() {
 
         {/* Zoom Slider - Right Side (positioned relative to specs panel) */}
         <div
-          className={`absolute top-1/2 -translate-y-1/2 z-20 transition-all duration-300 ${
-            showSpecs ? 'right-104' : 'right-6'
-          }`}
+          className={`absolute top-1/2 -translate-y-1/2 z-20 transition-all duration-300 ${showSpecs ? 'right-104' : 'right-6'
+            }`}
         >
           <div className="glass-panel rounded-2xl shadow-2xl border border-border">
             <ZoomSlider value={zoomLevel} onChange={setZoomLevel} min={10} max={200} />
@@ -313,11 +313,10 @@ function ProjectViewerPage() {
               {/* Toggle Specs */}
               <button
                 onClick={() => setShowSpecs(!showSpecs)}
-                className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${
-                  showSpecs
+                className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${showSpecs
                     ? 'bg-primary/20 text-primary'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/10'
-                }`}
+                  }`}
                 aria-label={t('viewer3d.toggleSpecs')}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -443,11 +442,10 @@ function ControlButton({
   return (
     <button
       onClick={onClick}
-      className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${
-        isActive
+      className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${isActive
           ? 'bg-primary/20 text-primary'
           : 'text-muted-foreground hover:text-foreground hover:bg-muted/10'
-      }`}
+        }`}
       aria-label={label}
     >
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

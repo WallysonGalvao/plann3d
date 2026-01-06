@@ -6,6 +6,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { ErrorBoundary, ErrorFallback } from './error-boundary'
 import { LoadingOverlay } from './loading-overlay'
 import type { ModelMetadata } from './model'
+import { useProgressiveModel, type ModelQuality } from '@/hooks/useProgressiveModel'
 
 // Lazy load heavy components
 const Model = lazy(() => import('./model').then((mod) => ({ default: mod.Model })))
@@ -66,6 +67,14 @@ export interface ModelViewerProps {
   resetTrigger?: number
   /** Zoom level (10-200) to control camera distance */
   zoomLevel?: number
+  /** LOD (Level of Detail) URLs for progressive loading */
+  lodUrls?: {
+    low?: string
+    medium?: string
+    high?: string
+  }
+  /** Callback when model quality changes */
+  onQualityChange?: (quality: ModelQuality) => void
 }
 
 // ============================================
@@ -117,6 +126,8 @@ export function ModelViewer({
   onCameraPresetApplied,
   resetTrigger = 0,
   zoomLevel = 50,
+  lodUrls,
+  onQualityChange,
 }: ModelViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const controlsRef = useRef<any>(null)
@@ -124,6 +135,19 @@ export function ModelViewer({
   const [loadProgress, setLoadProgress] = useState(0)
   const [canvasReady, setCanvasReady] = useState(false)
   const [hasTimeout, setHasTimeout] = useState(false)
+
+  // Progressive model loading with LOD support
+  const { currentUrl, quality } = useProgressiveModel({
+    lowUrl: lodUrls?.low,
+    mediumUrl: lodUrls?.medium,
+    highUrl: lodUrls?.high,
+    fallbackUrl: modelUrl,
+  })
+
+  // Report quality changes
+  useEffect(() => {
+    onQualityChange?.(quality)
+  }, [quality, onQualityChange])
 
   // Simulate initial loading progress for immediate feedback
   useEffect(() => {
@@ -225,7 +249,7 @@ export function ModelViewer({
           {/* Model with Suspense and Progressive Loading */}
           <Suspense fallback={<LoadingBox />}>
             <Model
-              url={modelUrl}
+              url={currentUrl}
               scale={scale}
               onProgress={handleProgress}
               onMetadataExtracted={onMetadataExtracted}
