@@ -56,7 +56,7 @@ const ptData: Project = {
     status: 'Concluído',
   },
   model3d: {
-    src: '/models/torre-de-tv/model-aggressive.glb',
+    src: '/models/torre-de-tv/model.glb',
     thumbnail: torreTvTwinmotion2,
     cameraPosition: [50, 50, 50],
     scale: 0.01,
@@ -132,7 +132,7 @@ const enData: Project = {
     status: 'Completed',
   },
   model3d: {
-    src: '/models/torre-de-tv/model-aggressive.glb',
+    src: '/models/torre-de-tv/model.glb',
     thumbnail: torreTvTwinmotion2,
     cameraPosition: [50, 50, 50],
     scale: 0.01,

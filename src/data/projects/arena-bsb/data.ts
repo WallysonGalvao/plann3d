@@ -56,6 +56,13 @@ const ptData: Project = {
     client: 'Incendiários',
     status: 'Concluído',
   },
+  model3d: {
+    src: '/models/arena-bsb/model.glb',
+    thumbnail: arenaBsbTwin1,
+    cameraPosition: [80, 60, 80],
+    scale: 1,
+    autoRotate: true,
+  },
   tools: [
     {
       name: 'SketchUp',
@@ -119,6 +126,13 @@ const enData: Project = {
     location: 'Brasília, DF',
     client: 'Incendiários',
     status: 'Completed',
+  },
+  model3d: {
+    src: '/models/arena-bsb/model.glb',
+    thumbnail: arenaBsbTwin1,
+    cameraPosition: [80, 60, 80],
+    scale: 1,
+    autoRotate: true,
   },
   tools: [
     {

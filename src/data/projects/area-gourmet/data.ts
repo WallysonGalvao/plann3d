@@ -57,6 +57,13 @@ const ptData: Project = {
     client: 'Alison',
     status: 'Concluído',
   },
+  model3d: {
+    src: '/models/area-gourmet/model.glb',
+    thumbnail: areaGourmetTwin1,
+    cameraPosition: [30, 25, 30],
+    scale: 1,
+    autoRotate: true,
+  },
   tools: [
     {
       name: 'SketchUp',
@@ -120,6 +127,13 @@ const enData: Project = {
     location: '26 de Setembro, Brasília',
     client: 'Alison',
     status: 'Completed',
+  },
+  model3d: {
+    src: '/models/area-gourmet/model.glb',
+    thumbnail: areaGourmetTwin1,
+    cameraPosition: [30, 25, 30],
+    scale: 1,
+    autoRotate: true,
   },
   tools: [
     {

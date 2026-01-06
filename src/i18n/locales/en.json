@@ -245,6 +245,7 @@
     "explore3DModel": "Explore 3D Model",
     "watchFilm": "Watch Film",
     "viewFullGallery": "Read full description",
+    "video": "Video",
     "defaultQuote": "The balance between concrete and nature.",
     "experienceSpace": "Experience the space.",
     "beforeBuilt": "Before it's built.",
@@ -340,7 +341,30 @@
     "projectInfoDesc": "Author, date, version",
     "optimization": "Optimization",
     "optimizationDesc": "Compression, LOD, instances",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "controls": {
+      "pan": "Pan",
+      "views": "Views",
+      "autoTour": "Auto Tour",
+      "pause": "Pause",
+      "rotation": "Rotation",
+      "layers": "Layers"
+    },
+    "presets": {
+      "front": "Front",
+      "back": "Back",
+      "left": "Left",
+      "right": "Right",
+      "top": "Top",
+      "perspective": "Perspective"
+    },
+    "layers": {
+      "title": "Layers",
+      "structure": "Structure",
+      "furniture": "Furniture",
+      "vegetation": "Vegetation",
+      "lighting": "Lighting"
+    }
   },
   "toolsPage": {
     "label": "Our Tech Arsenal",

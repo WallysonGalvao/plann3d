@@ -40,7 +40,7 @@ function ProjectsPage() {
       const matchesSearch =
         query === '' ||
         p.title.toLowerCase().includes(query) ||
-        p.location?.toLowerCase().includes(query) ||
+        p.location.toLowerCase().includes(query) ||
         p.description?.toLowerCase().includes(query)
       return matchesCategory && matchesSearch
     })

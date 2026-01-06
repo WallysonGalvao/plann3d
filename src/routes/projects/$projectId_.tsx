@@ -99,6 +99,7 @@ function ProjectDetailPage() {
   // Collect all media items for the gallery - MUST be before early return
   const galleryItems: Array<GalleryMediaItem> = useMemo(() => {
     const items: Array<GalleryMediaItem> = []
+    const seenSrcs = new Set<string>() // Track already seen image sources to avoid duplicates
 
     // Guard against undefined project or phases
     if (!project?.phases) return items
@@ -108,7 +109,8 @@ function ProjectDetailPage() {
       const phaseNumber = String(phaseIndex + 1).padStart(2, '0')
 
       // Phase 1 style: single image
-      if (phase.image) {
+      if (phase.image && !seenSrcs.has(phase.image)) {
+        seenSrcs.add(phase.image)
         items.push({
           id: `${phaseNumber}-main`,
           type: 'image',
@@ -124,20 +126,24 @@ function ProjectDetailPage() {
       // Phase 2 style: image array
       if (phase.images) {
         phase.images.forEach((img, idx) => {
-          items.push({
-            id: `${phaseNumber}-${idx}`,
-            type: 'image',
-            src: img,
-            phaseNumber,
-            phaseLabel: phase.label,
-            title: phase.title,
-            description: phase.description,
-          })
+          if (!seenSrcs.has(img)) {
+            seenSrcs.add(img)
+            items.push({
+              id: `${phaseNumber}-${idx}`,
+              type: 'image',
+              src: img,
+              phaseNumber,
+              phaseLabel: phase.label,
+              title: phase.title,
+              description: phase.description,
+            })
+          }
         })
       }
 
-      // Phase 3 style: video thumbnail
-      if (phase.videoImage) {
+      // Phase 3 style: video thumbnail - skip if image already shown
+      if (phase.videoImage && !seenSrcs.has(phase.videoImage)) {
+        seenSrcs.add(phase.videoImage)
         items.push({
           id: `${phaseNumber}-video`,
           type: 'video',
@@ -232,9 +238,10 @@ function ProjectDetailPage() {
               </span>
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter mb-4">
-              {project.title.split(' ')[0]}
-              <br />
-              <span className="opacity-80">{project.subtitle}</span>
+              <span className="font-serif italic font-normal text-white/80">
+                {project.subtitle?.charAt(0)}
+              </span>
+              {project.subtitle?.slice(1).toUpperCase()}
             </h1>
             <p className="text-white/70 text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-8">
               {project.description}
@@ -359,7 +366,7 @@ function ProjectDetailPage() {
                   <VideoPlayer
                     src={videoPhase.video || ''}
                     poster={videoPhase.videoImage}
-                    badge="Video"
+                    badge={t('projectDetail.video')}
                     className="w-full"
                   />
                 </Suspense>
@@ -524,21 +531,24 @@ function ProjectDetailPage() {
                 )
               }
 
-              // 5+ items: Original masonry with last item spanning to fill
+              // 5+ items: Proper masonry layout
+              // Row 1: Large (col-span-2) + Medium (col-span-1)
+              // Row 2: Medium (col-span-1) + Medium (col-span-1) + Wide (col-span-1)
+              const uniqueItems = galleryItems.slice(0, Math.min(5, galleryItems.length))
               return (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[300px] md:auto-rows-[400px]">
-                  {/* Item 1 (Large) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                  {/* Item 1 (Large - spans 2 cols, 2 rows) */}
                   <motion.div
                     variants={scaleIn}
-                    onClick={() => openGallery(galleryItems[0].id)}
-                    className="md:col-span-2 row-span-1 md:row-span-2 relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
+                    onClick={() => openGallery(uniqueItems[0].id)}
+                    className="md:col-span-2 aspect-[16/9] md:aspect-[16/12] relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
                     role="button"
                     tabIndex={0}
-                    onKeyDown={(e) => e.key === 'Enter' && openGallery(galleryItems[0].id)}
+                    onKeyDown={(e) => e.key === 'Enter' && openGallery(uniqueItems[0].id)}
                   >
                     <OptimizedBackground
-                      src={galleryItems[0].src}
-                      alt={galleryItems[0].title || 'Gallery image'}
+                      src={uniqueItems[0].src}
+                      alt={uniqueItems[0].title || 'Gallery image'}
                       className="absolute inset-0"
                       hoverScale={1.1}
                     />
@@ -549,13 +559,35 @@ function ProjectDetailPage() {
                     </div>
                   </motion.div>
 
-                  {/* Items 2, 3, 4 */}
-                  {galleryItems.slice(1, 4).map((item) => (
+                  {/* Item 2 (Standard) */}
+                  {uniqueItems[1] && (
+                    <motion.div
+                      variants={scaleIn}
+                      onClick={() => openGallery(uniqueItems[1].id)}
+                      className="aspect-[4/3] relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === 'Enter' && openGallery(uniqueItems[1].id)}
+                    >
+                      <OptimizedBackground
+                        src={uniqueItems[1].src}
+                        alt={uniqueItems[1].title || 'Gallery image'}
+                        className="absolute inset-0"
+                        hoverScale={1.1}
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                        <Expand size={24} className="text-white" />
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Items 3, 4, 5 */}
+                  {uniqueItems.slice(2).map((item) => (
                     <motion.div
                       key={item.id}
                       variants={scaleIn}
                       onClick={() => openGallery(item.id)}
-                      className="relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
+                      className="aspect-[4/3] relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
                       role="button"
                       tabIndex={0}
                       onKeyDown={(e) => e.key === 'Enter' && openGallery(item.id)}
@@ -571,28 +603,6 @@ function ProjectDetailPage() {
                       </div>
                     </motion.div>
                   ))}
-
-                  {/* Item 5+ (Wide - spans remaining columns) */}
-                  {galleryItems.length >= 5 && (
-                    <motion.div
-                      variants={scaleIn}
-                      onClick={() => openGallery(galleryItems[4].id)}
-                      className="md:col-span-2 lg:col-span-3 relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => e.key === 'Enter' && openGallery(galleryItems[4].id)}
-                    >
-                      <OptimizedBackground
-                        src={galleryItems[4].src}
-                        alt={galleryItems[4].title || 'Gallery image'}
-                        className="absolute inset-0"
-                        hoverScale={1.1}
-                      />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                        <Expand size={24} className="text-white" />
-                      </div>
-                    </motion.div>
-                  )}
                 </div>
               )
             })()}

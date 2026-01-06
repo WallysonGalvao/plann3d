@@ -245,6 +245,7 @@
     "explore3DModel": "Explorar Modelo 3D",
     "watchFilm": "Ver Filme",
     "viewFullGallery": "Ler memorial descritivo completo",
+    "video": "Vídeo",
     "defaultQuote": "O equilíbrio entre o concreto e a natureza.",
     "experienceSpace": "Experimente o espaço.",
     "beforeBuilt": "Antes de ser construído.",
@@ -340,7 +341,30 @@
     "projectInfoDesc": "Autor, data, versão",
     "optimization": "Otimização",
     "optimizationDesc": "Compressão, LOD, instâncias",
-    "comingSoon": "Em breve"
+    "comingSoon": "Em breve",
+    "controls": {
+      "pan": "Pan",
+      "views": "Vistas",
+      "autoTour": "Tour Auto",
+      "pause": "Pausar",
+      "rotation": "Rotação",
+      "layers": "Camadas"
+    },
+    "presets": {
+      "front": "Frontal",
+      "back": "Traseira",
+      "left": "Esquerda",
+      "right": "Direita",
+      "top": "Superior",
+      "perspective": "Perspectiva"
+    },
+    "layers": {
+      "title": "Camadas",
+      "structure": "Estrutura",
+      "furniture": "Mobiliário",
+      "vegetation": "Vegetação",
+      "lighting": "Iluminação"
+    }
   },
   "toolsPage": {
     "label": "Nosso Arsenal Tecnológico",

@@ -57,7 +57,7 @@ const ptData: Project = {
     status: 'Em Desenvolvimento',
   },
   model3d: {
-    src: '/models/jk-shopping/model-optimized.glb',
+    src: '/models/jk-shopping/model.glb',
     thumbnail: jkTwinmotion2,
     cameraPosition: [50, 50, 50],
     scale: 0.01,
@@ -139,7 +139,7 @@ const enData = {
     status: 'In Development',
   },
   model3d: {
-    src: '/models/jk-shopping/model-optimized.glb',
+    src: '/models/jk-shopping/model.glb',
     thumbnail: jkTwinmotion2,
     cameraPosition: [50, 50, 50],
     scale: 0.01,
