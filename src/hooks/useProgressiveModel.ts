@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export type ModelQuality = 'low' | 'medium' | 'high'
@@ -14,37 +14,66 @@ interface ProgressiveModelConfig {
   fallbackUrl: string
 }
 
+interface QualityStatus {
+  available: boolean
+  loading: boolean
+  loaded: boolean
+  url?: string
+}
+
 interface UseProgressiveModelReturn {
   /** Current URL to use for loading */
   currentUrl: string
   /** Current quality level */
   quality: ModelQuality
-  /** True when high quality is ready */
-  isHighQualityReady: boolean
-  /** Loading progress 0-100 */
+  /** Status of each quality level */
+  qualityStatus: Record<ModelQuality, QualityStatus>
+  /** Overall loading progress 0-100 */
   progress: number
   /** Force load a specific quality */
   loadQuality: (quality: ModelQuality) => void
+  /** Check if a quality can be selected */
+  canSelectQuality: (quality: ModelQuality) => boolean
 }
 
 /**
  * Hook for progressive model loading with LOD support.
- * Starts with low quality, progressively upgrades to high quality.
+ * Tracks download status of each quality level.
  */
 export function useProgressiveModel(config: ProgressiveModelConfig): UseProgressiveModelReturn {
   const { lowUrl, mediumUrl, highUrl, fallbackUrl } = config
 
   const [quality, setQuality] = useState<ModelQuality>(() => {
-    // Start with lowest available quality
     if (lowUrl) return 'low'
     if (mediumUrl) return 'medium'
     return 'high'
   })
 
-  const [isHighQualityReady, setIsHighQualityReady] = useState(false)
-  const [progress, setProgress] = useState(0)
+  const [qualityStatus, setQualityStatus] = useState<Record<ModelQuality, QualityStatus>>({
+    low: {
+      available: !!lowUrl,
+      loading: false,
+      loaded: false,
+      url: lowUrl,
+    },
+    medium: {
+      available: !!mediumUrl,
+      loading: false,
+      loaded: false,
+      url: mediumUrl,
+    },
+    high: {
+      available: !!highUrl,
+      loading: false,
+      loaded: false,
+      url: highUrl,
+    },
+  })
 
-  // Determine current URL based on quality level
+  const [progress, setProgress] = useState(0)
+  const preloadedRef = useRef<Set<string>>(new Set())
+
+  // Calculate current URL based on quality
   const currentUrl = (() => {
     switch (quality) {
       case 'low':
@@ -58,74 +87,120 @@ export function useProgressiveModel(config: ProgressiveModelConfig): UseProgress
     }
   })()
 
+  // Mark current quality as loaded when model loads
+  useEffect(() => {
+    // When current URL changes, mark as loaded after a delay
+    const timer = setTimeout(() => {
+      setQualityStatus((prev) => ({
+        ...prev,
+        [quality]: {
+          ...prev[quality],
+          loading: false,
+          loaded: true,
+        },
+      }))
+
+      // Update progress based on quality
+      if (quality === 'low') setProgress(33)
+      else if (quality === 'medium') setProgress(66)
+      else setProgress(100)
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [quality, currentUrl])
+
   // Preload higher quality versions in background
   useEffect(() => {
-    const preloadQueue: string[] = []
+    const preloadQueue: Array<{ url: string; quality: ModelQuality }> = []
 
-    // If we're on low, queue medium and high
-    if (quality === 'low') {
-      if (mediumUrl) preloadQueue.push(mediumUrl)
-      if (highUrl) preloadQueue.push(highUrl)
+    // Build queue based on what's available and not yet preloaded
+    if (lowUrl && !preloadedRef.current.has(lowUrl)) {
+      preloadQueue.push({ url: lowUrl, quality: 'low' })
     }
-    // If we're on medium, queue high
-    else if (quality === 'medium') {
-      if (highUrl) preloadQueue.push(highUrl)
+    if (mediumUrl && !preloadedRef.current.has(mediumUrl)) {
+      preloadQueue.push({ url: mediumUrl, quality: 'medium' })
+    }
+    if (highUrl && !preloadedRef.current.has(highUrl)) {
+      preloadQueue.push({ url: highUrl, quality: 'high' })
     }
 
-    // Preload each URL with a delay to not overwhelm
     let cancelled = false
-    const preloadWithDelay = async () => {
-      for (const url of preloadQueue) {
+
+    const preloadWithProgress = async () => {
+      for (const { url, quality: q } of preloadQueue) {
         if (cancelled) break
+
+        // Mark as loading
+        setQualityStatus((prev) => ({
+          ...prev,
+          [q]: { ...prev[q], loading: true },
+        }))
 
         try {
           useGLTF.preload(url)
+          preloadedRef.current.add(url)
 
-          // Wait a bit before preloading next
-          await new Promise((resolve) => setTimeout(resolve, 1000))
+          // Wait for preload to complete (approximate)
+          await new Promise((resolve) => setTimeout(resolve, 1500))
 
-          // Auto-upgrade quality after preload
-          if (url === mediumUrl && quality === 'low') {
-            setQuality('medium')
-            setProgress(50)
-          } else if (url === highUrl) {
-            setIsHighQualityReady(true)
-            // Only auto-upgrade to high on desktop
+          if (!cancelled) {
+            // Mark as loaded
+            setQualityStatus((prev) => ({
+              ...prev,
+              [q]: { ...prev[q], loading: false, loaded: true },
+            }))
+
+            // Auto-upgrade to next quality on desktop
             if (!isMobileDevice()) {
-              setQuality('high')
-              setProgress(100)
+              if (q === 'low' && quality === 'low' && mediumUrl) {
+                // Don't auto-upgrade, let user control
+              } else if (q === 'medium' && quality === 'medium' && highUrl) {
+                // Don't auto-upgrade, let user control
+              }
             }
           }
         } catch (error) {
-          console.warn(`Failed to preload: ${url}`, error)
+          console.warn(`Failed to preload ${q}: ${url}`, error)
+          setQualityStatus((prev) => ({
+            ...prev,
+            [q]: { ...prev[q], loading: false },
+          }))
         }
       }
     }
 
-    preloadWithDelay()
+    preloadWithProgress()
 
     return () => {
       cancelled = true
     }
-  }, [quality, lowUrl, mediumUrl, highUrl])
+  }, [lowUrl, mediumUrl, highUrl, quality])
 
-  const loadQuality = useCallback((targetQuality: ModelQuality) => {
-    setQuality(targetQuality)
-    if (targetQuality === 'high') {
-      setProgress(100)
-    } else if (targetQuality === 'medium') {
-      setProgress(50)
-    } else {
-      setProgress(25)
-    }
-  }, [])
+  const loadQuality = useCallback(
+    (targetQuality: ModelQuality) => {
+      const status = qualityStatus[targetQuality]
+      if (status.available && status.loaded) {
+        setQuality(targetQuality)
+      }
+    },
+    [qualityStatus],
+  )
+
+  const canSelectQuality = useCallback(
+    (targetQuality: ModelQuality) => {
+      const status = qualityStatus[targetQuality]
+      return status.available && status.loaded
+    },
+    [qualityStatus],
+  )
 
   return {
     currentUrl,
     quality,
-    isHighQualityReady,
+    qualityStatus,
     progress,
     loadQuality,
+    canSelectQuality,
   }
 }
 
@@ -134,7 +209,6 @@ export function useProgressiveModel(config: ProgressiveModelConfig): UseProgress
  */
 function isMobileDevice(): boolean {
   if (typeof window === 'undefined') return false
-
   return (
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
     window.innerWidth < 768
@@ -147,18 +221,14 @@ function isMobileDevice(): boolean {
 export function getRecommendedQuality(): ModelQuality {
   if (typeof window === 'undefined') return 'medium'
 
-  // Check if mobile
   if (isMobileDevice()) {
-    // Check for high-end mobile (recent iPhones, flagship Android)
     const isHighEndMobile =
       navigator.hardwareConcurrency >= 6 ||
       /iPhone (1[2-9]|[2-9][0-9])/i.test(navigator.userAgent) ||
       (/Android.*Chrome/i.test(navigator.userAgent) && navigator.hardwareConcurrency >= 6)
-
     return isHighEndMobile ? 'medium' : 'low'
   }
 
-  // Desktop: check GPU/CPU capability
   const hasGoodGPU = navigator.hardwareConcurrency >= 8
   return hasGoodGPU ? 'high' : 'medium'
 }

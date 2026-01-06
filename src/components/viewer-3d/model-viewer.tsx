@@ -75,6 +75,12 @@ export interface ModelViewerProps {
   }
   /** Callback when model quality changes */
   onQualityChange?: (quality: ModelQuality) => void
+  /** Callback with quality status for each level */
+  onQualityStatusChange?: (status: Record<ModelQuality, { available: boolean; loading: boolean; loaded: boolean }>) => void
+  /** Callback for LOD loading progress */
+  onLodProgress?: (progress: number) => void
+  /** Force a specific quality level */
+  forceQuality?: ModelQuality
 }
 
 // ============================================
@@ -128,6 +134,9 @@ export function ModelViewer({
   zoomLevel = 50,
   lodUrls,
   onQualityChange,
+  onQualityStatusChange,
+  onLodProgress,
+  forceQuality,
 }: ModelViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const controlsRef = useRef<any>(null)
@@ -137,17 +146,34 @@ export function ModelViewer({
   const [hasTimeout, setHasTimeout] = useState(false)
 
   // Progressive model loading with LOD support
-  const { currentUrl, quality } = useProgressiveModel({
+  const { currentUrl, quality, qualityStatus, progress: lodProgress, loadQuality } = useProgressiveModel({
     lowUrl: lodUrls?.low,
     mediumUrl: lodUrls?.medium,
     highUrl: lodUrls?.high,
     fallbackUrl: modelUrl,
   })
 
+  // Handle force quality changes
+  useEffect(() => {
+    if (forceQuality) {
+      loadQuality(forceQuality)
+    }
+  }, [forceQuality, loadQuality])
+
   // Report quality changes
   useEffect(() => {
     onQualityChange?.(quality)
   }, [quality, onQualityChange])
+
+  // Report quality status changes
+  useEffect(() => {
+    onQualityStatusChange?.(qualityStatus)
+  }, [qualityStatus, onQualityStatusChange])
+
+  // Report LOD progress
+  useEffect(() => {
+    onLodProgress?.(lodProgress)
+  }, [lodProgress, onLodProgress])
 
   // Simulate initial loading progress for immediate feedback
   useEffect(() => {
