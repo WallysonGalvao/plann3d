@@ -242,7 +242,15 @@
     "closeGallery": "Cerrar",
     "dragOrUseArrows": "Arrastra o usa las flechas",
     "notFound": "Proyecto no encontrado",
-    "explore3DModel": "Explorar Modelo 3D"
+    "explore3DModel": "Explorar Modelo 3D",
+    "watchFilm": "Ver Película",
+    "viewFullGallery": "Leer descripción completa",
+    "defaultQuote": "El equilibrio entre el concreto y la naturaleza.",
+    "experienceSpace": "Experimente el espacio.",
+    "beforeBuilt": "Antes de ser construido.",
+    "experienceDescription": "Navegue libremente por el proyecto en nuestro visualizador interactivo en tiempo real. Camine por los ambientes, cambie la iluminación y sienta la escala.",
+    "start3DExperience": "Iniciar Experiencia 3D",
+    "compatibleDevices": "Compatible con Desktop y Mobile"
   },
   "viewer3d": {
     "title": "Visualización 3D",

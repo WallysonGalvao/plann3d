@@ -241,7 +241,15 @@
     "closeGallery": "Close",
     "dragOrUseArrows": "Drag or use arrows",
     "notFound": "Project not found",
-    "explore3DModel": "Explore 3D Model"
+    "explore3DModel": "Explore 3D Model",
+    "watchFilm": "Watch Film",
+    "viewFullGallery": "Read full description",
+    "defaultQuote": "The balance between concrete and nature.",
+    "experienceSpace": "Experience the space.",
+    "beforeBuilt": "Before it's built.",
+    "experienceDescription": "Navigate freely through the project in our real-time interactive viewer. Walk through the spaces, change the lighting, and feel the scale.",
+    "start3DExperience": "Start 3D Experience",
+    "compatibleDevices": "Compatible with Desktop and Mobile"
   },
   "viewer3d": {
     "title": "3D Visualization",
