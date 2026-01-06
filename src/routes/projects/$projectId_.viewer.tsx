@@ -8,6 +8,7 @@ import { getProjectById } from '@/data/projects'
 import { ClientOnlyModelViewer } from '@/components/viewer-3d'
 import { SpecificationsPanel } from '@/components/viewer-3d/specifications-panel'
 import { ZoomSlider } from '@/components/viewer-3d/zoom-slider'
+import { type ModelQuality } from '@/hooks/useProgressiveModel'
 import logo from '@/assets/logo.svg'
 
 export const Route = createFileRoute('/projects/$projectId_/viewer')({
@@ -42,6 +43,16 @@ function ProjectViewerPage() {
   const [isKeyPanActive, setIsKeyPanActive] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const [zoomLevel, setZoomLevel] = useState(50) // 0-100 zoom level
+
+  // LOD Quality state
+  const [currentQuality, setCurrentQuality] = useState<ModelQuality>('low')
+  const [qualityStatus, setQualityStatus] = useState<Record<ModelQuality, { available: boolean; loading: boolean; loaded: boolean }>>({
+    low: { available: false, loading: false, loaded: false },
+    medium: { available: false, loading: false, loaded: false },
+    high: { available: false, loading: false, loaded: false },
+  })
+  const [lodProgress, setLodProgress] = useState(0)
+  const [forceQuality, setForceQuality] = useState<ModelQuality | undefined>(undefined)
 
   // Effect for client-side mount detection
   useEffect(() => {
@@ -179,8 +190,7 @@ function ProjectViewerPage() {
             height="100%"
             scale={project.model3d.scale}
             cameraPosition={
-              // Reduce camera distance by 95% for extremely close initial view
-              project.model3d.cameraPosition.map((val) => val * 0.05) as [number, number, number]
+              project.model3d.cameraPosition?.map((val) => val * 0.05) as [number, number, number] | undefined
             }
             autoRotate={isAutoRotate}
             onMetadataExtracted={setModelMetadata}
@@ -191,12 +201,20 @@ function ProjectViewerPage() {
             onCameraPresetApplied={() => setActiveCameraPreset(null)}
             resetTrigger={resetTrigger}
             zoomLevel={zoomLevel}
+            lodUrls={project.model3d.lod}
+            onQualityChange={setCurrentQuality}
+            onQualityStatusChange={setQualityStatus}
+            onLodProgress={setLodProgress}
+            forceQuality={forceQuality}
           />
         </div>
 
-        {/* Progress Bar */}
-        <div className="absolute top-0 left-0 w-full h-0.5 bg-border z-50">
-          <div className="h-full bg-primary w-[85%] shadow-[0_0_10px_rgba(var(--primary),0.5)]" />
+        {/* Progress Bar - Reflects LOD Loading */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-border z-50 overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 transition-all duration-500 ease-out shadow-[0_0_10px_rgba(var(--primary),0.5)]"
+            style={{ width: `${lodProgress}%` }}
+          />
         </div>
 
         {/* Project Info Card - Top Left */}
@@ -232,9 +250,7 @@ function ProjectViewerPage() {
 
         {/* Zoom Slider - Right Side (positioned relative to specs panel) */}
         <div
-          className={`absolute top-1/2 -translate-y-1/2 z-20 transition-all duration-300 ${
-            showSpecs ? 'right-104' : 'right-6'
-          }`}
+          className={`absolute top-1/2 -translate-y-1/2 z-20 transition-all duration-300 ${showSpecs ? 'right-104' : 'right-6'}`}
         >
           <div className="glass-panel rounded-2xl shadow-2xl border border-border">
             <ZoomSlider value={zoomLevel} onChange={setZoomLevel} min={10} max={200} />
@@ -261,8 +277,56 @@ function ProjectViewerPage() {
           )}
 
           {/* Controls Bar */}
-          <div className="opacity-75 hover:opacity-100 transition-opacity duration-300">
+          <div className="opacity-90 hover:opacity-100 transition-opacity duration-300">
             <div className="glass-panel p-2 rounded-full flex items-center gap-1 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+              {/* Quality Selector - Inline */}
+              {project.model3d.lod && (
+                <div className="flex items-center gap-3 px-2 border-r border-border mr-1">
+                  <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest hidden sm:block">
+                    {t('viewer3d.qualitySelector.label')}
+                  </span>
+                  <div className="flex bg-muted/30 dark:bg-muted/20 rounded-lg p-0.5 border border-border">
+                    <button
+                      onClick={() => setForceQuality('low')}
+                      disabled={!qualityStatus.low.loaded}
+                      className={`px-3 py-1.5 text-[10px] font-bold rounded-md transition-all ${currentQuality === 'low'
+                        ? 'text-primary-foreground bg-primary shadow-lg shadow-primary/20'
+                        : qualityStatus.low.loaded
+                          ? 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                          : 'text-muted-foreground/30 cursor-not-allowed'
+                        }`}
+                    >
+                      {qualityStatus.low.loading ? t('viewer3d.qualitySelector.loading') : t('viewer3d.qualitySelector.low')}
+                    </button>
+                    <button
+                      onClick={() => setForceQuality('medium')}
+                      disabled={!qualityStatus.medium.loaded}
+                      className={`px-3 py-1.5 text-[10px] font-bold rounded-md transition-all ${currentQuality === 'medium'
+                        ? 'text-primary-foreground bg-primary shadow-lg shadow-primary/20'
+                        : qualityStatus.medium.loaded
+                          ? 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                          : 'text-muted-foreground/30 cursor-not-allowed'
+                        }`}
+                    >
+                      {qualityStatus.medium.loading ? t('viewer3d.qualitySelector.loading') : t('viewer3d.qualitySelector.medium')}
+                    </button>
+                    <button
+                      onClick={() => setForceQuality('high')}
+                      disabled={!qualityStatus.high.loaded}
+                      className={`px-3 py-1.5 text-[10px] font-bold rounded-md transition-all ${currentQuality === 'high'
+                        ? 'text-primary-foreground bg-primary shadow-lg shadow-primary/20'
+                        : qualityStatus.high.loaded
+                          ? 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                          : 'text-muted-foreground/30 cursor-not-allowed'
+                        }`}
+                    >
+                      {qualityStatus.high.loading ? t('viewer3d.qualitySelector.loading') : t('viewer3d.qualitySelector.high')}
+                    </button>
+                  </div>
+                  <div className="w-px h-6 bg-border" />
+                </div>
+              )}
+
               {/* Pan Mode */}
               <ControlButton
                 icon="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"
@@ -313,11 +377,10 @@ function ProjectViewerPage() {
               {/* Toggle Specs */}
               <button
                 onClick={() => setShowSpecs(!showSpecs)}
-                className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${
-                  showSpecs
-                    ? 'bg-primary/20 text-primary'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/10'
-                }`}
+                className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${showSpecs
+                  ? 'bg-primary/20 text-primary'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/10'
+                  }`}
                 aria-label={t('viewer3d.toggleSpecs')}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -443,11 +506,10 @@ function ControlButton({
   return (
     <button
       onClick={onClick}
-      className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${
-        isActive
-          ? 'bg-primary/20 text-primary'
-          : 'text-muted-foreground hover:text-foreground hover:bg-muted/10'
-      }`}
+      className={`size-10 rounded-full flex items-center justify-center transition-all relative group ${isActive
+        ? 'bg-primary/20 text-primary'
+        : 'text-muted-foreground hover:text-foreground hover:bg-muted/10'
+        }`}
       aria-label={label}
     >
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

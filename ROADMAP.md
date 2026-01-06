@@ -435,3 +435,43 @@ Itens de baixo esforço e alto impacto que podem ser feitos rapidamente:
 
 > 📅 **Última atualização**: 04 de Janeiro de 2026  
 > 📧 **Contato**: plann3d@gmail.com
+
+Principais Oportunidades de Melhoria
+
+1. Performance & Bundle Size (Alto Impacto)
+   Model Viewer: 1MB+ - precisa code splitting mais agressivo
+   Imagens: Implementar WebP/AVIF, srcset responsive
+   GLB Models: Adicionar Draco compression, LOD (Level of Detail)
+   Bundle Analysis: Falta monitoramento de tamanho dos chunks
+2. Features Incompletas (Média Urgência)
+   Layers System: Atualmente quebrado - depende de nomes exatos de objetos
+   Camera Presets: Falta salvar presets customizados
+   Touch Gestures: Pinch-to-zoom no mobile não implementado
+   Form Validation: Feedback em tempo real ausente
+3. Testes (Crítico - 0% Coverage)
+   Vitest configurado mas nenhum teste escrito
+   Precisa: unit tests (hooks), integration tests (forms), E2E
+   Meta: 60%+ coverage
+4. Error Handling & Monitoring (Alto Impacto)
+   Apenas 3 try-catch em todo o código
+   Sem Sentry ou similar
+   Form de contato sem retry/rate limiting
+   Web Vitals instalado mas não integrado
+5. SEO & Conteúdo (Oportunidade de Crescimento)
+   Falta seção de Blog/Conteúdo (maior alavanca de SEO)
+   Sem OpenGraph images dinâmicas por projeto
+   Schema.org incompleto (falta Review, FAQ)
+6. Acessibilidade (Compliance WCAG)
+   28 ARIA attributes - básico
+   3D Viewer totalmente inacessível para screen readers
+   Falta keyboard navigation completo
+   Contraste pode falhar WCAG AA
+7. Mobile Experience
+   Controles do viewer pequenos (<500px)
+   Sem gestos de touch (pinch, rotate)
+   Specs sidebar não otimizada
+8. DevOps (Infraestrutura)
+   Sem CI/CD (GitHub Actions)
+   Sem ambiente de staging
+   Sem monitoramento de uptime
+   URLs do ngrok hardcoded (risco de segurança)

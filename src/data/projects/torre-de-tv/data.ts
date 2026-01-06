@@ -5,6 +5,19 @@ import torreTvSketchup from '@/data/projects/torre-de-tv/01-SKETCHUP.png'
 import torreTvTwinmotion1 from '@/data/projects/torre-de-tv/02-TWINMOTION.png'
 import torreTvTwinmotion2 from '@/data/projects/torre-de-tv/03-TWINMOTION.png'
 
+const MODEL_3D: Project['model3d'] = {
+  src: '/models/torre-de-tv/model.glb',
+  thumbnail: torreTvTwinmotion2,
+  cameraPosition: [50, 50, 50],
+  scale: 0.01,
+  autoRotate: true,
+  lod: {
+    low: '/models/torre-de-tv/low.glb',
+    medium: '/models/torre-de-tv/medium.glb',
+    high: '/models/torre-de-tv/high.glb',
+  },
+}
+
 // Base data for PT locale
 const ptData: Project = {
   id: 'torre-de-tv',
@@ -55,13 +68,7 @@ const ptData: Project = {
     client: 'M.U.B Produtora',
     status: 'Concluído',
   },
-  model3d: {
-    src: '/models/torre-de-tv/model.glb',
-    thumbnail: torreTvTwinmotion2,
-    cameraPosition: [50, 50, 50],
-    scale: 0.01,
-    autoRotate: true,
-  },
+  model3d: MODEL_3D,
   tools: [
     {
       name: 'SketchUp',
@@ -131,13 +138,7 @@ const enData: Project = {
     client: 'M.U.B Produtora',
     status: 'Completed',
   },
-  model3d: {
-    src: '/models/torre-de-tv/model.glb',
-    thumbnail: torreTvTwinmotion2,
-    cameraPosition: [50, 50, 50],
-    scale: 0.01,
-    autoRotate: true,
-  },
+  model3d: MODEL_3D,
   tools: [
     {
       name: 'SketchUp',

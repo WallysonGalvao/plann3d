@@ -5,6 +5,19 @@ import jkSketchup from '@/data/projects/jk-shopping/SKT.png'
 import jkTwinmotion1 from '@/data/projects/jk-shopping/TWIN1.png'
 import jkTwinmotion2 from '@/data/projects/jk-shopping/TWIN2.png'
 
+const MODEL_3D: Project['model3d'] = {
+  src: '/models/jk-shopping/model.glb',
+  thumbnail: jkTwinmotion2,
+  cameraPosition: [50, 50, 50],
+  scale: 0.01,
+  autoRotate: true,
+  // lod: {
+  //   low: '/models/jk-shopping/low.glb',
+  //   medium: '/models/jk-shopping/medium.glb',
+  //   high: '/models/jk-shopping/high.glb',
+  // },
+}
+
 // Base data for PT locale
 const ptData: Project = {
   id: 'jk-shopping',
@@ -56,13 +69,7 @@ const ptData: Project = {
     client: 'JK Shopping',
     status: 'Em Desenvolvimento',
   },
-  model3d: {
-    src: '/models/jk-shopping/model.glb',
-    thumbnail: jkTwinmotion2,
-    cameraPosition: [50, 50, 50],
-    scale: 0.01,
-    autoRotate: true,
-  },
+  model3d: MODEL_3D,
   tools: [
     {
       name: 'SketchUp',
@@ -138,13 +145,7 @@ const enData = {
     client: 'JK Shopping',
     status: 'In Development',
   },
-  model3d: {
-    src: '/models/jk-shopping/model.glb',
-    thumbnail: jkTwinmotion2,
-    cameraPosition: [50, 50, 50],
-    scale: 0.01,
-    autoRotate: true,
-  },
+  model3d: MODEL_3D,
   tools: [
     {
       name: 'SketchUp',

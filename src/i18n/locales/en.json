@@ -364,6 +364,13 @@
       "furniture": "Furniture",
       "vegetation": "Vegetation",
       "lighting": "Lighting"
+    },
+    "qualitySelector": {
+      "label": "Quality",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "loading": "..."
     }
   },
   "toolsPage": {
