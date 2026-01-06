@@ -1,0 +1,8 @@
+export { SpecificationsPanel } from './specifications-panel'
+export { GeometrySection } from './geometry-section'
+export { ResourcesSection } from './resources-section'
+export { PhysicalMeasuresSection } from './physical-measures-section'
+export { FileSection } from './file-section'
+export { SpecificationsSettings } from './specifications-settings'
+export type { ModelMetadata, SectionSettings } from './types'
+export { DEFAULT_SECTION_SETTINGS } from './types'

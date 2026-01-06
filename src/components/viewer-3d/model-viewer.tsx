@@ -18,6 +18,9 @@ const CameraPresetController = lazy(() =>
 const AutoTourController = lazy(() =>
   import('./auto-tour-controller').then((mod) => ({ default: mod.AutoTourController })),
 )
+const ZoomController = lazy(() =>
+  import('./zoom-controller').then((mod) => ({ default: mod.ZoomController })),
+)
 
 // ============================================
 // TYPES
@@ -61,6 +64,8 @@ export interface ModelViewerProps {
   onCameraPresetApplied?: () => void
   /** Trigger to reset camera to initial position */
   resetTrigger?: number
+  /** Zoom level (10-200) to control camera distance */
+  zoomLevel?: number
 }
 
 // ============================================
@@ -111,6 +116,7 @@ export function ModelViewer({
   visibleLayers = { structure: true, furniture: true, vegetation: true, lighting: true },
   onCameraPresetApplied,
   resetTrigger = 0,
+  zoomLevel = 50,
 }: ModelViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const controlsRef = useRef<any>(null)
@@ -285,6 +291,15 @@ export function ModelViewer({
               <AutoTourController controlsRef={controlsRef} />
             </Suspense>
           )}
+
+          {/* Zoom Controller (lazy loaded) */}
+          <Suspense fallback={null}>
+            <ZoomController
+              zoomLevel={zoomLevel}
+              controlsRef={controlsRef}
+              initialPosition={cameraPosition}
+            />
+          </Suspense>
         </Canvas>
       </ErrorBoundary>
     </div>
