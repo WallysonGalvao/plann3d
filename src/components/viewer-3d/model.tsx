@@ -1,5 +1,5 @@
 import { Center, useGLTF } from '@react-three/drei'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import * as THREE from 'three'
 import { debugGLTFLayers } from '@/lib/gltf-layer-utils'
 
@@ -47,7 +47,7 @@ export function Model({
   visibleLayers = { structure: true, furniture: true, vegetation: true, lighting: true },
 }: ModelProps) {
   // Load model with progress tracking
-  const { scene } = useGLTF(url, undefined, undefined, (loader) => {
+  const gltf = useGLTF(url, undefined, undefined, (loader) => {
     loader.manager.onProgress = (_url, loaded, total) => {
       if (total > 0) {
         const progress = (loaded / total) * 100
@@ -55,6 +55,13 @@ export function Model({
       }
     }
   })
+
+  // Clone the scene to avoid shared reference conflicts when switching quality levels
+  // This ensures each Model instance has its own scene object
+  const scene = useMemo(() => {
+    if (!gltf?.scene) return null
+    return gltf.scene.clone(true)
+  }, [gltf])
 
   useEffect(() => {
     // Ensure 100% progress when model is loaded
@@ -227,6 +234,11 @@ export function Model({
       }
     })
   }, [scene, visibleLayers])
+
+  // Don't render until scene is ready
+  if (!scene) {
+    return null
+  }
 
   return (
     <Center>
