@@ -66,22 +66,22 @@ const ptData: Project = {
   tools: [
     {
       name: 'SketchUp',
-      icon: '📐',
+      icon: 'architecture',
       description: 'Modelagem 3D volumétrica e estudos de massa.',
     },
     {
       name: 'Blender',
-      icon: '🎨',
+      icon: 'view_in_ar',
       description: 'Renderização avançada, iluminação e texturização realista.',
     },
     {
       name: 'Adobe Premiere',
-      icon: '🎬',
+      icon: 'movie_edit',
       description: 'Edição, color grading e pós-produção cinematográfica.',
     },
     {
       name: 'Tekla',
-      icon: '🏗️',
+      icon: 'foundation',
       description: 'Modelagem de alta precisão e detalhes estruturais.',
     },
   ],
@@ -148,22 +148,22 @@ const enData = {
   tools: [
     {
       name: 'SketchUp',
-      icon: '📐',
+      icon: 'architecture',
       description: '3D volumetric modeling and massing studies.',
     },
     {
       name: 'Blender',
-      icon: '🎨',
+      icon: 'view_in_ar',
       description: 'Advanced rendering, lighting, and realistic texturing.',
     },
     {
       name: 'Adobe Premiere',
-      icon: '🎬',
+      icon: 'movie_edit',
       description: 'Editing, color grading, and cinematic post-production.',
     },
     {
       name: 'Tekla',
-      icon: '🏗️',
+      icon: 'foundation',
       description: 'High-precision modeling and structural detailing.',
     },
   ],

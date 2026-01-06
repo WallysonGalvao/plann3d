@@ -41,6 +41,14 @@ const ptData: Project = {
         'Cada detalhe foi pensado para proporcionar uma experiência imersiva ao público. Acústica premium, iluminação cênica e conforto térmico garantem eventos memoráveis.',
       images: [arenaBsbTwin1, arenaBsbTwin2, arenaBsbTwin3],
     },
+    {
+      label: 'O Espetáculo',
+      title: 'Visualização em Movimento',
+      description:
+        'Confira a animação que apresenta a arena em toda sua grandiosidade, simulando a experiência de um grande evento na capital.',
+      videoImage: arenaBsbTwin1,
+      video: 'https://www.youtube.com/watch?v=6HiHp3dYJ_Q',
+    },
   ],
   specs: {
     year: '2025',
@@ -51,12 +59,12 @@ const ptData: Project = {
   tools: [
     {
       name: 'SketchUp',
-      icon: '📐',
+      icon: 'architecture',
       description: 'Modelagem 3D volumétrica e estudos de massa.',
     },
     {
       name: 'Twinmotion',
-      icon: '🎨',
+      icon: 'camera_enhance',
       description: 'Renderização fotorrealista e simulação de iluminação cênica.',
     },
   ],
@@ -97,6 +105,14 @@ const enData: Project = {
         'Every detail was designed to provide an immersive experience for the audience. Premium acoustics, scenic lighting, and thermal comfort ensure memorable events.',
       images: [arenaBsbTwin1, arenaBsbTwin2, arenaBsbTwin3],
     },
+    {
+      label: 'The Spectacle',
+      title: 'Visualization in Motion',
+      description:
+        'Watch the animation that showcases the arena in all its grandeur, simulating the experience of a major event in the capital.',
+      videoImage: arenaBsbTwin1,
+      video: 'https://www.youtube.com/watch?v=6HiHp3dYJ_Q',
+    },
   ],
   specs: {
     year: '2025',
@@ -107,12 +123,12 @@ const enData: Project = {
   tools: [
     {
       name: 'SketchUp',
-      icon: '📐',
+      icon: 'architecture',
       description: '3D volumetric modeling and massing studies.',
     },
     {
       name: 'Twinmotion',
-      icon: '🎨',
+      icon: 'camera_enhance',
       description: 'Photorealistic rendering and scenic lighting simulation.',
     },
   ],

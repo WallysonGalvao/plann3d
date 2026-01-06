@@ -1,6 +1,6 @@
 import { Link, Outlet, createFileRoute, useRouterState } from '@tanstack/react-router'
 import { motion, useInView } from 'framer-motion'
-import { ArrowLeft, ChevronRight, Expand } from 'lucide-react'
+import { ArrowLeft, ChevronLeft, ChevronRight, Expand } from 'lucide-react'
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -18,6 +18,9 @@ import { createProjectSchema } from '@/lib/seo'
 // Lazy load heavy components for better initial load
 const MediaGalleryModal = lazy(() =>
   import('@/components/media-gallery-modal').then((m) => ({ default: m.MediaGalleryModal })),
+)
+const VideoPlayer = lazy(() =>
+  import('@/components/video-player').then((m) => ({ default: m.VideoPlayer })),
 )
 
 export const Route = createFileRoute('/projects/$projectId_')({
@@ -337,6 +340,39 @@ function ProjectDetailPage() {
             )}
           </motion.div>
         </motion.section>
+        {/* Video Section - if project has video */}
+        {(() => {
+          const videoPhase = project.phases?.find(p => p.video && p.videoImage)
+          if (!videoPhase) return null
+          return (
+            <section className="w-full py-16 px-4 md:px-10">
+              <div className="max-w-[1200px] mx-auto">
+                <div className="flex items-center gap-4 mb-8">
+                  <h3 className="text-foreground text-xl font-bold uppercase tracking-widest">
+                    {videoPhase.label}
+                  </h3>
+                  <div className="h-px bg-border grow" />
+                </div>
+                <Suspense fallback={
+                  <div className="aspect-video bg-secondary rounded-2xl animate-pulse" />
+                }>
+                  <VideoPlayer
+                    src={videoPhase.video || ''}
+                    poster={videoPhase.videoImage}
+                    badge="Video"
+                    className="w-full"
+                  />
+                </Suspense>
+                <div className="mt-6">
+                  <h4 className="text-2xl font-bold text-foreground mb-2">{videoPhase.title}</h4>
+                  <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl">
+                    {videoPhase.description}
+                  </p>
+                </div>
+              </div>
+            </section>
+          )
+        })()}
 
         {/* Immersive Gallery (Masonry/Bento style) */}
         <motion.section
@@ -583,7 +619,7 @@ function ProjectDetailPage() {
                     viewport={{ once: true }}
                     className="bg-secondary border border-border p-6 rounded-xl flex flex-col items-start gap-3 hover:border-primary/50 transition-colors group h-full"
                   >
-                    <span className="text-primary text-3xl mb-1 opacity-80 group-hover:opacity-100 transition-opacity">
+                    <span className="material-symbols-outlined text-primary text-3xl mb-1 opacity-80 group-hover:opacity-100 transition-opacity">
                       {tool.icon}
                     </span>
                     <div>
@@ -611,7 +647,7 @@ function ProjectDetailPage() {
         >
           <div className="max-w-[1440px] mx-auto px-6 md:px-12">
 
-            {/* Next Project */}
+            {/* Navigation: Previous / Back to Projects / Next */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -619,16 +655,54 @@ function ProjectDetailPage() {
               viewport={{ once: true }}
               className="mt-20 pt-10 border-t border-border flex flex-col md:flex-row justify-between items-center gap-6"
             >
-              <Link
-                to="/projects"
-                className="group flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <motion.span whileHover={{ x: -4 }} transition={{ duration: 0.2 }}>
-                  <ArrowLeft size={16} />
-                </motion.span>
-                <span>{t('projectDetail.backToProjects')}</span>
-              </Link>
+              {/* Previous Project */}
+              {project.previousProject ? (
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Link
+                    to="/projects/$projectId"
+                    params={{ projectId: project.previousProject.id }}
+                    className="group flex items-center gap-4 bg-secondary hover:bg-secondary/80 border border-border px-6 py-4 rounded-xl transition-all w-full md:w-auto"
+                  >
+                    <motion.div
+                      className="w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center"
+                      whileHover={{ x: -4 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronLeft size={20} className="text-foreground" />
+                    </motion.div>
+                    <div className="text-left">
+                      <span className="block text-xs text-muted-foreground uppercase">
+                        {t('projectDetail.previousProject')}
+                      </span>
+                      <span className="block font-bold text-foreground group-hover:text-primary transition-colors">
+                        {project.previousProject.title}
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              ) : (
+                <Link
+                  to="/projects"
+                  className="group flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <motion.span whileHover={{ x: -4 }} transition={{ duration: 0.2 }}>
+                    <ArrowLeft size={16} />
+                  </motion.span>
+                  <span>{t('projectDetail.backToProjects')}</span>
+                </Link>
+              )}
 
+              {/* Back to Projects (center) - only when has Previous */}
+              {project.previousProject && (
+                <Link
+                  to="/projects"
+                  className="text-muted-foreground hover:text-foreground transition-colors font-medium"
+                >
+                  {t('projectDetail.backToProjects')}
+                </Link>
+              )}
+
+              {/* Next Project */}
               {project.nextProject && (
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link

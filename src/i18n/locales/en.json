@@ -236,6 +236,7 @@
     "client": "Client",
     "status": "Status",
     "nextProject": "Next Project",
+    "previousProject": "Previous Project",
     "backToProjects": "Back to Projects",
     "gallery": "Gallery",
     "closeGallery": "Close",

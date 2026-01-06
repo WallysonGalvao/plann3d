@@ -42,6 +42,14 @@ const ptData: Project = {
         'Materiais nobres e iluminação cuidadosamente planejada criam uma atmosfera acolhedora. O design contemporâneo dialoga com elementos rústicos, resultando em um espaço único.',
       images: [areaGourmetTwin1, areaGourmetTwin2, areaGourmetTwin3],
     },
+    {
+      label: 'A Experiência',
+      title: 'Tour Virtual',
+      description:
+        'Assista ao tour completo pelo espaço gourmet, explorando cada detalhe do ambiente que foi pensado para momentos especiais.',
+      videoImage: areaGourmetTwin1,
+      video: 'https://www.youtube.com/watch?v=eN9J57qO-GU',
+    },
   ],
   specs: {
     year: '2025',
@@ -52,12 +60,12 @@ const ptData: Project = {
   tools: [
     {
       name: 'SketchUp',
-      icon: '📐',
+      icon: 'architecture',
       description: 'Modelagem 3D e estudos de layout espacial.',
     },
     {
       name: 'Twinmotion',
-      icon: '🎨',
+      icon: 'camera_enhance',
       description: 'Renderização fotorrealista e iluminação ambiente.',
     },
   ],
@@ -98,6 +106,14 @@ const enData: Project = {
         'Noble materials and carefully planned lighting create a cozy atmosphere. The contemporary design dialogues with rustic elements, resulting in a unique space.',
       images: [areaGourmetTwin1, areaGourmetTwin2, areaGourmetTwin3],
     },
+    {
+      label: 'The Experience',
+      title: 'Virtual Tour',
+      description:
+        'Watch the complete tour through the gourmet space, exploring every detail of the environment designed for special moments.',
+      videoImage: areaGourmetTwin1,
+      video: 'https://www.youtube.com/watch?v=eN9J57qO-GU',
+    },
   ],
   specs: {
     year: '2025',
@@ -108,12 +124,12 @@ const enData: Project = {
   tools: [
     {
       name: 'SketchUp',
-      icon: '📐',
+      icon: 'architecture',
       description: '3D modeling and spatial layout studies.',
     },
     {
       name: 'Twinmotion',
-      icon: '🎨',
+      icon: 'camera_enhance',
       description: 'Photorealistic rendering and ambient lighting.',
     },
   ],

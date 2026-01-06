@@ -65,17 +65,17 @@ const ptData: Project = {
   tools: [
     {
       name: 'SketchUp',
-      icon: '📐',
+      icon: 'architecture',
       description: 'Modelagem 3D volumétrica e estudos estruturais.',
     },
     {
       name: 'Twinmotion',
-      icon: '🎨',
+      icon: 'camera_enhance',
       description: 'Renderização fotorrealista e simulação de iluminação.',
     },
     {
       name: 'Adobe Premiere',
-      icon: '🎬',
+      icon: 'movie_edit',
       description: 'Edição de vídeo e pós-produção cinematográfica.',
     },
   ],
@@ -141,17 +141,17 @@ const enData: Project = {
   tools: [
     {
       name: 'SketchUp',
-      icon: '📐',
+      icon: 'architecture',
       description: '3D volumetric modeling and structural studies.',
     },
     {
       name: 'Twinmotion',
-      icon: '🎨',
+      icon: 'camera_enhance',
       description: 'Photorealistic rendering and lighting simulation.',
     },
     {
       name: 'Adobe Premiere',
-      icon: '🎬',
+      icon: 'movie_edit',
       description: 'Video editing and cinematic post-production.',
     },
   ],

@@ -53,6 +53,8 @@ export const Route = createRootRoute({
       { rel: 'alternate', hrefLang: 'en', href: 'https://plann3d.com.br' },
       { rel: 'alternate', hrefLang: 'es', href: 'https://plann3d.com.br' },
       { rel: 'alternate', hrefLang: 'x-default', href: 'https://plann3d.com.br' },
+      // Material Symbols Icons
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap' },
     ],
   }),
 

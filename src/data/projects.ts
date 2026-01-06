@@ -96,20 +96,54 @@ export const getNextProject = (
 }
 
 /**
- * Get project by ID with next project info
+ * Get the previous project in the registry order
+ * Returns undefined if there is no previous project (first in list)
+ */
+export const getPreviousProject = (
+  currentId: string,
+  locale: SupportedLocale = 'pt',
+): { id: string; title: string } | undefined => {
+  const projectIds = Object.keys(projectRegistry)
+  const currentIndex = projectIds.indexOf(currentId)
+
+  // If not found or is the first project, return undefined
+  if (currentIndex === -1 || currentIndex === 0) {
+    return undefined
+  }
+
+  const previousId = projectIds[currentIndex - 1]
+  const previousProject = getProjectById(previousId, locale)
+
+  return previousProject
+    ? {
+        id: previousProject.id,
+        title: previousProject.title,
+      }
+    : undefined
+}
+
+/**
+ * Get project by ID with next and previous project info
  */
 export const getProjectWithNext = (
   id: string,
   locale: SupportedLocale = 'pt',
-): (Project & { nextProject?: { id: string; title: string } }) | undefined => {
+):
+  | (Project & {
+      nextProject?: { id: string; title: string }
+      previousProject?: { id: string; title: string }
+    })
+  | undefined => {
   const project = getProjectById(id, locale)
   if (!project) return undefined
 
   const nextProject = getNextProject(id, locale)
+  const previousProject = getPreviousProject(id, locale)
 
   return {
     ...project,
     nextProject,
+    previousProject,
   }
 }
 
