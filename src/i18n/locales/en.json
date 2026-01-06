@@ -249,7 +249,8 @@
     "beforeBuilt": "Before it's built.",
     "experienceDescription": "Navigate freely through the project in our real-time interactive viewer. Walk through the spaces, change the lighting, and feel the scale.",
     "start3DExperience": "Start 3D Experience",
-    "compatibleDevices": "Compatible with Desktop and Mobile"
+    "compatibleDevices": "Compatible with Desktop and Mobile",
+    "toolsUsed": "Tools Used"
   },
   "viewer3d": {
     "title": "3D Visualization",

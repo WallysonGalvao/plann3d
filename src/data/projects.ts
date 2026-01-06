@@ -1,14 +1,8 @@
 import type { Project, ProjectDataByLocale, SupportedLocale } from '@/types/project'
 
-import {
-  PROJECT_ID as HOTEL_COPACABANA_ID,
-  hotelCopacabanaData,
-} from '@/data/projects/hotel-copacabana/data'
+import { PROJECT_ID as AREA_GOURMET_ID, areaGourmetData } from '@/data/projects/area-gourmet/data'
+import { PROJECT_ID as ARENA_BSB_ID, arenaBsbData } from '@/data/projects/arena-bsb/data'
 import { PROJECT_ID as JK_SHOPPING_ID, jkShoppingData } from '@/data/projects/jk-shopping/data'
-import {
-  PROJECT_ID as RESIDENCIA_ALPHAVILLE_ID,
-  residenciaAlphavilleData,
-} from '@/data/projects/residencia-alphaville/data'
 import { PROJECT_ID as TORRE_DE_TV_ID, torreDeTvData } from '@/data/projects/torre-de-tv/data'
 import i18n from '@/i18n'
 
@@ -38,8 +32,8 @@ const lang = i18n.language ? i18n.language.split('-')[0] : 'pt'
 const projectRegistry: Record<string, ProjectDataByLocale> = {
   [TORRE_DE_TV_ID]: torreDeTvData,
   [JK_SHOPPING_ID]: jkShoppingData,
-  [RESIDENCIA_ALPHAVILLE_ID]: residenciaAlphavilleData,
-  [HOTEL_COPACABANA_ID]: hotelCopacabanaData,
+  [ARENA_BSB_ID]: arenaBsbData,
+  [AREA_GOURMET_ID]: areaGourmetData,
 }
 
 // ============================================

@@ -249,7 +249,8 @@
     "beforeBuilt": "Antes de ser construído.",
     "experienceDescription": "Navegue livremente pelo projeto em nosso visualizador interativo em tempo real. Caminhe pelos ambientes, altere a iluminação e sinta a escala.",
     "start3DExperience": "Iniciar Experiência 3D",
-    "compatibleDevices": "Compatível com Desktop e Mobile"
+    "compatibleDevices": "Compatível com Desktop e Mobile",
+    "toolsUsed": "Ferramentas Utilizadas"
   },
   "viewer3d": {
     "title": "Visualização 3D",

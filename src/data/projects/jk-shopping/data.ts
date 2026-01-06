@@ -16,9 +16,9 @@ const ptData: Project = {
   size: 'large',
 
   subtitle: 'JK SHOPPING',
-  tagline: 'Case Study',
+  tagline: 'Projeto Comercial',
   quote:
-    '"A arquitetura comercial deve ser um ecossistema completo, integrando comércio, trabalho e convivência em um único espaço grandioso."',
+    'A arquitetura comercial deve ser um ecossistema completo, integrando comércio, trabalho e convivência em um único espaço grandioso.',
   image: jkTwinmotion2,
   heroImage: jkTwinmotion2,
   phases: [
@@ -63,6 +63,28 @@ const ptData: Project = {
     scale: 0.01,
     autoRotate: true,
   },
+  tools: [
+    {
+      name: 'SketchUp',
+      icon: '📐',
+      description: 'Modelagem 3D volumétrica e estudos de massa.',
+    },
+    {
+      name: 'Blender',
+      icon: '🎨',
+      description: 'Renderização avançada, iluminação e texturização realista.',
+    },
+    {
+      name: 'Adobe Premiere',
+      icon: '🎬',
+      description: 'Edição, color grading e pós-produção cinematográfica.',
+    },
+    {
+      name: 'Tekla',
+      icon: '🏗️',
+      description: 'Modelagem de alta precisão e detalhes estruturais.',
+    },
+  ],
 } satisfies Project
 
 // Base data for EN locale
@@ -76,9 +98,9 @@ const enData = {
   size: 'large',
 
   subtitle: 'JK SHOPPING',
-  tagline: 'Case Study',
+  tagline: 'Commercial Project',
   quote:
-    '"Commercial architecture should be a complete ecosystem, integrating commerce, work, and social life into a single grand space."',
+    'Commercial architecture should be a complete ecosystem, integrating commerce, work, and social life into a single grand space.',
   image: jkTwinmotion2,
   heroImage: jkTwinmotion2,
   phases: [
@@ -123,6 +145,28 @@ const enData = {
     scale: 0.01,
     autoRotate: true,
   },
+  tools: [
+    {
+      name: 'SketchUp',
+      icon: '📐',
+      description: '3D volumetric modeling and massing studies.',
+    },
+    {
+      name: 'Blender',
+      icon: '🎨',
+      description: 'Advanced rendering, lighting, and realistic texturing.',
+    },
+    {
+      name: 'Adobe Premiere',
+      icon: '🎬',
+      description: 'Editing, color grading, and cinematic post-production.',
+    },
+    {
+      name: 'Tekla',
+      icon: '🏗️',
+      description: 'High-precision modeling and structural detailing.',
+    },
+  ],
 } satisfies Project
 
 // Export data by locale

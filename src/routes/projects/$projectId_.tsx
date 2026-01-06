@@ -1,6 +1,6 @@
 import { Link, Outlet, createFileRoute, useRouterState } from '@tanstack/react-router'
 import { motion, useInView } from 'framer-motion'
-import { ArrowLeft, ChevronRight, Expand, Play } from 'lucide-react'
+import { ArrowLeft, ChevronRight, Expand } from 'lucide-react'
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -346,120 +346,260 @@ function ProjectDetailPage() {
           variants={staggerContainer}
           className="w-full px-4 md:px-10 pb-20"
         >
-          <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[300px] md:auto-rows-[400px]">
-            {/* Item 1 (Large) - Main Image */}
-            {galleryItems[0] && (
-              <motion.div
-                variants={scaleIn}
-                onClick={() => openGallery(galleryItems[0].id)}
-                className="md:col-span-2 row-span-1 md:row-span-2 relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => e.key === 'Enter' && openGallery(galleryItems[0].id)}
-              >
-                <OptimizedBackground
-                  src={galleryItems[0].src}
-                  alt={galleryItems[0].title || 'Gallery image'}
-                  className="absolute inset-0"
-                  hoverScale={1.1}
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                  <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full p-4 hover:bg-primary hover:border-primary transition-all scale-75 group-hover:scale-100">
-                    <Expand size={24} />
-                  </button>
-                </div>
-              </motion.div>
-            )}
+          <div className="max-w-[1440px] mx-auto">
+            {/* Dynamic masonry grid based on number of items */}
+            {(() => {
+              const itemCount = galleryItems.length
 
-            {/* Item 2 */}
-            {galleryItems[1] && (
-              <motion.div
-                variants={scaleIn}
-                onClick={() => openGallery(galleryItems[1].id)}
-                className="relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => e.key === 'Enter' && openGallery(galleryItems[1].id)}
-              >
-                <OptimizedBackground
-                  src={galleryItems[1].src}
-                  alt={galleryItems[1].title || 'Gallery image'}
-                  className="absolute inset-0"
-                  hoverScale={1.1}
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                  <Expand size={24} className="text-white" />
-                </div>
-              </motion.div>
-            )}
+              if (itemCount === 0) return null
 
-            {/* Item 3 */}
-            {galleryItems[2] && (
-              <motion.div
-                variants={scaleIn}
-                onClick={() => openGallery(galleryItems[2].id)}
-                className="relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => e.key === 'Enter' && openGallery(galleryItems[2].id)}
-              >
-                <OptimizedBackground
-                  src={galleryItems[2].src}
-                  alt={galleryItems[2].title || 'Gallery image'}
-                  className="absolute inset-0"
-                  hoverScale={1.1}
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                  <Expand size={24} className="text-white" />
-                </div>
-              </motion.div>
-            )}
+              if (itemCount === 1) {
+                // Single item: full width
+                return (
+                  <div className="grid grid-cols-1 gap-4 md:gap-6">
+                    <motion.div
+                      variants={scaleIn}
+                      onClick={() => openGallery(galleryItems[0].id)}
+                      className="aspect-video relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === 'Enter' && openGallery(galleryItems[0].id)}
+                    >
+                      <OptimizedBackground
+                        src={galleryItems[0].src}
+                        alt={galleryItems[0].title || 'Gallery image'}
+                        className="absolute inset-0"
+                        hoverScale={1.1}
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                        <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full p-4 hover:bg-primary hover:border-primary transition-all scale-75 group-hover:scale-100">
+                          <Expand size={24} />
+                        </button>
+                      </div>
+                    </motion.div>
+                  </div>
+                )
+              }
 
-            {/* Item 4 */}
-            {galleryItems[3] && (
-              <motion.div
-                variants={scaleIn}
-                onClick={() => openGallery(galleryItems[3].id)}
-                className="md:col-span-2 lg:col-span-1 relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => e.key === 'Enter' && openGallery(galleryItems[3].id)}
-              >
-                <OptimizedBackground
-                  src={galleryItems[3].src}
-                  alt={galleryItems[3].title || 'Gallery image'}
-                  className="absolute inset-0"
-                  hoverScale={1.1}
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                  <Expand size={24} className="text-white" />
-                </div>
-              </motion.div>
-            )}
+              if (itemCount === 2) {
+                // Two items: side by side
+                return (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 auto-rows-[400px]">
+                    {galleryItems.slice(0, 2).map((item) => (
+                      <motion.div
+                        key={item.id}
+                        variants={scaleIn}
+                        onClick={() => openGallery(item.id)}
+                        className="relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => e.key === 'Enter' && openGallery(item.id)}
+                      >
+                        <OptimizedBackground
+                          src={item.src}
+                          alt={item.title || 'Gallery image'}
+                          className="absolute inset-0"
+                          hoverScale={1.1}
+                        />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                          <Expand size={24} className="text-white" />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )
+              }
 
-            {/* Item 5 (Wide) */}
-            {galleryItems[4] && (
-              <motion.div
-                variants={scaleIn}
-                onClick={() => openGallery(galleryItems[4].id)}
-                className="md:col-span-2 relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => e.key === 'Enter' && openGallery(galleryItems[4].id)}
-              >
-                <OptimizedBackground
-                  src={galleryItems[4].src}
-                  alt={galleryItems[4].title || 'Gallery image'}
-                  className="absolute inset-0"
-                  hoverScale={1.1}
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                  <Expand size={24} className="text-white" />
+              if (itemCount === 3) {
+                // Three items: large left, two stacked right
+                return (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 auto-rows-[300px] md:auto-rows-[400px]">
+                    <motion.div
+                      variants={scaleIn}
+                      onClick={() => openGallery(galleryItems[0].id)}
+                      className="row-span-2 relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === 'Enter' && openGallery(galleryItems[0].id)}
+                    >
+                      <OptimizedBackground
+                        src={galleryItems[0].src}
+                        alt={galleryItems[0].title || 'Gallery image'}
+                        className="absolute inset-0"
+                        hoverScale={1.1}
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                        <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full p-4 hover:bg-primary hover:border-primary transition-all scale-75 group-hover:scale-100">
+                          <Expand size={24} />
+                        </button>
+                      </div>
+                    </motion.div>
+                    {galleryItems.slice(1, 3).map((item) => (
+                      <motion.div
+                        key={item.id}
+                        variants={scaleIn}
+                        onClick={() => openGallery(item.id)}
+                        className="relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => e.key === 'Enter' && openGallery(item.id)}
+                      >
+                        <OptimizedBackground
+                          src={item.src}
+                          alt={item.title || 'Gallery image'}
+                          className="absolute inset-0"
+                          hoverScale={1.1}
+                        />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                          <Expand size={24} className="text-white" />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )
+              }
+
+              if (itemCount === 4) {
+                // Four items: 2x2 grid
+                return (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 auto-rows-[300px] md:auto-rows-[400px]">
+                    {galleryItems.slice(0, 4).map((item) => (
+                      <motion.div
+                        key={item.id}
+                        variants={scaleIn}
+                        onClick={() => openGallery(item.id)}
+                        className="relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => e.key === 'Enter' && openGallery(item.id)}
+                      >
+                        <OptimizedBackground
+                          src={item.src}
+                          alt={item.title || 'Gallery image'}
+                          className="absolute inset-0"
+                          hoverScale={1.1}
+                        />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                          <Expand size={24} className="text-white" />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )
+              }
+
+              // 5+ items: Original masonry with last item spanning to fill
+              return (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[300px] md:auto-rows-[400px]">
+                  {/* Item 1 (Large) */}
+                  <motion.div
+                    variants={scaleIn}
+                    onClick={() => openGallery(galleryItems[0].id)}
+                    className="md:col-span-2 row-span-1 md:row-span-2 relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && openGallery(galleryItems[0].id)}
+                  >
+                    <OptimizedBackground
+                      src={galleryItems[0].src}
+                      alt={galleryItems[0].title || 'Gallery image'}
+                      className="absolute inset-0"
+                      hoverScale={1.1}
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                      <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full p-4 hover:bg-primary hover:border-primary transition-all scale-75 group-hover:scale-100">
+                        <Expand size={24} />
+                      </button>
+                    </div>
+                  </motion.div>
+
+                  {/* Items 2, 3, 4 */}
+                  {galleryItems.slice(1, 4).map((item) => (
+                    <motion.div
+                      key={item.id}
+                      variants={scaleIn}
+                      onClick={() => openGallery(item.id)}
+                      className="relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === 'Enter' && openGallery(item.id)}
+                    >
+                      <OptimizedBackground
+                        src={item.src}
+                        alt={item.title || 'Gallery image'}
+                        className="absolute inset-0"
+                        hoverScale={1.1}
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                        <Expand size={24} className="text-white" />
+                      </div>
+                    </motion.div>
+                  ))}
+
+                  {/* Item 5+ (Wide - spans remaining columns) */}
+                  {galleryItems.length >= 5 && (
+                    <motion.div
+                      variants={scaleIn}
+                      onClick={() => openGallery(galleryItems[4].id)}
+                      className="md:col-span-2 lg:col-span-3 relative group overflow-hidden rounded-xl bg-secondary cursor-pointer"
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === 'Enter' && openGallery(galleryItems[4].id)}
+                    >
+                      <OptimizedBackground
+                        src={galleryItems[4].src}
+                        alt={galleryItems[4].title || 'Gallery image'}
+                        className="absolute inset-0"
+                        hoverScale={1.1}
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                        <Expand size={24} className="text-white" />
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
-              </motion.div>
-            )}
+              )
+            })()}
           </div>
         </motion.section>
+
+        {/* Tools Used Section */}
+        {project.tools && project.tools.length > 0 && (
+          <section className="w-full bg-secondary/30 py-16 px-4 md:px-10 border-t border-border">
+            <div className="max-w-[1200px] mx-auto">
+              <div className="flex items-center gap-4 mb-10">
+                <h3 className="text-foreground text-xl font-bold uppercase tracking-widest">
+                  {t('projectDetail.toolsUsed')}
+                </h3>
+                <div className="h-px bg-border flex-grow" />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {project.tools.map((tool, index) => (
+                  <motion.div
+                    key={tool.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="bg-secondary border border-border p-6 rounded-xl flex flex-col items-start gap-3 hover:border-primary/50 transition-colors group h-full"
+                  >
+                    <span className="text-primary text-3xl mb-1 opacity-80 group-hover:opacity-100 transition-opacity">
+                      {tool.icon}
+                    </span>
+                    <div>
+                      <h4 className="text-foreground font-bold text-lg tracking-tight">
+                        {tool.name}
+                      </h4>
+                      <p className="text-muted-foreground text-sm leading-snug pt-1">
+                        {tool.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
 
         {/* Technical Specs & Next Project Section */}

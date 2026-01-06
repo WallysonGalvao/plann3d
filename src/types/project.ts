@@ -85,6 +85,13 @@ export interface Project {
 
   // Optional 3D viewer configuration
   model3d?: Model3DConfig
+
+  // Optional tools used in the project
+  tools?: Array<{
+    name: string
+    icon: string
+    description: string
+  }>
 }
 
 /**
