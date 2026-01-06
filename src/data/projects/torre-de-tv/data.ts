@@ -15,9 +15,9 @@ const ptData: Project = {
   size: 'large',
 
   subtitle: 'TORRE DE TV',
-  tagline: 'Case Study',
+  tagline: 'Projeto Arquitetônico',
   quote:
-    '"A arquitetura deve ser um ponto de observação, conectando o visitante à cidade e à sua história através da perspectiva."',
+    'A arquitetura deve ser um ponto de observação, conectando o visitante à cidade e à sua história através da perspectiva.',
   image: torreTvTwinmotion2,
   heroImage: torreTvTwinmotion2,
   phases: [
@@ -56,16 +56,33 @@ const ptData: Project = {
     status: 'Concluído',
   },
   model3d: {
-    src: '/models/torre-de-tv/model-aggressive.glb',
+    src: '/models/torre-de-tv/model.glb',
     thumbnail: torreTvTwinmotion2,
     cameraPosition: [50, 50, 50],
     scale: 0.01,
     autoRotate: true,
   },
+  tools: [
+    {
+      name: 'SketchUp',
+      icon: 'architecture',
+      description: 'Modelagem 3D volumétrica e estudos estruturais.',
+    },
+    {
+      name: 'Twinmotion',
+      icon: 'camera_enhance',
+      description: 'Renderização fotorrealista e simulação de iluminação.',
+    },
+    {
+      name: 'Adobe Premiere',
+      icon: 'movie_edit',
+      description: 'Edição de vídeo e pós-produção cinematográfica.',
+    },
+  ],
 } satisfies Project
 
 // Base data for EN locale
-const enData = {
+const enData: Project = {
   id: 'torre-de-tv',
   title: 'Brasília TV Tower',
   category: 'exteriors',
@@ -74,9 +91,9 @@ const enData = {
   size: 'large',
 
   subtitle: 'TV TOWER',
-  tagline: 'Case Study',
+  tagline: 'Architectural Project',
   quote:
-    '"Architecture should be an observation point, connecting the visitor to the city and its history through perspective."',
+    'Architecture should be an observation point, connecting the visitor to the city and its history through perspective.',
   image: torreTvTwinmotion2,
   heroImage: torreTvTwinmotion2,
   phases: [
@@ -115,12 +132,29 @@ const enData = {
     status: 'Completed',
   },
   model3d: {
-    src: '/models/torre-de-tv/model-aggressive.glb',
+    src: '/models/torre-de-tv/model.glb',
     thumbnail: torreTvTwinmotion2,
     cameraPosition: [50, 50, 50],
     scale: 0.01,
     autoRotate: true,
   },
+  tools: [
+    {
+      name: 'SketchUp',
+      icon: 'architecture',
+      description: '3D volumetric modeling and structural studies.',
+    },
+    {
+      name: 'Twinmotion',
+      icon: 'camera_enhance',
+      description: 'Photorealistic rendering and lighting simulation.',
+    },
+    {
+      name: 'Adobe Premiere',
+      icon: 'movie_edit',
+      description: 'Video editing and cinematic post-production.',
+    },
+  ],
 } satisfies Project
 
 // Export data by locale

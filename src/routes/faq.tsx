@@ -13,6 +13,7 @@ import { faqCategories, getFaqs } from '@/data/faq'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
 import { ORGANIZATION_SCHEMA, createFAQSchema, generateJsonLd, generateMetaTags } from '@/lib/seo'
 import { cn } from '@/lib/utils'
+import ptTranslations from '@/i18n/locales/pt.json'
 
 export const Route = createFileRoute('/faq')({
   component: FaqPage,
@@ -31,9 +32,8 @@ export const Route = createFileRoute('/faq')({
 
     return {
       meta: generateMetaTags({
-        title: 'Perguntas Frequentes - Plann3d',
-        description:
-          'Tire suas dúvidas sobre visualização arquitetônica, renderização 3D e nosso processo de trabalho.',
+        title: ptTranslations.seo.faq.title,
+        description: ptTranslations.seo.faq.description,
         url: 'https://plann3d.com.br/faq',
       }),
       scripts: [

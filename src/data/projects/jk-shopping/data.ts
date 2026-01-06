@@ -16,9 +16,9 @@ const ptData: Project = {
   size: 'large',
 
   subtitle: 'JK SHOPPING',
-  tagline: 'Case Study',
+  tagline: 'Projeto Comercial',
   quote:
-    '"A arquitetura comercial deve ser um ecossistema completo, integrando comércio, trabalho e convivência em um único espaço grandioso."',
+    'A arquitetura comercial deve ser um ecossistema completo, integrando comércio, trabalho e convivência em um único espaço grandioso.',
   image: jkTwinmotion2,
   heroImage: jkTwinmotion2,
   phases: [
@@ -57,12 +57,34 @@ const ptData: Project = {
     status: 'Em Desenvolvimento',
   },
   model3d: {
-    src: '/models/jk-shopping/model-optimized.glb',
+    src: '/models/jk-shopping/model.glb',
     thumbnail: jkTwinmotion2,
     cameraPosition: [50, 50, 50],
     scale: 0.01,
     autoRotate: true,
   },
+  tools: [
+    {
+      name: 'SketchUp',
+      icon: 'architecture',
+      description: 'Modelagem 3D volumétrica e estudos de massa.',
+    },
+    {
+      name: 'Blender',
+      icon: 'view_in_ar',
+      description: 'Renderização avançada, iluminação e texturização realista.',
+    },
+    {
+      name: 'Adobe Premiere',
+      icon: 'movie_edit',
+      description: 'Edição, color grading e pós-produção cinematográfica.',
+    },
+    {
+      name: 'Tekla',
+      icon: 'foundation',
+      description: 'Modelagem de alta precisão e detalhes estruturais.',
+    },
+  ],
 } satisfies Project
 
 // Base data for EN locale
@@ -76,9 +98,9 @@ const enData = {
   size: 'large',
 
   subtitle: 'JK SHOPPING',
-  tagline: 'Case Study',
+  tagline: 'Commercial Project',
   quote:
-    '"Commercial architecture should be a complete ecosystem, integrating commerce, work, and social life into a single grand space."',
+    'Commercial architecture should be a complete ecosystem, integrating commerce, work, and social life into a single grand space.',
   image: jkTwinmotion2,
   heroImage: jkTwinmotion2,
   phases: [
@@ -117,12 +139,34 @@ const enData = {
     status: 'In Development',
   },
   model3d: {
-    src: '/models/jk-shopping/model-optimized.glb',
+    src: '/models/jk-shopping/model.glb',
     thumbnail: jkTwinmotion2,
     cameraPosition: [50, 50, 50],
     scale: 0.01,
     autoRotate: true,
   },
+  tools: [
+    {
+      name: 'SketchUp',
+      icon: 'architecture',
+      description: '3D volumetric modeling and massing studies.',
+    },
+    {
+      name: 'Blender',
+      icon: 'view_in_ar',
+      description: 'Advanced rendering, lighting, and realistic texturing.',
+    },
+    {
+      name: 'Adobe Premiere',
+      icon: 'movie_edit',
+      description: 'Editing, color grading, and cinematic post-production.',
+    },
+    {
+      name: 'Tekla',
+      icon: 'foundation',
+      description: 'High-precision modeling and structural detailing.',
+    },
+  ],
 } satisfies Project
 
 // Export data by locale

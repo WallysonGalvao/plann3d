@@ -19,6 +19,7 @@ import {
   generateMetaTags,
 } from '@/lib/seo'
 import { cn } from '@/lib/utils'
+import ptTranslations from '@/i18n/locales/pt.json'
 
 export const Route = createFileRoute('/tools')({
   component: ToolsPage,
@@ -46,9 +47,8 @@ export const Route = createFileRoute('/tools')({
 
     return {
       meta: generateMetaTags({
-        title: 'Ferramentas e Tecnologias - Plann3d',
-        description:
-          'Conheça as ferramentas profissionais que utilizamos: Twinmotion, Tekla, SketchUp, Blender, AutoCAD, Adobe Premiere e Lumion.',
+        title: ptTranslations.seo.tools.title,
+        description: ptTranslations.seo.tools.description,
         url: 'https://plann3d.com.br/tools',
       }),
       scripts: [

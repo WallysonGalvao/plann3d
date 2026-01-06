@@ -1,10 +1,12 @@
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+import { useEffect } from 'react'
 
 import { NotFoundPage } from '../components/not-found-page'
 import { ThemeProvider } from '../components/theme-provider'
 import { DEFAULT_SEO, LOCAL_BUSINESS_SCHEMA, ORGANIZATION_SCHEMA, WEBSITE_SCHEMA } from '../lib/seo'
+import { initWebVitals } from '../lib/web-vitals'
 import appCss from '../styles.css?url'
 import '../i18n'
 
@@ -51,6 +53,8 @@ export const Route = createRootRoute({
       { rel: 'alternate', hrefLang: 'en', href: 'https://plann3d.com.br' },
       { rel: 'alternate', hrefLang: 'es', href: 'https://plann3d.com.br' },
       { rel: 'alternate', hrefLang: 'x-default', href: 'https://plann3d.com.br' },
+      // Material Symbols Icons
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap' },
     ],
   }),
 
@@ -63,6 +67,11 @@ export const Route = createRootRoute({
 function RootDocument({ children }: { children: React.ReactNode }) {
   // Combine all JSON-LD schemas
   const jsonLdSchemas = [ORGANIZATION_SCHEMA, LOCAL_BUSINESS_SCHEMA, WEBSITE_SCHEMA]
+
+  // Initialize Web Vitals monitoring on mount
+  useEffect(() => {
+    initWebVitals()
+  }, [])
 
   return (
     <html lang="pt-BR" suppressHydrationWarning>

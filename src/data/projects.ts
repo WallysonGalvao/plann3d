@@ -1,14 +1,8 @@
 import type { Project, ProjectDataByLocale, SupportedLocale } from '@/types/project'
 
-import {
-  PROJECT_ID as HOTEL_COPACABANA_ID,
-  hotelCopacabanaData,
-} from '@/data/projects/hotel-copacabana/data'
+import { PROJECT_ID as AREA_GOURMET_ID, areaGourmetData } from '@/data/projects/area-gourmet/data'
+import { PROJECT_ID as ARENA_BSB_ID, arenaBsbData } from '@/data/projects/arena-bsb/data'
 import { PROJECT_ID as JK_SHOPPING_ID, jkShoppingData } from '@/data/projects/jk-shopping/data'
-import {
-  PROJECT_ID as RESIDENCIA_ALPHAVILLE_ID,
-  residenciaAlphavilleData,
-} from '@/data/projects/residencia-alphaville/data'
 import { PROJECT_ID as TORRE_DE_TV_ID, torreDeTvData } from '@/data/projects/torre-de-tv/data'
 import i18n from '@/i18n'
 
@@ -38,8 +32,8 @@ const lang = i18n.language ? i18n.language.split('-')[0] : 'pt'
 const projectRegistry: Record<string, ProjectDataByLocale> = {
   [TORRE_DE_TV_ID]: torreDeTvData,
   [JK_SHOPPING_ID]: jkShoppingData,
-  [RESIDENCIA_ALPHAVILLE_ID]: residenciaAlphavilleData,
-  [HOTEL_COPACABANA_ID]: hotelCopacabanaData,
+  [ARENA_BSB_ID]: arenaBsbData,
+  [AREA_GOURMET_ID]: areaGourmetData,
 }
 
 // ============================================
@@ -102,20 +96,54 @@ export const getNextProject = (
 }
 
 /**
- * Get project by ID with next project info
+ * Get the previous project in the registry order
+ * Returns undefined if there is no previous project (first in list)
+ */
+export const getPreviousProject = (
+  currentId: string,
+  locale: SupportedLocale = 'pt',
+): { id: string; title: string } | undefined => {
+  const projectIds = Object.keys(projectRegistry)
+  const currentIndex = projectIds.indexOf(currentId)
+
+  // If not found or is the first project, return undefined
+  if (currentIndex === -1 || currentIndex === 0) {
+    return undefined
+  }
+
+  const previousId = projectIds[currentIndex - 1]
+  const previousProject = getProjectById(previousId, locale)
+
+  return previousProject
+    ? {
+        id: previousProject.id,
+        title: previousProject.title,
+      }
+    : undefined
+}
+
+/**
+ * Get project by ID with next and previous project info
  */
 export const getProjectWithNext = (
   id: string,
   locale: SupportedLocale = 'pt',
-): (Project & { nextProject?: { id: string; title: string } }) | undefined => {
+):
+  | (Project & {
+      nextProject?: { id: string; title: string }
+      previousProject?: { id: string; title: string }
+    })
+  | undefined => {
   const project = getProjectById(id, locale)
   if (!project) return undefined
 
   const nextProject = getNextProject(id, locale)
+  const previousProject = getPreviousProject(id, locale)
 
   return {
     ...project,
     nextProject,
+    previousProject,
   }
 }
 
