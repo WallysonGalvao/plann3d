@@ -364,6 +364,13 @@
       "furniture": "Mobiliário",
       "vegetation": "Vegetação",
       "lighting": "Iluminação"
+    },
+    "qualitySelector": {
+      "label": "Qualidade",
+      "low": "Baixa",
+      "medium": "Média",
+      "high": "Alta",
+      "loading": "..."
     }
   },
   "toolsPage": {

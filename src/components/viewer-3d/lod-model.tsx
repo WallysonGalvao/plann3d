@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, Suspense, useState } from 'react'
 import { Model, ModelMetadata } from './model'
 import { useProgressiveModel, ModelQuality } from '@/hooks/useProgressiveModel'
 
@@ -15,6 +15,8 @@ interface LODModelProps {
   onProgress?: (progress: number) => void
   /** Callback when quality changes */
   onQualityChange?: (quality: ModelQuality) => void
+  /** Callback for quality status changes */
+  onQualityStatusChange?: (status: Record<ModelQuality, { available: boolean; loading: boolean; loaded: boolean }>) => void
   /** Override LOD URLs */
   lodUrls?: {
     low?: string
@@ -43,6 +45,7 @@ export function LODModel({
   onMetadataExtracted,
   onProgress,
   onQualityChange,
+  onQualityStatusChange,
   lodUrls,
   forceQuality,
   visibleLayers,
@@ -55,9 +58,14 @@ export function LODModel({
   const highUrl = lodUrls?.high || `${modelPath}/high.glb`
   const fallbackUrl = `${modelPath}/model.glb`
 
+  // Track if the model is ready to render (prevents flicker/crash on quality change)
+  const [isModelReady, setIsModelReady] = useState(false)
+  const [activeUrl, setActiveUrl] = useState<string | null>(null)
+
   const {
     currentUrl,
     quality,
+    qualityStatus,
     progress,
     loadQuality,
   } = useProgressiveModel({
@@ -69,28 +77,56 @@ export function LODModel({
 
   // Apply forced quality if specified
   useEffect(() => {
-    if (forceQuality) {
+    if (forceQuality && qualityStatus[forceQuality].loaded) {
       loadQuality(forceQuality)
     }
-  }, [forceQuality, loadQuality])
+  }, [forceQuality, loadQuality, qualityStatus])
 
   // Report quality changes
   useEffect(() => {
     onQualityChange?.(quality)
   }, [quality, onQualityChange])
 
+  // Report quality status changes
+  useEffect(() => {
+    onQualityStatusChange?.(qualityStatus)
+  }, [qualityStatus, onQualityStatusChange])
+
   // Report progress
   useEffect(() => {
     onProgress?.(progress)
   }, [progress, onProgress])
 
+  // Handle URL change - reset ready state and update active URL
+  useEffect(() => {
+    if (currentUrl !== activeUrl) {
+      setIsModelReady(false)
+      // Small delay to allow cleanup before loading new model
+      const timer = setTimeout(() => {
+        setActiveUrl(currentUrl)
+        setIsModelReady(true)
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [currentUrl, activeUrl])
+
+  // Don't render until we have a valid URL and are ready
+  if (!isModelReady || !activeUrl) {
+    return null
+  }
+
+  // Use key to force complete remount when URL changes
+  // This prevents R3F errors from stale scene references
   return (
-    <Model
-      url={currentUrl}
-      scale={scale}
-      onMetadataExtracted={onMetadataExtracted}
-      visibleLayers={visibleLayers}
-    />
+    <Suspense fallback={null}>
+      <Model
+        key={activeUrl}
+        url={activeUrl}
+        scale={scale}
+        onMetadataExtracted={onMetadataExtracted}
+        visibleLayers={visibleLayers}
+      />
+    </Suspense>
   )
 }
 

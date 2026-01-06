@@ -281,51 +281,52 @@ function ProjectViewerPage() {
             <div className="glass-panel p-2 rounded-full flex items-center gap-1 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
               {/* Quality Selector - Inline */}
               {project.model3d.lod && (
-                <div className="flex items-center gap-3 px-2 border-r border-white/10 mr-1">
+                <div className="flex items-center gap-3 px-2 border-r border-border mr-1">
                   <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest hidden sm:block">
-                    Qualidade
+                    {t('viewer3d.qualitySelector.label')}
                   </span>
-                  <div className="flex bg-muted/30 rounded-lg p-0.5 border border-white/5">
+                  <div className="flex bg-muted/30 dark:bg-muted/20 rounded-lg p-0.5 border border-border">
                     <button
                       onClick={() => setForceQuality('low')}
                       disabled={!qualityStatus.low.loaded}
                       className={`px-3 py-1.5 text-[10px] font-bold rounded-md transition-all ${currentQuality === 'low'
-                        ? 'text-white bg-primary shadow-lg shadow-primary/20'
+                        ? 'text-primary-foreground bg-primary shadow-lg shadow-primary/20'
                         : qualityStatus.low.loaded
-                          ? 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                          ? 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                           : 'text-muted-foreground/30 cursor-not-allowed'
                         }`}
                     >
-                      {qualityStatus.low.loading ? '...' : 'Baixa'}
+                      {qualityStatus.low.loading ? t('viewer3d.qualitySelector.loading') : t('viewer3d.qualitySelector.low')}
                     </button>
                     <button
                       onClick={() => setForceQuality('medium')}
                       disabled={!qualityStatus.medium.loaded}
                       className={`px-3 py-1.5 text-[10px] font-bold rounded-md transition-all ${currentQuality === 'medium'
-                        ? 'text-white bg-primary shadow-lg shadow-primary/20'
+                        ? 'text-primary-foreground bg-primary shadow-lg shadow-primary/20'
                         : qualityStatus.medium.loaded
-                          ? 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                          ? 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                           : 'text-muted-foreground/30 cursor-not-allowed'
                         }`}
                     >
-                      {qualityStatus.medium.loading ? '...' : 'Média'}
+                      {qualityStatus.medium.loading ? t('viewer3d.qualitySelector.loading') : t('viewer3d.qualitySelector.medium')}
                     </button>
                     <button
                       onClick={() => setForceQuality('high')}
                       disabled={!qualityStatus.high.loaded}
                       className={`px-3 py-1.5 text-[10px] font-bold rounded-md transition-all ${currentQuality === 'high'
-                        ? 'text-white bg-primary shadow-lg shadow-primary/20'
+                        ? 'text-primary-foreground bg-primary shadow-lg shadow-primary/20'
                         : qualityStatus.high.loaded
-                          ? 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                          ? 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                           : 'text-muted-foreground/30 cursor-not-allowed'
                         }`}
                     >
-                      {qualityStatus.high.loading ? '...' : 'Alta'}
+                      {qualityStatus.high.loading ? t('viewer3d.qualitySelector.loading') : t('viewer3d.qualitySelector.high')}
                     </button>
                   </div>
+                  <div className="w-px h-6 bg-border" />
                 </div>
               )}
-              <div className="flex bg-surface-dark/50 rounded-lg p-0.5 border border-white/5" />
+
               {/* Pan Mode */}
               <ControlButton
                 icon="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"

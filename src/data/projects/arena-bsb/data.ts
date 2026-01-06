@@ -6,6 +6,19 @@ import arenaBsbTwin1 from '@/data/projects/arena-bsb/TWIN1.png'
 import arenaBsbTwin2 from '@/data/projects/arena-bsb/TWIN2.png'
 import arenaBsbTwin3 from '@/data/projects/arena-bsb/TWIN3.png'
 
+const MODEL_3D: Project['model3d'] = {
+  src: '/models/arena-bsb/model.glb',
+  thumbnail: arenaBsbTwin1,
+  cameraPosition: [80, 60, 80],
+  scale: 1,
+  autoRotate: true,
+  lod: {
+    low: '/models/arena-bsb/low.glb',
+    medium: '/models/arena-bsb/medium.glb',
+    high: '/models/arena-bsb/high.glb',
+  },
+}
+
 // Base data for PT locale
 const ptData: Project = {
   id: 'arena-bsb',
@@ -56,18 +69,7 @@ const ptData: Project = {
     client: 'Incendiários',
     status: 'Concluído',
   },
-  model3d: {
-    src: '/models/arena-bsb/model.glb',
-    thumbnail: arenaBsbTwin1,
-    cameraPosition: [80, 60, 80],
-    scale: 1,
-    autoRotate: true,
-    lod: {
-      low: '/models/arena-bsb/low.glb',
-      medium: '/models/arena-bsb/medium.glb',
-      high: '/models/arena-bsb/high.glb',
-    },
-  },
+  model3d: MODEL_3D,
   tools: [
     {
       name: 'SketchUp',
@@ -132,18 +134,7 @@ const enData: Project = {
     client: 'Incendiários',
     status: 'Completed',
   },
-  model3d: {
-    src: '/models/arena-bsb/model.glb',
-    thumbnail: arenaBsbTwin1,
-    cameraPosition: [80, 60, 80],
-    scale: 1,
-    autoRotate: true,
-    lod: {
-      low: '/models/arena-bsb/low.glb',
-      medium: '/models/arena-bsb/medium.glb',
-      high: '/models/arena-bsb/high.glb',
-    },
-  },
+  model3d: MODEL_3D,
   tools: [
     {
       name: 'SketchUp',

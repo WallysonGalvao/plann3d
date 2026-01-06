@@ -153,12 +153,12 @@ export function ModelViewer({
     fallbackUrl: modelUrl,
   })
 
-  // Handle force quality changes
+  // Handle force quality changes - only if model is loaded
   useEffect(() => {
-    if (forceQuality) {
+    if (forceQuality && qualityStatus[forceQuality].loaded) {
       loadQuality(forceQuality)
     }
-  }, [forceQuality, loadQuality])
+  }, [forceQuality, loadQuality, qualityStatus])
 
   // Report quality changes
   useEffect(() => {
@@ -275,6 +275,7 @@ export function ModelViewer({
           {/* Model with Suspense and Progressive Loading */}
           <Suspense fallback={<LoadingBox />}>
             <Model
+              key={currentUrl}
               url={currentUrl}
               scale={scale}
               onProgress={handleProgress}

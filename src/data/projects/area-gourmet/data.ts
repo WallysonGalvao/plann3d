@@ -6,6 +6,19 @@ import areaGourmetTwin1 from '@/data/projects/area-gourmet/TWIN1.png'
 import areaGourmetTwin2 from '@/data/projects/area-gourmet/TWIN2.png'
 import areaGourmetTwin3 from '@/data/projects/area-gourmet/TWIN3.png'
 
+const MODEL_3D: Project['model3d'] = {
+  src: '/models/area-gourmet/model.glb',
+  thumbnail: areaGourmetTwin1,
+  cameraPosition: [30, 25, 30],
+  scale: 1,
+  autoRotate: true,
+  lod: {
+    low: '/models/area-gourmet/low.glb',
+    medium: '/models/area-gourmet/medium.glb',
+    high: '/models/area-gourmet/high.glb',
+  },
+}
+
 // Base data for PT locale
 const ptData: Project = {
   id: 'area-gourmet',
@@ -57,18 +70,7 @@ const ptData: Project = {
     client: 'Alison',
     status: 'Concluído',
   },
-  model3d: {
-    src: '/models/area-gourmet/model.glb',
-    thumbnail: areaGourmetTwin1,
-    cameraPosition: [30, 25, 30],
-    scale: 1,
-    autoRotate: true,
-    lod: {
-      low: '/models/area-gourmet/low.glb',
-      medium: '/models/area-gourmet/medium.glb',
-      high: '/models/area-gourmet/high.glb',
-    },
-  },
+  model3d: MODEL_3D,
   tools: [
     {
       name: 'SketchUp',
@@ -133,18 +135,7 @@ const enData: Project = {
     client: 'Alison',
     status: 'Completed',
   },
-  model3d: {
-    src: '/models/area-gourmet/model.glb',
-    thumbnail: areaGourmetTwin1,
-    cameraPosition: [30, 25, 30],
-    scale: 1,
-    autoRotate: true,
-    lod: {
-      low: '/models/area-gourmet/low.glb',
-      medium: '/models/area-gourmet/medium.glb',
-      high: '/models/area-gourmet/high.glb',
-    },
-  },
+  model3d: MODEL_3D,
   tools: [
     {
       name: 'SketchUp',

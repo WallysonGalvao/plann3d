@@ -341,7 +341,37 @@
     "projectInfoDesc": "Autor, fecha, versión",
     "optimization": "Optimización",
     "optimizationDesc": "Compresión, LOD, instancias",
-    "comingSoon": "Próximamente"
+    "comingSoon": "Próximamente",
+    "controls": {
+      "pan": "Pan",
+      "views": "Vistas",
+      "autoTour": "Tour Auto",
+      "pause": "Pausar",
+      "rotation": "Rotación",
+      "layers": "Capas"
+    },
+    "presets": {
+      "front": "Frontal",
+      "back": "Trasera",
+      "left": "Izquierda",
+      "right": "Derecha",
+      "top": "Superior",
+      "perspective": "Perspectiva"
+    },
+    "layers": {
+      "title": "Capas",
+      "structure": "Estructura",
+      "furniture": "Mobiliario",
+      "vegetation": "Vegetación",
+      "lighting": "Iluminación"
+    },
+    "qualitySelector": {
+      "label": "Calidad",
+      "low": "Baja",
+      "medium": "Media",
+      "high": "Alta",
+      "loading": "..."
+    }
   },
   "toolsPage": {
     "label": "Nuestro Arsenal Tecnológico",
