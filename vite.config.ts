@@ -20,6 +20,8 @@ const config = defineConfig({
     tanstackStart(),
     viteReact(),
   ],
+  // Include WASM files for web-ifc
+  assetsInclude: ['**/*.wasm'],
   server: {
     port: 3000,
     strictPort: true,
@@ -36,16 +38,27 @@ const config = defineConfig({
         manualChunks(id) {
           // Only apply manual chunks for client-side code
           if (id.includes('node_modules')) {
+            // IFC/BIM libraries
+            if (id.includes('web-ifc')) {
+              return 'ifc'
+            }
             // Three.js and related 3D libraries
             if (id.includes('three') || id.includes('@react-three')) {
               return 'three'
+            }
+            // PDF.js
+            if (id.includes('pdfjs-dist')) {
+              return 'pdfjs'
             }
             // Motion libraries
             if (id.includes('framer-motion')) {
               return 'motion'
             }
             // React Router (only if not external)
-            if (id.includes('@tanstack/react-router') && !id.includes('node_modules/@tanstack/start')) {
+            if (
+              id.includes('@tanstack/react-router') &&
+              !id.includes('node_modules/@tanstack/start')
+            ) {
               return 'router'
             }
             // Form libraries

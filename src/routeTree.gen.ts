@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
 import { Route as ProjectsProjectIdRouteImport } from './routes/projects/$projectId_'
 import { Route as ProjectsProjectIdViewerRouteImport } from './routes/projects/$projectId_.viewer'
+import { Route as ProjectsProjectIdIfcViewerRouteImport } from './routes/projects/$projectId_.ifc-viewer'
 
 const ToolsRoute = ToolsRouteImport.update({
   id: '/tools',
@@ -52,6 +53,12 @@ const ProjectsProjectIdViewerRoute = ProjectsProjectIdViewerRouteImport.update({
   path: '/viewer',
   getParentRoute: () => ProjectsProjectIdRoute,
 } as any)
+const ProjectsProjectIdIfcViewerRoute =
+  ProjectsProjectIdIfcViewerRouteImport.update({
+    id: '/ifc-viewer',
+    path: '/ifc-viewer',
+    getParentRoute: () => ProjectsProjectIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -60,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/tools': typeof ToolsRoute
   '/projects/$projectId': typeof ProjectsProjectIdRouteWithChildren
   '/projects': typeof ProjectsIndexRoute
+  '/projects/$projectId/ifc-viewer': typeof ProjectsProjectIdIfcViewerRoute
   '/projects/$projectId/viewer': typeof ProjectsProjectIdViewerRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +77,7 @@ export interface FileRoutesByTo {
   '/tools': typeof ToolsRoute
   '/projects/$projectId': typeof ProjectsProjectIdRouteWithChildren
   '/projects': typeof ProjectsIndexRoute
+  '/projects/$projectId/ifc-viewer': typeof ProjectsProjectIdIfcViewerRoute
   '/projects/$projectId/viewer': typeof ProjectsProjectIdViewerRoute
 }
 export interface FileRoutesById {
@@ -79,6 +88,7 @@ export interface FileRoutesById {
   '/tools': typeof ToolsRoute
   '/projects/$projectId_': typeof ProjectsProjectIdRouteWithChildren
   '/projects/': typeof ProjectsIndexRoute
+  '/projects/$projectId_/ifc-viewer': typeof ProjectsProjectIdIfcViewerRoute
   '/projects/$projectId_/viewer': typeof ProjectsProjectIdViewerRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +100,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/projects/$projectId'
     | '/projects'
+    | '/projects/$projectId/ifc-viewer'
     | '/projects/$projectId/viewer'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +110,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/projects/$projectId'
     | '/projects'
+    | '/projects/$projectId/ifc-viewer'
     | '/projects/$projectId/viewer'
   id:
     | '__root__'
@@ -108,6 +120,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/projects/$projectId_'
     | '/projects/'
+    | '/projects/$projectId_/ifc-viewer'
     | '/projects/$projectId_/viewer'
   fileRoutesById: FileRoutesById
 }
@@ -171,14 +184,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsProjectIdViewerRouteImport
       parentRoute: typeof ProjectsProjectIdRoute
     }
+    '/projects/$projectId_/ifc-viewer': {
+      id: '/projects/$projectId_/ifc-viewer'
+      path: '/ifc-viewer'
+      fullPath: '/projects/$projectId/ifc-viewer'
+      preLoaderRoute: typeof ProjectsProjectIdIfcViewerRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
   }
 }
 
 interface ProjectsProjectIdRouteChildren {
+  ProjectsProjectIdIfcViewerRoute: typeof ProjectsProjectIdIfcViewerRoute
   ProjectsProjectIdViewerRoute: typeof ProjectsProjectIdViewerRoute
 }
 
 const ProjectsProjectIdRouteChildren: ProjectsProjectIdRouteChildren = {
+  ProjectsProjectIdIfcViewerRoute: ProjectsProjectIdIfcViewerRoute,
   ProjectsProjectIdViewerRoute: ProjectsProjectIdViewerRoute,
 }
 

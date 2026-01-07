@@ -1169,6 +1169,125 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@napi-rs/canvas-android-arm64@npm:0.1.88":
+  version: 0.1.88
+  resolution: "@napi-rs/canvas-android-arm64@npm:0.1.88"
+  conditions: os=android & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@napi-rs/canvas-darwin-arm64@npm:0.1.88":
+  version: 0.1.88
+  resolution: "@napi-rs/canvas-darwin-arm64@npm:0.1.88"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@napi-rs/canvas-darwin-x64@npm:0.1.88":
+  version: 0.1.88
+  resolution: "@napi-rs/canvas-darwin-x64@npm:0.1.88"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@napi-rs/canvas-linux-arm-gnueabihf@npm:0.1.88":
+  version: 0.1.88
+  resolution: "@napi-rs/canvas-linux-arm-gnueabihf@npm:0.1.88"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@napi-rs/canvas-linux-arm64-gnu@npm:0.1.88":
+  version: 0.1.88
+  resolution: "@napi-rs/canvas-linux-arm64-gnu@npm:0.1.88"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@napi-rs/canvas-linux-arm64-musl@npm:0.1.88":
+  version: 0.1.88
+  resolution: "@napi-rs/canvas-linux-arm64-musl@npm:0.1.88"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@napi-rs/canvas-linux-riscv64-gnu@npm:0.1.88":
+  version: 0.1.88
+  resolution: "@napi-rs/canvas-linux-riscv64-gnu@npm:0.1.88"
+  conditions: os=linux & cpu=riscv64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@napi-rs/canvas-linux-x64-gnu@npm:0.1.88":
+  version: 0.1.88
+  resolution: "@napi-rs/canvas-linux-x64-gnu@npm:0.1.88"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@napi-rs/canvas-linux-x64-musl@npm:0.1.88":
+  version: 0.1.88
+  resolution: "@napi-rs/canvas-linux-x64-musl@npm:0.1.88"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@napi-rs/canvas-win32-arm64-msvc@npm:0.1.88":
+  version: 0.1.88
+  resolution: "@napi-rs/canvas-win32-arm64-msvc@npm:0.1.88"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@napi-rs/canvas-win32-x64-msvc@npm:0.1.88":
+  version: 0.1.88
+  resolution: "@napi-rs/canvas-win32-x64-msvc@npm:0.1.88"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@napi-rs/canvas@npm:^0.1.84":
+  version: 0.1.88
+  resolution: "@napi-rs/canvas@npm:0.1.88"
+  dependencies:
+    "@napi-rs/canvas-android-arm64": 0.1.88
+    "@napi-rs/canvas-darwin-arm64": 0.1.88
+    "@napi-rs/canvas-darwin-x64": 0.1.88
+    "@napi-rs/canvas-linux-arm-gnueabihf": 0.1.88
+    "@napi-rs/canvas-linux-arm64-gnu": 0.1.88
+    "@napi-rs/canvas-linux-arm64-musl": 0.1.88
+    "@napi-rs/canvas-linux-riscv64-gnu": 0.1.88
+    "@napi-rs/canvas-linux-x64-gnu": 0.1.88
+    "@napi-rs/canvas-linux-x64-musl": 0.1.88
+    "@napi-rs/canvas-win32-arm64-msvc": 0.1.88
+    "@napi-rs/canvas-win32-x64-msvc": 0.1.88
+  dependenciesMeta:
+    "@napi-rs/canvas-android-arm64":
+      optional: true
+    "@napi-rs/canvas-darwin-arm64":
+      optional: true
+    "@napi-rs/canvas-darwin-x64":
+      optional: true
+    "@napi-rs/canvas-linux-arm-gnueabihf":
+      optional: true
+    "@napi-rs/canvas-linux-arm64-gnu":
+      optional: true
+    "@napi-rs/canvas-linux-arm64-musl":
+      optional: true
+    "@napi-rs/canvas-linux-riscv64-gnu":
+      optional: true
+    "@napi-rs/canvas-linux-x64-gnu":
+      optional: true
+    "@napi-rs/canvas-linux-x64-musl":
+      optional: true
+    "@napi-rs/canvas-win32-arm64-msvc":
+      optional: true
+    "@napi-rs/canvas-win32-x64-msvc":
+      optional: true
+  checksum: a2c04f9a3a5815f6300d77e7755eef7639eb0c136434465e28261c85e19cbb9b054f129397f0c4f14961bfacd6e68eaa31cdb267e4b570423e28525b2481bd45
+  languageName: node
+  linkType: hard
+
 "@napi-rs/wasm-runtime@npm:^0.2.11":
   version: 0.2.12
   resolution: "@napi-rs/wasm-runtime@npm:0.2.12"
@@ -3889,6 +4008,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@thatopen/components@npm:^3.2.7":
+  version: 3.2.7
+  resolution: "@thatopen/components@npm:3.2.7"
+  dependencies:
+    camera-controls: ^2.9.0
+    fast-xml-parser: 4.4.1
+    jszip: 3.10.1
+    three-mesh-bvh: 0.7.0
+  peerDependencies:
+    "@thatopen/fragments": ~3.2.0
+    three: ">=0.175.0"
+    web-ifc: ">=0.0.72"
+  checksum: 48117bd59a08ccd41e683b85b7d6854cff644eb2f980f3dc0f2daf85f03ab52b5acce02143350de7bad943a31ac3f00787f17950b2f1fd992f004517f80dc8f9
+  languageName: node
+  linkType: hard
+
+"@thatopen/fragments@npm:^3.2.13":
+  version: 3.2.13
+  resolution: "@thatopen/fragments@npm:3.2.13"
+  dependencies:
+    earcut: ^3.0.1
+    flatbuffers: 25.2.10
+    lru-cache: 11.1.0
+    pako: 2.1.0
+  peerDependencies:
+    three: ">=0.175"
+    web-ifc: ">=0.0.72"
+  checksum: 8ffe809ecb3b5b3f7714c8350fba391b03abd19fc6c9689e769e83f3530bfaeeee9f7419aca5748b878e0c00b59b48c40f7bdc14014735290a783c9e6dc23a40
+  languageName: node
+  linkType: hard
+
 "@tweenjs/tween.js@npm:~23.1.3":
   version: 23.1.3
   resolution: "@tweenjs/tween.js@npm:23.1.3"
@@ -4992,6 +5142,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"camera-controls@npm:^2.9.0":
+  version: 2.10.1
+  resolution: "camera-controls@npm:2.10.1"
+  peerDependencies:
+    three: ">=0.126.1"
+  checksum: f5ed5e335327e88e51897cefa70741246b20c5be44e9b463dc21f33dbf2984764aa0d37b34f7361240d67ccef7c77ece8cede1504b7663cfdf4102d04446bb40
+  languageName: node
+  linkType: hard
+
 "camera-controls@npm:^3.1.0":
   version: 3.1.2
   resolution: "camera-controls@npm:3.1.2"
@@ -5353,6 +5512,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"core-util-is@npm:~1.0.0":
+  version: 1.0.3
+  resolution: "core-util-is@npm:1.0.3"
+  checksum: 9de8597363a8e9b9952491ebe18167e3b36e7707569eed0ebf14f8bba773611376466ae34575bca8cfe3c767890c859c74056084738f09d4e4a6f902b2ad7d99
+  languageName: node
+  linkType: hard
+
 "cors@npm:^2.8.5":
   version: 2.8.5
   resolution: "cors@npm:2.8.5"
@@ -5665,6 +5831,13 @@ __metadata:
     es-errors: ^1.3.0
     gopd: ^1.2.0
   checksum: 149207e36f07bd4941921b0ca929e3a28f1da7bd6b6ff8ff7f4e2f2e460675af4576eeba359c635723dc189b64cdd4787e0255897d5b135ccc5d15cb8685fc90
+  languageName: node
+  linkType: hard
+
+"earcut@npm:^3.0.1":
+  version: 3.0.2
+  resolution: "earcut@npm:3.0.2"
+  checksum: b4c8965e2e20cc3e6679f19e3c4bca4fe3c72bdf1b463430e3cefb2a016e50bb829a4ce570c289dec966235eb891c430a96b179e6b44bc25e1f38f0839b6527b
   languageName: node
   linkType: hard
 
@@ -6302,6 +6475,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-xml-parser@npm:4.4.1":
+  version: 4.4.1
+  resolution: "fast-xml-parser@npm:4.4.1"
+  dependencies:
+    strnum: ^1.0.5
+  bin:
+    fxparser: src/cli/cli.js
+  checksum: f440c01cd141b98789ae777503bcb6727393296094cc82924ae9f88a5b971baa4eec7e65306c7e07746534caa661fc83694ff437d9012dc84dee39dfbfaab947
+  languageName: node
+  linkType: hard
+
 "fastq@npm:^1.6.0":
   version: 1.20.1
   resolution: "fastq@npm:1.20.1"
@@ -6412,6 +6596,13 @@ __metadata:
     flatted: ^3.2.9
     keyv: ^4.5.4
   checksum: 899fc86bf6df093547d76e7bfaeb900824b869d7d457d02e9b8aae24836f0a99fbad79328cfd6415ee8908f180699bf259dc7614f793447cb14f707caf5996f6
+  languageName: node
+  linkType: hard
+
+"flatbuffers@npm:25.2.10":
+  version: 25.2.10
+  resolution: "flatbuffers@npm:25.2.10"
+  checksum: 2db4322315b7edcd76452a9a95a6cd23225b3510f66caac4035470b461f0dfef6b75a31a0511be1d214d53a0d55e8d5bf5fb056f8d6a92b7d4ca7c54c3bc0dc9
   languageName: node
   linkType: hard
 
@@ -6979,7 +7170,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inherits@npm:^2.0.3, inherits@npm:~2.0.4":
+"inherits@npm:^2.0.3, inherits@npm:~2.0.3, inherits@npm:~2.0.4":
   version: 2.0.4
   resolution: "inherits@npm:2.0.4"
   checksum: 4a48a733847879d6cf6691860a6b1e3f0f4754176e4d71494c41f3475553768b10f84b5ce1d40fbd0e34e6bfbb864ee35858ad4dd2cf31e02fc4a154b724d7f1
@@ -7101,6 +7292,13 @@ __metadata:
   version: 2.0.1
   resolution: "is-stream@npm:2.0.1"
   checksum: b8e05ccdf96ac330ea83c12450304d4a591f9958c11fd17bed240af8d5ffe08aedafa4c0f4cfccd4d28dc9d4d129daca1023633d5c11601a6cbc77521f6fae66
+  languageName: node
+  linkType: hard
+
+"isarray@npm:~1.0.0":
+  version: 1.0.0
+  resolution: "isarray@npm:1.0.0"
+  checksum: f032df8e02dce8ec565cf2eb605ea939bdccea528dbcf565cdf92bfa2da9110461159d86a537388ef1acef8815a330642d7885b29010e8f7eac967c9993b65ab
   languageName: node
   linkType: hard
 
@@ -7255,6 +7453,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jszip@npm:3.10.1":
+  version: 3.10.1
+  resolution: "jszip@npm:3.10.1"
+  dependencies:
+    lie: ~3.3.0
+    pako: ~1.0.2
+    readable-stream: ~2.3.6
+    setimmediate: ^1.0.5
+  checksum: abc77bfbe33e691d4d1ac9c74c8851b5761fba6a6986630864f98d876f3fcc2d36817dfc183779f32c00157b5d53a016796677298272a714ae096dfe6b1c8b60
+  languageName: node
+  linkType: hard
+
 "keyframe-resample@npm:~0.1.0":
   version: 0.1.0
   resolution: "keyframe-resample@npm:0.1.0"
@@ -7354,7 +7564,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lie@npm:^3.0.2":
+"lie@npm:^3.0.2, lie@npm:~3.3.0":
   version: 3.3.0
   resolution: "lie@npm:3.3.0"
   dependencies:
@@ -7589,6 +7799,13 @@ __metadata:
   version: 3.2.1
   resolution: "loupe@npm:3.2.1"
   checksum: 3ce9ecc5b2c56ffc073bf065ad3a4644cccce3eac81e61a8732e9c8ebfe05513ed478592d25f9dba24cfe82766913be045ab384c04711c7c6447deaf800ad94c
+  languageName: node
+  linkType: hard
+
+"lru-cache@npm:11.1.0":
+  version: 11.1.0
+  resolution: "lru-cache@npm:11.1.0"
+  checksum: 6274e90b5fdff87570fe26fe971467a5ae1f25f132bebe187e71c5627c7cd2abb94b47addd0ecdad034107667726ebde1abcef083d80f2126e83476b2c4e7c82
   languageName: node
   linkType: hard
 
@@ -8428,6 +8645,20 @@ nitro@latest:
   languageName: node
   linkType: hard
 
+"pako@npm:2.1.0":
+  version: 2.1.0
+  resolution: "pako@npm:2.1.0"
+  checksum: 71666548644c9a4d056bcaba849ca6fd7242c6cf1af0646d3346f3079a1c7f4a66ffec6f7369ee0dc88f61926c10d6ab05da3e1fca44b83551839e89edd75a3e
+  languageName: node
+  linkType: hard
+
+"pako@npm:~1.0.2":
+  version: 1.0.11
+  resolution: "pako@npm:1.0.11"
+  checksum: 1be2bfa1f807608c7538afa15d6f25baa523c30ec870a3228a89579e474a4d992f4293859524e46d5d87fd30fa17c5edf34dbef0671251d9749820b488660b16
+  languageName: node
+  linkType: hard
+
 "parent-module@npm:^1.0.0":
   version: 1.0.1
   resolution: "parent-module@npm:1.0.1"
@@ -8536,6 +8767,18 @@ nitro@latest:
   languageName: node
   linkType: hard
 
+"pdfjs-dist@npm:^5.4.530":
+  version: 5.4.530
+  resolution: "pdfjs-dist@npm:5.4.530"
+  dependencies:
+    "@napi-rs/canvas": ^0.1.84
+  dependenciesMeta:
+    "@napi-rs/canvas":
+      optional: true
+  checksum: 0526cbaedafeac698a392b3208a16e2908c4cd5494aa9693d0bd91fc35eb3f2007eea8a11bf06fdd05201bb81ff0d6db39d7d7faaa5c609207f4367ffedad9fb
+  languageName: node
+  linkType: hard
+
 "picocolors@npm:1.1.1, picocolors@npm:^1.1.1":
   version: 1.1.1
   resolution: "picocolors@npm:1.1.1"
@@ -8612,6 +8855,8 @@ nitro@latest:
     "@tanstack/router-plugin": ^1.132.0
     "@testing-library/dom": ^10.4.0
     "@testing-library/react": ^16.2.0
+    "@thatopen/components": ^3.2.7
+    "@thatopen/fragments": ^3.2.13
     "@types/lodash.debounce": ^4.0.9
     "@types/node": ^22.10.2
     "@types/react": ^19.2.0
@@ -8640,6 +8885,7 @@ nitro@latest:
     next-themes: ^0.4.6
     nitro: latest
     nodemailer: ^7.0.12
+    pdfjs-dist: ^5.4.530
     prettier: ^3.5.3
     react: ^19.2.0
     react-dom: ^19.2.0
@@ -8655,7 +8901,9 @@ nitro@latest:
     vite-imagetools: ^9.0.2
     vite-tsconfig-paths: ^6.0.2
     vitest: ^3.0.5
+    web-ifc: 0.0.72
     web-vitals: ^5.1.0
+    zustand: ^5.0.9
   languageName: unknown
   linkType: soft
 
@@ -8708,6 +8956,13 @@ nitro@latest:
   version: 6.1.0
   resolution: "proc-log@npm:6.1.0"
   checksum: ac450ff8244e95b0c9935b52d629fef92ae69b7e39aea19972a8234259614d644402dd62ce9cb094f4a637d8a4514cba90c1456ad785a40ad5b64d502875a817
+  languageName: node
+  linkType: hard
+
+"process-nextick-args@npm:~2.0.0":
+  version: 2.0.1
+  resolution: "process-nextick-args@npm:2.0.1"
+  checksum: 1d38588e520dab7cea67cbbe2efdd86a10cc7a074c09657635e34f035277b59fbb57d09d8638346bf7090f8e8ebc070c96fa5fd183b777fff4f5edff5e9466cf
   languageName: node
   linkType: hard
 
@@ -8945,6 +9200,21 @@ nitro@latest:
   languageName: node
   linkType: hard
 
+"readable-stream@npm:~2.3.6":
+  version: 2.3.8
+  resolution: "readable-stream@npm:2.3.8"
+  dependencies:
+    core-util-is: ~1.0.0
+    inherits: ~2.0.3
+    isarray: ~1.0.0
+    process-nextick-args: ~2.0.0
+    safe-buffer: ~5.1.1
+    string_decoder: ~1.1.1
+    util-deprecate: ~1.0.1
+  checksum: 65645467038704f0c8aaf026a72fbb588a9e2ef7a75cd57a01702ee9db1c4a1e4b03aaad36861a6a0926546a74d174149c8c207527963e0c2d3eee2f37678a42
+  languageName: node
+  linkType: hard
+
 "readdirp@npm:~3.6.0":
   version: 3.6.0
   resolution: "readdirp@npm:3.6.0"
@@ -9154,6 +9424,13 @@ nitro@latest:
   languageName: node
   linkType: hard
 
+"safe-buffer@npm:~5.1.0, safe-buffer@npm:~5.1.1":
+  version: 5.1.2
+  resolution: "safe-buffer@npm:5.1.2"
+  checksum: f2f1f7943ca44a594893a852894055cf619c1fbcb611237fc39e461ae751187e7baf4dc391a72125e0ac4fb2d8c5c0b3c71529622e6a58f46b960211e704903c
+  languageName: node
+  linkType: hard
+
 "safe-buffer@npm:~5.2.0":
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
@@ -9269,6 +9546,13 @@ nitro@latest:
     parseurl: ^1.3.3
     send: ^1.2.0
   checksum: dd71e9a316a7d7f726503973c531168cfa6a6a56a98d5c6b279c4d0d41a83a1bc6900495dc0633712b95d88ccbf9ed4f4a780a4c4c00bf84b496e9e710d68825
+  languageName: node
+  linkType: hard
+
+"setimmediate@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "setimmediate@npm:1.0.5"
+  checksum: c9a6f2c5b51a2dabdc0247db9c46460152ffc62ee139f3157440bd48e7c59425093f42719ac1d7931f054f153e2d26cf37dfeb8da17a794a58198a2705e527fd
   languageName: node
   linkType: hard
 
@@ -9715,6 +9999,15 @@ nitro@latest:
   languageName: node
   linkType: hard
 
+"string_decoder@npm:~1.1.1":
+  version: 1.1.1
+  resolution: "string_decoder@npm:1.1.1"
+  dependencies:
+    safe-buffer: ~5.1.0
+  checksum: 9ab7e56f9d60a28f2be697419917c50cac19f3e8e6c28ef26ed5f4852289fe0de5d6997d29becf59028556f2c62983790c1d9ba1e2a3cc401768ca12d5183a5b
+  languageName: node
+  linkType: hard
+
 "strip-ansi-cjs@npm:strip-ansi@^6.0.1, strip-ansi@npm:^6.0.0, strip-ansi@npm:^6.0.1":
   version: 6.0.1
   resolution: "strip-ansi@npm:6.0.1"
@@ -9762,6 +10055,13 @@ nitro@latest:
   dependencies:
     js-tokens: ^9.0.1
   checksum: c9758eea9085cea6178f06a59af6be62382efe7a5ddb6f12f86e37818adae734774d61b1171f153cf0bbd61718155e8182d9fa8a87620047d1ed90eadc965e9a
+  languageName: node
+  linkType: hard
+
+"strnum@npm:^1.0.5":
+  version: 1.1.2
+  resolution: "strnum@npm:1.1.2"
+  checksum: a85219eda13e97151c95e343a9e5960eacfb0a0ff98104b4c9cb7a212e3008bddf0c9714c9c37c2e508be78e741a04afc80027c2dc18509d1b5ffd4c37191fc2
   languageName: node
   linkType: hard
 
@@ -9849,6 +10149,15 @@ nitro@latest:
   version: 1.0.0
   resolution: "text-hex@npm:1.0.0"
   checksum: 1138f68adc97bf4381a302a24e2352f04992b7b1316c5003767e9b0d3367ffd0dc73d65001ea02b07cd0ecc2a9d186de0cf02f3c2d880b8a522d4ccb9342244a
+  languageName: node
+  linkType: hard
+
+"three-mesh-bvh@npm:0.7.0":
+  version: 0.7.0
+  resolution: "three-mesh-bvh@npm:0.7.0"
+  peerDependencies:
+    three: ">= 0.151.0"
+  checksum: 888259676dfc975d184a8536fd42a870d02704309348677fbcd94a8b710e16749af8806a9e52801992bd00f39feb971863165cdcab4853fa6a3b67447443dfba
   languageName: node
   linkType: hard
 
@@ -10472,7 +10781,7 @@ nitro@latest:
   languageName: node
   linkType: hard
 
-"util-deprecate@npm:^1.0.1":
+"util-deprecate@npm:^1.0.1, util-deprecate@npm:~1.0.1":
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2
@@ -10701,6 +11010,13 @@ nitro@latest:
   version: 1.0.1
   resolution: "watlas@npm:1.0.1"
   checksum: 94b296891a1cdcf57240617674a532620a5ec8622e2e7a23da9a8f9ba96931c5154c3f8962db236d9313a1ef947ffbe8b039a3ced2480522a8a6f857109badec
+  languageName: node
+  linkType: hard
+
+"web-ifc@npm:0.0.72":
+  version: 0.0.72
+  resolution: "web-ifc@npm:0.0.72"
+  checksum: cdc5cc682c4fb9597bf99dc1bd88abeee91523eb17a0b3840ed143cc1cddf6d75d42c65274b842ec3f3a33bb9374ae2dbfb8580848d951ab8eee4a35028f5af1
   languageName: node
   linkType: hard
 
@@ -11031,7 +11347,7 @@ nitro@latest:
   languageName: node
   linkType: hard
 
-"zustand@npm:^5.0.1, zustand@npm:^5.0.3":
+"zustand@npm:^5.0.1, zustand@npm:^5.0.3, zustand@npm:^5.0.9":
   version: 5.0.9
   resolution: "zustand@npm:5.0.9"
   peerDependencies:
