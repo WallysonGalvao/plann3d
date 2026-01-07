@@ -48,8 +48,8 @@ function IFCViewerPage() {
   }
 
   // Use the tekla-stairs IFC and PDF files
-  const ifcModelUrl = '/models/tekla-stairs/ESCADA IFC.ifc'
-  const pdfUrl = "/models/tekla-stairs/TEI-3603-ST-DD-EL. DOS EIXOS 1'- 1-R (1).pdf"
+  const ifcModelUrl = '/models/tekla-stairs/model.ifc'
+  const pdfUrl = '/models/tekla-stairs/construction-drawings.pdf'
 
   return (
     <div className="flex flex-col h-screen bg-white overflow-hidden antialiased">
