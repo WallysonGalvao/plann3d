@@ -53,7 +53,7 @@ const ProjectsSection = () => {
           variants={staggerContainer}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {projects.map((project, index) => (
+          {projects.slice(0, 3).map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} variant="compact" />
           ))}
         </motion.div>

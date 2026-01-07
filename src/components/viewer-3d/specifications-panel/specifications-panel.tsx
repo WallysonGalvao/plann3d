@@ -69,7 +69,7 @@ export function SpecificationsPanel({
 
   // Responsive positioning based on variant
   const panelClasses = variant === 'bottom-sheet'
-    ? `fixed inset-x-0 bottom-0 h-[50vh] max-h-[400px] rounded-t-2xl z-30 transition-transform duration-300 ${isVisible ? 'translate-y-0' : 'translate-y-full'
+    ? `fixed inset-x-0 bottom-0 h-[60vh] rounded-t-2xl z-40 transition-transform duration-300 ${isVisible ? 'translate-y-0' : 'translate-y-full'
     }`
     : `absolute top-6 bottom-20 right-6 w-96 rounded-xl z-20 transition-transform duration-300 ${isVisible ? 'translate-x-0' : 'translate-x-[calc(100%+1.5rem)]'
     }`
@@ -122,7 +122,8 @@ export function SpecificationsPanel({
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+      <div className={`flex-1 overflow-y-auto p-4 md:p-6 space-y-4 md:space-y-6 custom-scrollbar ${variant === 'bottom-sheet' ? 'pb-8' : ''
+        }`}>
         {metadata ? (
           <>
             {/* Geometry Section */}

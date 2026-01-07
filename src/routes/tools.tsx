@@ -20,6 +20,7 @@ import {
 } from '@/lib/seo'
 import { cn } from '@/lib/utils'
 import ptTranslations from '@/i18n/locales/pt.json'
+import { BackToTop } from '@/components/ui/back-to-top'
 
 export const Route = createFileRoute('/tools')({
   component: ToolsPage,
@@ -123,7 +124,14 @@ function ToolsPage() {
             </motion.p>
 
             <motion.div variants={fadeInUp}>
-              <Button size="lg" className="btn-premium">
+              <Button
+                size="lg"
+                className="btn-premium"
+                onClick={() => {
+                  const firstSection = document.querySelector('section[id^="tool-"]') || document.querySelector('main > section:nth-child(2)')
+                  firstSection?.scrollIntoView({ behavior: 'smooth' })
+                }}
+              >
                 {t('toolsPage.exploreCta')}
               </Button>
             </motion.div>
@@ -145,6 +153,9 @@ function ToolsPage() {
           <ToolSection key={tool.id} tool={tool} index={index} />
         ))}
       </main>
+
+      {/* Back to Top Button */}
+      <BackToTop />
 
       <Footer />
     </div>
@@ -262,7 +273,7 @@ function ToolSection({ tool, index }: ToolSectionProps) {
             )}
 
             {/* CTA Button */}
-            <motion.button
+            {/* <motion.button
               whileHover={{ x: 8 }}
               className="w-fit flex items-center gap-2 text-foreground font-bold hover:text-primary transition-colors group mt-2"
             >
@@ -272,7 +283,7 @@ function ToolSection({ tool, index }: ToolSectionProps) {
               ) : (
                 <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
               )}
-            </motion.button>
+            </motion.button> */}
           </motion.div>
 
           {/* Visual */}

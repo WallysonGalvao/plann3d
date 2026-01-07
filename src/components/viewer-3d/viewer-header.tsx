@@ -32,7 +32,7 @@ export function ViewerHeader({ projectId }: ViewerHeaderProps) {
         >
           <ArrowLeft size={isMobile ? 18 : 20} />
           <span className="text-xs md:text-sm font-medium">
-            {isMobile ? t('viewer3d.back') : t('viewer3d.backToProject')}
+            {t('viewer3d.backToProject')}
           </span>
         </Link>
       </div>

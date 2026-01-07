@@ -40,8 +40,14 @@ export function ViewerControlsBar({ hasLod = false }: ViewerControlsBarProps) {
     }
   }
 
+  // On mobile, hide controls when specs panel is visible
+  const shouldHideOnMobile = isMobile && state.showSpecs
+
   return (
-    <div className="absolute bottom-4 md:bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 md:gap-3 max-w-[95vw]">
+    <div
+      className={`absolute bottom-4 md:bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 md:gap-3 max-w-[95vw] transition-all duration-300 ${shouldHideOnMobile ? 'translate-y-24 opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'
+        }`}
+    >
       {/* Keyboard Pan Indicator */}
       {state.isKeyPanActive && (
         <div className="glass-panel px-3 md:px-4 py-2 rounded-lg animate-fade-in opacity-75 hover:opacity-100 transition-opacity duration-300">

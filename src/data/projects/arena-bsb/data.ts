@@ -26,7 +26,7 @@ const ptData: Project = {
   category: 'commercial',
   location: 'Brasília, DF',
   description: 'Arena multiuso com capacidade para grandes eventos e shows na capital federal.',
-  size: 'large',
+  size: 'tall',
 
   subtitle: 'ARENA BSB',
   tagline: 'Projeto Comercial',

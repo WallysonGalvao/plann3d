@@ -26,7 +26,7 @@ const ptData: Project = {
   location: 'Brasília, DF',
   description:
     'Complexo comercial gigantesco com shopping center, torre de escritórios e sistema de segurança de ponta.',
-  size: 'large',
+  size: 'tall',
 
   subtitle: 'JK SHOPPING',
   tagline: 'Projeto Comercial',
