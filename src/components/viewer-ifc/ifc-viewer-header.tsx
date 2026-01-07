@@ -2,12 +2,16 @@
 
 /**
  * IFC Viewer Header
- * Based on reference design (ViewerIFC/code.html)
+ * Styled to match viewer-3d/viewer-header.tsx patterns
  */
 
 import { Link } from '@tanstack/react-router'
+import { ArrowLeft } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useIFCViewerStore } from '@/contexts/ifc-viewer-context'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import type { ViewMode } from '@/types/ifc-viewer.types'
+import logo from '@/assets/logo.svg'
 
 // ============================================
 // TYPES
@@ -35,9 +39,9 @@ function ViewToggle({ label, icon, isActive, onClick }: ViewToggleProps) {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-1.5 px-3 py-1 text-xs font-bold rounded-sm transition-colors ${isActive
-          ? 'bg-primary text-surface-dark shadow-sm'
-          : 'bg-transparent hover:bg-white/10 text-gray-300'
+      className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-md transition-all ${isActive
+          ? 'bg-primary text-primary-foreground shadow-sm'
+          : 'bg-transparent hover:bg-muted text-muted-foreground hover:text-foreground'
         }`}
     >
       <span className="material-symbols-outlined text-[16px]">{icon}</span>
@@ -51,34 +55,45 @@ function ViewToggle({ label, icon, isActive, onClick }: ViewToggleProps) {
 // ============================================
 
 export function IFCViewerHeader({ projectName, projectCode, projectId }: IFCViewerHeaderProps) {
+  const { t } = useTranslation()
+  const { isMobile } = useMediaQuery()
   const viewMode = useIFCViewerStore((state) => state.viewMode)
   const setViewMode = useIFCViewerStore((state) => state.setViewMode)
 
   return (
-    <header className="h-14 bg-[#111718] text-white flex items-center justify-between px-4 border-b border-[#2a2f30] shrink-0 z-50">
-      {/* Left: Logo + Project Info */}
-      <div className="flex items-center gap-4">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 text-primary hover:opacity-80 transition-opacity">
-          <span className="material-symbols-outlined text-[24px]">deployed_code</span>
+    <header className="h-14 md:h-16 border-b border-border bg-card flex items-center justify-between px-4 md:px-6 lg:px-10 shrink-0 z-50 relative shadow-lg">
+      {/* Left: Back Button */}
+      <div className="flex items-center gap-2 md:gap-4">
+        <Link
+          to="/projects/$projectId"
+          params={{ projectId }}
+          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <ArrowLeft size={isMobile ? 18 : 20} />
+          <span className="text-xs md:text-sm font-medium hidden sm:inline">
+            {t('viewer3d.backToProject')}
+          </span>
         </Link>
 
-        <div className="h-6 w-px bg-white/20" />
+        {/* Divider */}
+        <div className="h-6 w-px bg-border hidden md:block" />
 
         {/* Project Info */}
-        <div>
-          <h1 className="text-sm font-bold tracking-wide uppercase leading-none">
-            {projectName}
-          </h1>
-          <span className="text-xs text-gray-400 font-sans">
-            BIM Viewer {projectCode && `• Projeto ${projectCode}`}
-          </span>
-        </div>
+        {!isMobile && (
+          <div className="hidden md:block">
+            <h1 className="text-sm font-bold tracking-wide uppercase leading-none text-foreground">
+              {projectName}
+            </h1>
+            <span className="text-xs text-muted-foreground">
+              BIM Viewer {projectCode && `• ${projectCode}`}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Center: View Mode Toggles */}
-      <div className="flex items-center gap-6">
-        <div className="bg-white/10 p-1 rounded-sm flex items-center gap-1">
+      <div className="flex items-center gap-2 md:gap-4">
+        <div className="bg-muted/50 p-1 rounded-lg flex items-center gap-0.5 border border-border">
           <ViewToggle
             mode="2d"
             label="2D"
@@ -101,26 +116,20 @@ export function IFCViewerHeader({ projectName, projectCode, projectId }: IFCView
             onClick={() => setViewMode('3d')}
           />
         </div>
-
-        <div className="h-6 w-px bg-white/20" />
-
-        {/* Right: User Actions */}
-        <div className="flex items-center gap-3">
-          <button className="text-gray-300 hover:text-white transition-colors">
-            <span className="material-symbols-outlined text-[20px]">notifications</span>
-          </button>
-          <button className="text-gray-300 hover:text-white transition-colors">
-            <span className="material-symbols-outlined text-[20px]">settings</span>
-          </button>
-          <Link
-            to="/projects/$projectId"
-            params={{ projectId }}
-            className="size-8 rounded bg-primary/20 flex items-center justify-center text-primary font-bold text-xs border border-primary/40 hover:bg-primary/30 transition-colors"
-          >
-            ←
-          </Link>
-        </div>
       </div>
+
+      {/* Right: Logo */}
+      <Link
+        to="/"
+        className="flex items-center gap-2 md:gap-3 text-foreground hover:opacity-80 transition-opacity duration-300"
+      >
+        <img src={logo} alt="Plann3d Logo" className="h-6 md:h-8 w-auto" />
+        {!isMobile && (
+          <h2 className="text-foreground text-lg md:text-xl font-bold leading-tight tracking-tight uppercase">
+            Plann3d
+          </h2>
+        )}
+      </Link>
     </header>
   )
 }
