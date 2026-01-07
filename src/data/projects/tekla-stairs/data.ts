@@ -18,8 +18,7 @@ const ptData: Project = {
 
   subtitle: 'ESCADA METÁLICA',
   tagline: 'Estudo Técnico BIM',
-  quote:
-    'Explorando a precisão da modelagem BIM estrutural para projetos metálicos detalhados.',
+  quote: 'Explorando a precisão da modelagem BIM estrutural para projetos metálicos detalhados.',
   image: teklaStairs4,
   heroImage: teklaStairs4,
   phases: [
@@ -56,6 +55,12 @@ const ptData: Project = {
       description: 'Modelagem BIM estrutural e detalhamento de conexões metálicas.',
     },
   ],
+
+  // BIM Viewer configuration (IFC + PDF)
+  bimViewer: {
+    ifcUrl: '/models/tekla-stairs/model.ifc',
+    pdfUrl: '/models/tekla-stairs/construction-drawings.pdf',
+  },
 } satisfies Project
 
 // Base data for EN locale
@@ -107,6 +112,12 @@ const enData: Project = {
       description: 'BIM structural modeling and steel connection detailing.',
     },
   ],
+
+  // BIM Viewer configuration (IFC + PDF)
+  bimViewer: {
+    ifcUrl: '/models/tekla-stairs/model.ifc',
+    pdfUrl: '/models/tekla-stairs/construction-drawings.pdf',
+  },
 } satisfies Project
 
 // Export data by locale

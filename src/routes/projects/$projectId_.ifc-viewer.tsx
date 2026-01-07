@@ -42,14 +42,19 @@ function IFCViewerPage() {
     return () => reset()
   }, [reset])
 
-  // If no project or no IFC model configured
+  // If no project found
   if (!project) {
     return <ProjectNotFound projectId={projectId} />
   }
 
-  // Use the tekla-stairs IFC and PDF files
-  const ifcModelUrl = '/models/tekla-stairs/model.ifc'
-  const pdfUrl = '/models/tekla-stairs/construction-drawings.pdf'
+  // If project doesn't have BIM viewer configured
+  if (!project.bimViewer) {
+    return <NoBIMViewer projectId={projectId} projectTitle={project.title} />
+  }
+
+  // Use the project's BIM viewer configuration
+  const ifcModelUrl = project.bimViewer.ifcUrl
+  const pdfUrl = project.bimViewer.pdfUrl
 
   return (
     <div className="flex flex-col h-screen bg-white overflow-hidden antialiased">
@@ -123,6 +128,31 @@ function ProjectNotFound({ projectId }: { projectId: string }) {
         <h1 className="text-2xl font-bold mb-4 text-gray-900">Projeto não encontrado</h1>
         <p className="text-gray-600 mb-6">
           O projeto "{projectId}" não existe ou não está configurado para o visualizador IFC.
+        </p>
+        <Link
+          to="/projects/$projectId"
+          params={{ projectId }}
+          className="text-primary hover:underline"
+        >
+          ← Voltar para o projeto
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+// ============================================
+// NO BIM VIEWER CONFIGURED
+// ============================================
+
+function NoBIMViewer({ projectId, projectTitle }: { projectId: string; projectTitle: string }) {
+  return (
+    <div className="flex items-center justify-center h-screen bg-white">
+      <div className="text-center max-w-md">
+        <span className="material-symbols-outlined text-[64px] text-gray-300 mb-4 block">view_in_ar</span>
+        <h1 className="text-2xl font-bold mb-4 text-gray-900">BIM Viewer não disponível</h1>
+        <p className="text-gray-600 mb-6">
+          O projeto "{projectTitle}" não possui arquivos IFC/PDF configurados para visualização BIM.
         </p>
         <Link
           to="/projects/$projectId"

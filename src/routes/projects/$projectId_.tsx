@@ -259,7 +259,7 @@ function ProjectDetailPage() {
             {project.description}
           </motion.p>
 
-          {/* CTA Button */}
+          {/* CTA Button - 3D Model Viewer */}
           {project.model3d && (
             <motion.div variants={fadeInUp}>
               <Link
@@ -271,6 +271,20 @@ function ProjectDetailPage() {
                   <path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480h80q0 115 72.5 203T418-166l-58-58 56-56L598-98q-29 10-58.5 14T480-80Zm20-280v-240h120q17 0 28.5 11.5T660-560v160q0 17-11.5 28.5T620-360H500Zm-200 0v-60h100v-40h-60v-40h60v-40H300v-60h120q17 0 28.5 11.5T460-560v160q0 17-11.5 28.5T420-360H300Zm260-60h40v-120h-40v120Zm240-60q0-115-72.5-203T542-794l58 58-56 56-182-182q29-10 58.5-14t59.5-4q83 0 156 31.5T763-763q54 54 85.5 127T880-480h-80Z" />
                 </svg>
                 {t('projectDetail.explore3DModel')}
+              </Link>
+            </motion.div>
+          )}
+
+          {/* CTA Button - BIM Viewer (IFC + PDF) */}
+          {project.bimViewer && (
+            <motion.div variants={fadeInUp}>
+              <Link
+                to="/projects/$projectId/ifc-viewer"
+                params={{ projectId }}
+                className="inline-flex items-center justify-center h-14 px-8 rounded-lg bg-primary hover:bg-primary/90 text-white text-base font-bold tracking-wide transition-all hover:scale-105 shadow-[0_0_30px_rgba(19,91,236,0.3)]"
+              >
+                <span className="material-symbols-outlined mr-2 text-xl">view_in_ar</span>
+                {t('projectDetail.exploreBIMModel')}
               </Link>
             </motion.div>
           )}

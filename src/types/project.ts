@@ -63,6 +63,16 @@ export interface Model3DConfig {
 }
 
 /**
+ * BIM Viewer configuration for IFC + PDF viewer
+ */
+export interface BIMViewerConfig {
+  /** URL to the .ifc file */
+  ifcUrl: string
+  /** URL to the .pdf file (construction drawings) */
+  pdfUrl: string
+}
+
+/**
  * Unified Project interface - Single source of truth
  * Contains all fields for listing, grid, and detail views
  */
@@ -94,6 +104,9 @@ export interface Project {
 
   // Optional 3D viewer configuration
   model3d?: Model3DConfig
+
+  // Optional BIM viewer configuration (IFC + PDF)
+  bimViewer?: BIMViewerConfig
 
   // Optional tools used in the project
   tools?: Array<{
