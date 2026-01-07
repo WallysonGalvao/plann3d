@@ -1,6 +1,6 @@
 import { Link, Outlet, createFileRoute, useRouterState } from '@tanstack/react-router'
 import { motion, useInView } from 'framer-motion'
-import { ArrowLeft, ChevronLeft, ChevronRight, Expand } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Expand } from 'lucide-react'
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -204,15 +204,14 @@ function ProjectDetailPage() {
 
       <Header />
 
-      {/* Hero Section - Full Screen */}
-      <header
+      {/* Hero Section - Following /tools and /faq pattern */}
+      <section
         id="project-hero"
         ref={heroRef}
-        className="relative w-full h-screen min-h-[600px] flex items-end justify-start overflow-hidden group"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-linear-to-t from-background via-background/50 to-transparent z-10" />
+        {/* Background Image */}
+        <div className="absolute inset-0">
           <div className="absolute inset-0 bg-black/30 z-0" />
           <OptimizedBackground
             src={project.heroImage || project.image}
@@ -221,47 +220,61 @@ function ProjectDetailPage() {
             className="w-full h-full"
             hoverScale={1.05}
           />
+          <div className="absolute inset-0 bg-linear-to-b from-background/40 via-background/20 to-background z-10" />
         </div>
 
-        {/* Content */}
-        <div className="relative z-20 w-full max-w-[1440px] mx-auto px-6 md:px-10 pb-20 md:pb-32">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col gap-4 max-w-4xl"
+        {/* Decorative section number */}
+        <span className="section-number -right-8 top-20 hidden lg:block">P</span>
+
+        {/* Grain texture overlay */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-30 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=')]" />
+
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          className="relative z-20 container mx-auto px-6 md:px-12 lg:px-20 text-center"
+        >
+          {/* Label */}
+          <motion.span variants={fadeInUp} className="label-premium inline-block mb-6">
+            {project.tagline}
+          </motion.span>
+
+          {/* Title with italic first letter pattern */}
+          <motion.h1
+            variants={fadeInUp}
+            className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white"
           >
-            <div className="flex items-center gap-3 text-primary">
-              <span className="inline-block w-8 h-px bg-primary" />
-              <span className="text-primary text-sm font-bold tracking-widest uppercase">
-                {project.tagline}
-              </span>
-            </div>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter mb-4">
-              <span className="font-serif italic font-normal text-white/80">
-                {project.subtitle?.charAt(0)}
-              </span>
-              {project.subtitle?.slice(1).toUpperCase()}
-            </h1>
-            <p className="text-white/70 text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-8">
-              {project.description}
-            </p>
-            <div className="flex flex-wrap gap-4">
-              {project.model3d && (
-                <Link
-                  to="/projects/$projectId/viewer"
-                  params={{ projectId }}
-                  className="flex items-center justify-center h-14 px-8 rounded-lg bg-primary hover:bg-primary/90 text-white text-base font-bold tracking-wide transition-all hover:scale-105 shadow-[0_0_30px_rgba(19,91,236,0.3)]"
-                >
-                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 -960 960 960">
-                    <path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480h80q0 115 72.5 203T418-166l-58-58 56-56L598-98q-29 10-58.5 14T480-80Zm20-280v-240h120q17 0 28.5 11.5T660-560v160q0 17-11.5 28.5T620-360H500Zm-200 0v-60h100v-40h-60v-40h60v-40H300v-60h120q17 0 28.5 11.5T460-560v160q0 17-11.5 28.5T420-360H300Zm260-60h40v-120h-40v120Zm240-60q0-115-72.5-203T542-794l58 58-56 56-182-182q29-10 58.5-14t59.5-4q83 0 156 31.5T763-763q54 54 85.5 127T880-480h-80Z" />
-                  </svg>
-                  {t('projectDetail.explore3DModel')}
-                </Link>
-              )}
-            </div>
-          </motion.div>
-        </div>
+            <span className="font-serif italic font-normal text-white/80">
+              {project.subtitle?.charAt(0)}
+            </span>
+            {project.subtitle?.slice(1).toUpperCase()}
+          </motion.h1>
+
+          {/* Description */}
+          <motion.p
+            variants={fadeInUp}
+            className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10"
+          >
+            {project.description}
+          </motion.p>
+
+          {/* CTA Button */}
+          {project.model3d && (
+            <motion.div variants={fadeInUp}>
+              <Link
+                to="/projects/$projectId/viewer"
+                params={{ projectId }}
+                className="inline-flex items-center justify-center h-14 px-8 rounded-lg bg-primary hover:bg-primary/90 text-white text-base font-bold tracking-wide transition-all hover:scale-105 shadow-[0_0_30px_rgba(19,91,236,0.3)]"
+              >
+                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 -960 960 960">
+                  <path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480h80q0 115 72.5 203T418-166l-58-58 56-56L598-98q-29 10-58.5 14T480-80Zm20-280v-240h120q17 0 28.5 11.5T660-560v160q0 17-11.5 28.5T620-360H500Zm-200 0v-60h100v-40h-60v-40h60v-40H300v-60h120q17 0 28.5 11.5T460-560v160q0 17-11.5 28.5T420-360H300Zm260-60h40v-120h-40v120Zm240-60q0-115-72.5-203T542-794l58 58-56 56-182-182q29-10 58.5-14t59.5-4q83 0 156 31.5T763-763q54 54 85.5 127T880-480h-80Z" />
+                </svg>
+                {t('projectDetail.explore3DModel')}
+              </Link>
+            </motion.div>
+          )}
+        </motion.div>
 
         {/* Scroll Indicator */}
         <motion.div
@@ -274,7 +287,7 @@ function ProjectDetailPage() {
             <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z" />
           </svg>
         </motion.div>
-      </header>
+      </section>
 
       {/* Main Content Layout */}
       <main className="w-full flex flex-col items-center bg-background">
@@ -611,7 +624,7 @@ function ProjectDetailPage() {
 
         {/* Tools Used Section */}
         {project.tools && project.tools.length > 0 && (
-          <section className="w-full bg-secondary/30 py-16 px-4 md:px-10 border-t border-border">
+          <section className="w-full  py-16 px-4 md:px-10">
             <div className="max-w-[1200px] mx-auto">
               <div className="flex items-center gap-4 mb-10">
                 <h3 className="text-foreground text-xl font-bold uppercase tracking-widest">
@@ -655,7 +668,7 @@ function ProjectDetailPage() {
           viewport={{ once: true }}
           className="w-full pb-20"
         >
-          <div className="max-w-[1440px] mx-auto px-6 md:px-12">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-12 ">
 
             {/* Navigation: Previous / Back to Projects / Next */}
             <motion.div
