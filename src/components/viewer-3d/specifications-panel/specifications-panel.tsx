@@ -18,6 +18,8 @@ interface SpecificationsPanelProps {
   isVisible: boolean
   /** Callback when user toggles panel visibility */
   onToggleVisibility: () => void
+  /** Display variant: side-panel (desktop) or bottom-sheet (mobile) */
+  variant?: 'side-panel' | 'bottom-sheet'
 }
 
 const STORAGE_KEY = 'plann3d_specifications_settings'
@@ -30,12 +32,14 @@ const STORAGE_KEY = 'plann3d_specifications_settings'
  * - localStorage persistence for user preferences
  * - Conditional rendering based on available metadata
  * - Smooth animations and glass-morphism design
+ * - Mobile bottom-sheet variant
  */
 export function SpecificationsPanel({
   metadata,
   locale,
   isVisible,
   onToggleVisibility,
+  variant = 'side-panel',
 }: SpecificationsPanelProps) {
   const { t } = useTranslation()
   const [settings, setSettings] = useState<SectionSettings>(DEFAULT_SECTION_SETTINGS)
@@ -55,7 +59,6 @@ export function SpecificationsPanel({
 
   // Save settings to localStorage when changed
   const handleSettingsChange = (newSettings: SectionSettings) => {
-    console.log('Settings changed:', newSettings)
     setSettings(newSettings)
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newSettings))
@@ -64,16 +67,16 @@ export function SpecificationsPanel({
     }
   }
 
-  // Debug: log settings changes
-  useEffect(() => {
-    console.log('Current settings state:', settings)
-  }, [settings])
+  // Responsive positioning based on variant
+  const panelClasses = variant === 'bottom-sheet'
+    ? `fixed inset-x-0 bottom-0 h-[60vh] rounded-t-2xl z-40 transition-transform duration-300 ${isVisible ? 'translate-y-0' : 'translate-y-full'
+    }`
+    : `absolute top-6 bottom-20 right-6 w-96 rounded-xl z-20 transition-transform duration-300 ${isVisible ? 'translate-x-0' : 'translate-x-[calc(100%+1.5rem)]'
+    }`
 
   return (
     <aside
-      className={`absolute top-6 bottom-20 right-6 w-96 glass-panel flex flex-col rounded-xl z-20 shadow-2xl border border-border transition-transform duration-300 ${
-        isVisible ? 'translate-x-0' : 'translate-x-[calc(100%+1.5rem)]'
-      }`}
+      className={`glass-panel flex flex-col shadow-2xl border border-border ${panelClasses}`}
     >
       {/* Header */}
       <div className="p-4 border-b border-border flex items-center justify-between bg-muted/5 rounded-t-xl relative">
@@ -119,7 +122,8 @@ export function SpecificationsPanel({
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+      <div className={`flex-1 overflow-y-auto p-4 md:p-6 space-y-4 md:space-y-6 custom-scrollbar ${variant === 'bottom-sheet' ? 'pb-8' : ''
+        }`}>
         {metadata ? (
           <>
             {/* Geometry Section */}

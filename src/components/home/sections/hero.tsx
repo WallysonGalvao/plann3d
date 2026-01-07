@@ -188,12 +188,6 @@ const HeroSection = () => {
               <Button variant="outline" size="lg" asChild>
                 <Link to="/projects">{t('hero.viewProjects')}</Link>
               </Button>
-              <Button variant="hero-outline" size="lg" asChild>
-                <a href="#showreel" className="flex items-center gap-2">
-                  <Play size={18} className="fill-current" />
-                  {t('hero.showreel')}
-                </a>
-              </Button>
             </motion.div>
           </motion.div>
 

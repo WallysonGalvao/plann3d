@@ -219,6 +219,7 @@ export function ModelViewer({
       style={{
         height,
         background: background === 'transparent' ? 'var(--color-secondary)' : background,
+        touchAction: 'none', // Prevent browser gestures from interfering with 3D controls
       }}
     >
       {/* Timeout Error */}
@@ -309,9 +310,6 @@ export function ModelViewer({
               ONE: enablePan ? 2 : 0, // Pan with one finger when pan mode is on, rotate otherwise
               TWO: 1, // Zoom/pan with two fingers (pinch to zoom, drag to pan)
             }}
-            touchRotateSpeed={0.5}
-            touchPanSpeed={0.5}
-            touchZoomSpeed={1.0}
           />
 
           {/* Camera Reset Controller (lazy loaded) */}

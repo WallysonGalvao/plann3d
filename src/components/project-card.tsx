@@ -13,10 +13,10 @@ import { cn } from '@/lib/utils'
 // ============================================
 
 const sizeClasses: Record<ProjectSize, string> = {
-  large: 'lg:col-span-8 lg:row-span-1',
-  tall: 'lg:col-span-4 lg:row-span-2',
-  standard: 'lg:col-span-4 lg:row-span-1',
-  wide: 'lg:col-span-6 lg:row-span-1',
+  large: 'lg:col-span-12 lg:row-span-1', // Full width
+  tall: 'lg:col-span-6 lg:row-span-2',   // Half width, double height
+  standard: 'lg:col-span-6 lg:row-span-1', // Half width
+  wide: 'lg:col-span-8 lg:row-span-1',   // 2/3 width
 }
 
 // ============================================

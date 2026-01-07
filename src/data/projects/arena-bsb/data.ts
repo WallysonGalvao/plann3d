@@ -26,7 +26,7 @@ const ptData: Project = {
   category: 'commercial',
   location: 'Brasília, DF',
   description: 'Arena multiuso com capacidade para grandes eventos e shows na capital federal.',
-  size: 'large',
+  size: 'tall',
 
   subtitle: 'ARENA BSB',
   tagline: 'Projeto Comercial',
@@ -80,6 +80,11 @@ const ptData: Project = {
       name: 'Twinmotion',
       icon: 'camera_enhance',
       description: 'Renderização fotorrealista e simulação de iluminação cênica.',
+    },
+    {
+      name: 'Adobe Premiere',
+      icon: 'movie_edit',
+      description: 'Edição, color grading e pós-produção cinematográfica.',
     },
   ],
 } satisfies Project
@@ -145,6 +150,11 @@ const enData: Project = {
       name: 'Twinmotion',
       icon: 'camera_enhance',
       description: 'Photorealistic rendering and scenic lighting simulation.',
+    },
+    {
+      name: 'Adobe Premiere',
+      icon: 'movie_edit',
+      description: 'Editing, color grading, and cinematic post-production.',
     },
   ],
 } satisfies Project

@@ -25,7 +25,7 @@ const ptData: Project = {
   category: 'exteriors',
   location: 'Brasília, DF',
   description: 'Vista panorâmica de 360 graus do Eixo Monumental.',
-  size: 'large',
+  size: 'standard',
 
   subtitle: 'TORRE DE TV',
   tagline: 'Projeto Arquitetônico',

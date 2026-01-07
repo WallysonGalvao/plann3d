@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -43,6 +43,20 @@ export function OptimizedBackground({
   children,
 }: OptimizedBackgroundProps) {
   const [isLoaded, setIsLoaded] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  // Reset state when src changes
+  useEffect(() => {
+    setIsLoaded(false)
+  }, [src])
+
+  // Check if image is already loaded (from cache) after mount
+  useEffect(() => {
+    const img = imgRef.current
+    if (img && img.complete && img.naturalHeight > 0) {
+      setIsLoaded(true)
+    }
+  }, [src])
 
   const handleLoad = useCallback(() => {
     setIsLoaded(true)
@@ -58,6 +72,7 @@ export function OptimizedBackground({
       {/* Background image */}
       {hoverScale ? (
         <motion.img
+          ref={imgRef}
           src={src}
           alt={alt}
           loading={priority ? 'eager' : 'lazy'}
@@ -74,6 +89,7 @@ export function OptimizedBackground({
         />
       ) : (
         <img
+          ref={imgRef}
           src={src}
           alt={alt}
           loading={priority ? 'eager' : 'lazy'}

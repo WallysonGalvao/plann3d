@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -53,6 +53,22 @@ export function OptimizedImage({
 }: OptimizedImageProps) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  // Reset state when src changes
+  useEffect(() => {
+    setIsLoaded(false)
+    setHasError(false)
+  }, [src])
+
+  // Check if image is already loaded (from cache) after mount
+  useEffect(() => {
+    const img = imgRef.current
+    if (img && img.complete && img.naturalHeight > 0) {
+      setIsLoaded(true)
+      onLoad?.()
+    }
+  }, [src, onLoad])
 
   const handleLoad = useCallback(() => {
     setIsLoaded(true)
@@ -102,6 +118,7 @@ export function OptimizedImage({
       {/* Main image */}
       {hoverScale ? (
         <motion.img
+          ref={imgRef}
           src={src}
           alt={alt}
           width={width}
@@ -123,6 +140,7 @@ export function OptimizedImage({
         />
       ) : (
         <img
+          ref={imgRef}
           src={src}
           alt={alt}
           width={width}

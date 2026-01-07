@@ -3,6 +3,12 @@ import type { Project, ProjectDataByLocale, SupportedLocale } from '@/types/proj
 import { PROJECT_ID as AREA_GOURMET_ID, areaGourmetData } from '@/data/projects/area-gourmet/data'
 import { PROJECT_ID as ARENA_BSB_ID, arenaBsbData } from '@/data/projects/arena-bsb/data'
 import { PROJECT_ID as JK_SHOPPING_ID, jkShoppingData } from '@/data/projects/jk-shopping/data'
+import { PROJECT_ID as PROJECT_X_ID, projectXData } from '@/data/projects/project-x/data'
+import { PROJECT_ID as TEKLA_STAIRS_ID, teklaStairsData } from '@/data/projects/tekla-stairs/data'
+import {
+  PROJECT_ID as TEKLA_WAREHOUSE_ID,
+  teklaWarehouseData,
+} from '@/data/projects/tekla-warehouse/data'
 import { PROJECT_ID as TORRE_DE_TV_ID, torreDeTvData } from '@/data/projects/torre-de-tv/data'
 import i18n from '@/i18n'
 
@@ -34,6 +40,9 @@ const projectRegistry: Record<string, ProjectDataByLocale> = {
   [JK_SHOPPING_ID]: jkShoppingData,
   [ARENA_BSB_ID]: arenaBsbData,
   [AREA_GOURMET_ID]: areaGourmetData,
+  [PROJECT_X_ID]: projectXData,
+  [TEKLA_STAIRS_ID]: teklaStairsData,
+  [TEKLA_WAREHOUSE_ID]: teklaWarehouseData,
 }
 
 // ============================================
