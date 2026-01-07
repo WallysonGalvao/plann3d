@@ -55,6 +55,14 @@ const ptData: Project = {
         'Aplicação de técnicas de renderização em tempo real no Twinmotion, explorando materiais, iluminação e composição de cena para criar visualizações fotorrealistas.',
       images: [projectXTwinmotion2, projectXTwinmotion3],
     },
+    {
+      label: 'Pós-Produção',
+      title: 'Edição Cinematográfica',
+      description:
+        'Finalização do vídeo utilizando Adobe Premiere, explorando técnicas de edição, transições e color grading para criar uma apresentação cinematográfica do projeto.',
+      videoImage: projectXTwinmotion1,
+      video: 'https://www.youtube.com/watch?v=Hq1wUwr1vAA&pp=0gcJCU0KAYcqIYzv',
+    },
   ],
   specs: {
     year: '2025',
@@ -73,6 +81,11 @@ const ptData: Project = {
       name: 'Twinmotion',
       icon: 'view_in_ar',
       description: 'Renderização em tempo real e visualização imersiva.',
+    },
+    {
+      name: 'Adobe Premiere',
+      icon: 'movie_edit',
+      description: 'Edição, color grading e pós-produção cinematográfica.',
     },
   ],
 } satisfies Project
@@ -113,6 +126,14 @@ const enData: Project = {
         'Application of real-time rendering techniques in Twinmotion, exploring materials, lighting, and scene composition to create photorealistic visualizations.',
       images: [projectXTwinmotion2, projectXTwinmotion3],
     },
+    {
+      label: 'Post-Production',
+      title: 'Cinematic Editing',
+      description:
+        'Video finalization using Adobe Premiere, exploring editing techniques, transitions, and color grading to create a cinematic presentation of the project.',
+      videoImage: projectXTwinmotion1,
+      video: 'https://www.youtube.com/watch?v=Hq1wUwr1vAA&pp=0gcJCU0KAYcqIYzv',
+    },
   ],
   specs: {
     year: '2025',
@@ -131,6 +152,11 @@ const enData: Project = {
       name: 'Twinmotion',
       icon: 'view_in_ar',
       description: 'Real-time rendering and immersive visualization.',
+    },
+    {
+      name: 'Adobe Premiere',
+      icon: 'movie_edit',
+      description: 'Editing, color grading, and cinematic post-production.',
     },
   ],
 } satisfies Project

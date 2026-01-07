@@ -82,6 +82,11 @@ const ptData: Project = {
       icon: 'camera_enhance',
       description: 'Renderização fotorrealista e iluminação ambiente.',
     },
+    {
+      name: 'Adobe Premiere',
+      icon: 'movie_edit',
+      description: 'Edição, color grading e pós-produção cinematográfica.',
+    },
   ],
 } satisfies Project
 
@@ -146,6 +151,11 @@ const enData: Project = {
       name: 'Twinmotion',
       icon: 'camera_enhance',
       description: 'Photorealistic rendering and ambient lighting.',
+    },
+    {
+      name: 'Adobe Premiere',
+      icon: 'movie_edit',
+      description: 'Editing, color grading, and cinematic post-production.',
     },
   ],
 } satisfies Project
