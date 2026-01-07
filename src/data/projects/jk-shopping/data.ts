@@ -6,16 +6,16 @@ import jkTwinmotion1 from '@/data/projects/jk-shopping/TWIN1.png'
 import jkTwinmotion2 from '@/data/projects/jk-shopping/TWIN2.png'
 
 const MODEL_3D: Project['model3d'] = {
-  src: '/models/jk-shopping/model.glb',
+  src: '/models/jk-shopping/high.glb',
   thumbnail: jkTwinmotion2,
   cameraPosition: [50, 50, 50],
   scale: 0.01,
   autoRotate: true,
-  // lod: {
-  //   low: '/models/jk-shopping/low.glb',
-  //   medium: '/models/jk-shopping/medium.glb',
-  //   high: '/models/jk-shopping/high.glb',
-  // },
+  lod: {
+    low: '/models/jk-shopping/low.glb',
+    medium: '/models/jk-shopping/medium.glb',
+    high: '/models/jk-shopping/high.glb',
+  },
 }
 
 // Base data for PT locale
