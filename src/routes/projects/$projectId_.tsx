@@ -624,7 +624,7 @@ function ProjectDetailPage() {
 
         {/* Tools Used Section */}
         {project.tools && project.tools.length > 0 && (
-          <section className="w-full  py-16 px-4 md:px-10">
+          <section className="w-full py-16 px-4 md:px-10">
             <div className="max-w-[1200px] mx-auto">
               <div className="flex items-center gap-4 mb-10">
                 <h3 className="text-foreground text-xl font-bold uppercase tracking-widest">
@@ -632,29 +632,56 @@ function ProjectDetailPage() {
                 </h3>
                 <div className="h-px bg-border flex-grow" />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {project.tools.map((tool, index) => (
-                  <motion.div
-                    key={tool.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="bg-secondary border border-border p-6 rounded-xl flex flex-col items-start gap-3 hover:border-primary/50 transition-colors group h-full"
-                  >
-                    <span className="material-symbols-outlined text-primary text-3xl mb-1 opacity-80 group-hover:opacity-100 transition-opacity">
-                      {tool.icon}
-                    </span>
-                    <div>
-                      <h4 className="text-foreground font-bold text-lg tracking-tight">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {project.tools.map((tool, index) => {
+                  const toolVariants = {
+                    hidden: { opacity: 0, y: 20, scale: 0.95 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                      transition: {
+                        delay: index * 0.1,
+                        duration: 0.5,
+                        ease: [0.25, 0.46, 0.45, 0.94],
+                      },
+                    },
+                  }
+
+                  return (
+                    <motion.div
+                      key={tool.name}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      variants={toolVariants}
+                      whileHover={{
+                        scale: 1.02,
+                        transition: { duration: 0.3 },
+                      }}
+                      className="group glass-card gradient-border glow-hover p-6 lg:p-8 rounded-2xl cursor-default transition-all duration-500"
+                    >
+                      {/* Icon with glow */}
+                      <div className="relative mb-4">
+                        <span className="material-symbols-outlined text-5xl lg:text-6xl text-primary/20 group-hover:text-primary/40 transition-colors duration-500">
+                          {tool.icon}
+                        </span>
+                        <div className="absolute inset-0 blur-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      </div>
+
+                      <h4 className="text-base lg:text-lg font-medium text-foreground group-hover:text-primary transition-colors duration-300">
                         {tool.name}
                       </h4>
-                      <p className="text-muted-foreground text-sm leading-snug pt-1">
+
+                      <p className="text-muted-foreground text-sm leading-snug pt-2">
                         {tool.description}
                       </p>
-                    </div>
-                  </motion.div>
-                ))}
+
+                      {/* Animated underline */}
+                      <div className="mt-4 h-px bg-linear-to-r from-primary/50 to-transparent w-0 group-hover:w-full transition-all duration-500" />
+                    </motion.div>
+                  )
+                })}
               </div>
             </div>
           </section>
